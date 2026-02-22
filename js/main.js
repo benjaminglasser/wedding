@@ -289,7 +289,13 @@ function animateMarqueeBulbs() {
     const marqueeBorders = document.querySelectorAll('.marquee-border');
     
     marqueeBorders.forEach((border, borderIndex) => {
-        const bulbs = Array.from(border.querySelectorAll('.bulb'));
+        // Collect bulbs in clockwise order: top (L→R), right (T→B), bottom (R→L), left (B→T)
+        const topBulbs = Array.from(border.querySelector('.bulb-row.top')?.querySelectorAll('.bulb') || []);
+        const rightBulbs = Array.from(border.querySelector('.bulb-row.right')?.querySelectorAll('.bulb') || []);
+        const bottomBulbs = Array.from(border.querySelector('.bulb-row.bottom')?.querySelectorAll('.bulb') || []).reverse();
+        const leftBulbs = Array.from(border.querySelector('.bulb-row.left')?.querySelectorAll('.bulb') || []).reverse();
+        
+        const bulbs = [...topBulbs, ...rightBulbs, ...bottomBulbs, ...leftBulbs];
         if (bulbs.length === 0) return;
         
         let index = borderIndex * 10;
