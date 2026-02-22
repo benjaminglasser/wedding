@@ -1,46 +1,238 @@
 /* ============================================
    MAIN JAVASCRIPT
    Vintage Vegas Wedding - Jac & Ben
+   PERFORMANCE OPTIMIZED
    ============================================ */
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+const isMobile = window.innerWidth < 768;
 
-// Animation frame management for performance
-const animationState = {
-    isPageVisible: true,
-    animationFrameIds: [],
-    intervalIds: []
+// Section visibility observer - pauses animations when off-screen
+const SectionObserver = {
+    observers: new Map(),
+    visibleSections: new Set(),
+    
+    observe(element, sectionId, onVisible, onHidden) {
+        if (!element) return;
+        
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(entry => {
+                if (entry.isIntersecting) {
+                    this.visibleSections.add(sectionId);
+                    onVisible?.();
+                } else {
+                    this.visibleSections.delete(sectionId);
+                    onHidden?.();
+                }
+            });
+        }, { rootMargin: '50px', threshold: 0.01 });
+        
+        observer.observe(element);
+        this.observers.set(sectionId, observer);
+    },
+    
+    isVisible(sectionId) {
+        return this.visibleSections.has(sectionId);
+    },
+    
+    disconnect(sectionId) {
+        const observer = this.observers.get(sectionId);
+        if (observer) {
+            observer.disconnect();
+            this.observers.delete(sectionId);
+            this.visibleSections.delete(sectionId);
+        }
+    }
 };
 
-// Cleanup function for animations
+// Unified animation manager - single RAF loop for all animations
+const AnimationManager = {
+    isPageVisible: true,
+    callbacks: new Map(),
+    rafId: null,
+    
+    register(id, callback, interval = 0, sectionId = null) {
+        this.callbacks.set(id, { callback, interval, lastRun: 0, sectionId });
+        if (!this.rafId) this.start();
+    },
+    
+    unregister(id) {
+        this.callbacks.delete(id);
+        if (this.callbacks.size === 0) this.stop();
+    },
+    
+    start() {
+        if (this.rafId) return;
+        const tick = (currentTime) => {
+            this.rafId = requestAnimationFrame(tick);
+            if (!this.isPageVisible) return;
+            
+            this.callbacks.forEach((config, id) => {
+                // Skip if section is off-screen
+                if (config.sectionId && !SectionObserver.isVisible(config.sectionId)) return;
+                
+                if (config.interval === 0 || currentTime - config.lastRun >= config.interval) {
+                    config.callback(currentTime);
+                    config.lastRun = currentTime;
+                }
+            });
+        };
+        this.rafId = requestAnimationFrame(tick);
+    },
+    
+    stop() {
+        if (this.rafId) {
+            cancelAnimationFrame(this.rafId);
+            this.rafId = null;
+        }
+    },
+    
+    pause() {
+        this.isPageVisible = false;
+    },
+    
+    resume() {
+        this.isPageVisible = true;
+    }
+};
+
+// Legacy cleanup function
 function cleanupAnimations() {
-    animationState.animationFrameIds.forEach(id => cancelAnimationFrame(id));
-    animationState.intervalIds.forEach(id => clearInterval(id));
-    animationState.animationFrameIds = [];
-    animationState.intervalIds = [];
+    AnimationManager.callbacks.clear();
 }
+
+/* ============================================
+   LOADER CONTROL
+   ============================================ */
+
+function initLoader() {
+    const loader = document.getElementById('loader');
+    if (!loader) {
+        window.startMarqueeAnimation?.();
+        return;
+    }
+    
+    // Prevent scrolling while loader is active
+    document.body.classList.add('loader-active');
+    
+    const criticalImages = [
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png',
+        'assets/background_pngs/Stardust_sign_015.png',
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e.png',
+        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens.png',
+        'assets/background_pngs/photo-1645180804518-5dc3e353e647.png'
+    ];
+    
+    const imagePromises = criticalImages.map(src => {
+        return new Promise((resolve) => {
+            const img = new Image();
+            img.onload = resolve;
+            img.onerror = resolve;
+            img.src = src;
+        });
+    });
+    
+    const libraryCheck = new Promise((resolve) => {
+        const checkLibraries = () => {
+            if (typeof THREE !== 'undefined' && typeof gsap !== 'undefined') {
+                resolve();
+            } else {
+                setTimeout(checkLibraries, 50);
+            }
+        };
+        checkLibraries();
+    });
+    
+    const minDisplayTime = new Promise(resolve => setTimeout(resolve, 1500));
+    
+    Promise.all([...imagePromises, libraryCheck, minDisplayTime])
+        .then(() => {
+            // #region agent log
+            fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:initLoader',message:'Loader promises resolved, calling hideLoader',data:{criticalImagesCount:criticalImages.length},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
+            // #endregion
+            hideLoader();
+        })
+        .catch(() => {
+            hideLoader();
+        });
+}
+
+function hideLoader() {
+    const loader = document.getElementById('loader');
+    if (!loader) return;
+    
+    loader.classList.add('exiting');
+    
+    setTimeout(() => {
+        loader.classList.add('hidden');
+        
+        // Re-enable scrolling
+        document.body.classList.remove('loader-active');
+        
+        // #region agent log
+        const bgCutouts = document.querySelectorAll('.bg-cutout');
+        const imageLoadStates = Array.from(bgCutouts).map(img => ({
+            class: img.className,
+            complete: img.complete,
+            naturalWidth: img.naturalWidth,
+            loading: img.loading,
+            src: img.src.split('/').pop()
+        }));
+        fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:hideLoader',message:'Before startMarqueeAnimation - checking bg-cutout image states',data:{imageCount:bgCutouts.length,imageLoadStates},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
+        // #endregion
+        
+        // Try to call startMarqueeAnimation, with retry if not yet defined
+        const tryStartMarquee = (attempts = 0) => {
+            if (typeof window.startMarqueeAnimation === 'function') {
+                window.startMarqueeAnimation();
+            } else if (attempts < 10) {
+                setTimeout(() => tryStartMarquee(attempts + 1), 100);
+            } else {
+                // Fallback: manually trigger the animations
+                const container = document.getElementById('marquee-3d');
+                const hero = document.getElementById('hero');
+                if (container) container.classList.add('bounce-in');
+                setTimeout(() => {
+                    if (hero) hero.classList.add('marquee-ready');
+                    // Show scroll indicator after background images animate in (fallback path)
+                    setTimeout(() => {
+                        const scrollIndicator = document.querySelector('.scroll-indicator');
+                        if (scrollIndicator) {
+                            scrollIndicator.classList.add('visible');
+                        }
+                    }, 1800);
+                }, 850);
+            }
+        };
+        tryStartMarquee();
+        
+        setTimeout(() => {
+            loader.remove();
+        }, 500);
+    }, 800);
+}
+
+initLoader();
 
 document.addEventListener('DOMContentLoaded', () => {
     // #region agent log
-    const rioImg = document.querySelector('.gifts .sign-bottom-right');
-    const giftsSection = document.querySelector('.gifts');
-    const footerDivider = document.querySelector('.vegas-divider.footer-divider');
-    if (rioImg && giftsSection && footerDivider) {
-        const rioStyle = window.getComputedStyle(rioImg);
-        const giftsStyle = window.getComputedStyle(giftsSection);
-        const dividerStyle = window.getComputedStyle(footerDivider);
-        const rioRect = rioImg.getBoundingClientRect();
-        const giftsRect = giftsSection.getBoundingClientRect();
-        const dividerRect = footerDivider.getBoundingClientRect();
-        fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'c76e7e'},body:JSON.stringify({sessionId:'c76e7e',location:'main.js:23',message:'Rio clipping debug',data:{rioZIndex:rioStyle.zIndex,rioPosition:rioStyle.position,rioBottom:rioRect.bottom,giftsContain:giftsStyle.contain,giftsOverflow:giftsStyle.overflow,giftsBottom:giftsRect.bottom,dividerZIndex:dividerStyle.zIndex,dividerTop:dividerRect.top,dividerBg:dividerStyle.background,overlapAmount:rioRect.bottom-dividerRect.top},timestamp:Date.now(),hypothesisId:'H1-H4'})}).catch(()=>{});
-    }
+    const bgCutouts = document.querySelectorAll('.bg-cutout');
+    bgCutouts.forEach((img, index) => {
+        img.addEventListener('load', () => {
+            fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:DOMContentLoaded',message:'bg-cutout image loaded',data:{index,class:img.className,src:img.src.split('/').pop(),naturalWidth:img.naturalWidth,heroHasMarqueeReady:document.getElementById('hero')?.classList.contains('marquee-ready')},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
+        });
+    });
+    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:DOMContentLoaded',message:'DOMContentLoaded fired',data:{bgCutoutCount:bgCutouts.length},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
     // #endregion
+    
     if (!prefersReducedMotion) {
         initMarqueeBulbs();
         initTinseltownBulbs();
         initLetterBoardBulbs();
-        initCollageSigns();
-        initTheaterMarquee();
+        if (!isMobile) {
+            initCollageSigns();
+            initTheaterMarquee();
+        }
         initFooterParallax();
     }
     initGSAP();
@@ -65,11 +257,16 @@ function initMarqueeBulbs() {
         const parentWidth = parent ? parent.offsetWidth : window.innerWidth;
         const parentHeight = parent ? parent.offsetHeight : window.innerHeight;
         
+        // Observe parent section for visibility
+        const section = marqueeBorder.closest('section') || parent;
+        if (section) {
+            SectionObserver.observe(section, `marquee-section-${borderIndex}`, null, null);
+        }
+        
         rows.forEach((row, rowIndex) => {
             const isHorizontal = row.classList.contains('top') || row.classList.contains('bottom');
             const count = isHorizontal ? Math.floor(parentWidth / 25) : Math.floor(parentHeight / 25);
             
-            // Use DocumentFragment for batch DOM insertion
             const fragment = document.createDocumentFragment();
             for (let i = 0; i < count; i++) {
                 const bulb = document.createElement('div');
@@ -96,43 +293,39 @@ function animateMarqueeBulbs() {
         if (bulbs.length === 0) return;
         
         let index = borderIndex * 10;
-        const chaseLength = 5;
-        let lastTime = 0;
-        const interval = 50;
+        const chaseLength = isMobile ? 4 : 5;
+        const interval = isMobile ? 70 : 50;
+        
+        // Track previous lit bulbs to minimize DOM changes
+        let prevLit = new Set();
 
-        function animate(currentTime) {
-            if (!animationState.isPageVisible) {
-                const id = requestAnimationFrame(animate);
-                animationState.animationFrameIds.push(id);
-                return;
+        AnimationManager.register(`marquee-${borderIndex}`, () => {
+            const newLit = new Set();
+            const hotIndex = (index + Math.floor(chaseLength / 2)) % bulbs.length;
+            
+            for (let i = 0; i < chaseLength; i++) {
+                newLit.add((index + i) % bulbs.length);
             }
             
-            if (currentTime - lastTime >= interval) {
-                lastTime = currentTime;
-                
-                // Batch class changes
-                bulbs.forEach((bulb) => {
-                    bulb.classList.remove('on', 'hot');
-                });
-
-                for (let i = 0; i < chaseLength; i++) {
-                    const bulbIndex = (index + i) % bulbs.length;
-                    if (i === Math.floor(chaseLength / 2)) {
-                        bulbs[bulbIndex]?.classList.add('hot');
+            prevLit.forEach(i => {
+                if (!newLit.has(i)) {
+                    bulbs[i]?.classList.remove('on', 'hot');
+                }
+            });
+            
+            newLit.forEach(i => {
+                if (!prevLit.has(i)) {
+                    if (i === hotIndex) {
+                        bulbs[i]?.classList.add('hot');
                     } else {
-                        bulbs[bulbIndex]?.classList.add('on');
+                        bulbs[i]?.classList.add('on');
                     }
                 }
-
-                index = (index + 1) % bulbs.length;
-            }
+            });
             
-            const id = requestAnimationFrame(animate);
-            animationState.animationFrameIds.push(id);
-        }
-        
-        const id = requestAnimationFrame(animate);
-        animationState.animationFrameIds.push(id);
+            prevLit = newLit;
+            index = (index + 1) % bulbs.length;
+        }, interval, `marquee-section-${borderIndex}`);
     });
 }
 
@@ -144,6 +337,12 @@ function initTheaterMarquee() {
     const marqueeFrame = document.querySelector('.marquee-frame');
     if (!marqueeFrame) return;
     
+    // Observe theater section
+    const section = marqueeFrame.closest('section') || marqueeFrame.closest('.theater-section');
+    if (section) {
+        SectionObserver.observe(section, 'theater-section', null, null);
+    }
+    
     const sides = ['top', 'right', 'bottom', 'left'];
     const allBulbs = [];
     
@@ -152,9 +351,8 @@ function initTheaterMarquee() {
         if (!container) return;
         
         const isHorizontal = side === 'top' || side === 'bottom';
-        const count = isHorizontal ? 18 : 8;
+        const count = isHorizontal ? (isMobile ? 12 : 18) : (isMobile ? 5 : 8);
         
-        // Use DocumentFragment for batch DOM insertion
         const fragment = document.createDocumentFragment();
         for (let i = 0; i < count; i++) {
             const bulb = document.createElement('div');
@@ -165,38 +363,29 @@ function initTheaterMarquee() {
         container.appendChild(fragment);
     });
     
-    // Chase animation using requestAnimationFrame
+    if (allBulbs.length === 0) return;
+    
     let chaseIndex = 0;
-    const chaseLength = 8;
-    let lastTime = 0;
-    const interval = 50;
+    const chaseLength = isMobile ? 6 : 8;
+    let prevLit = new Set();
     
-    function animate(currentTime) {
-        if (!animationState.isPageVisible) {
-            const id = requestAnimationFrame(animate);
-            animationState.animationFrameIds.push(id);
-            return;
+    AnimationManager.register('theater-marquee', () => {
+        const newLit = new Set();
+        for (let i = 0; i < chaseLength; i++) {
+            newLit.add((chaseIndex + i) % allBulbs.length);
         }
         
-        if (currentTime - lastTime >= interval) {
-            lastTime = currentTime;
-            
-            allBulbs.forEach(bulb => bulb.classList.add('dim'));
-            
-            for (let i = 0; i < chaseLength; i++) {
-                const bulbIndex = (chaseIndex + i) % allBulbs.length;
-                allBulbs[bulbIndex].classList.remove('dim');
-            }
-            
-            chaseIndex = (chaseIndex + 1) % allBulbs.length;
-        }
+        prevLit.forEach(i => {
+            if (!newLit.has(i)) allBulbs[i].classList.add('dim');
+        });
         
-        const id = requestAnimationFrame(animate);
-        animationState.animationFrameIds.push(id);
-    }
-    
-    const id = requestAnimationFrame(animate);
-    animationState.animationFrameIds.push(id);
+        newLit.forEach(i => {
+            if (!prevLit.has(i)) allBulbs[i].classList.remove('dim');
+        });
+        
+        prevLit = newLit;
+        chaseIndex = (chaseIndex + 1) % allBulbs.length;
+    }, isMobile ? 70 : 50, 'theater-section');
 }
 
 /* ============================================
@@ -222,23 +411,26 @@ function initSingleHeartBulbs(containerId) {
     const heartShape = container.closest('.heart-shape');
     if (!heartShape) return;
     
+    // Observe heart section
+    const section = heartShape.closest('section');
+    const sectionId = `heart-section-${containerId}`;
+    if (section) {
+        SectionObserver.observe(section, sectionId, null, null);
+    }
+    
     const width = heartShape.offsetWidth;
     const height = heartShape.offsetHeight;
     const centerX = width / 2;
     const centerY = height * 0.44;
     const bulbs = [];
     
-    // Check if point is inside the heart shape (excluding center cutout)
     function isInHeartRing(x, y) {
         const scale = width * 0.36;
         const nx = (x - centerX) / scale;
         const ny = (centerY - y) / scale;
-        
-        // Heart equation: (x^2 + y^2 - 1)^3 - x^2 * y^3 < 0
         const val = Math.pow(nx * nx + ny * ny - 1, 3) - nx * nx * ny * ny * ny;
         const inHeart = val < 0;
         
-        // Check if in center cutout (ellipse) - matches CSS ::after
         const cutoutCenterY = height * 0.48;
         const cutoutWidth = width * 0.24;
         const cutoutHeight = height * 0.21;
@@ -249,68 +441,37 @@ function initSingleHeartBulbs(containerId) {
         return inHeart && !inCutout;
     }
     
-    // Create grid of bulbs filling the heart ring
-    const bulbSize = Math.max(16, width * 0.05);
-    const spacing = bulbSize * 1.7;
+    const bulbSize = Math.max(isMobile ? 20 : 16, width * (isMobile ? 0.06 : 0.05));
+    const spacing = bulbSize * (isMobile ? 2.2 : 1.7);
     
-    const rows = [];
+    const fragment = document.createDocumentFragment();
     for (let y = height * 0.1; y < height * 0.92; y += spacing) {
-        const rowBulbs = [];
         for (let x = width * 0.06; x < width * 0.94; x += spacing) {
             if (isInHeartRing(x, y)) {
-                rowBulbs.push({ x, y });
+                const bulb = document.createElement('div');
+                bulb.className = 'bulb';
+                bulb.style.left = `${x - bulbSize/2}px`;
+                bulb.style.top = `${y - bulbSize/2}px`;
+                bulbs.push(bulb);
+                fragment.appendChild(bulb);
             }
         }
-        if (rowBulbs.length > 0) {
-            rows.push(rowBulbs);
-        }
     }
-    
-    // Create bulb elements using DocumentFragment
-    const fragment = document.createDocumentFragment();
-    rows.forEach((row, rowIndex) => {
-        row.forEach((pos) => {
-            const bulb = document.createElement('div');
-            bulb.className = 'bulb';
-            bulb.style.left = `${pos.x - bulbSize/2}px`;
-            bulb.style.top = `${pos.y - bulbSize/2}px`;
-            bulb.dataset.row = rowIndex;
-            bulbs.push(bulb);
-            fragment.appendChild(bulb);
-        });
-    });
     container.appendChild(fragment);
     
-    // All bulbs lit with subtle twinkling - using requestAnimationFrame
-    let lastTime = 0;
-    const interval = 180;
+    if (bulbs.length === 0) return;
     
-    function animate(currentTime) {
-        if (!animationState.isPageVisible) {
-            const id = requestAnimationFrame(animate);
-            animationState.animationFrameIds.push(id);
-            return;
-        }
-        
-        if (currentTime - lastTime >= interval) {
-            lastTime = currentTime;
-            
-            const numToToggle = Math.floor(bulbs.length * 0.06);
-            for (let i = 0; i < numToToggle; i++) {
-                const randomBulb = bulbs[Math.floor(Math.random() * bulbs.length)];
-                randomBulb.classList.add('dim');
-                setTimeout(() => {
-                    randomBulb.classList.remove('dim');
-                }, 120 + Math.random() * 180);
-            }
-        }
-        
-        const id = requestAnimationFrame(animate);
-        animationState.animationFrameIds.push(id);
-    }
+    const interval = isMobile ? 300 : 200;
+    const numToToggle = Math.max(1, Math.floor(bulbs.length * 0.04));
     
-    const id = requestAnimationFrame(animate);
-    animationState.animationFrameIds.push(id);
+    AnimationManager.register(`heart-${containerId}`, () => {
+        for (let i = 0; i < numToToggle; i++) {
+            const idx = Math.floor(Math.random() * bulbs.length);
+            const bulb = bulbs[idx];
+            bulb.classList.add('dim');
+            setTimeout(() => bulb.classList.remove('dim'), 150);
+        }
+    }, interval, sectionId);
 }
 
 function initSingleTinseltown(containerId) {
@@ -338,59 +499,46 @@ function initSingleTinseltown(containerId) {
     const p4 = { x: width * 0.85 - margin, y: height - margin - bulbSize }; // bottom-right before arrow (inset)
     const p5 = { x: margin, y: height - margin - bulbSize }; // bottom-left (inset)
     
-    // Top edge: p1 to p2
-    const topCount = Math.floor((p2.x - p1.x) / bulbSpacing);
-    for (let i = 0; i <= topCount; i++) {
-        const bulb = createBulb(p1.x + (i * bulbSpacing), p1.y);
-        bulbs.push(bulb);
-        fragment.appendChild(bulb);
+    // Helper to place bulbs along a line segment with consistent spacing
+    function placeBulbsAlongLine(x1, y1, x2, y2, includeStart, includeEnd) {
+        const dx = x2 - x1;
+        const dy = y2 - y1;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        const count = Math.round(len / bulbSpacing);
+        if (count === 0) return;
+        
+        const startIdx = includeStart ? 0 : 1;
+        const endIdx = includeEnd ? count : count - 1;
+        
+        for (let i = startIdx; i <= endIdx; i++) {
+            const t = i / count;
+            const x = x1 + t * dx;
+            const y = y1 + t * dy;
+            const bulb = createBulb(x, y);
+            bulbs.push(bulb);
+            fragment.appendChild(bulb);
+        }
     }
     
-    // Upper diagonal: p2 to p3
-    const upperDx = p3.x - p2.x;
-    const upperDy = p3.y - p2.y;
-    const upperLen = Math.sqrt(upperDx * upperDx + upperDy * upperDy);
-    const upperDiagCount = Math.max(3, Math.floor(upperLen / bulbSpacing));
+    // Top edge: p1 to p2 (include start, exclude end - p2 will be included by diagonal)
+    placeBulbsAlongLine(p1.x, p1.y, p2.x, p2.y, true, false);
     
-    for (let i = 1; i <= upperDiagCount; i++) {
-        const t = i / (upperDiagCount + 1);
-        const x = p2.x + t * upperDx;
-        const y = p2.y + t * upperDy;
-        const bulb = createBulb(x, y);
-        bulbs.push(bulb);
-        fragment.appendChild(bulb);
-    }
+    // Upper diagonal: p2 to p3 (include start, exclude end - p3 is the tip)
+    placeBulbsAlongLine(p2.x, p2.y, p3.x, p3.y, true, false);
     
-    // Lower diagonal: p3 to p4
-    const lowerDx = p4.x - p3.x;
-    const lowerDy = p4.y - p3.y;
-    const lowerLen = Math.sqrt(lowerDx * lowerDx + lowerDy * lowerDy);
-    const lowerDiagCount = Math.max(3, Math.floor(lowerLen / bulbSpacing));
+    // Arrow tip bulb at p3
+    const tipBulb = createBulb(p3.x, p3.y - bulbSize/2);
+    bulbs.push(tipBulb);
+    fragment.appendChild(tipBulb);
     
-    for (let i = 1; i <= lowerDiagCount; i++) {
-        const t = i / (lowerDiagCount + 1);
-        const x = p3.x + t * lowerDx;
-        const y = p3.y + t * lowerDy;
-        const bulb = createBulb(x, y);
-        bulbs.push(bulb);
-        fragment.appendChild(bulb);
-    }
+    // Lower diagonal: p3 to p4 (exclude start - tip already added, exclude end - p4 will be included by bottom)
+    placeBulbsAlongLine(p3.x, p3.y, p4.x, p4.y, false, false);
     
-    // Bottom edge: p4 to p5 (right to left)
-    const bottomCount = Math.floor((p4.x - p5.x) / bulbSpacing);
-    for (let i = 0; i <= bottomCount; i++) {
-        const bulb = createBulb(p4.x - (i * bulbSpacing), p4.y);
-        bulbs.push(bulb);
-        fragment.appendChild(bulb);
-    }
+    // Bottom edge: p4 to p5 (include start, exclude end - p5 will be included by left edge)
+    placeBulbsAlongLine(p4.x, p4.y, p5.x, p5.y, true, false);
     
-    // Left edge: p5 to p1 (bottom to top)
-    const leftCount = Math.floor((p5.y - p1.y) / bulbSpacing) - 1;
-    for (let i = 1; i <= leftCount; i++) {
-        const bulb = createBulb(p5.x, p5.y - (i * bulbSpacing));
-        bulbs.push(bulb);
-        fragment.appendChild(bulb);
-    }
+    // Left edge: p5 to p1 (include start, exclude end - p1 already included by top)
+    placeBulbsAlongLine(p5.x, p5.y, p1.x, p1.y, true, false);
     
     container.appendChild(fragment);
     animateTinseltownBulbs(bulbs);
@@ -404,40 +552,40 @@ function createBulb(x, y) {
     return bulb;
 }
 
+let tinseltownCounter = 0;
 function animateTinseltownBulbs(bulbs) {
+    if (bulbs.length === 0) return;
+    
+    const id = `tinseltown-${tinseltownCounter++}`;
     let index = 0;
-    const chaseLength = 8;
-    let lastTime = 0;
-    const interval = 60;
+    const groupSize = 5; // 5 bulbs on
+    const gapSize = 5; // 5 bulbs off
+    const pattern = groupSize + gapSize; // 10 bulbs per cycle
+    const totalBulbs = bulbs.length;
+    let prevLit = new Set();
     
-    function animate(currentTime) {
-        if (!animationState.isPageVisible) {
-            const id = requestAnimationFrame(animate);
-            animationState.animationFrameIds.push(id);
-            return;
-        }
+    AnimationManager.register(id, () => {
+        const newLit = new Set();
         
-        if (currentTime - lastTime >= interval) {
-            lastTime = currentTime;
-            
-            bulbs.forEach(bulb => {
-                bulb.classList.remove('lit');
-            });
-            
-            for (let i = 0; i < chaseLength; i++) {
-                const bulbIndex = (index + i) % bulbs.length;
-                bulbs[bulbIndex]?.classList.add('lit');
+        // Light every group of 5, skip every 5 (5 on, 5 off pattern)
+        for (let i = 0; i < totalBulbs; i++) {
+            const pos = (i + index) % pattern;
+            if (pos < groupSize) {
+                newLit.add(i);
             }
-            
-            index = (index + 1) % bulbs.length;
         }
         
-        const id = requestAnimationFrame(animate);
-        animationState.animationFrameIds.push(id);
-    }
-    
-    const id = requestAnimationFrame(animate);
-    animationState.animationFrameIds.push(id);
+        prevLit.forEach(i => {
+            if (!newLit.has(i)) bulbs[i]?.classList.remove('lit');
+        });
+        
+        newLit.forEach(i => {
+            if (!prevLit.has(i)) bulbs[i]?.classList.add('lit');
+        });
+        
+        prevLit = newLit;
+        index = (index - 1 + pattern) % pattern;
+    }, isMobile ? 80 : 60);
 }
 
 /* ============================================
@@ -453,13 +601,18 @@ function initLetterBoardBulbs() {
     const sign = topRow.closest('.letter-board-sign');
     if (!sign) return;
     
+    // Observe letterboard section
+    const section = sign.closest('section');
+    if (section) {
+        SectionObserver.observe(section, 'letterboard-section', null, null);
+    }
+    
     const width = sign.offsetWidth;
     const bulbCount = Math.floor(width / 25);
     
     const topBulbs = [];
     const bottomBulbs = [];
     
-    // Use DocumentFragment for batch DOM insertion
     const topFragment = document.createDocumentFragment();
     const bottomFragment = document.createDocumentFragment();
     
@@ -483,43 +636,18 @@ function initLetterBoardBulbs() {
 
 function animateLetterBoardBulbs(topBulbs, bottomBulbs) {
     let on = true;
-    let lastTime = 0;
-    const interval = 500;
     
-    function animate(currentTime) {
-        if (!animationState.isPageVisible) {
-            const id = requestAnimationFrame(animate);
-            animationState.animationFrameIds.push(id);
-            return;
-        }
+    AnimationManager.register('letterboard', () => {
+        on = !on;
         
-        if (currentTime - lastTime >= interval) {
-            lastTime = currentTime;
-            on = !on;
-            
-            topBulbs.forEach((bulb, i) => {
-                if ((i % 2 === 0) === on) {
-                    bulb.classList.add('lit');
-                } else {
-                    bulb.classList.remove('lit');
-                }
-            });
-            
-            bottomBulbs.forEach((bulb, i) => {
-                if ((i % 2 === 0) !== on) {
-                    bulb.classList.add('lit');
-                } else {
-                    bulb.classList.remove('lit');
-                }
-            });
-        }
+        topBulbs.forEach((bulb, i) => {
+            bulb.classList.toggle('lit', (i % 2 === 0) === on);
+        });
         
-        const id = requestAnimationFrame(animate);
-        animationState.animationFrameIds.push(id);
-    }
-    
-    const id = requestAnimationFrame(animate);
-    animationState.animationFrameIds.push(id);
+        bottomBulbs.forEach((bulb, i) => {
+            bulb.classList.toggle('lit', (i % 2 === 0) !== on);
+        });
+    }, 500, 'letterboard-section');
 }
 
 /* ============================================
@@ -936,11 +1064,10 @@ window.addEventListener('scroll', () => {
     if (!scrollTicking) {
         requestAnimationFrame(() => {
             const scrollIndicator = document.querySelector('.scroll-indicator');
-            if (scrollIndicator) {
+            if (scrollIndicator && scrollIndicator.classList.contains('visible')) {
+                // Only hide based on scroll if it's already been revealed
                 if (window.scrollY > 100) {
-                    scrollIndicator.style.opacity = '0';
-                } else {
-                    scrollIndicator.style.opacity = '0.7';
+                    scrollIndicator.classList.remove('visible');
                 }
             }
             scrollTicking = false;
@@ -955,6 +1082,18 @@ window.addEventListener('scroll', () => {
 
 let resizeTimer;
 window.addEventListener('resize', () => {
+    // #region agent log
+    const bgCutouts = document.querySelectorAll('.bg-cutout');
+    const imageLoadStates = Array.from(bgCutouts).map(img => ({
+        class: img.className,
+        complete: img.complete,
+        naturalWidth: img.naturalWidth,
+        computedOpacity: getComputedStyle(img).opacity,
+        src: img.src.split('/').pop()
+    }));
+    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:resize',message:'Resize event fired - checking bg-cutout states',data:{windowWidth:window.innerWidth,windowHeight:window.innerHeight,imageCount:bgCutouts.length,imageLoadStates},timestamp:Date.now(),hypothesisId:'H4'})}).catch(()=>{});
+    // #endregion
+    
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         if (prefersReducedMotion) return;
@@ -1082,43 +1221,8 @@ if (!prefersReducedMotion) {
 function initFooterParallax() {
     const footerSection = document.querySelector('.footer-jacben-section');
     const cutoutPhoto = document.querySelector('.footer-cutout-photo');
-    const cutoutWrapper = document.querySelector('.footer-cutout-wrapper');
     
     if (!footerSection || !cutoutPhoto) return;
-    
-    // #region agent log
-    const sectionStyles = getComputedStyle(footerSection);
-    const wrapperStyles = cutoutWrapper ? getComputedStyle(cutoutWrapper) : null;
-    const photoStyles = getComputedStyle(cutoutPhoto);
-    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'c77be2'},body:JSON.stringify({sessionId:'c77be2',location:'main.js:initFooterParallax',message:'Footer parallax init - element dimensions',data:{
-        sectionHeight: footerSection.offsetHeight,
-        sectionMinHeight: sectionStyles.minHeight,
-        sectionOverflow: sectionStyles.overflow,
-        wrapperBottom: wrapperStyles?.bottom,
-        wrapperHeight: cutoutWrapper?.offsetHeight,
-        photoHeight: cutoutPhoto.offsetHeight,
-        photoNaturalHeight: cutoutPhoto.naturalHeight,
-        photoTransform: photoStyles.transform
-    },timestamp:Date.now(),hypothesisId:'H1,H2,H3,H4'})}).catch(()=>{});
-    // #endregion
-    
-    // #region agent log
-    setTimeout(() => {
-        const rect = cutoutPhoto.getBoundingClientRect();
-        const sectionRect = footerSection.getBoundingClientRect();
-        fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'c77be2'},body:JSON.stringify({sessionId:'c77be2',location:'main.js:initFooterParallax:afterGSAP',message:'After GSAP setup - bounding rects',data:{
-            photoTop: rect.top,
-            photoBottom: rect.bottom,
-            photoHeight: rect.height,
-            sectionTop: sectionRect.top,
-            sectionBottom: sectionRect.bottom,
-            sectionHeight: sectionRect.height,
-            viewportHeight: window.innerHeight,
-            gapFromViewportBottom: window.innerHeight - rect.bottom,
-            photoExtendsBelow: rect.bottom > sectionRect.bottom
-        },timestamp:Date.now(),hypothesisId:'H1,H3,H5'})}).catch(()=>{});
-    }, 500);
-    // #endregion
 }
 
 /* ============================================

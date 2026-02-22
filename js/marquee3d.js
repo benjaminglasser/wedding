@@ -1,6 +1,7 @@
 /* ============================================
    3D THEATER MARQUEE - Three.js
    Tinseltown-style swoopy marquee with chase lights
+   PERFORMANCE OPTIMIZED
    ============================================ */
 
 (function() {
@@ -10,56 +11,137 @@
     
     if (!container || !canvas || typeof THREE === 'undefined') return;
     
-    // Start the bounce animation after a brief delay
-    setTimeout(() => {
-        container.classList.add('bounce-in');
-        
-        // After marquee bounce completes, trigger background images
+    // Performance settings
+    const isMobile = window.innerWidth < 768;
+    const isLowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+    
+    // Expose function to start the marquee animation (called after loader exits)
+    window.startMarqueeAnimation = function() {
         setTimeout(() => {
-            if (hero) {
-                hero.classList.add('marquee-ready');
-            }
-        }, 850); // Start images as marquee is settling
-    }, 300);
+            container.classList.add('bounce-in');
+            
+            setTimeout(() => {
+                // #region agent log
+                const bgCutouts = document.querySelectorAll('.bg-cutout');
+                const imageLoadStates = Array.from(bgCutouts).map(img => ({
+                    class: img.className,
+                    complete: img.complete,
+                    naturalWidth: img.naturalWidth,
+                    loading: img.loading,
+                    src: img.src.split('/').pop()
+                }));
+                fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'marquee3d.js:startMarqueeAnimation',message:'About to add marquee-ready class to hero',data:{heroExists:!!hero,imageCount:bgCutouts.length,imageLoadStates},timestamp:Date.now(),hypothesisId:'H1-H2'})}).catch(()=>{});
+                // #endregion
+                
+                if (hero) {
+                    hero.classList.add('marquee-ready');
+                    
+                    // Use GSAP to animate bg-cutout images instead of relying on CSS animations
+                    // This fixes browser bugs with CSS animation-fill-mode: forwards on opacity: 0 elements
+                    if (typeof gsap !== 'undefined') {
+                        const animationConfigs = [
+                            { selector: '.bg-cutout.glitter-gulch', from: { x: '150%', rotation: 15, opacity: 0 }, to: { x: 0, rotation: -5, opacity: 1 }, delay: 0.15, duration: 1 },
+                            { selector: '.bg-cutout.stardust', from: { x: '-100%', y: '-100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.1, duration: 1 },
+                            { selector: '.bg-cutout.vegas-vic', from: { x: '-150%', rotation: -15, opacity: 0 }, to: { x: 0, rotation: 5, opacity: 1 }, delay: 0.25, duration: 1.1 },
+                            { selector: '.bg-cutout.flamingo', from: { x: '-100%', y: '100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: 5, opacity: 1 }, delay: 0.35, duration: 1.2 },
+                            { selector: '.bg-cutout.golden-nugget', from: { x: '100%', y: '100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.4, duration: 1.1 },
+                            { selector: '.bg-cutout.dunes-oasis', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.5, duration: 1 },
+                            { selector: '.bg-cutout.mint', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 2, opacity: 1 }, delay: 0.55, duration: 1.1 },
+                            { selector: '.bg-cutout.casino-marquee', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: -5, opacity: 1 }, delay: 0, duration: 1 },
+                            { selector: '.bg-cutout.welcome-vegas', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.05, duration: 1.2 },
+                            { selector: '.bg-cutout.union-plaza', from: { x: '100%', y: '-100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: 20, opacity: 1 }, delay: 0.2, duration: 1 }
+                        ];
+                        
+                        animationConfigs.forEach(config => {
+                            const el = document.querySelector(config.selector);
+                            if (el) {
+                                gsap.fromTo(el, config.from, {
+                                    ...config.to,
+                                    duration: config.duration,
+                                    delay: config.delay,
+                                    ease: 'elastic.out(1, 0.8)'
+                                });
+                            }
+                        });
+                    }
+                    
+                    // #region agent log
+                    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'marquee3d.js:startMarqueeAnimation',message:'marquee-ready class added, GSAP animations triggered',data:{heroClassList:hero.className,gsapAvailable:typeof gsap !== 'undefined'},timestamp:Date.now(),hypothesisId:'H10'})}).catch(()=>{});
+                    // #endregion
+                }
+                
+                // Show scroll indicator after marquee bounce and background images animate in
+                setTimeout(() => {
+                    const scrollIndicator = document.querySelector('.scroll-indicator');
+                    if (scrollIndicator) {
+                        scrollIndicator.classList.add('visible');
+                    }
+                    
+                    // Fix for browser animation bug: explicitly set opacity after animations complete
+                    // This ensures the final state is painted even if animation-fill-mode: forwards fails
+                    const bgCutouts = document.querySelectorAll('.bg-cutout');
+                    bgCutouts.forEach(img => {
+                        img.style.opacity = '1';
+                    });
+                    
+                    // #region agent log
+                    const glitterGulch = document.querySelector('.bg-cutout.glitter-gulch');
+                    const glitterRect = glitterGulch ? glitterGulch.getBoundingClientRect() : null;
+                    const glitterStyle = glitterGulch ? getComputedStyle(glitterGulch) : null;
+                    const imageStatesAfterAnimation = Array.from(bgCutouts).map(img => ({
+                        class: img.className,
+                        complete: img.complete,
+                        naturalWidth: img.naturalWidth,
+                        computedOpacity: getComputedStyle(img).opacity,
+                        computedTransform: getComputedStyle(img).transform,
+                        boundingRect: img.getBoundingClientRect(),
+                        src: img.src.split('/').pop()
+                    }));
+                    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'marquee3d.js:afterAnimations',message:'After animation delay (1800ms) - set opacity explicitly',data:{imageCount:bgCutouts.length,windowWidth:window.innerWidth,windowHeight:window.innerHeight,glitterGulchRect:glitterRect,glitterGulchVisibility:glitterStyle?.visibility,glitterGulchDisplay:glitterStyle?.display,glitterGulchRight:glitterStyle?.right,glitterGulchTop:glitterStyle?.top,imageStatesAfterAnimation},timestamp:Date.now(),hypothesisId:'H9'})}).catch(()=>{});
+                    // #endregion
+                }, 1800);
+            }, 850);
+        }, 100);
+    };
+    
+    // If no loader exists, start immediately
+    if (!document.getElementById('loader')) {
+        window.startMarqueeAnimation();
+    }
     
     // Scene setup
     const scene = new THREE.Scene();
     
-    // Camera with perspective - positioned to show full marquee including top
+    // Camera with perspective - positioned to show full marquee including top crown
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
-    camera.position.set(0, 0.3, 8);
-    camera.lookAt(0, -0.3, 0);
+    camera.position.set(0, 0.6, 8);
+    camera.lookAt(0, 0, 0);
     
-    // Renderer - optimized settings
+    // Renderer - heavily optimized settings
     const renderer = new THREE.WebGLRenderer({ 
         canvas: canvas, 
-        antialias: window.devicePixelRatio < 2, // Only use antialias on lower DPI screens
+        antialias: !isMobile && window.devicePixelRatio < 2,
         alpha: true,
-        powerPreference: 'high-performance'
+        powerPreference: 'high-performance',
+        stencil: false,
+        depth: true
     });
     renderer.setSize(container.clientWidth, container.clientHeight);
-    renderer.setPixelRatio(Math.min(window.devicePixelRatio, 1.5)); // Cap at 1.5 for performance
+    renderer.setPixelRatio(Math.min(window.devicePixelRatio, isMobile ? 1 : 1.5));
     renderer.setClearColor(0x000000, 0);
     
-    // Lighting - more dramatic
-    const ambientLight = new THREE.AmbientLight(0x442222, 0.6);
+    // Lighting - reduced for performance
+    const ambientLight = new THREE.AmbientLight(0x442222, 0.8);
     scene.add(ambientLight);
     
-    const mainLight = new THREE.PointLight(0xff6b9d, 3, 20);
+    const mainLight = new THREE.PointLight(0xff6b9d, 2.5, 20);
     mainLight.position.set(0, 3, 5);
     scene.add(mainLight);
     
-    const backLight = new THREE.PointLight(0xffd700, 2, 15);
+    const backLight = new THREE.PointLight(0xffd700, 1.5, 15);
     backLight.position.set(0, -2, -3);
     scene.add(backLight);
-    
-    const sideLight1 = new THREE.PointLight(0xff4444, 1.5, 10);
-    sideLight1.position.set(-4, 0, 2);
-    scene.add(sideLight1);
-    
-    const sideLight2 = new THREE.PointLight(0xff4444, 1.5, 10);
-    sideLight2.position.set(4, 0, 2);
-    scene.add(sideLight2);
     
     // Marquee group (for rotation)
     const marqueeGroup = new THREE.Group();
@@ -175,48 +257,37 @@
     marqueeGroup.add(leftArrow);
     marqueeGroup.add(rightArrow);
     
-    // Bulbs array for chase animation - LOTS of bulbs!
+    // Bulbs array for chase animation
     const bulbs = [];
-    const bulbGeometry = new THREE.SphereGeometry(0.09, 12, 12);
+    const bulbGeometry = new THREE.SphereGeometry(0.09, isMobile ? 6 : 8, isMobile ? 6 : 8);
     
-    // Helper to add bulbs along a curved path
-    function addBulbsAlongCurve(points, zPos) {
-        points.forEach(p => {
-            bulbPositions.push({ x: p.x, y: p.y, z: zPos });
-        });
-    }
-    
-    // Bulb positions around the organic frame
+    // Bulb positions around the organic frame - FULL DENSITY RESTORED
     const bulbPositions = [];
     const zFront = 0.3;
     
     // OUTER RING of bulbs - follows the swoopy frame shape
-    // Top curve
     for (let t = 0; t <= 1; t += 0.04) {
         const x = -2.9 + t * 5.8;
         const y = 1.1 + Math.sin(t * Math.PI) * 0.15;
         bulbPositions.push({ x, y, z: zFront });
     }
-    // Right side curve
     for (let t = 0; t <= 1; t += 0.08) {
         const y = 1.0 - t * 2.0;
         const x = 3.0 + Math.sin(t * Math.PI) * 0.25;
         bulbPositions.push({ x, y, z: zFront });
     }
-    // Bottom curve (reverse)
     for (let t = 0; t <= 1; t += 0.04) {
         const x = 2.9 - t * 5.8;
         const y = -1.1 - Math.sin(t * Math.PI) * 0.1;
         bulbPositions.push({ x, y, z: zFront });
     }
-    // Left side curve
     for (let t = 0; t <= 1; t += 0.08) {
         const y = -1.0 + t * 2.0;
         const x = -3.0 - Math.sin(t * Math.PI) * 0.25;
         bulbPositions.push({ x, y, z: zFront });
     }
     
-    // INNER RING of bulbs (around the text area)
+    // INNER RING - full density
     for (let t = 0; t <= 1; t += 0.05) {
         const x = -2.3 + t * 4.6;
         const y = 0.72 + Math.sin(t * Math.PI) * 0.12;
@@ -238,55 +309,184 @@
         bulbPositions.push({ x, y, z: zFront });
     }
     
-    // Arrow bulbs - left arrow
-    for (let i = 0; i < 5; i++) {
-        bulbPositions.push({ x: -3.5 - i * 0.15, y: 0.5 - i * 0.12, z: zFront });
-        bulbPositions.push({ x: -3.5 - i * 0.15, y: -0.5 + i * 0.12, z: zFront });
+    // LEFT ARROW bulbs - clean outline following arrow shape
+    // Arrow at x=-3.5, tip at x=-4.3, height 1.2 (y from -0.6 to 0.6)
+    // Top diagonal edge (from base top to tip)
+    for (let t = 0; t <= 1; t += 0.2) {
+        const x = -3.5 - t * 0.8;
+        const y = 0.6 - t * 0.6;
+        bulbPositions.push({ x, y, z: zFront });
     }
-    bulbPositions.push({ x: -4.3, y: 0, z: zFront });
-    
-    // Arrow bulbs - right arrow
-    for (let i = 0; i < 5; i++) {
-        bulbPositions.push({ x: 3.5 + i * 0.15, y: 0.5 - i * 0.12, z: zFront });
-        bulbPositions.push({ x: 3.5 + i * 0.15, y: -0.5 + i * 0.12, z: zFront });
+    // Bottom diagonal edge (from base bottom to tip)
+    for (let t = 0; t <= 1; t += 0.2) {
+        const x = -3.5 - t * 0.8;
+        const y = -0.6 + t * 0.6;
+        bulbPositions.push({ x, y, z: zFront });
     }
-    bulbPositions.push({ x: 4.3, y: 0, z: zFront });
-    
-    // Explosion/starburst bulbs at top
-    for (let angle = -0.8; angle <= 0.8; angle += 0.2) {
-        for (let r = 1.5; r <= 2.2; r += 0.35) {
-            const x = Math.sin(angle) * r;
-            const y = 1.3 + Math.cos(angle) * r * 0.4;
-            bulbPositions.push({ x, y, z: zFront - 0.2 });
-        }
+    // Back vertical edge
+    for (let t = 0.2; t <= 0.8; t += 0.2) {
+        bulbPositions.push({ x: -3.5, y: 0.6 - t * 1.2, z: zFront });
     }
     
-    // Create all the bulbs - share materials for better performance
-    const sharedBulbMaterial = new THREE.MeshStandardMaterial({
-        color: 0xffffee,
-        emissive: 0xffffcc,
-        emissiveIntensity: 1.0,
-        metalness: 0.0,
-        roughness: 0.1
+    // RIGHT ARROW bulbs - clean outline following arrow shape
+    // Arrow at x=3.5, tip at x=4.3, height 1.2 (y from -0.6 to 0.6)
+    // Top diagonal edge (from base top to tip)
+    for (let t = 0; t <= 1; t += 0.2) {
+        const x = 3.5 + t * 0.8;
+        const y = 0.6 - t * 0.6;
+        bulbPositions.push({ x, y, z: zFront });
+    }
+    // Bottom diagonal edge (from base bottom to tip)
+    for (let t = 0; t <= 1; t += 0.2) {
+        const x = 3.5 + t * 0.8;
+        const y = -0.6 + t * 0.6;
+        bulbPositions.push({ x, y, z: zFront });
+    }
+    // Back vertical edge
+    for (let t = 0.2; t <= 0.8; t += 0.2) {
+        bulbPositions.push({ x: 3.5, y: 0.6 - t * 1.2, z: zFront });
+    }
+    
+    // ============================================
+    // TOP ARC CROWN - 3D backing for starburst bulbs
+    // ============================================
+    const arcShape = new THREE.Shape();
+    
+    // Create a crown/arc shape that sits above the main marquee
+    // Outer arc
+    arcShape.moveTo(-2.5, 1.15);
+    arcShape.quadraticCurveTo(-1.8, 2.4, 0, 2.6);
+    arcShape.quadraticCurveTo(1.8, 2.4, 2.5, 1.15);
+    // Inner arc (creates the thickness)
+    arcShape.lineTo(2.0, 1.2);
+    arcShape.quadraticCurveTo(1.4, 2.0, 0, 2.15);
+    arcShape.quadraticCurveTo(-1.4, 2.0, -2.0, 1.2);
+    arcShape.lineTo(-2.5, 1.15);
+    
+    const arcExtrudeSettings = {
+        depth: 0.35,
+        bevelEnabled: true,
+        bevelThickness: 0.06,
+        bevelSize: 0.06,
+        bevelSegments: 2
+    };
+    
+    const arcGeometry = new THREE.ExtrudeGeometry(arcShape, arcExtrudeSettings);
+    const arcMaterial = new THREE.MeshStandardMaterial({
+        color: 0x882020,
+        metalness: 0.5,
+        roughness: 0.4,
+        emissive: 0x330000,
+        emissiveIntensity: 0.2
     });
     
-    bulbPositions.forEach((pos, i) => {
-        // Clone material only for bulbs that need individual animation
-        const bulbMaterial = sharedBulbMaterial.clone();
+    const arcCrown = new THREE.Mesh(arcGeometry, arcMaterial);
+    arcCrown.position.z = -0.35;
+    marqueeGroup.add(arcCrown);
+    
+    // Add decorative ribs/rays emanating from center of arc
+    const rayCount = 7;
+    for (let i = 0; i < rayCount; i++) {
+        const angle = -0.7 + (i / (rayCount - 1)) * 1.4;
+        const rayShape = new THREE.Shape();
+        const rayWidth = 0.08;
+        const rayLength = 0.9;
         
-        const bulb = new THREE.Mesh(bulbGeometry, bulbMaterial);
+        // Create a tapered ray
+        rayShape.moveTo(-rayWidth, 0);
+        rayShape.lineTo(-rayWidth * 0.3, rayLength);
+        rayShape.lineTo(rayWidth * 0.3, rayLength);
+        rayShape.lineTo(rayWidth, 0);
+        rayShape.lineTo(-rayWidth, 0);
+        
+        const rayGeo = new THREE.ExtrudeGeometry(rayShape, { 
+            depth: 0.15, 
+            bevelEnabled: false 
+        });
+        const rayMesh = new THREE.Mesh(rayGeo, new THREE.MeshStandardMaterial({
+            color: 0xcc8800,
+            metalness: 0.7,
+            roughness: 0.3,
+            emissive: 0x442200,
+            emissiveIntensity: 0.3
+        }));
+        
+        // Position at the base of the arc and rotate outward
+        rayMesh.position.set(Math.sin(angle) * 0.3, 1.4, -0.2);
+        rayMesh.rotation.z = -angle;
+        marqueeGroup.add(rayMesh);
+    }
+    
+    // Starburst bulbs at top - following the arc crown edges
+    // Helper function to get point on quadratic bezier curve
+    function quadraticBezier(t, p0, p1, p2) {
+        const x = (1 - t) * (1 - t) * p0.x + 2 * (1 - t) * t * p1.x + t * t * p2.x;
+        const y = (1 - t) * (1 - t) * p0.y + 2 * (1 - t) * t * p1.y + t * t * p2.y;
+        return { x, y };
+    }
+    
+    // Outer arc bulbs - follows the outer edge of the crown
+    // Left half: (-2.5, 1.15) -> (-1.8, 2.4) -> (0, 2.6)
+    // Right half: (0, 2.6) -> (1.8, 2.4) -> (2.5, 1.15)
+    const outerLeftP0 = { x: -2.5, y: 1.15 };
+    const outerLeftP1 = { x: -1.8, y: 2.4 };
+    const outerLeftP2 = { x: 0, y: 2.6 };
+    const outerRightP0 = { x: 0, y: 2.6 };
+    const outerRightP1 = { x: 1.8, y: 2.4 };
+    const outerRightP2 = { x: 2.5, y: 1.15 };
+    
+    // Place bulbs along outer arc - denser spacing for complete coverage
+    // Explicitly include endpoints to avoid floating point gaps
+    bulbPositions.push({ x: outerLeftP0.x, y: outerLeftP0.y, z: zFront }); // Left arc start
+    for (let t = 0.09; t <= 0.92; t += 0.09) {
+        const pt = quadraticBezier(t, outerLeftP0, outerLeftP1, outerLeftP2);
+        bulbPositions.push({ x: pt.x, y: pt.y, z: zFront });
+    }
+    bulbPositions.push({ x: outerLeftP2.x, y: outerLeftP2.y, z: zFront }); // Left arc end (center top)
+    for (let t = 0.09; t <= 0.92; t += 0.09) {
+        const pt = quadraticBezier(t, outerRightP0, outerRightP1, outerRightP2);
+        bulbPositions.push({ x: pt.x, y: pt.y, z: zFront });
+    }
+    bulbPositions.push({ x: outerRightP2.x, y: outerRightP2.y, z: zFront }); // Right arc end
+    
+    // Inner arc bulbs - follows the inner edge of the crown
+    // Left half: (-2.0, 1.2) -> (-1.4, 2.0) -> (0, 2.15)
+    // Right half: (0, 2.15) -> (1.4, 2.0) -> (2.0, 1.2)
+    const innerLeftP0 = { x: -2.0, y: 1.2 };
+    const innerLeftP1 = { x: -1.4, y: 2.0 };
+    const innerLeftP2 = { x: 0, y: 2.15 };
+    const innerRightP0 = { x: 0, y: 2.15 };
+    const innerRightP1 = { x: 1.4, y: 2.0 };
+    const innerRightP2 = { x: 2.0, y: 1.2 };
+    
+    // Place bulbs along inner arc
+    for (let t = 0; t <= 1; t += 0.15) {
+        const pt = quadraticBezier(t, innerLeftP0, innerLeftP1, innerLeftP2);
+        bulbPositions.push({ x: pt.x, y: pt.y, z: zFront });
+    }
+    // Add explicit center bulb for inner arc
+    bulbPositions.push({ x: innerLeftP2.x, y: innerLeftP2.y, z: zFront });
+    for (let t = 0.15; t <= 1; t += 0.15) {
+        const pt = quadraticBezier(t, innerRightP0, innerRightP1, innerRightP2);
+        bulbPositions.push({ x: pt.x, y: pt.y, z: zFront });
+    }
+    
+    // Shared material - fully opaque bulbs with warm yellow tint
+    const litBulbMaterial = new THREE.MeshBasicMaterial({
+        color: 0xffeeaa  // Warm cream-yellow when lit
+    });
+    
+    const dimBulbMaterial = new THREE.MeshBasicMaterial({
+        color: 0xaa7755  // Warm reddish-brown when off
+    });
+    
+    // Create bulbs with shared geometry - NO individual point lights
+    bulbPositions.forEach((pos, i) => {
+        const bulb = new THREE.Mesh(bulbGeometry, dimBulbMaterial.clone());
         bulb.position.set(pos.x, pos.y, pos.z);
-        bulb.userData = { index: i, material: bulbMaterial };
+        bulb.userData = { index: i };
         marqueeGroup.add(bulb);
         bulbs.push(bulb);
-        
-        // Reduce point lights - only every 4th bulb for performance
-        if (i % 4 === 0) {
-            const bulbLight = new THREE.PointLight(0xffd700, 0.06, 0.5);
-            bulbLight.position.copy(bulb.position);
-            bulb.userData.light = bulbLight;
-            marqueeGroup.add(bulbLight);
-        }
     });
     
     // Neon text - "Jac & Ben"
@@ -294,35 +494,6 @@
     const ctx = textCanvas.getContext('2d');
     textCanvas.width = 1024;
     textCanvas.height = 400;
-    
-    ctx.fillStyle = 'transparent';
-    ctx.fillRect(0, 0, textCanvas.width, textCanvas.height);
-    
-    ctx.font = '160px "Las Enter", cursive';
-    ctx.textAlign = 'center';
-    ctx.textBaseline = 'middle';
-    
-    // Multiple glow layers for intense neon effect
-    ctx.shadowColor = '#ff0066';
-    ctx.shadowBlur = 80;
-    ctx.fillStyle = '#ff0066';
-    ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
-    
-    ctx.shadowBlur = 50;
-    ctx.fillStyle = '#ff3388';
-    ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
-    
-    ctx.shadowBlur = 30;
-    ctx.fillStyle = '#ff6699';
-    ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
-    
-    ctx.shadowBlur = 15;
-    ctx.fillStyle = '#ffaacc';
-    ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
-    
-    ctx.shadowBlur = 5;
-    ctx.fillStyle = '#ffffff';
-    ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
     
     const textTexture = new THREE.CanvasTexture(textCanvas);
     const textMaterial = new THREE.SpriteMaterial({ 
@@ -335,6 +506,50 @@
     textSprite.position.z = 0.2;
     textSprite.position.y = -0.05;
     marqueeGroup.add(textSprite);
+    
+    function drawNeonText() {
+        ctx.clearRect(0, 0, textCanvas.width, textCanvas.height);
+        ctx.fillStyle = 'transparent';
+        ctx.fillRect(0, 0, textCanvas.width, textCanvas.height);
+        
+        ctx.font = '160px "Las Enter", cursive';
+        ctx.textAlign = 'center';
+        ctx.textBaseline = 'middle';
+        
+        // Multiple glow layers for intense neon effect
+        ctx.shadowColor = '#ff0066';
+        ctx.shadowBlur = 80;
+        ctx.fillStyle = '#ff0066';
+        ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
+        
+        ctx.shadowBlur = 50;
+        ctx.fillStyle = '#ff3388';
+        ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
+        
+        ctx.shadowBlur = 30;
+        ctx.fillStyle = '#ff6699';
+        ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
+        
+        ctx.shadowBlur = 15;
+        ctx.fillStyle = '#ffaacc';
+        ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
+        
+        ctx.shadowBlur = 5;
+        ctx.fillStyle = '#ffffff';
+        ctx.fillText('Jac & Ben!', textCanvas.width/2, textCanvas.height/2);
+        
+        textTexture.needsUpdate = true;
+    }
+    
+    // Wait for the Las Enter font to load before drawing text
+    // Canvas text doesn't auto-update when fonts load, so we must wait
+    document.fonts.ready.then(() => {
+        document.fonts.load('160px "Las Enter"').then(() => {
+            drawNeonText();
+        }).catch(() => {
+            drawNeonText();
+        });
+    });
     
     // ============================================
     // LETTER BOARD - "THE WEDDING OF THE YEAR"
@@ -396,72 +611,52 @@
     weddingPlane.position.set(0, boardY, 0.12);
     marqueeGroup.add(weddingPlane);
     
-    // Clean bulb border around the letter board
+    // Clean bulb border around the letter board - FULL DENSITY
     const boardBulbOffset = 0.15;
     const topY = boardY + boardHeight/2 + boardBulbOffset;
     const bottomY = boardY - boardHeight/2 - boardBulbOffset;
     const leftX = -boardWidth/2 - boardBulbOffset;
     const rightX = boardWidth/2 + boardBulbOffset;
     
-    // Calculate even spacing for top/bottom (horizontal)
     const horizBulbCount = 28;
     const horizSpacing = (rightX - leftX) / (horizBulbCount - 1);
-    
-    // Calculate even spacing for sides (vertical) 
     const vertBulbCount = 5;
     const vertSpacing = (topY - bottomY) / (vertBulbCount - 1);
-    
-    // Shared material for board bulbs
-    const boardBulbMat = new THREE.MeshStandardMaterial({
-        color: 0xffffee,
-        emissive: 0xffffaa,
-        emissiveIntensity: 0.9,
-        metalness: 0.0,
-        roughness: 0.1
-    });
     
     // Top row
     for (let i = 0; i < horizBulbCount; i++) {
         const x = leftX + i * horizSpacing;
-        const bulbMat = boardBulbMat.clone();
-        const bulb = new THREE.Mesh(bulbGeometry, bulbMat);
+        const bulb = new THREE.Mesh(bulbGeometry, dimBulbMaterial.clone());
         bulb.position.set(x, topY, 0.15);
         marqueeGroup.add(bulb);
         bulbs.push(bulb);
-        bulb.userData = { material: bulbMat };
+        bulb.userData = { index: bulbs.length - 1 };
     }
     
     // Bottom row
     for (let i = 0; i < horizBulbCount; i++) {
         const x = leftX + i * horizSpacing;
-        const bulbMat = boardBulbMat.clone();
-        const bulb = new THREE.Mesh(bulbGeometry, bulbMat);
+        const bulb = new THREE.Mesh(bulbGeometry, dimBulbMaterial.clone());
         bulb.position.set(x, bottomY, 0.15);
         marqueeGroup.add(bulb);
         bulbs.push(bulb);
-        bulb.userData = { material: bulbMat };
+        bulb.userData = { index: bulbs.length - 1 };
     }
     
-    // Left side (skip corners - already covered by top/bottom)
+    // Side bulbs
     for (let i = 1; i < vertBulbCount - 1; i++) {
         const y = bottomY + i * vertSpacing;
-        const bulbMat = boardBulbMat.clone();
-        const bulb = new THREE.Mesh(bulbGeometry, bulbMat);
-        bulb.position.set(leftX, y, 0.15);
-        marqueeGroup.add(bulb);
-        bulbs.push(bulb);
-        bulb.userData = { material: bulbMat };
-    }
-    
-    // Right side (skip corners - already covered by top/bottom)
-    for (let i = 1; i < vertBulbCount - 1; i++) {
-        const y = bottomY + i * vertSpacing;
-        const bulbMat = boardBulbMat.clone();
-        const bulb = new THREE.Mesh(bulbGeometry, bulbMat);
-        bulb.position.set(rightX, y, 0.15);
-        marqueeGroup.add(bulb);
-        bulbs.push(bulb);
-        bulb.userData = { material: bulbMat };
+        const bulbL = new THREE.Mesh(bulbGeometry, dimBulbMaterial.clone());
+        bulbL.position.set(leftX, y, 0.15);
+        marqueeGroup.add(bulbL);
+        bulbs.push(bulbL);
+        bulbL.userData = { index: bulbs.length - 1 };
+        
+        const bulbR = new THREE.Mesh(bulbGeometry, dimBulbMaterial.clone());
+        bulbR.position.set(rightX, y, 0.15);
+        marqueeGroup.add(bulbR);
+        bulbs.push(bulbR);
+        bulbR.userData = { index: bulbs.length - 1 };
     }
     
     // ============================================
@@ -526,102 +721,137 @@
     marqueeGroup.rotation.y = 0;
     marqueeGroup.position.y = 0.5;
     
-    // Chase light animation - multiple chases for more drama!
-    let chaseIndex1 = 0;
-    let chaseIndex2 = Math.floor(bulbs.length / 2);
-    const chaseLength = 15;
-    const chaseSpeed = 35;
+    // Tinseltown-style alternating chase light animation
+    // Pattern: ON-off-ON-off that shifts by 1 each frame, creating traveling alternation
+    let chaseStep = 0;
+    const chaseSpeed = isMobile ? 200 : 180; // Time between shifts in ms
     let chaseLastTime = 0;
+    
+    // Pre-create colors for reuse
+    const litColor = new THREE.Color(0xffeeaa);  // Warm cream-yellow when lit
+    const dimColor = new THREE.Color(0xaa7755);  // Warm reddish-brown when off
+    
+    // Group bulbs by section for proper chasing within each geometry section
+    const sectionBulbs = {};
+    bulbs.forEach((bulb, i) => {
+        const section = bulb.userData.section || 0;
+        if (!sectionBulbs[section]) sectionBulbs[section] = [];
+        sectionBulbs[section].push({ bulb, localIndex: sectionBulbs[section].length });
+    });
+    
+    // Section offsets so they don't all sync up exactly
+    const sectionOffsets = {
+        0: 0,   // Outer ring
+        1: 2,   // Inner ring - offset
+        2: 0,   // Left arrow
+        3: 2,   // Right arrow - offset from left
+        4: 0,   // Starburst outer
+        5: 2,   // Starburst inner - offset
+        6: 1    // Letter board - offset from main marquee
+    };
     
     function animateBulbs(currentTime) {
         if (currentTime - chaseLastTime >= chaseSpeed) {
             chaseLastTime = currentTime;
+            chaseStep += 1;
             
-            bulbs.forEach((bulb, i) => {
-                const material = bulb.userData.material;
-                const light = bulb.userData.light;
+            // Animate each section independently
+            Object.keys(sectionBulbs).forEach(sectionKey => {
+                const section = parseInt(sectionKey);
+                const bulbsInSection = sectionBulbs[section];
+                const offset = sectionOffsets[section] || 0;
                 
-                const dist1 = (i - chaseIndex1 + bulbs.length) % bulbs.length;
-                const dist2 = (i - chaseIndex2 + bulbs.length) % bulbs.length;
-                const dist = Math.min(dist1, dist2);
-                
-                if (dist < chaseLength) {
-                    const brightness = 1 - (dist / chaseLength) * 0.6;
-                    material.emissiveIntensity = brightness * 1.2;
-                    material.color.setHex(0xffffee);
-                    material.emissive.setHex(0xffffcc);
-                    if (light) light.intensity = brightness * 0.1;
-                } else {
-                    material.emissiveIntensity = 0.15;
-                    material.color.setHex(0x664422);
-                    material.emissive.setHex(0x332211);
-                    if (light) light.intensity = 0.015;
-                }
+                bulbsInSection.forEach(({ bulb, localIndex }) => {
+                    // Pattern: 2 bulbs on, 2 bulbs off (using modulo 4)
+                    // Phase 0,1 = ON, Phase 2,3 = OFF
+                    // chaseStep shifts the pattern each frame
+                    const phase = (localIndex + chaseStep + offset) % 4;
+                    const isLit = phase < 2; // 0,1 are lit; 2,3 are dim
+                    
+                    if (isLit) {
+                        bulb.material.color.copy(litColor);
+                    } else {
+                        bulb.material.color.copy(dimColor);
+                    }
+                });
             });
-            
-            chaseIndex1 = (chaseIndex1 + 1) % bulbs.length;
-            chaseIndex2 = (chaseIndex2 + 1) % bulbs.length;
         }
     }
     
-    // Subtle floating animation
+    // Animation state
     let floatTime = 0;
     let isPageVisible = true;
+    let animationId = null;
+    let lastRenderTime = 0;
+    const targetFPS = isMobile ? 30 : 60;
+    const frameInterval = 1000 / targetFPS;
     
     // Pause when tab is not visible
     document.addEventListener('visibilitychange', () => {
         isPageVisible = !document.hidden;
+        if (isPageVisible && !animationId) {
+            animationId = requestAnimationFrame(animate);
+        }
     });
     
-    // Combined animation loop - single requestAnimationFrame for all animations
+    // Track if marquee is in viewport
+    let isInViewport = true;
+    const marqueeObserver = new IntersectionObserver((entries) => {
+        entries.forEach(entry => {
+            isInViewport = entry.isIntersecting;
+        });
+    }, { rootMargin: '100px', threshold: 0.01 });
+    marqueeObserver.observe(container);
+    
+    // Throttled animation loop
     function animate(currentTime) {
-        requestAnimationFrame(animate);
+        animationId = requestAnimationFrame(animate);
         
-        if (!isPageVisible) return;
+        if (!isPageVisible || !isInViewport) return;
         
-        // Animate bulbs
-        animateBulbs(currentTime);
+        const delta = currentTime - lastRenderTime;
+        if (delta < frameInterval) return;
+        lastRenderTime = currentTime - (delta % frameInterval);
         
-        // Gentle floating motion
-        floatTime += 0.012;
-        marqueeGroup.position.y = 0.5 + Math.sin(floatTime) * 0.03;
-        marqueeGroup.rotation.y = Math.sin(floatTime * 0.5) * 0.02;
+        if (!prefersReducedMotion) {
+            animateBulbs(currentTime);
+        }
         
-        // Subtle light pulsing
-        mainLight.intensity = 3 + Math.sin(floatTime * 2) * 0.5;
+        if (!prefersReducedMotion) {
+            floatTime += isMobile ? 0.008 : 0.012;
+            marqueeGroup.position.y = 0.5 + Math.sin(floatTime) * 0.02;
+            marqueeGroup.rotation.y = Math.sin(floatTime * 0.5) * 0.015;
+            mainLight.intensity = 2.5 + Math.sin(floatTime * 2) * 0.3;
+        }
         
         renderer.render(scene, camera);
     }
     
-    // Start render loop
-    requestAnimationFrame(animate);
+    animationId = requestAnimationFrame(animate);
     
-    // Handle resize
+    // Debounced resize handler
+    let resizeTimeout;
     window.addEventListener('resize', () => {
-        const width = container.clientWidth;
-        const height = container.clientHeight;
-        
-        camera.aspect = width / height;
-        camera.updateProjectionMatrix();
-        renderer.setSize(width, height);
-    });
+        clearTimeout(resizeTimeout);
+        resizeTimeout = setTimeout(() => {
+            const width = container.clientWidth;
+            const height = container.clientHeight;
+            camera.aspect = width / height;
+            camera.updateProjectionMatrix();
+            renderer.setSize(width, height);
+        }, 150);
+    }, { passive: true });
     
-    // Neon flicker effect - using requestAnimationFrame
-    let flickerLastTime = 0;
-    const flickerInterval = 80;
-    
-    function animateFlicker(currentTime) {
-        if (currentTime - flickerLastTime >= flickerInterval) {
-            flickerLastTime = currentTime;
-            if (Math.random() > 0.92) {
-                textSprite.material.opacity = 0.75;
+    // Neon flicker - simplified, less frequent
+    if (!prefersReducedMotion && !isMobile) {
+        setInterval(() => {
+            if (Math.random() > 0.95 && isPageVisible) {
+                textSprite.material.opacity = 0.8;
                 setTimeout(() => {
                     textSprite.material.opacity = 1;
-                }, 40 + Math.random() * 80);
+                }, 60);
             }
-        }
-        requestAnimationFrame(animateFlicker);
+        }, 200);
     }
-    requestAnimationFrame(animateFlicker);
     
 })();

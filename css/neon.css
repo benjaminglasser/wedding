@@ -49,9 +49,8 @@
     text-shadow: 
         0 0 8px #fff,
         0 0 25px var(--neon-pink),
-        0 0 50px var(--neon-pink),
-        0 0 80px rgba(255, 45, 123, 0.5);
-    animation: neonPulse 3s ease-in-out infinite;
+        0 0 50px var(--neon-pink);
+    animation: neonPulse 4s ease-in-out infinite;
 }
 
 .neon-script-small {
@@ -60,9 +59,8 @@
     text-shadow: 
         0 0 8px #fff,
         0 0 25px var(--turquoise),
-        0 0 50px var(--turquoise),
-        0 0 80px rgba(0, 229, 204, 0.5);
-    animation: neonPulse 3s ease-in-out infinite;
+        0 0 50px var(--turquoise);
+    animation: neonPulse 4s ease-in-out infinite;
     word-spacing: -0.15em;
 }
 
@@ -212,12 +210,11 @@
     pointer-events: none;
 }
 
-.starburst::before,
-.starburst::after {
+.starburst::before {
     content: '✦';
     position: absolute;
     font-size: 40px;
-    animation: twinkle 2s ease-in-out infinite;
+    animation: twinkle 3s ease-in-out infinite;
 }
 
 .starburst-1 {
@@ -254,11 +251,9 @@
 
 @keyframes twinkle {
     0%, 100% {
-        transform: scale(1) rotate(0deg);
         opacity: 0.7;
     }
     50% {
-        transform: scale(1.2) rotate(20deg);
         opacity: 1;
     }
 }
@@ -418,8 +413,8 @@
 }
 
 @keyframes ambientFloat {
-    0%, 100% { transform: translate(0, 0) scale(1); opacity: 0.2; }
-    50% { transform: translate(20px, -20px) scale(1.1); opacity: 0.4; }
+    0%, 100% { opacity: 0.2; }
+    50% { opacity: 0.35; }
 }
 
 /* Neon flare effect */

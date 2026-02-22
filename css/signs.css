@@ -336,15 +336,13 @@
 .tinseltown-text {
     font-family: 'Modern Neon', var(--font-names);
     font-size: clamp(3rem, 10vw, 7rem);
-    color: var(--neon-pink);
+    color: #fff;
     text-shadow: 
-        0 0 10px #fff,
-        0 0 20px #fff,
-        0 0 30px var(--neon-pink),
+        0 0 5px var(--neon-pink),
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
         0 0 40px var(--neon-pink),
-        0 0 50px var(--neon-pink),
-        0 0 60px var(--neon-pink),
-        0 0 70px var(--neon-pink);
+        0 0 60px var(--neon-pink);
     animation: neonFlicker 4s ease-in-out infinite;
     position: relative;
     z-index: 1;
@@ -353,17 +351,16 @@
 @keyframes neonFlicker {
     0%, 19%, 21%, 23%, 25%, 54%, 56%, 100% {
         text-shadow: 
-            0 0 10px #fff,
-            0 0 20px #fff,
-            0 0 30px var(--neon-pink),
+            0 0 5px var(--neon-pink),
+            0 0 10px var(--neon-pink),
+            0 0 20px var(--neon-pink),
             0 0 40px var(--neon-pink),
-            0 0 50px var(--neon-pink),
-            0 0 60px var(--neon-pink),
-            0 0 70px var(--neon-pink);
+            0 0 60px var(--neon-pink);
+        color: #fff;
     }
     20%, 24%, 55% {
         text-shadow: none;
-        color: rgba(255, 45, 123, 0.4);
+        color: rgba(255, 200, 210, 0.6);
     }
 }
 

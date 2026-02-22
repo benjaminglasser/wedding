@@ -187,7 +187,9 @@
     --final-rotate: 20deg;
 }
 
-/* Animations only start when hero has marquee-ready class */
+/* CSS animations disabled - using GSAP instead for reliability */
+/* GSAP handles browser quirks with opacity: 0 elements better than CSS animations */
+/*
 .hero.marquee-ready .bg-cutout.stardust {
     animation: flyInFromTopLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
 }
@@ -227,6 +229,7 @@
 .hero.marquee-ready .bg-cutout.union-plaza {
     animation: flyInFromTopRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
 }
+*/
 
 /* Glow effect on cutouts - disabled */
 .bg-cutout.glow {
@@ -344,7 +347,7 @@
 /* TOP - Welcome Vegas (offset right) */
 .bg-cutout.welcome-vegas {
     top: -12%;
-    left: 52%;
+    left: 68%;
     transform: translateX(-50%);
     width: clamp(280px, 35vw, 500px);
     z-index: 4;
@@ -552,9 +555,7 @@
         filter: blur(2px) saturate(1.2);
     }
     
-    .bg-cutout.glitter-gulch,
-    .bg-cutout.frontier,
-    .bg-cutout.union-plaza {
+    .bg-cutout.frontier {
         display: none;
     }
     

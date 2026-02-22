@@ -108,22 +108,19 @@
     height: 12px;
     border-radius: 50%;
     background: var(--bulb-off);
-    transition: background 0.1s ease, box-shadow 0.1s ease;
-    contain: layout style paint;
+    transition: background 0.15s, box-shadow 0.15s;
+    contain: strict;
+    will-change: background, box-shadow;
 }
 
 .bulb.on {
     background: var(--bulb-warm);
-    box-shadow: 
-        0 0 8px var(--bulb-warm),
-        0 0 12px rgba(255, 221, 119, 0.4);
+    box-shadow: 0 0 8px var(--bulb-warm);
 }
 
 .bulb.hot {
     background: var(--bulb-hot);
-    box-shadow: 
-        0 0 8px var(--bulb-hot),
-        0 0 15px var(--bulb-warm);
+    box-shadow: 0 0 10px var(--bulb-hot);
 }
 
 /* Chase animation classes */

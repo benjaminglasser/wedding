@@ -1,0 +1,344 @@
+/* ============================================
+   ROULETTE LOADER
+   Vintage Vegas Wedding - Jac & Ben
+   ============================================ */
+
+/* Loader overlay - covers viewport height (above the fold) */
+.loader-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100vh;
+    height: 100dvh;
+    background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0a1a 70%, #050510 100%);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10000;
+    transition: opacity 0.5s ease-out, visibility 0.5s ease-out;
+}
+
+/* Prevent scrolling while loader is active */
+body.loader-active {
+    overflow: hidden;
+    position: fixed;
+    width: 100%;
+    height: 100%;
+}
+
+.loader-overlay.hidden {
+    opacity: 0;
+    visibility: hidden;
+    pointer-events: none;
+}
+
+/* Loader content wrapper */
+.loader-content {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 2rem;
+}
+
+/* Roulette wheel container */
+.roulette-container {
+    position: relative;
+    width: clamp(200px, 50vmin, 350px);
+    height: clamp(200px, 50vmin, 350px);
+}
+
+/* The spinning wheel */
+.roulette-wheel {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    animation: spinWheel 3s linear infinite;
+    transform-origin: center center;
+}
+
+/* Outer decorative ring */
+.roulette-wheel::before {
+    content: '';
+    position: absolute;
+    inset: -8px;
+    border-radius: 50%;
+    background: 
+        linear-gradient(135deg, #d4af37 0%, #f4e4a6 25%, #d4af37 50%, #8b6914 75%, #d4af37 100%);
+    box-shadow: 
+        0 0 20px rgba(212, 175, 55, 0.5),
+        inset 0 0 15px rgba(0, 0, 0, 0.3);
+    z-index: -1;
+}
+
+/* Main wheel segments - American roulette layout */
+.wheel-segments {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 0deg,
+        /* 0 - green */
+        #006400 0deg 9.47deg,
+        /* 28 - black */
+        #1a1a1a 9.47deg 18.95deg,
+        /* 9 - red */
+        #8b0000 18.95deg 28.42deg,
+        /* 26 - black */
+        #1a1a1a 28.42deg 37.89deg,
+        /* 30 - red */
+        #8b0000 37.89deg 47.37deg,
+        /* 11 - black */
+        #1a1a1a 47.37deg 56.84deg,
+        /* 7 - red */
+        #8b0000 56.84deg 66.32deg,
+        /* 20 - black */
+        #1a1a1a 66.32deg 75.79deg,
+        /* 32 - red */
+        #8b0000 75.79deg 85.26deg,
+        /* 17 - black */
+        #1a1a1a 85.26deg 94.74deg,
+        /* 5 - red */
+        #8b0000 94.74deg 104.21deg,
+        /* 22 - black */
+        #1a1a1a 104.21deg 113.68deg,
+        /* 34 - red */
+        #8b0000 113.68deg 123.16deg,
+        /* 15 - black */
+        #1a1a1a 123.16deg 132.63deg,
+        /* 3 - red */
+        #8b0000 132.63deg 142.11deg,
+        /* 24 - black */
+        #1a1a1a 142.11deg 151.58deg,
+        /* 36 - red */
+        #8b0000 151.58deg 161.05deg,
+        /* 13 - black */
+        #1a1a1a 161.05deg 170.53deg,
+        /* 1 - red */
+        #8b0000 170.53deg 180deg,
+        /* 00 - green */
+        #006400 180deg 189.47deg,
+        /* 27 - red */
+        #8b0000 189.47deg 198.95deg,
+        /* 10 - black */
+        #1a1a1a 198.95deg 208.42deg,
+        /* 25 - red */
+        #8b0000 208.42deg 217.89deg,
+        /* 29 - black */
+        #1a1a1a 217.89deg 227.37deg,
+        /* 12 - red */
+        #8b0000 227.37deg 236.84deg,
+        /* 8 - black */
+        #1a1a1a 236.84deg 246.32deg,
+        /* 19 - red */
+        #8b0000 246.32deg 255.79deg,
+        /* 31 - black */
+        #1a1a1a 255.79deg 265.26deg,
+        /* 18 - red */
+        #8b0000 265.26deg 274.74deg,
+        /* 6 - black */
+        #1a1a1a 274.74deg 284.21deg,
+        /* 21 - red */
+        #8b0000 284.21deg 293.68deg,
+        /* 33 - black */
+        #1a1a1a 293.68deg 303.16deg,
+        /* 16 - red */
+        #8b0000 303.16deg 312.63deg,
+        /* 4 - black */
+        #1a1a1a 312.63deg 322.11deg,
+        /* 23 - red */
+        #8b0000 322.11deg 331.58deg,
+        /* 35 - black */
+        #1a1a1a 331.58deg 341.05deg,
+        /* 14 - red */
+        #8b0000 341.05deg 350.53deg,
+        /* 2 - black */
+        #1a1a1a 350.53deg 360deg
+    );
+    box-shadow: 
+        inset 0 0 30px rgba(0, 0, 0, 0.5),
+        0 0 10px rgba(0, 0, 0, 0.3);
+}
+
+/* Segment dividers */
+.wheel-segments::after {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+        from 0deg,
+        transparent 0deg 9.47deg,
+        rgba(212, 175, 55, 0.3) 9.47deg 9.6deg
+    );
+}
+
+/* Inner gold ring */
+.wheel-inner-ring {
+    position: absolute;
+    inset: 25%;
+    border-radius: 50%;
+    background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 30%, #d4af37 60%, #8b6914 100%);
+    box-shadow: 
+        0 0 15px rgba(212, 175, 55, 0.6),
+        inset 0 0 20px rgba(0, 0, 0, 0.4);
+}
+
+/* Center hub */
+.wheel-center {
+    position: absolute;
+    inset: 35%;
+    border-radius: 50%;
+    background: 
+        radial-gradient(circle at 30% 30%, #f4e4a6 0%, #d4af37 40%, #8b6914 100%);
+    box-shadow: 
+        0 0 10px rgba(212, 175, 55, 0.8),
+        inset 0 2px 5px rgba(255, 255, 255, 0.3),
+        inset 0 -2px 5px rgba(0, 0, 0, 0.3);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+}
+
+/* Center diamond decoration */
+.wheel-center::after {
+    content: '♦';
+    font-size: clamp(1.5rem, 4vmin, 2.5rem);
+    color: #8b0000;
+    text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
+    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
+}
+
+/* Ball track (stationary reference) */
+.ball-track {
+    position: absolute;
+    inset: 5%;
+    border-radius: 50%;
+    border: 2px solid rgba(212, 175, 55, 0.2);
+    pointer-events: none;
+}
+
+/* The ball - orbits counter to wheel spin */
+.roulette-ball {
+    position: absolute;
+    width: clamp(12px, 3vmin, 18px);
+    height: clamp(12px, 3vmin, 18px);
+    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0e0e0 40%, #a0a0a0 100%);
+    border-radius: 50%;
+    box-shadow: 
+        0 2px 4px rgba(0, 0, 0, 0.4),
+        inset 0 1px 2px rgba(255, 255, 255, 0.8),
+        0 0 10px rgba(255, 255, 255, 0.3);
+    top: 50%;
+    left: 50%;
+    transform-origin: center center;
+    animation: orbitBall 1.5s linear infinite;
+}
+
+/* Wheel spin animation */
+@keyframes spinWheel {
+    from {
+        transform: rotate(0deg);
+    }
+    to {
+        transform: rotate(360deg);
+    }
+}
+
+/* Ball orbit animation - counter-clockwise, faster than wheel */
+@keyframes orbitBall {
+    from {
+        transform: rotate(0deg) translateX(calc(clamp(100px, 25vmin, 175px) * 0.85)) rotate(0deg);
+    }
+    to {
+        transform: rotate(-360deg) translateX(calc(clamp(100px, 25vmin, 175px) * 0.85)) rotate(360deg);
+    }
+}
+
+/* Loading text */
+.loader-text {
+    font-family: var(--font-display, 'Playfair Display', serif);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    color: #d4af37;
+    text-transform: uppercase;
+    letter-spacing: 0.3em;
+    text-shadow: 
+        0 0 10px rgba(212, 175, 55, 0.5),
+        0 0 20px rgba(212, 175, 55, 0.3);
+    animation: pulseText 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseText {
+    0%, 100% {
+        opacity: 0.6;
+    }
+    50% {
+        opacity: 1;
+    }
+}
+
+/* Exit animation - wheel shrinks and fades */
+.loader-overlay.exiting .roulette-container {
+    animation: exitWheel 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
+}
+
+.loader-overlay.exiting .loader-text {
+    animation: fadeOut 0.4s ease-out forwards;
+}
+
+@keyframes exitWheel {
+    0% {
+        transform: scale(1) rotate(0deg);
+        opacity: 1;
+    }
+    50% {
+        transform: scale(1.1) rotate(180deg);
+        opacity: 1;
+    }
+    100% {
+        transform: scale(0) rotate(720deg);
+        opacity: 0;
+    }
+}
+
+@keyframes fadeOut {
+    to {
+        opacity: 0;
+    }
+}
+
+/* Reduced motion support */
+@media (prefers-reduced-motion: reduce) {
+    .roulette-wheel {
+        animation: none;
+    }
+    
+    .roulette-ball {
+        animation: none;
+        transform: translateX(calc(clamp(100px, 25vmin, 175px) * 0.85));
+    }
+    
+    .loader-text {
+        animation: none;
+        opacity: 1;
+    }
+    
+    .loader-overlay.exiting .roulette-container {
+        animation: fadeOut 0.5s ease-out forwards;
+    }
+}
+
+/* Neon glow effect on the wheel */
+.roulette-wheel::after {
+    content: '';
+    position: absolute;
+    inset: -15px;
+    border-radius: 50%;
+    background: transparent;
+    box-shadow: 
+        0 0 30px rgba(212, 175, 55, 0.3),
+        0 0 60px rgba(212, 175, 55, 0.2),
+        0 0 90px rgba(212, 175, 55, 0.1);
+    pointer-events: none;
+    z-index: -2;
+}

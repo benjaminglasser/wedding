@@ -20,6 +20,7 @@
     <link rel="stylesheet" href="css/animations.css">
     <link rel="stylesheet" href="css/signs.css">
     <link rel="stylesheet" href="css/collage-bg.css">
+    <link rel="stylesheet" href="css/loader.css">
     
     <!-- GSAP - defer loading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -30,8 +31,27 @@
     
     <!-- Preload critical hero images -->
     <link rel="preload" as="image" href="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png" fetchpriority="high">
+    
+    <!-- Preload critical fonts for 3D marquee -->
+    <link rel="preload" as="font" href="fonts/LasEnter_PersonalUseOnly.ttf" type="font/ttf" crossorigin>
 </head>
 <body>
+    <!-- Roulette Loader -->
+    <div class="loader-overlay" id="loader">
+        <div class="loader-content">
+            <div class="roulette-container">
+                <div class="roulette-wheel">
+                    <div class="wheel-segments"></div>
+                    <div class="wheel-inner-ring"></div>
+                    <div class="wheel-center"></div>
+                </div>
+                <div class="ball-track"></div>
+                <div class="roulette-ball"></div>
+            </div>
+            <div class="loader-text">Loading...</div>
+        </div>
+    </div>
+    
     <!-- Vintage Grain & Atmosphere Overlays -->
     <div class="grain-overlay" aria-hidden="true"></div>
     <div class="vignette-overlay" aria-hidden="true"></div>
@@ -332,7 +352,7 @@
         
         <div class="attire-content">
             <h2 class="section-title neon-text-pink">Dress to Impress</h2>
-            <p class="section-copy">Vegas vibes, baby! Think festive party attire — glitz, glamour, and good times encouraged.</p>
+            <p class="section-copy">Vegas vibes, baby! Think festive party attire! Glitz, glamour, and good times encouraged.</p>
             <p class="attire-details">Not sure what to wear? We've got you covered with some inspo.</p>
             
             <a href="#" class="cta-button neon-button pink" target="_blank" rel="noopener">
