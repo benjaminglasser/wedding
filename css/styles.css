@@ -1,0 +1,2476 @@
+/* ============================================
+   BASE STYLES & VARIABLES
+   Vintage Vegas Wedding - Jac & Ben
+   ============================================ */
+
+:root {
+    /* Color Palette */
+    --neon-pink: #ff2d7b;
+    --neon-red: #ff3333;
+    --gold: #ffcc00;
+    --cream: #fff8e7;
+    --navy: #030305;
+    --turquoise: #00e5cc;
+    --orange: #ff6b35;
+    --deep-purple: #06030a;
+    
+    /* Bulb colors */
+    --bulb-warm: #ffdd77;
+    --bulb-hot: #ffffff;
+    --bulb-off: #553322;
+    
+    /* Typography - Custom Vintage Fonts */
+    --font-lounge: 'Lounge Vintage', sans-serif;
+    --font-milky: 'Milky Vintage', cursive;
+    --font-star: 'Star Vintage', sans-serif;
+    --font-faith: 'Vintage Faith', serif;
+    --font-king: 'Vintage King', sans-serif;
+    --font-punk: 'Vintage Punk', sans-serif;
+    --font-one: 'Vintage One', sans-serif;
+    --font-classic: 'Vintage Classic', sans-serif;
+    --font-ozone: 'Ozone', sans-serif;
+    
+    /* Font Assignments */
+    --font-names: var(--font-one);             /* "Jac & Ben" - Vintage-1 */
+    --font-headline: var(--font-punk);          /* "THE WEDDING OF THE YEAR" */
+    --font-date: var(--font-king);              /* Dates like "OCTOBER 10, 2026" */
+    --font-section-title: var(--font-faith);    /* Section headers like "The Lineup" */
+    --font-body: var(--font-classic);           /* Body text / descriptions */
+    --font-accent: var(--font-star);            /* Small accent signs */
+    --font-slots: var(--font-lounge);           /* 777 slot machine */
+    --font-buttons: var(--font-one);            /* Button text */
+    
+    /* Spacing */
+    --section-padding: 100px 20px;
+    --content-max-width: 1200px;
+}
+
+/* Reset & Base */
+*, *::before, *::after {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+}
+
+/* GPU acceleration for animated elements */
+.bg-cutout,
+.bulb,
+.banner-track,
+.banner-content,
+.neon-icon,
+.card,
+.lucky-seven,
+.floating-deco,
+.heart-layer,
+.chip-decoration,
+.section-sign-cutout,
+.footer-cutout-photo {
+    will-change: transform, opacity;
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* Skip Link for Accessibility */
+.skip-link {
+    position: absolute;
+    top: -100px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--gold);
+    color: var(--navy);
+    padding: 10px 20px;
+    font-family: var(--font-display);
+    text-decoration: none;
+    z-index: 9999;
+    transition: top 0.3s ease;
+}
+
+.skip-link:focus {
+    top: 10px;
+}
+
+html {
+    scroll-behavior: smooth;
+}
+
+body {
+    font-family: var(--font-body);
+    background: var(--navy);
+    color: var(--cream);
+    overflow-x: hidden;
+    line-height: 1.6;
+    /* Warm vintage color shift */
+    filter: sepia(0.05) saturate(1.1);
+}
+
+/* Vintage warm glow ambient */
+body::before {
+    content: '';
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 9996;
+    background: 
+        radial-gradient(ellipse at 20% 20%, rgba(255, 100, 50, 0.08) 0%, transparent 50%),
+        radial-gradient(ellipse at 80% 30%, rgba(255, 45, 123, 0.06) 0%, transparent 40%),
+        radial-gradient(ellipse at 60% 80%, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+}
+
+/* Typography */
+h1, h2, h3 {
+    font-family: var(--font-section-title);
+    letter-spacing: 0.05em;
+    text-transform: uppercase;
+}
+
+.section-title {
+    font-family: var(--font-section-title);
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin-bottom: 1rem;
+    text-align: center;
+}
+
+.section-copy {
+    font-family: var(--font-body);
+    font-size: clamp(1rem, 3vw, 1.5rem);
+    text-align: center;
+    max-width: 600px;
+    margin: 0 auto 1rem;
+    opacity: 0.9;
+}
+
+/* ============================================
+   HERO SECTION
+   ============================================ */
+
+.hero {
+    min-height: 100vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: 40px 20px;
+    background: 
+        radial-gradient(ellipse at 20% 30%, rgba(255, 45, 123, 0.2) 0%, transparent 40%),
+        radial-gradient(ellipse at 80% 20%, rgba(255, 204, 0, 0.15) 0%, transparent 35%),
+        radial-gradient(ellipse at 50% 80%, rgba(255, 51, 51, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 10% 70%, rgba(0, 229, 204, 0.08) 0%, transparent 30%),
+        radial-gradient(ellipse at 90% 60%, rgba(255, 107, 53, 0.1) 0%, transparent 35%),
+        linear-gradient(180deg, #010102 0%, var(--navy) 30%, var(--deep-purple) 70%, #010102 100%);
+    overflow: visible;
+    contain: layout style;
+}
+
+/* Clean hero - no background clutter */
+.hero.hero-clean {
+    background: 
+        radial-gradient(ellipse at 50% 40%, rgba(255, 45, 123, 0.15) 0%, transparent 50%),
+        radial-gradient(ellipse at 30% 60%, rgba(255, 204, 0, 0.1) 0%, transparent 40%),
+        radial-gradient(ellipse at 70% 70%, rgba(255, 51, 51, 0.08) 0%, transparent 35%),
+        linear-gradient(180deg, #010102 0%, var(--navy) 40%, var(--deep-purple) 80%, #010102 100%);
+}
+
+.hero-content {
+    text-align: center;
+    position: relative;
+    z-index: 3;
+    padding: 60px 40px;
+    overflow: visible;
+}
+
+.hero-subtitle {
+    font-family: var(--font-accent);
+    font-size: clamp(1rem, 4vw, 2rem);
+    letter-spacing: 0.3em;
+    margin-bottom: 1rem;
+}
+
+.hero-title {
+    font-family: var(--font-names);
+    font-size: clamp(3rem, 15vw, 10rem);
+    font-weight: 400;
+    line-height: 1;
+    margin-bottom: 1.5rem;
+}
+
+.letter-board {
+    font-family: var(--font-date);
+    font-size: clamp(0.9rem, 3vw, 1.5rem);
+    letter-spacing: 0.2em;
+    background: rgba(0, 0, 0, 0.6);
+    padding: 15px 30px;
+    border: 2px solid var(--gold);
+    display: inline-flex;
+    gap: 20px;
+    align-items: center;
+}
+
+.letter-board .divider {
+    color: var(--gold);
+}
+
+/* Floating Hearts */
+.floating-hearts {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+    pointer-events: none;
+    overflow: hidden;
+}
+
+.heart {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.6;
+    animation: float 6s ease-in-out infinite;
+}
+
+.heart-1 {
+    top: 20%;
+    left: 10%;
+    color: var(--neon-pink);
+    animation-delay: 0s;
+}
+
+.heart-2 {
+    top: 60%;
+    right: 15%;
+    color: var(--neon-red);
+    animation-delay: 2s;
+}
+
+.heart-3 {
+    bottom: 30%;
+    left: 20%;
+    color: var(--gold);
+    animation-delay: 4s;
+}
+
+@keyframes float {
+    0%, 100% { transform: translateY(0) rotate(-5deg); }
+    50% { transform: translateY(-20px) rotate(5deg); }
+}
+
+/* Scroll Indicator */
+.scroll-indicator {
+    position: absolute;
+    bottom: 40px;
+    left: 50%;
+    transform: translateX(-50%);
+    text-align: center;
+    font-family: var(--font-accent);
+    letter-spacing: 0.2em;
+    font-size: 0.9rem;
+    opacity: 0.9;
+    animation: bounce 2s ease-in-out infinite;
+    z-index: 9999;
+    text-shadow: 
+        0 0 10px rgba(0, 0, 0, 0.9),
+        0 0 20px rgba(0, 0, 0, 0.8),
+        0 0 30px rgba(0, 0, 0, 0.7),
+        0 2px 4px rgba(0, 0, 0, 1);
+}
+
+.arrow-down {
+    width: 20px;
+    height: 20px;
+    border-right: 2px solid var(--cream);
+    border-bottom: 2px solid var(--cream);
+    transform: rotate(45deg);
+    margin: 10px auto 0;
+    filter: drop-shadow(0 0 8px rgba(0, 0, 0, 0.9)) drop-shadow(0 0 15px rgba(0, 0, 0, 0.8));
+}
+
+@keyframes bounce {
+    0%, 100% { transform: translateX(-50%) translateY(0); }
+    50% { transform: translateX(-50%) translateY(10px); }
+}
+
+/* ============================================
+   SCHEDULE SECTION
+   ============================================ */
+
+.schedule {
+    padding: var(--section-padding);
+    background: linear-gradient(180deg, var(--navy) 0%, var(--deep-purple) 50%, var(--navy) 100%);
+    contain: layout style;
+}
+
+.schedule .section-title {
+    font-family: 'Vegas Neon', var(--font-section-title);
+    font-size: clamp(3rem, 12vw, 7rem);
+}
+
+.schedule .section-title .flicker-letter {
+    display: inline-block;
+    animation: letterFlicker 4s ease-in-out infinite;
+}
+
+@keyframes letterFlicker {
+    0%, 100% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.4; }
+    94% { opacity: 1; }
+    96% { opacity: 0.3; }
+    97% { opacity: 1; }
+    98% { opacity: 0.5; }
+    99% { opacity: 1; }
+}
+
+.event-panels {
+    display: grid;
+    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    gap: 30px;
+    max-width: var(--content-max-width);
+    margin: 60px auto 0;
+}
+
+.event-panel {
+    background: rgba(0, 0, 0, 0.5);
+    border: 3px solid var(--gold);
+    padding: 40px 30px;
+    position: relative;
+    text-align: center;
+    transition: transform 0.3s ease, box-shadow 0.3s ease;
+}
+
+.event-panel:hover {
+    transform: translateY(-5px);
+    box-shadow: 0 10px 40px rgba(255, 204, 0, 0.2);
+}
+
+.event-panel.main-event {
+    border-width: 4px;
+    background: rgba(255, 204, 0, 0.05);
+}
+
+.event-panel.main-event .event-description {
+    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    color: var(--cream);
+    text-shadow: 
+        0 0 10px var(--gold),
+        0 0 25px var(--gold),
+        0 0 40px rgba(255, 204, 0, 0.7),
+        0 0 60px rgba(255, 204, 0, 0.5);
+    animation: mainEventGlow 2.5s ease-in-out infinite;
+}
+
+.event-panel.main-event .event-description::before,
+.event-panel.main-event .event-description::after {
+    content: '★';
+    font-size: 0.5em;
+    color: var(--gold);
+}
+
+@keyframes mainEventGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 10px var(--gold),
+            0 0 25px var(--gold),
+            0 0 40px rgba(255, 204, 0, 0.7),
+            0 0 60px rgba(255, 204, 0, 0.5);
+    }
+    50% { 
+        text-shadow: 
+            0 0 15px var(--cream),
+            0 0 35px var(--gold),
+            0 0 55px rgba(255, 204, 0, 0.9),
+            0 0 80px rgba(255, 204, 0, 0.6);
+    }
+}
+
+/* Welcome Party - pink neon style */
+.event-panel.tilted-left .event-description {
+    color: #ff7ab0;
+    text-shadow: 
+        0 0 10px #ff7ab0,
+        0 0 20px rgba(255, 122, 176, 0.6),
+        0 0 30px rgba(255, 122, 176, 0.4);
+    animation: welcomeGlow 3s ease-in-out infinite;
+}
+
+.event-panel.tilted-left .event-description::before,
+.event-panel.tilted-left .event-description::after {
+    color: var(--neon-pink);
+    content: '♦';
+}
+
+@keyframes welcomeGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 10px #ff7ab0,
+            0 0 20px rgba(255, 122, 176, 0.6),
+            0 0 30px rgba(255, 122, 176, 0.4);
+    }
+    50% { 
+        text-shadow: 
+            0 0 15px #ff7ab0,
+            0 0 30px rgba(255, 122, 176, 0.8),
+            0 0 45px rgba(255, 122, 176, 0.5);
+    }
+}
+
+/* Pool Party - turquoise neon style */
+.event-panel.tilted-right .event-description {
+    color: #66f2e0;
+    text-shadow: 
+        0 0 10px #66f2e0,
+        0 0 20px rgba(102, 242, 224, 0.6),
+        0 0 30px rgba(102, 242, 224, 0.4);
+    animation: poolGlow 3s ease-in-out infinite;
+}
+
+.event-panel.tilted-right .event-description::before,
+.event-panel.tilted-right .event-description::after {
+    color: var(--turquoise);
+    content: '~';
+    font-weight: bold;
+}
+
+@keyframes poolGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 10px #66f2e0,
+            0 0 20px rgba(102, 242, 224, 0.6),
+            0 0 30px rgba(102, 242, 224, 0.4);
+    }
+    50% { 
+        text-shadow: 
+            0 0 15px #66f2e0,
+            0 0 30px rgba(102, 242, 224, 0.8),
+            0 0 45px rgba(102, 242, 224, 0.5);
+    }
+}
+
+.event-name {
+    font-size: clamp(1.5rem, 5vw, 2.5rem);
+    margin-bottom: 0.5rem;
+}
+
+.event-date {
+    font-family: var(--font-date);
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    color: var(--cream);
+    margin-bottom: 0.5rem;
+}
+
+.event-description {
+    font-family: var(--font-punk);
+    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    color: var(--gold);
+    margin-bottom: 0.5rem;
+    text-transform: uppercase;
+    letter-spacing: 0.1em;
+    text-shadow: 
+        0 0 10px var(--gold),
+        0 0 20px rgba(255, 204, 0, 0.6),
+        0 0 30px rgba(255, 204, 0, 0.4);
+    animation: eventDescGlow 3s ease-in-out infinite;
+    position: relative;
+    display: inline-block;
+    padding: 0 0.5em;
+}
+
+.event-description::before,
+.event-description::after {
+    content: '✦';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    font-size: 0.6em;
+    opacity: 0.7;
+    animation: starTwinkle 2s ease-in-out infinite;
+}
+
+.event-description::before {
+    left: -0.3em;
+}
+
+.event-description::after {
+    right: -0.3em;
+    animation-delay: 1s;
+}
+
+@keyframes eventDescGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 10px var(--gold),
+            0 0 20px rgba(255, 204, 0, 0.6),
+            0 0 30px rgba(255, 204, 0, 0.4);
+    }
+    50% { 
+        text-shadow: 
+            0 0 15px var(--gold),
+            0 0 30px rgba(255, 204, 0, 0.8),
+            0 0 45px rgba(255, 204, 0, 0.5),
+            0 0 60px rgba(255, 204, 0, 0.3);
+    }
+}
+
+@keyframes starTwinkle {
+    0%, 100% { opacity: 0.4; transform: translateY(-50%) scale(0.8); }
+    50% { opacity: 1; transform: translateY(-50%) scale(1.1); }
+}
+
+.event-venue {
+    font-family: var(--font-names);
+    font-size: 1.2rem;
+    color: var(--turquoise);
+    margin-bottom: 0.5rem;
+}
+
+.event-details {
+    font-size: 0.95rem;
+    opacity: 0.8;
+    margin-top: 1rem;
+}
+
+.panel-decoration {
+    position: absolute;
+    font-size: 2rem;
+    opacity: 0.3;
+    bottom: 10px;
+    right: 15px;
+}
+
+/* ============================================
+   RSVP SECTION
+   ============================================ */
+
+.rsvp {
+    padding: var(--section-padding);
+    text-align: center;
+    position: relative;
+    background: 
+        radial-gradient(ellipse at center, rgba(255, 51, 51, 0.1) 0%, transparent 60%),
+        var(--navy);
+    contain: layout style;
+}
+
+/* RSVP with heart background */
+.rsvp.rsvp-with-heart {
+    min-height: 90vh;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    justify-content: center;
+    padding: 80px 20px;
+}
+
+.rsvp-heart-bg {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    z-index: 0;
+    pointer-events: none;
+}
+
+.rsvp-heart-bg .heart-layers {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.rsvp-heart-bg .heart-shape.center-heart {
+    position: absolute;
+    width: clamp(350px, 55vw, 550px);
+    height: clamp(320px, 50vw, 500px);
+}
+
+.rsvp-heart-bg .heart-shape.center-heart::before {
+    font-size: clamp(350px, 55vw, 550px);
+}
+
+/* Poster positioned to the right of the heart */
+.vegas-poster-frame.rsvp-poster {
+    position: absolute;
+    right: 5%;
+    top: 50%;
+    transform: translateY(-50%) rotate(5deg);
+    width: clamp(160px, 22vw, 280px);
+    box-shadow: 
+        0 20px 50px rgba(0, 0, 0, 0.6),
+        0 8px 20px rgba(0, 0, 0, 0.4),
+        0 0 60px rgba(255, 0, 50, 0.15);
+    z-index: 5;
+    transition: transform 0.4s ease, box-shadow 0.4s ease;
+    animation: posterFloatRight 5s ease-in-out infinite;
+}
+
+.vegas-poster-frame.rsvp-poster:hover {
+    transform: translateY(-50%) rotate(2deg) scale(1.05);
+    box-shadow: 
+        0 30px 70px rgba(0, 0, 0, 0.7),
+        0 15px 35px rgba(0, 0, 0, 0.5),
+        0 0 80px rgba(255, 0, 50, 0.25);
+    z-index: 100;
+}
+
+@keyframes posterFloatRight {
+    0%, 100% { 
+        transform: translateY(-50%) rotate(5deg) translateY(0); 
+    }
+    50% { 
+        transform: translateY(-50%) rotate(5deg) translateY(-10px); 
+    }
+}
+
+/* Ensure RSVP content stays above the heart */
+.rsvp-with-heart .rsvp-mega-sign,
+.rsvp-with-heart .rsvp-content {
+    position: relative;
+    z-index: 10;
+}
+
+.rsvp-sign {
+    margin-bottom: 40px;
+}
+
+.rsvp-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+/* Cards Fan */
+.cards-fan {
+    display: flex;
+    justify-content: center;
+    margin: 40px 0;
+    position: relative;
+    height: 120px;
+}
+
+.card {
+    width: 60px;
+    height: 90px;
+    background: var(--cream);
+    color: var(--navy);
+    border-radius: 8px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-size: 2rem;
+    position: absolute;
+    box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
+    transition: transform 0.3s ease;
+}
+
+.card-1 { 
+    transform: rotate(-20deg) translateX(-60px); 
+    color: #000;
+}
+.card-2 { 
+    transform: rotate(-7deg) translateX(-20px); 
+    color: var(--neon-red);
+    z-index: 1;
+}
+.card-3 { 
+    transform: rotate(7deg) translateX(20px); 
+    color: var(--neon-red);
+    z-index: 2;
+}
+.card-4 { 
+    transform: rotate(20deg) translateX(60px); 
+    color: #000;
+    z-index: 1;
+}
+
+/* ============================================
+   HEART SECTION
+   ============================================ */
+
+.heart-section {
+    min-height: 80vh;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    padding: var(--section-padding);
+    background: var(--navy);
+    overflow: hidden;
+}
+
+/* ============================================
+   VEGAS POSTER - Off-kilter Polaroid Style
+   ============================================ */
+
+
+.vegas-poster-img {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: contrast(1.05) saturate(1.1);
+    border-radius: 4px;
+}
+
+/* Responsive RSVP with heart */
+@media (max-width: 900px) {
+    .vegas-poster-frame.rsvp-poster {
+        width: clamp(140px, 25vw, 220px);
+        right: 3%;
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart {
+        width: clamp(300px, 60vw, 450px);
+        height: clamp(280px, 55vw, 420px);
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart::before {
+        font-size: clamp(300px, 60vw, 450px);
+    }
+}
+
+@media (max-width: 768px) {
+    .vegas-poster-frame.rsvp-poster {
+        position: relative;
+        right: auto;
+        top: auto;
+        transform: rotate(3deg);
+        width: clamp(180px, 50vw, 250px);
+        margin-bottom: 30px;
+    }
+    
+    .vegas-poster-frame.rsvp-poster:hover {
+        transform: rotate(1deg) scale(1.03);
+    }
+    
+    @keyframes posterFloatRight {
+        0%, 100% { 
+            transform: rotate(3deg) translateY(0); 
+        }
+        50% { 
+            transform: rotate(3deg) translateY(-8px); 
+        }
+    }
+    
+    .rsvp.rsvp-with-heart {
+        min-height: auto;
+        padding: 60px 20px;
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart {
+        width: clamp(280px, 80vw, 400px);
+        height: clamp(260px, 75vw, 370px);
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart::before {
+        font-size: clamp(280px, 80vw, 400px);
+    }
+}
+
+@media (max-width: 480px) {
+    .vegas-poster-frame.rsvp-poster {
+        width: clamp(150px, 55vw, 220px);
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart {
+        width: clamp(250px, 90vw, 350px);
+        height: clamp(230px, 85vw, 320px);
+    }
+    
+    .rsvp-heart-bg .heart-shape.center-heart::before {
+        font-size: clamp(250px, 90vw, 350px);
+    }
+}
+
+.big-heart {
+    position: relative;
+    width: clamp(250px, 60vw, 500px);
+    height: clamp(230px, 55vw, 460px);
+}
+
+.heart-bulbs {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    top: 0;
+    left: 0;
+}
+
+.heart-bulbs::before {
+    content: '❤';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    font-size: clamp(150px, 40vw, 300px);
+    color: var(--bulb-off);
+    transition: all 0.8s ease;
+    filter: grayscale(1);
+}
+
+.big-heart.active .heart-bulbs::before {
+    color: var(--neon-red);
+    filter: grayscale(0);
+    text-shadow: 
+        0 0 20px var(--neon-red),
+        0 0 40px var(--neon-red),
+        0 0 60px var(--neon-red),
+        0 0 80px rgba(255, 51, 51, 0.5);
+    animation: heartGlow 2s ease-in-out infinite;
+}
+
+@keyframes heartGlow {
+    0%, 100% { 
+        text-shadow: 
+            0 0 20px var(--neon-red),
+            0 0 40px var(--neon-red),
+            0 0 60px var(--neon-red),
+            0 0 80px rgba(255, 51, 51, 0.5);
+        transform: translate(-50%, -50%) scale(1);
+    }
+    50% { 
+        text-shadow: 
+            0 0 30px var(--neon-red),
+            0 0 60px var(--neon-red),
+            0 0 90px var(--neon-red),
+            0 0 120px rgba(255, 51, 51, 0.5);
+        transform: translate(-50%, -50%) scale(1.05);
+    }
+}
+
+.heart-center {
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    z-index: 2;
+}
+
+.heart-initials {
+    font-family: var(--font-names);
+    font-size: clamp(2rem, 8vw, 5rem);
+    color: var(--cream);
+    text-shadow: 0 0 20px rgba(0, 0, 0, 0.8);
+    opacity: 0.3;
+    transition: opacity 0.8s ease 0.3s;
+}
+
+.big-heart.active .heart-initials {
+    opacity: 1;
+}
+
+.fireworks-container {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+}
+
+/* ============================================
+   HOTEL SECTION
+   ============================================ */
+
+.hotel {
+    padding: var(--section-padding);
+    text-align: center;
+    background: linear-gradient(180deg, var(--navy) 0%, var(--deep-purple) 100%);
+    contain: layout style;
+}
+
+.hotel-title {
+    font-family: 'Modern Neon', var(--font-section-title);
+    font-size: clamp(2rem, 8vw, 6rem);
+    white-space: nowrap;
+    text-align: center;
+    width: 100%;
+}
+
+.hotel-sign {
+    margin-bottom: 40px;
+}
+
+.hotel-mega-sign {
+    margin-top: 3rem;
+}
+
+.sign-frame {
+    display: inline-block;
+    padding: 30px 50px;
+    border: 4px solid var(--turquoise);
+    position: relative;
+}
+
+.hotel-name {
+    font-size: clamp(2rem, 8vw, 4rem);
+    margin-bottom: 10px;
+}
+
+.vacancy-sign {
+    display: inline-block;
+    padding: 10px 30px;
+    background: transparent;
+    border: none;
+}
+
+.vacancy-text {
+    font-family: 'Neon Future', var(--font-punk);
+    font-size: 2.2rem;
+    letter-spacing: 0.3em;
+}
+
+.hotel-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.hotel-details {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   VEGAS SECTION DIVIDER
+   ============================================ */
+
+.vegas-divider {
+    position: relative;
+    width: 100%;
+    height: 150px;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    background: linear-gradient(180deg,
+        var(--deep-purple) 0%,
+        var(--navy) 50%,
+        var(--navy) 100%);
+    overflow: visible;
+    z-index: 10;
+    margin-top: -50px;
+    margin-bottom: -50px;
+}
+
+/* Specific divider between hotel and attire */
+.vegas-divider.hotel-attire-divider {
+    height: 180px;
+    margin-top: -60px;
+    margin-bottom: -60px;
+    background: linear-gradient(180deg,
+        var(--deep-purple) 0%,
+        var(--deep-purple) 20%,
+        var(--navy) 80%,
+        var(--navy) 100%);
+}
+
+.vegas-divider::before,
+.vegas-divider::after {
+    content: '';
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 3px;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--gold) 20%, 
+        var(--gold) 80%, 
+        transparent 100%);
+    box-shadow: 
+        0 0 10px var(--gold),
+        0 0 20px rgba(255, 204, 0, 0.5);
+}
+
+.vegas-divider::before {
+    left: 5%;
+    width: 30%;
+}
+
+.vegas-divider::after {
+    right: 5%;
+    width: 30%;
+}
+
+.divider-center {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 15px;
+    z-index: 2;
+}
+
+.divider-star {
+    font-size: 1.8rem;
+    color: var(--gold);
+    text-shadow: 
+        0 0 10px var(--gold),
+        0 0 20px var(--gold),
+        0 0 30px rgba(255, 204, 0, 0.6);
+    animation: dividerStarPulse 2s ease-in-out infinite;
+}
+
+.divider-star:nth-child(2) {
+    animation-delay: 0.3s;
+}
+
+.divider-star:nth-child(4) {
+    animation-delay: 0.6s;
+}
+
+.divider-diamond {
+    font-size: 2.5rem;
+    color: var(--neon-pink);
+    text-shadow: 
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink),
+        0 0 40px rgba(255, 45, 123, 0.6);
+    animation: dividerDiamondPulse 2.5s ease-in-out infinite;
+}
+
+@keyframes dividerStarPulse {
+    0%, 100% { 
+        opacity: 0.7; 
+        transform: scale(1);
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.15);
+    }
+}
+
+@keyframes dividerDiamondPulse {
+    0%, 100% { 
+        opacity: 0.8; 
+        transform: scale(1) rotate(0deg);
+    }
+    50% { 
+        opacity: 1; 
+        transform: scale(1.1) rotate(5deg);
+    }
+}
+
+/* Bulb row divider variant */
+.vegas-divider.with-bulbs {
+    height: 60px;
+}
+
+.divider-bulbs {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 12px;
+    position: absolute;
+    width: 100%;
+    top: 50%;
+    transform: translateY(-50%);
+}
+
+.divider-bulb {
+    width: 10px;
+    height: 10px;
+    border-radius: 50%;
+    background: var(--bulb-warm);
+    box-shadow: 
+        0 0 8px var(--bulb-warm),
+        0 0 15px var(--bulb-warm),
+        0 0 25px rgba(255, 221, 119, 0.5);
+    animation: dividerBulbChase 1.5s ease-in-out infinite;
+}
+
+.divider-bulb:nth-child(2) { animation-delay: 0.1s; }
+.divider-bulb:nth-child(3) { animation-delay: 0.2s; }
+.divider-bulb:nth-child(4) { animation-delay: 0.3s; }
+.divider-bulb:nth-child(5) { animation-delay: 0.4s; }
+.divider-bulb:nth-child(6) { animation-delay: 0.5s; }
+.divider-bulb:nth-child(7) { animation-delay: 0.6s; }
+.divider-bulb:nth-child(8) { animation-delay: 0.7s; }
+.divider-bulb:nth-child(9) { animation-delay: 0.8s; }
+.divider-bulb:nth-child(10) { animation-delay: 0.9s; }
+.divider-bulb:nth-child(11) { animation-delay: 1.0s; }
+.divider-bulb:nth-child(12) { animation-delay: 1.1s; }
+.divider-bulb:nth-child(13) { animation-delay: 1.2s; }
+.divider-bulb:nth-child(14) { animation-delay: 1.3s; }
+.divider-bulb:nth-child(15) { animation-delay: 1.4s; }
+
+@keyframes dividerBulbChase {
+    0%, 100% { 
+        opacity: 0.4;
+        transform: scale(0.8);
+        background: var(--bulb-off);
+        box-shadow: none;
+    }
+    50% { 
+        opacity: 1;
+        transform: scale(1);
+        background: var(--bulb-hot);
+        box-shadow: 
+            0 0 8px var(--bulb-warm),
+            0 0 15px var(--bulb-warm),
+            0 0 25px rgba(255, 221, 119, 0.5);
+    }
+}
+
+/* Neon line divider variant */
+.vegas-divider.neon-line {
+    height: 50px;
+}
+
+.vegas-divider.neon-line::before,
+.vegas-divider.neon-line::after {
+    width: 40%;
+    height: 2px;
+}
+
+.vegas-divider.neon-line .divider-center {
+    gap: 20px;
+}
+
+.vegas-divider.neon-line .divider-icon {
+    font-size: 1.5rem;
+    color: var(--turquoise);
+    text-shadow: 
+        0 0 8px var(--turquoise),
+        0 0 15px var(--turquoise);
+    animation: neonIconFlicker 3s ease-in-out infinite;
+}
+
+@keyframes neonIconFlicker {
+    0%, 100% { opacity: 0.8; }
+    50% { opacity: 1; }
+    92% { opacity: 1; }
+    93% { opacity: 0.5; }
+    94% { opacity: 1; }
+}
+
+/* Playing cards divider variant */
+.vegas-divider.cards-divider {
+    height: 70px;
+}
+
+.divider-cards {
+    display: flex;
+    align-items: center;
+    gap: 20px;
+}
+
+.divider-card {
+    font-size: 1.8rem;
+    animation: cardFloat 3s ease-in-out infinite;
+}
+
+.divider-card.spade { color: #fff; }
+.divider-card.heart { 
+    position: relative;
+    color: var(--neon-red); 
+    text-shadow: 0 0 10px var(--neon-red);
+    animation-delay: 0.5s;
+}
+.divider-card.diamond { 
+    color: var(--neon-red); 
+    text-shadow: 0 0 10px var(--neon-red);
+    animation-delay: 1s;
+}
+.divider-card.club { 
+    color: #fff; 
+    animation-delay: 1.5s;
+}
+
+@keyframes cardFloat {
+    0%, 100% { transform: translateY(0); }
+    50% { transform: translateY(-5px); }
+}
+
+/* Footer divider - black background to match footer */
+.vegas-divider.footer-divider {
+    background: #000000;
+}
+
+/* Clean line variant - single continuous gold line */
+.vegas-divider.clean-line {
+    height: 40px;
+    margin-top: -60px;
+    margin-bottom: 0;
+}
+
+.vegas-divider.clean-line::before {
+    left: 0;
+    width: 100%;
+    background: linear-gradient(90deg, 
+        transparent 0%, 
+        var(--gold) 5%, 
+        var(--gold) 95%, 
+        transparent 100%);
+}
+
+.vegas-divider.clean-line::after {
+    display: none;
+}
+
+/* Full horizontal gold line divider */
+.vegas-divider.full-gold-line {
+    height: 60px;
+    margin-top: -30px;
+    margin-bottom: 0;
+    background: transparent;
+    z-index: 20;
+    position: relative;
+}
+
+.vegas-divider.full-gold-line::before {
+    left: 0;
+    width: 100%;
+    height: 4px;
+    background: var(--gold);
+    box-shadow: 
+        0 0 15px var(--gold),
+        0 0 30px rgba(255, 204, 0, 0.6),
+        0 0 45px rgba(255, 204, 0, 0.4);
+}
+
+.vegas-divider.full-gold-line::after {
+    display: none;
+}
+
+/* Responsive */
+@media (max-width: 768px) {
+    .vegas-divider {
+        height: 60px;
+    }
+    
+    .vegas-divider::before,
+    .vegas-divider::after {
+        width: 25%;
+    }
+    
+    .divider-star {
+        font-size: 1.4rem;
+    }
+    
+    .divider-diamond {
+        font-size: 2rem;
+    }
+    
+    .divider-bulb {
+        width: 8px;
+        height: 8px;
+        gap: 8px;
+    }
+}
+
+@media (max-width: 480px) {
+    .vegas-divider {
+        height: 50px;
+    }
+    
+    .vegas-divider::before,
+    .vegas-divider::after {
+        width: 20%;
+    }
+    
+    .divider-center {
+        gap: 10px;
+    }
+    
+    .divider-star {
+        font-size: 1.2rem;
+    }
+    
+    .divider-diamond {
+        font-size: 1.6rem;
+    }
+}
+
+/* ============================================
+   ATTIRE SECTION
+   ============================================ */
+
+.attire {
+    padding: var(--section-padding);
+    text-align: center;
+    background: var(--navy);
+    contain: layout style;
+}
+
+.attire .section-title {
+    font-family: 'NeoNeon Light', var(--font-section-title);
+    font-size: clamp(1.8rem, 7vw, 4rem);
+    white-space: nowrap;
+}
+
+.neon-icons {
+    display: flex;
+    justify-content: center;
+    gap: 30px;
+    margin-bottom: 40px;
+    flex-wrap: wrap;
+}
+
+.neon-icon {
+    font-size: clamp(2rem, 6vw, 4rem);
+    animation: iconPulse 3s ease-in-out infinite;
+}
+
+.neon-icon:nth-child(2) { animation-delay: 0.5s; }
+.neon-icon:nth-child(3) { animation-delay: 1s; }
+.neon-icon:nth-child(4) { animation-delay: 1.5s; }
+
+@keyframes iconPulse {
+    0%, 100% { transform: scale(1); opacity: 0.8; }
+    50% { transform: scale(1.1); opacity: 1; }
+}
+
+.attire-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.attire-details {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   MESSAGES SECTION
+   ============================================ */
+
+.messages {
+    padding: var(--section-padding);
+    display: flex;
+    justify-content: center;
+    background: var(--navy);
+    contain: layout style;
+}
+
+.telegram-frame {
+    max-width: 600px;
+    width: 100%;
+    background: var(--navy);
+    border: 3px solid var(--gold);
+    padding: 40px;
+    text-align: center;
+}
+
+.telegram-header {
+    margin-bottom: 30px;
+}
+
+.telegram-label {
+    font-family: var(--font-display);
+    font-size: 1rem;
+    letter-spacing: 0.4em;
+    color: var(--gold);
+    border: 1px solid var(--gold);
+    padding: 5px 20px;
+}
+
+.message-sign {
+    margin-bottom: 30px;
+}
+
+.messages-content {
+    margin-top: 20px;
+}
+
+.message-details {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 2rem;
+}
+
+/* ============================================
+   GIFTS SECTION
+   ============================================ */
+
+.gifts {
+    padding: var(--section-padding);
+    text-align: center;
+    background: var(--navy);
+    position: relative;
+    z-index: 15;
+}
+
+.jackpot-title {
+    font-family: 'Neon Lights Sin City', 'Vegas Neon', sans-serif;
+    font-size: clamp(3rem, 12vw, 6rem);
+    text-shadow: none;
+    color: var(--gold);
+}
+
+/* ============================================
+   INTERACTIVE SLOT MACHINE GAME
+   ============================================ */
+
+.slot-machine-game {
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 40px;
+}
+
+.slot-cabinet {
+    background: linear-gradient(180deg, #8B0000 0%, #4a0000 50%, #2a0000 100%);
+    padding: 20px 25px 30px;
+    border-radius: 15px;
+    border: 5px solid var(--gold);
+    box-shadow: 
+        0 0 30px rgba(255, 204, 0, 0.3),
+        inset 0 2px 10px rgba(255, 255, 255, 0.1),
+        inset 0 -5px 20px rgba(0, 0, 0, 0.5);
+    position: relative;
+}
+
+.slot-header {
+    text-align: center;
+    margin-bottom: 15px;
+}
+
+.slot-title {
+    font-family: 'Las Vegas Demo', var(--font-slots);
+    font-size: clamp(1.8rem, 6vw, 3rem);
+    color: var(--gold);
+    text-shadow: 
+        0 0 10px var(--gold),
+        0 0 20px var(--gold);
+    letter-spacing: 0.2em;
+}
+
+.slot-display {
+    display: flex;
+    gap: 8px;
+    background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
+    padding: 15px 12px;
+    border-radius: 8px;
+    border: 3px solid #333;
+    box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.8);
+    position: relative;
+}
+
+.slot-reel {
+    width: clamp(60px, 15vw, 90px);
+    height: clamp(80px, 20vw, 120px);
+    background: linear-gradient(180deg, #fff 0%, #f0f0f0 50%, #ddd 100%);
+    border-radius: 5px;
+    overflow: hidden;
+    position: relative;
+    box-shadow: 
+        inset 0 3px 10px rgba(0, 0, 0, 0.3),
+        0 2px 5px rgba(0, 0, 0, 0.5);
+}
+
+.reel-strip {
+    display: flex;
+    flex-direction: column;
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    transition: transform 0.1s linear;
+}
+
+.reel-symbol {
+    height: clamp(80px, 20vw, 120px);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    font-family: var(--font-slots);
+    font-size: clamp(2.5rem, 8vw, 4rem);
+    color: #8B0000;
+    text-shadow: 2px 2px 0 rgba(0, 0, 0, 0.1);
+}
+
+/* Jack card styling */
+.reel-symbol.jack-card {
+    font-family: 'Georgia', serif;
+    font-weight: bold;
+    color: #1a1a1a;
+    font-size: clamp(2rem, 6vw, 3rem);
+    text-shadow: 1px 1px 0 rgba(255, 255, 255, 0.5);
+}
+
+.reel-symbol.jack-card.red {
+    color: #cc0000;
+}
+
+.reel-symbol.heart-symbol {
+    color: #cc0000;
+}
+
+.slot-result {
+    text-align: center;
+    margin-top: 15px;
+    min-height: 30px;
+    font-family: var(--font-accent);
+    font-size: clamp(1rem, 3vw, 1.4rem);
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+}
+
+.slot-result.winner {
+    color: var(--gold);
+    text-shadow: 
+        0 0 10px var(--gold),
+        0 0 20px var(--gold),
+        0 0 30px var(--gold);
+    animation: winnerFlash 0.5s ease-in-out infinite alternate;
+}
+
+.slot-result.jackpot {
+    color: var(--gold);
+    font-size: clamp(1.3rem, 4vw, 1.8rem);
+    text-shadow: 
+        0 0 15px var(--gold),
+        0 0 30px var(--gold),
+        0 0 45px var(--gold);
+    animation: jackpotFlash 0.3s ease-in-out infinite alternate;
+}
+
+@keyframes winnerFlash {
+    0% { opacity: 0.8; }
+    100% { opacity: 1; transform: scale(1.05); }
+}
+
+@keyframes jackpotFlash {
+    0% { opacity: 0.9; transform: scale(1); }
+    100% { opacity: 1; transform: scale(1.1); }
+}
+
+/* Lever */
+.slot-lever-container {
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 10px;
+}
+
+.slot-lever {
+    position: relative;
+    width: 40px;
+    height: 150px;
+    cursor: pointer;
+    user-select: none;
+}
+
+.lever-track {
+    position: absolute;
+    left: 50%;
+    top: 20px;
+    bottom: 20px;
+    width: 12px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #444 0%, #666 50%, #444 100%);
+    border-radius: 6px;
+    box-shadow: 
+        inset 2px 0 5px rgba(0, 0, 0, 0.5),
+        inset -2px 0 5px rgba(255, 255, 255, 0.1);
+}
+
+.lever-arm {
+    position: absolute;
+    left: 50%;
+    top: 10px;
+    width: 8px;
+    height: 80px;
+    transform: translateX(-50%);
+    background: linear-gradient(90deg, #888 0%, #ccc 50%, #888 100%);
+    border-radius: 4px;
+    transition: top 0.15s ease-out;
+    box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
+}
+
+.lever-ball {
+    position: absolute;
+    top: -20px;
+    left: 50%;
+    transform: translateX(-50%);
+    width: 35px;
+    height: 35px;
+    background: radial-gradient(circle at 30% 30%, #ff4444 0%, #cc0000 50%, #880000 100%);
+    border-radius: 50%;
+    box-shadow: 
+        0 0 15px rgba(255, 0, 0, 0.5),
+        inset -3px -3px 10px rgba(0, 0, 0, 0.3),
+        inset 3px 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.slot-lever:hover .lever-ball {
+    box-shadow: 
+        0 0 25px rgba(255, 0, 0, 0.7),
+        inset -3px -3px 10px rgba(0, 0, 0, 0.3),
+        inset 3px 3px 10px rgba(255, 255, 255, 0.2);
+}
+
+.slot-lever.pulled .lever-arm {
+    top: 60px;
+}
+
+.slot-lever.spinning {
+    pointer-events: none;
+}
+
+.slot-lever.spinning .lever-ball {
+    opacity: 0.7;
+}
+
+.lever-label {
+    font-family: var(--font-accent);
+    font-size: 0.9rem;
+    color: var(--gold);
+    text-shadow: 0 0 10px var(--gold);
+    letter-spacing: 0.15em;
+    animation: pulseLabel 1.5s ease-in-out infinite;
+}
+
+@keyframes pulseLabel {
+    0%, 100% { opacity: 0.7; }
+    50% { opacity: 1; }
+}
+
+.slot-lever.spinning + .lever-label {
+    opacity: 0.3;
+    animation: none;
+}
+
+/* Spinning animation for reels */
+.slot-reel.spinning .reel-strip {
+    animation: reelSpin 0.1s linear infinite;
+}
+
+@keyframes reelSpin {
+    0% { transform: translateY(0); }
+    100% { transform: translateY(calc(-1 * clamp(80px, 20vw, 120px))); }
+}
+
+.gifts-content {
+    max-width: 600px;
+    margin: 0 auto;
+}
+
+.gifts-details {
+    font-size: 1rem;
+    opacity: 0.8;
+    margin-bottom: 1.5rem;
+}
+
+.gift-icons {
+    display: flex;
+    justify-content: center;
+    gap: 20px;
+    margin-bottom: 2rem;
+    font-size: 2rem;
+}
+
+/* ============================================
+   FOOTER
+   ============================================ */
+
+.footer {
+    padding: 100px 20px 0;
+    text-align: center;
+    position: relative;
+    background: #000000;
+    overflow: hidden;
+    contain: layout style;
+}
+
+.fireworks-finale {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    width: 100%;
+    height: 60%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+.footer-sign {
+    position: relative;
+    z-index: 2;
+    margin-bottom: 40px;
+}
+
+.footer-sign .neon-script {
+    font-size: clamp(2rem, 10vw, 5rem);
+}
+
+.footer-date {
+    font-family: var(--font-date);
+    font-size: clamp(1rem, 4vw, 1.5rem);
+    letter-spacing: 0.3em;
+    margin-top: 1rem;
+}
+
+.the-end {
+    margin: 60px 0 40px;
+}
+
+.end-card {
+    display: inline-block;
+    padding: 20px 40px;
+    border: 3px double var(--cream);
+    position: relative;
+}
+
+.end-text {
+    font-family: var(--font-faith);
+    font-size: 2rem;
+}
+
+.end-heart {
+    position: absolute;
+    bottom: -15px;
+    left: 50%;
+    transform: translateX(-50%);
+    background: var(--navy);
+    padding: 0 10px;
+    color: var(--neon-pink);
+    font-size: 1.5rem;
+}
+
+.footer-names {
+    font-family: var(--font-names);
+    font-size: 1.5rem;
+    opacity: 0.7;
+}
+
+/* ============================================
+   BUTTONS
+   ============================================ */
+
+.cta-button {
+    display: inline-block;
+    padding: 15px 40px;
+    font-family: var(--font-buttons);
+    font-size: 1.2rem;
+    letter-spacing: 0.15em;
+    text-decoration: none;
+    text-transform: uppercase;
+    transition: all 0.3s ease;
+    cursor: pointer;
+    border: none;
+}
+
+.casino-chip {
+    background: linear-gradient(135deg, #8B0000 0%, #cc0000 50%, #8B0000 100%);
+    color: var(--cream);
+    border: 4px solid var(--gold);
+    border-radius: 50px;
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.2),
+        0 5px 20px rgba(0, 0, 0, 0.3);
+}
+
+.casino-chip:hover {
+    transform: translateY(-3px) scale(1.05);
+    box-shadow: 
+        inset 0 2px 10px rgba(255, 255, 255, 0.2),
+        0 10px 30px rgba(255, 204, 0, 0.3);
+}
+
+.neon-button {
+    background: transparent;
+    color: var(--turquoise);
+    border: 2px solid var(--turquoise);
+    box-shadow: 
+        0 0 10px var(--turquoise),
+        inset 0 0 10px rgba(0, 229, 204, 0.1);
+}
+
+.neon-button:hover {
+    background: var(--turquoise);
+    color: var(--navy);
+    box-shadow: 0 0 30px var(--turquoise);
+}
+
+.neon-button.pink {
+    color: var(--neon-pink);
+    border-color: var(--neon-pink);
+    box-shadow: 
+        0 0 10px var(--neon-pink),
+        inset 0 0 10px rgba(255, 45, 123, 0.1);
+}
+
+.neon-button.pink:hover {
+    background: var(--neon-pink);
+    color: var(--cream);
+    box-shadow: 0 0 30px var(--neon-pink);
+}
+
+.telegram-button {
+    background: var(--gold);
+    color: var(--navy);
+    border: none;
+}
+
+.telegram-button:hover {
+    background: var(--cream);
+    box-shadow: 0 0 20px var(--gold);
+}
+
+.slot-button {
+    background: linear-gradient(180deg, var(--gold) 0%, #cc9900 100%);
+    color: var(--navy);
+    border: 3px solid #8B4513;
+    border-radius: 10px;
+}
+
+.slot-button:hover {
+    transform: translateY(-3px);
+    box-shadow: 0 10px 30px rgba(255, 204, 0, 0.4);
+}
+
+/* ============================================
+   UTILITY CLASSES
+   ============================================ */
+
+.hidden {
+    opacity: 0;
+    transform: translateY(30px);
+}
+
+.visible {
+    opacity: 1;
+    transform: translateY(0);
+    transition: opacity 0.6s ease, transform 0.6s ease;
+}
+
+/* ============================================
+   RESPONSIVE DESIGN
+   ============================================ */
+
+/* Tablet */
+@media (max-width: 1024px) {
+    :root {
+        --section-padding: 80px 20px;
+    }
+    
+    .hero-content {
+        padding: 40px 30px;
+    }
+    
+    .event-panels {
+        gap: 20px;
+    }
+    
+    .event-panel {
+        padding: 30px 20px;
+    }
+    
+    .sign-frame {
+        padding: 20px 30px;
+    }
+    
+    .telegram-frame {
+        padding: 30px;
+    }
+}
+
+/* Mobile Landscape / Small Tablet */
+@media (max-width: 768px) {
+    :root {
+        --section-padding: 60px 15px;
+    }
+    
+    .hero {
+        min-height: 100svh;
+        padding: 30px 15px;
+    }
+    
+    .hero-content {
+        padding: 30px 20px;
+    }
+    
+    .hero-subtitle {
+        letter-spacing: 0.15em;
+    }
+    
+    .letter-board {
+        flex-direction: column;
+        gap: 10px;
+        padding: 15px 20px;
+    }
+    
+    .letter-board .divider {
+        display: none;
+    }
+    
+    .event-panels {
+        grid-template-columns: 1fr;
+        gap: 25px;
+        margin-top: 40px;
+    }
+    
+    .event-panel {
+        padding: 35px 25px;
+    }
+    
+    .cards-fan {
+        height: 100px;
+    }
+    
+    .card {
+        width: 50px;
+        height: 75px;
+        font-size: 1.5rem;
+    }
+    
+    .card-1 { transform: rotate(-15deg) translateX(-45px); }
+    .card-2 { transform: rotate(-5deg) translateX(-15px); }
+    .card-3 { transform: rotate(5deg) translateX(15px); }
+    .card-4 { transform: rotate(15deg) translateX(45px); }
+    
+    .cards-fan.spread .card-1 { transform: rotate(-20deg) translateX(-60px) translateY(-5px); }
+    .cards-fan.spread .card-2 { transform: rotate(-7deg) translateX(-20px); }
+    .cards-fan.spread .card-3 { transform: rotate(7deg) translateX(20px); }
+    .cards-fan.spread .card-4 { transform: rotate(20deg) translateX(60px) translateY(-5px); }
+    
+    .big-heart {
+        width: clamp(200px, 70vw, 350px);
+        height: clamp(185px, 65vw, 320px);
+    }
+    
+    .sign-frame {
+        padding: 20px;
+        width: 90%;
+        max-width: 400px;
+    }
+    
+    .neon-icons {
+        gap: 20px;
+    }
+    
+    .telegram-frame {
+        padding: 25px 20px;
+        margin: 0 15px;
+    }
+    
+    .slot-machine-game {
+        gap: 15px;
+    }
+    
+    .slot-cabinet {
+        padding: 15px 18px 25px;
+    }
+    
+    .slot-lever {
+        height: 130px;
+    }
+    
+    .lever-ball {
+        width: 30px;
+        height: 30px;
+    }
+    
+    .gift-icons {
+        gap: 15px;
+        font-size: 1.5rem;
+    }
+    
+    .footer {
+        padding: 80px 15px 50px;
+    }
+    
+    .end-card {
+        padding: 15px 30px;
+    }
+    
+    .cta-button {
+        padding: 12px 30px;
+        font-size: 1rem;
+    }
+}
+
+/* Mobile Portrait */
+@media (max-width: 480px) {
+    :root {
+        --section-padding: 50px 15px;
+    }
+    
+    body {
+        font-size: 14px;
+    }
+    
+    .hero {
+        padding: 20px 10px;
+    }
+    
+    .hero-content {
+        padding: 20px 15px;
+    }
+    
+    .hero-subtitle {
+        font-size: 0.85rem;
+        letter-spacing: 0.1em;
+    }
+    
+    .hero-title {
+        font-size: clamp(2.5rem, 12vw, 4rem);
+    }
+    
+    .letter-board {
+        font-size: 0.8rem;
+        padding: 12px 15px;
+    }
+    
+    .floating-hearts {
+        display: none;
+    }
+    
+    .starburst {
+        transform: scale(0.7);
+    }
+    
+    .starburst-1 { top: 2%; left: 5%; }
+    .starburst-2 { top: 8%; right: 5%; }
+    .starburst-3 { bottom: 15%; right: 8%; }
+    
+    .scroll-indicator {
+        font-size: 0.75rem;
+        bottom: 25px;
+    }
+    
+    .section-title {
+        font-size: clamp(1.8rem, 7vw, 2.5rem);
+    }
+    
+    .section-copy {
+        font-size: 1rem;
+        padding: 0 10px;
+    }
+    
+    .event-panel {
+        padding: 30px 20px;
+    }
+    
+    .event-name {
+        font-size: clamp(1.3rem, 5vw, 1.8rem);
+    }
+    
+    .event-date {
+        font-size: 1rem;
+    }
+    
+    .event-description {
+        font-size: 1.2rem;
+    }
+    
+    .event-details {
+        font-size: 0.9rem;
+    }
+    
+    .panel-decoration {
+        font-size: 1.5rem;
+    }
+    
+    .neon-sign .neon-text-red {
+        font-size: clamp(2.5rem, 15vw, 5rem);
+    }
+    
+    .neon-arrow {
+        width: 60px;
+        margin-top: 15px;
+    }
+    
+    .cards-fan {
+        height: 90px;
+    }
+    
+    .card {
+        width: 45px;
+        height: 65px;
+        font-size: 1.3rem;
+    }
+    
+    .big-heart {
+        width: clamp(180px, 75vw, 280px);
+        height: clamp(165px, 70vw, 260px);
+    }
+    
+    .heart-initials {
+        font-size: clamp(1.5rem, 8vw, 2.5rem);
+    }
+    
+    .hotel-name {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+    
+    .vacancy-text {
+        font-size: 1.6rem;
+        letter-spacing: 0.2em;
+    }
+    
+    .neon-icons {
+        gap: 15px;
+    }
+    
+    .neon-icon {
+        font-size: clamp(1.8rem, 8vw, 2.5rem);
+    }
+    
+    .telegram-frame {
+        padding: 20px 15px;
+    }
+    
+    .telegram-label {
+        font-size: 0.8rem;
+        letter-spacing: 0.3em;
+        padding: 4px 15px;
+    }
+    
+    .neon-sign .neon-text-gold {
+        font-size: clamp(1rem, 4vw, 1.4rem);
+    }
+    
+    .slot-machine-game {
+        flex-direction: column;
+        gap: 20px;
+    }
+    
+    .slot-lever-container {
+        flex-direction: row;
+        gap: 15px;
+    }
+    
+    .slot-lever {
+        height: 60px;
+        width: 120px;
+    }
+    
+    .lever-track {
+        top: 50%;
+        left: 10px;
+        right: 10px;
+        bottom: auto;
+        width: auto;
+        height: 12px;
+        transform: translateY(-50%);
+    }
+    
+    .lever-arm {
+        top: 50%;
+        left: 10px;
+        width: 50px;
+        height: 8px;
+        transform: translateY(-50%);
+    }
+    
+    .lever-ball {
+        top: 50%;
+        left: auto;
+        right: -20px;
+        transform: translateY(-50%);
+        width: 28px;
+        height: 28px;
+    }
+    
+    .slot-lever.pulled .lever-arm {
+        top: 50%;
+        left: 50px;
+    }
+    
+    .gift-icons {
+        gap: 12px;
+        font-size: 1.3rem;
+    }
+    
+    .footer-sign .neon-script {
+        font-size: clamp(1.8rem, 10vw, 3rem);
+    }
+    
+    .footer-date {
+        font-size: clamp(0.9rem, 4vw, 1.2rem);
+    }
+    
+    .end-card {
+        padding: 12px 25px;
+    }
+    
+    .end-text {
+        font-size: 1.5rem;
+    }
+    
+    .end-heart {
+        font-size: 1.2rem;
+        bottom: -12px;
+    }
+    
+    .footer-names {
+        font-size: 1.2rem;
+    }
+    
+    .cta-button {
+        padding: 12px 25px;
+        font-size: 0.95rem;
+        width: 100%;
+        max-width: 280px;
+    }
+}
+
+/* Extra small devices */
+@media (max-width: 360px) {
+    .hero-title {
+        font-size: 2.2rem;
+    }
+    
+    .section-title {
+        font-size: 1.6rem;
+    }
+    
+    .bulb-text {
+        font-size: 1.5rem !important;
+    }
+    
+    .card {
+        width: 40px;
+        height: 55px;
+        font-size: 1.1rem;
+    }
+    
+    .card-1 { transform: rotate(-12deg) translateX(-35px); }
+    .card-2 { transform: rotate(-4deg) translateX(-12px); }
+    .card-3 { transform: rotate(4deg) translateX(12px); }
+    .card-4 { transform: rotate(12deg) translateX(35px); }
+}
+
+/* Landscape mobile */
+@media (max-height: 500px) and (orientation: landscape) {
+    .hero {
+        min-height: auto;
+        padding: 40px 20px;
+    }
+    
+    .hero-content {
+        padding: 20px;
+    }
+    
+    .hero-title {
+        font-size: 3rem;
+    }
+    
+    .scroll-indicator {
+        display: none;
+    }
+    
+    .heart-section {
+        min-height: 60vh;
+    }
+}
+
+/* High DPI / Retina adjustments */
+@media (-webkit-min-device-pixel-ratio: 2), (min-resolution: 192dpi) {
+    .bulb {
+        box-shadow: 
+            0 0 3px var(--bulb-warm),
+            0 0 6px var(--bulb-warm);
+    }
+}
+
+/* Footer Hero Image */
+.footer-hero-image {
+    width: 100vw;
+    margin-top: 60px;
+    margin-left: calc(-50vw + 50%);
+}
+
+.footer-couple-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+}
+
+/* ============================================
+   FOOTER JAC BEN LED SECTION
+   ============================================ */
+
+.footer-jacben-section {
+    position: relative;
+    width: 100vw;
+    margin-left: calc(-50vw + 50%);
+    margin-top: 60px;
+    margin-bottom: 0;
+    min-height: auto;
+    height: auto;
+    overflow: visible;
+    background: #000;
+    padding-bottom: 0;
+}
+
+.jacben-text-bg {
+    position: relative;
+    width: 100%;
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-start;
+    align-items: center;
+    gap: 0;
+    padding: 20px 0 0 0;
+    z-index: 1;
+}
+
+.jacben-row {
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    gap: 0;
+    white-space: nowrap;
+    line-height: 0.9;
+}
+
+.jacben-text {
+    font-family: var(--font-ozone);
+    font-size: clamp(5rem, 14vw, 12rem);
+    font-weight: normal;
+    letter-spacing: 0.08em;
+    color: #ff4400;
+    padding: 0 0.1em;
+    position: relative;
+    -webkit-font-smoothing: antialiased;
+    -moz-osx-font-smoothing: grayscale;
+}
+
+/* Row 1 - #FC4800 */
+.jacben-row:nth-child(1) .jacben-text {
+    color: #FC4800;
+    filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.8));
+    animation: glowRow1 3s ease-in-out infinite;
+}
+
+/* Row 2 - #FF5800 */
+.jacben-row:nth-child(2) .jacben-text {
+    color: #FF5800;
+    filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.8));
+    animation: glowRow2 3s ease-in-out infinite;
+    animation-delay: 0.4s;
+}
+
+/* Row 3 - #FF8E00 */
+.jacben-row:nth-child(3) .jacben-text {
+    color: #FF8E00;
+    filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.8));
+    animation: glowRow3 3s ease-in-out infinite;
+    animation-delay: 0.8s;
+}
+
+/* Row 4 - #FFB300 */
+.jacben-row:nth-child(4) .jacben-text {
+    color: #FFB300;
+    filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.8));
+    animation: glowRow4 3s ease-in-out infinite;
+    animation-delay: 1.2s;
+}
+
+/* Glow animations for each row */
+@keyframes glowRow1 {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.6));
+        opacity: 0.85;
+    }
+    25% {
+        filter: drop-shadow(0 0 15px rgba(252, 72, 0, 1)) drop-shadow(0 0 30px rgba(252, 72, 0, 0.8));
+        opacity: 1;
+    }
+    50%, 75% {
+        filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.6));
+        opacity: 0.85;
+    }
+}
+
+@keyframes glowRow2 {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.6));
+        opacity: 0.85;
+    }
+    25% {
+        filter: drop-shadow(0 0 15px rgba(255, 88, 0, 1)) drop-shadow(0 0 30px rgba(255, 88, 0, 0.8));
+        opacity: 1;
+    }
+    50%, 75% {
+        filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.6));
+        opacity: 0.85;
+    }
+}
+
+@keyframes glowRow3 {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.6));
+        opacity: 0.85;
+    }
+    25% {
+        filter: drop-shadow(0 0 15px rgba(255, 142, 0, 1)) drop-shadow(0 0 30px rgba(255, 142, 0, 0.8));
+        opacity: 1;
+    }
+    50%, 75% {
+        filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.6));
+        opacity: 0.85;
+    }
+}
+
+@keyframes glowRow4 {
+    0%, 100% {
+        filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.6));
+        opacity: 0.85;
+    }
+    25% {
+        filter: drop-shadow(0 0 15px rgba(255, 179, 0, 1)) drop-shadow(0 0 30px rgba(255, 179, 0, 0.8));
+        opacity: 1;
+    }
+    50%, 75% {
+        filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.6));
+        opacity: 0.85;
+    }
+}
+
+.footer-cutout-wrapper {
+    position: relative;
+    z-index: 10;
+    width: clamp(280px, 40vw, 500px);
+    pointer-events: none;
+    margin: -600px auto 0 auto;
+    line-height: 0;
+}
+
+.footer-cutout-photo {
+    width: 100%;
+    height: auto;
+    display: block;
+    filter: contrast(1.05) saturate(1.1);
+    vertical-align: bottom;
+}
+
+@media (max-width: 768px) {
+    .footer-jacben-section {
+        min-height: auto;
+    }
+    
+    .jacben-text {
+        font-size: clamp(3rem, 16vw, 6rem);
+    }
+    
+    .footer-cutout-wrapper {
+        width: clamp(220px, 55vw, 350px);
+        margin-top: -440px;
+    }
+}
+
+@media (max-width: 480px) {
+    .footer-jacben-section {
+        min-height: auto;
+    }
+    
+    .jacben-text {
+        font-size: clamp(2.5rem, 20vw, 4.5rem);
+    }
+    
+    .footer-cutout-wrapper {
+        width: clamp(180px, 60vw, 280px);
+        margin-top: -320px;
+    }
+}

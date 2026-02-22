@@ -1,0 +1,605 @@
+/* ============================================
+   BACKGROUND IMAGE COLLAGE
+   Fixed position neon sign cutouts in hero
+   ============================================ */
+
+/* Hero collage container - fixed behind marquee */
+.bg-collage {
+    position: absolute;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    pointer-events: none;
+    z-index: 1;
+    overflow: hidden;
+}
+
+/* Subtle dark vignette behind the marquee - blends naturally */
+.hero-content::before {
+    content: '';
+    position: absolute;
+    top: 50%;
+    left: 50%;
+    transform: translate(-50%, -50%);
+    width: 100%;
+    height: 100%;
+    background: radial-gradient(
+        ellipse 55% 50% at 50% 48%,
+        rgba(5, 3, 12, 0.92) 0%,
+        rgba(8, 5, 18, 0.8) 25%,
+        rgba(10, 8, 22, 0.55) 45%,
+        rgba(12, 10, 26, 0.3) 65%,
+        transparent 85%
+    );
+    z-index: 2;
+    pointer-events: none;
+}
+
+/* Individual cutout styling */
+.bg-cutout {
+    position: absolute;
+    opacity: 0;
+}
+
+/* ============================================
+   HERO ENTRANCE ANIMATIONS
+   Signs fly in from outside the frame
+   ============================================ */
+
+@keyframes flyInFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-150%) rotate(-15deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(150%) rotate(15deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromTop {
+    from {
+        opacity: 0;
+        transform: translateY(-150%) rotate(-10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromBottom {
+    from {
+        opacity: 0;
+        transform: translateY(150%) rotate(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromBottomDunes {
+    from {
+        opacity: 0;
+        transform: translateX(-50%) translateY(150%) rotate(10deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(-50%) translateY(0) rotate(0deg);
+    }
+}
+
+@keyframes flyInFromBottomLeft {
+    from {
+        opacity: 0;
+        transform: translate(-100%, 100%) rotate(-20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromBottomRight {
+    from {
+        opacity: 0;
+        transform: translate(100%, 100%) rotate(20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromTopLeft {
+    from {
+        opacity: 0;
+        transform: translate(-100%, -100%) rotate(-20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+@keyframes flyInFromTopRight {
+    from {
+        opacity: 0;
+        transform: translate(100%, -100%) rotate(20deg);
+    }
+    to {
+        opacity: 1;
+        transform: translate(0, 0) rotate(var(--final-rotate, 0deg));
+    }
+}
+
+/* Apply animations to hero cutouts - only when marquee-ready class is added */
+.bg-cutout.stardust {
+    --final-rotate: -2deg;
+}
+
+.bg-cutout.vegas-vic {
+    --final-rotate: 5deg;
+}
+
+.bg-cutout.glitter-gulch {
+    --final-rotate: -5deg;
+}
+
+.bg-cutout.flamingo {
+    --final-rotate: 5deg;
+}
+
+.bg-cutout.golden-nugget {
+    --final-rotate: -2deg;
+}
+
+.bg-cutout.dunes-oasis {
+    --final-rotate: 0deg;
+}
+
+.bg-cutout.mint {
+    --final-rotate: 2deg;
+}
+
+.bg-cutout.casino-marquee {
+    --final-rotate: -5deg;
+}
+
+.bg-cutout.welcome-vegas {
+    --final-rotate: 0deg;
+}
+
+.bg-cutout.union-plaza {
+    --final-rotate: 20deg;
+}
+
+/* Animations only start when hero has marquee-ready class */
+.hero.marquee-ready .bg-cutout.stardust {
+    animation: flyInFromTopLeft 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.1s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.vegas-vic {
+    animation: flyInFromLeft 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.25s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.glitter-gulch {
+    animation: flyInFromRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.15s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.flamingo {
+    animation: flyInFromBottomLeft 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.35s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.golden-nugget {
+    animation: flyInFromBottomRight 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.4s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.dunes-oasis {
+    animation: flyInFromBottomDunes 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.5s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.mint {
+    animation: flyInFromBottom 1.1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.55s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.casino-marquee {
+    animation: flyInFromTop 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.welcome-vegas {
+    animation: flyInFromTop 1.2s cubic-bezier(0.34, 1.56, 0.64, 1) 0.05s forwards;
+}
+
+.hero.marquee-ready .bg-cutout.union-plaza {
+    animation: flyInFromTopRight 1s cubic-bezier(0.34, 1.56, 0.64, 1) 0.2s forwards;
+}
+
+/* Glow effect on cutouts - disabled */
+.bg-cutout.glow {
+    filter: saturate(1.3);
+}
+
+/* Different z-index layers for overlap depth */
+.bg-cutout.layer-back {
+    z-index: 1;
+}
+
+.bg-cutout.layer-mid {
+    z-index: 2;
+}
+
+.bg-cutout.layer-front {
+    z-index: 3;
+}
+
+/* ============================================
+   FREMONT STREET CORRIDOR - ALL IMAGES
+   Signs along edges framing the marquee
+   ============================================ */
+
+/* === LEFT SIDE === */
+
+/* TOP LEFT - Stardust */
+.bg-cutout.stardust {
+    top: -5%;
+    left: -3%;
+    width: clamp(280px, 32vw, 450px);
+    transform: rotate(-2deg);
+    z-index: 2;
+}
+
+/* LEFT BORDER - Vegas Vic cowboy poking in */
+.bg-cutout.vegas-vic {
+    top: 30%;
+    left: -8%;
+    width: clamp(180px, 22vw, 320px);
+    transform: rotate(5deg);
+    z-index: 3;
+}
+
+/* === RIGHT SIDE === */
+
+/* RIGHT BORDER - Glitter Gulch cowgirl poking in */
+.bg-cutout.glitter-gulch {
+    top: 20%;
+    right: -10%;
+    width: clamp(300px, 35vw, 480px);
+    transform: rotate(-5deg);
+    z-index: 4;
+}
+
+/* Rio - removed from hero, used in later sections */
+.bg-cutout.rio {
+    display: none;
+}
+
+/* BOTTOM LEFT CORNER - Flamingo feathers */
+.bg-cutout.flamingo {
+    bottom: -5%;
+    left: -5%;
+    width: clamp(350px, 40vw, 580px);
+    transform: rotate(5deg);
+    z-index: 2;
+}
+
+/* === BOTTOM EDGE - shifted left === */
+
+/* BOTTOM RIGHT - Golden Nugget */
+.bg-cutout.golden-nugget {
+    bottom: -5%;
+    right: -5%;
+    width: clamp(350px, 42vw, 600px);
+    transform: rotate(-2deg);
+    z-index: 1;
+}
+
+/* Sassy Sally's - removed from hero, used in later sections */
+.bg-cutout.sassy-sallys {
+    display: none;
+}
+
+/* BOTTOM CENTER - Dunes/Oasis palms (shifted left) */
+.bg-cutout.dunes-oasis {
+    bottom: -8%;
+    left: 40%;
+    transform: translateX(-50%);
+    width: clamp(400px, 50vw, 700px);
+    z-index: 1;
+}
+
+/* BOTTOM - Mint along bottom edge */
+.bg-cutout.mint {
+    bottom: -8%;
+    left: 50%;
+    width: clamp(260px, 30vw, 420px);
+    transform: rotate(2deg);
+    z-index: 2;
+}
+
+/* === TOP EDGE === */
+
+/* TOP - Casino marquee (moved to top left) */
+.bg-cutout.casino-marquee {
+    top: -5%;
+    left: 20%;
+    width: clamp(280px, 32vw, 480px);
+    transform: rotate(-5deg);
+    z-index: 1;
+}
+
+/* TOP - Welcome Vegas (offset right) */
+.bg-cutout.welcome-vegas {
+    top: -12%;
+    left: 52%;
+    transform: translateX(-50%);
+    width: clamp(280px, 35vw, 500px);
+    z-index: 4;
+}
+
+/* Frontier - removed from hero, used in later sections */
+.bg-cutout.frontier {
+    display: none;
+}
+
+/* ============================================
+   SECTION SIGN CUTOUTS
+   Signs poking in from sides on later sections
+   ============================================ */
+
+/* Override overflow for sections with sign cutouts */
+.schedule,
+.rsvp,
+.hotel,
+.messages,
+.gifts {
+    overflow: visible !important;
+}
+
+/* ============================================
+   SECTION SIGN SCROLL ANIMATIONS
+   Fade and translate in when visible
+   ============================================ */
+
+@keyframes fadeSlideFromLeft {
+    from {
+        opacity: 0;
+        transform: translateX(-50px) translateY(-50%) rotate(5deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(-50%) rotate(5deg);
+    }
+}
+
+@keyframes fadeSlideFromRight {
+    from {
+        opacity: 0;
+        transform: translateX(50px) translateY(-50%) rotate(-5deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateX(0) translateY(-50%) rotate(-5deg);
+    }
+}
+
+@keyframes fadeSlideUp {
+    from {
+        opacity: 0;
+        transform: translateY(30px) rotate(-3deg);
+    }
+    to {
+        opacity: 1;
+        transform: translateY(0) rotate(-3deg);
+    }
+}
+
+.section-sign-cutout {
+    position: absolute;
+    width: clamp(200px, 25vw, 350px);
+    z-index: 1;
+    pointer-events: none;
+    opacity: 0;
+    transition: opacity 0.8s ease, transform 0.8s ease;
+}
+
+/* Animated state when in view */
+.section-sign-cutout.animate-in {
+    opacity: 1;
+}
+
+.section-sign-cutout.sign-left.animate-in {
+    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.section-sign-cutout.sign-right.animate-in,
+.section-sign-cutout.sign-right-messages.animate-in {
+    animation: fadeSlideFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.section-sign-cutout.sign-left-messages.animate-in {
+    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.section-sign-cutout.sign-bottom-right.animate-in {
+    animation: fadeSlideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+.section-sign-cutout.sign-left {
+    left: -8%;
+    top: 50%;
+    transform: translateY(-50%) rotate(5deg);
+}
+
+.section-sign-cutout.sign-right {
+    right: -8%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-5deg);
+}
+
+.section-sign-cutout.sign-bottom-right {
+    right: 5%;
+    bottom: 60px;
+    width: clamp(280px, 35vw, 500px);
+    transform: rotate(-3deg);
+    z-index: 20;
+}
+
+/* Sassy Sally's in Messages section - positioned right but not too far off */
+.section-sign-cutout.sign-right-messages {
+    right: -15%;
+    top: 50%;
+    transform: translateY(-50%) scaleX(-1) rotate(-3deg);
+    width: clamp(400px, 50vw, 700px);
+    opacity: 0.9;
+}
+
+/* Horseshoe sign in Messages section - positioned left */
+.section-sign-cutout.sign-left-messages {
+    left: -12%;
+    top: 50%;
+    transform: translateY(-50%) rotate(3deg);
+    width: clamp(400px, 50vw, 700px);
+    opacity: 0.9;
+}
+
+/* Neon sign in RSVP section - positioned left */
+.section-sign-cutout.sign-left-rsvp {
+    left: -18%;
+    top: 42%;
+    transform: translateY(-50%) rotate(5deg);
+    width: clamp(450px, 55vw, 750px);
+    opacity: 0.6;
+    filter: brightness(0.7);
+}
+
+.section-sign-cutout.sign-left-rsvp.animate-in {
+    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Slot machine in Gifts/Jackpot section - positioned left */
+.section-sign-cutout.sign-left-gifts {
+    left: -8%;
+    top: 50%;
+    transform: translateY(-50%) rotate(3deg);
+    width: clamp(300px, 38vw, 500px);
+    opacity: 0.85;
+}
+
+.section-sign-cutout.sign-left-gifts.animate-in {
+    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* Chips in Hotel section - positioned left with vintage sepia filter */
+.section-sign-cutout.sign-left-hotel {
+    left: -5%;
+    top: 50%;
+    transform: translateY(-50%) rotate(-5deg);
+    width: clamp(300px, 35vw, 500px);
+    opacity: 0.75;
+    filter: sepia(0.7) saturate(0.8) brightness(0.9) contrast(1.1);
+}
+
+.section-sign-cutout.sign-left-hotel.animate-in {
+    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+/* TOP RIGHT CORNER - Union Plaza (tilted 20deg right) */
+.bg-cutout.union-plaza {
+    top: -5%;
+    right: -3%;
+    width: clamp(220px, 26vw, 400px);
+    transform: rotate(20deg);
+    z-index: 3;
+}
+
+
+/* ============================================
+   RESPONSIVE - Reduce on mobile
+   ============================================ */
+
+@media (max-width: 1024px) {
+    .bg-cutout {
+        opacity: 0.1;
+    }
+    
+    .bg-cutout.layer-front {
+        opacity: 0.12;
+    }
+    
+    .bg-glow-spot {
+        opacity: 0.1;
+        filter: blur(80px);
+    }
+}
+
+@media (max-width: 768px) {
+    .bg-cutout {
+        opacity: 0.08;
+        filter: blur(2px) saturate(1.2);
+    }
+    
+    .bg-cutout.glitter-gulch,
+    .bg-cutout.frontier,
+    .bg-cutout.union-plaza {
+        display: none;
+    }
+    
+    .bg-cutout.stardust,
+    .bg-cutout.rio {
+        opacity: 0.06;
+    }
+    
+    .bg-glow-spot {
+        opacity: 0.08;
+        transform: scale(0.7);
+    }
+}
+
+@media (max-width: 480px) {
+    .bg-collage {
+        opacity: 0.5;
+    }
+    
+    .bg-cutout {
+        opacity: 0.05;
+    }
+    
+    .bg-cutout.mint,
+    .bg-cutout.casino-marquee,
+    .bg-cutout.sassy-sallys {
+        display: none;
+    }
+    
+    .bg-glow-spot {
+        opacity: 0.06;
+        transform: scale(0.5);
+    }
+}
+
+/* ============================================
+   REDUCED MOTION
+   ============================================ */
+
+@media (prefers-reduced-motion: reduce) {
+    .bg-cutout {
+        transition: none;
+    }
+    
+    .bg-cutout[data-parallax] {
+        transform: none !important;
+    }
+}

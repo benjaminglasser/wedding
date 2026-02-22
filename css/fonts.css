@@ -1,0 +1,164 @@
+/* ============================================
+   CUSTOM VINTAGE FONTS
+   Jac & Ben Wedding
+   ============================================ */
+
+@font-face {
+    font-family: 'Lounge Vintage';
+    src: url('../fonts/Lounge Vintage.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Milky Vintage';
+    src: url('../fonts/MilkyVintage-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Star Vintage';
+    src: url('../fonts/Star Vintage - (Demo) hanscostudio.com.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vintage Faith';
+    src: url('../fonts/Vintage Faith.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vintage King';
+    src: url('../fonts/Vintage King.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vintage Punk';
+    src: url('../fonts/VINTAGE PUNK.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vintage One';
+    src: url('../fonts/Vintage-1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vintage Classic';
+    src: url('../fonts/vintage.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Ozone';
+    src: url('../fonts/Ozone-xRRO.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Las Enter';
+    src: url('../fonts/LasEnter_PersonalUseOnly.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neon';
+    src: url('../fonts/NEON____.TTF') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neon Future';
+    src: url('../fonts/Neon Future.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vegas Neon';
+    src: url('../fonts/VegasNeon-1.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Modern Neon';
+    src: url('../fonts/ModernNeon-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neon Light';
+    src: url('../fonts/NeonLight-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'NeoNeon Light';
+    src: url('../fonts/NeoNeon-Light.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neon Ring';
+    src: url('../fonts/Neon Ring.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Neon Lights Sin City';
+    src: url('../fonts/Neon Lights of Sin City.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Vegano';
+    src: url('../fonts/VEGANO.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Las Vegas Demo';
+    src: url('../fonts/LasVegasDemo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
