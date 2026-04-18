@@ -123,10 +123,40 @@
     z-index: 2;
 }
 
-/* Card hover effect */
-.card:hover {
-    transform: translateY(-10px) scale(1.1) !important;
-    z-index: 10 !important;
+/* Card hover effect - subtle lift */
+.card-1:hover {
+    transform: rotate(-20deg) translateX(-60px) translateY(-8px);
+    z-index: 10;
+}
+.card-2:hover {
+    transform: rotate(-7deg) translateX(-20px) translateY(-8px);
+    z-index: 10;
+}
+.card-3:hover {
+    transform: rotate(7deg) translateX(20px) translateY(-8px);
+    z-index: 10;
+}
+.card-4:hover {
+    transform: rotate(20deg) translateX(60px) translateY(-8px);
+    z-index: 10;
+}
+
+/* Card hover when spread */
+.cards-fan.spread .card-1:hover {
+    transform: rotate(-25deg) translateX(-80px) translateY(-18px);
+    z-index: 10;
+}
+.cards-fan.spread .card-2:hover {
+    transform: rotate(-10deg) translateX(-30px) translateY(-8px);
+    z-index: 10;
+}
+.cards-fan.spread .card-3:hover {
+    transform: rotate(10deg) translateX(30px) translateY(-8px);
+    z-index: 10;
+}
+.cards-fan.spread .card-4:hover {
+    transform: rotate(25deg) translateX(80px) translateY(-18px);
+    z-index: 10;
 }
 
 /* ============================================

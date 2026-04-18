@@ -1,5 +1,5 @@
 /* ============================================
-   ROULETTE LOADER
+   ROULETTE LOADER - Realistic European Style
    Vintage Vegas Wedding - Jac & Ben
    ============================================ */
 
@@ -11,7 +11,12 @@
     width: 100%;
     height: 100vh;
     height: 100dvh;
-    background: radial-gradient(ellipse at center, #1a0a2e 0%, #0a0a1a 70%, #050510 100%);
+    background-color: #0a5c0a;
+    background-image: url('../assets/felt_table.png');
+    background-position: center center;
+    background-repeat: no-repeat;
+    background-size: 100% 100%;
+    image-rendering: optimizeQuality;
     display: flex;
     align-items: center;
     justify-content: center;
@@ -44,8 +49,8 @@ body.loader-active {
 /* Roulette wheel container */
 .roulette-container {
     position: relative;
-    width: clamp(200px, 50vmin, 350px);
-    height: clamp(200px, 50vmin, 350px);
+    width: clamp(240px, 60vmin, 400px);
+    height: clamp(240px, 60vmin, 400px);
 }
 
 /* The spinning wheel */
@@ -53,186 +58,520 @@ body.loader-active {
     position: absolute;
     inset: 0;
     border-radius: 50%;
-    animation: spinWheel 3s linear infinite;
+    animation: spinWheel 5s linear infinite;
     transform-origin: center center;
 }
 
-/* Outer decorative ring */
+/* Outer wooden rim - warm reddish-brown mahogany */
 .roulette-wheel::before {
     content: '';
     position: absolute;
-    inset: -8px;
+    inset: -6%;
     border-radius: 50%;
     background: 
-        linear-gradient(135deg, #d4af37 0%, #f4e4a6 25%, #d4af37 50%, #8b6914 75%, #d4af37 100%);
+        radial-gradient(
+            ellipse at 30% 30%,
+            #c4826a 0%,
+            #a65d45 20%,
+            #8b4533 40%,
+            #6d3328 70%,
+            #5a2a22 100%
+        );
     box-shadow: 
-        0 0 20px rgba(212, 175, 55, 0.5),
-        inset 0 0 15px rgba(0, 0, 0, 0.3);
+        0 8px 30px rgba(0, 0, 0, 0.7),
+        0 4px 15px rgba(0, 0, 0, 0.5),
+        inset 0 3px 8px rgba(255, 200, 180, 0.2),
+        inset 0 -5px 15px rgba(0, 0, 0, 0.4);
     z-index: -1;
 }
 
-/* Main wheel segments - American roulette layout */
-.wheel-segments {
+/* Wood grain texture overlay */
+.roulette-wheel::after {
+    content: '';
     position: absolute;
-    inset: 0;
+    inset: -6%;
     border-radius: 50%;
-    background: conic-gradient(
-        from 0deg,
-        /* 0 - green */
-        #006400 0deg 9.47deg,
-        /* 28 - black */
-        #1a1a1a 9.47deg 18.95deg,
-        /* 9 - red */
-        #8b0000 18.95deg 28.42deg,
-        /* 26 - black */
-        #1a1a1a 28.42deg 37.89deg,
-        /* 30 - red */
-        #8b0000 37.89deg 47.37deg,
-        /* 11 - black */
-        #1a1a1a 47.37deg 56.84deg,
-        /* 7 - red */
-        #8b0000 56.84deg 66.32deg,
-        /* 20 - black */
-        #1a1a1a 66.32deg 75.79deg,
-        /* 32 - red */
-        #8b0000 75.79deg 85.26deg,
-        /* 17 - black */
-        #1a1a1a 85.26deg 94.74deg,
-        /* 5 - red */
-        #8b0000 94.74deg 104.21deg,
-        /* 22 - black */
-        #1a1a1a 104.21deg 113.68deg,
-        /* 34 - red */
-        #8b0000 113.68deg 123.16deg,
-        /* 15 - black */
-        #1a1a1a 123.16deg 132.63deg,
-        /* 3 - red */
-        #8b0000 132.63deg 142.11deg,
-        /* 24 - black */
-        #1a1a1a 142.11deg 151.58deg,
-        /* 36 - red */
-        #8b0000 151.58deg 161.05deg,
-        /* 13 - black */
-        #1a1a1a 161.05deg 170.53deg,
-        /* 1 - red */
-        #8b0000 170.53deg 180deg,
-        /* 00 - green */
-        #006400 180deg 189.47deg,
-        /* 27 - red */
-        #8b0000 189.47deg 198.95deg,
-        /* 10 - black */
-        #1a1a1a 198.95deg 208.42deg,
-        /* 25 - red */
-        #8b0000 208.42deg 217.89deg,
-        /* 29 - black */
-        #1a1a1a 217.89deg 227.37deg,
-        /* 12 - red */
-        #8b0000 227.37deg 236.84deg,
-        /* 8 - black */
-        #1a1a1a 236.84deg 246.32deg,
-        /* 19 - red */
-        #8b0000 246.32deg 255.79deg,
-        /* 31 - black */
-        #1a1a1a 255.79deg 265.26deg,
-        /* 18 - red */
-        #8b0000 265.26deg 274.74deg,
-        /* 6 - black */
-        #1a1a1a 274.74deg 284.21deg,
-        /* 21 - red */
-        #8b0000 284.21deg 293.68deg,
-        /* 33 - black */
-        #1a1a1a 293.68deg 303.16deg,
-        /* 16 - red */
-        #8b0000 303.16deg 312.63deg,
-        /* 4 - black */
-        #1a1a1a 312.63deg 322.11deg,
-        /* 23 - red */
-        #8b0000 322.11deg 331.58deg,
-        /* 35 - black */
-        #1a1a1a 331.58deg 341.05deg,
-        /* 14 - red */
-        #8b0000 341.05deg 350.53deg,
-        /* 2 - black */
-        #1a1a1a 350.53deg 360deg
-    );
-    box-shadow: 
-        inset 0 0 30px rgba(0, 0, 0, 0.5),
-        0 0 10px rgba(0, 0, 0, 0.3);
+    background: 
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(90, 42, 34, 0.3) 0deg 2deg,
+            transparent 2deg 4deg,
+            rgba(139, 69, 51, 0.2) 4deg 6deg,
+            transparent 6deg 10deg
+        );
+    z-index: 0;
 }
 
-/* Segment dividers */
-.wheel-segments::after {
+/* Number pockets ring - European layout (37 pockets) */
+.wheel-segments {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 175.14deg,
+        /* European sequence: 0,32,15,19,4,21,2,25,17,34,6,27,13,36,11,30,8,23,10,5,24,16,33,1,20,14,31,9,22,18,29,7,28,12,35,3,26 */
+        /* 0 - green */
+        #00a000 0deg 9.73deg,
+        /* 32 - red */
+        #cc0000 9.73deg 19.46deg,
+        /* 15 - black */
+        #1a1a1a 19.46deg 29.19deg,
+        /* 19 - red */
+        #cc0000 29.19deg 38.92deg,
+        /* 4 - black */
+        #1a1a1a 38.92deg 48.65deg,
+        /* 21 - red */
+        #cc0000 48.65deg 58.38deg,
+        /* 2 - black */
+        #1a1a1a 58.38deg 68.11deg,
+        /* 25 - red */
+        #cc0000 68.11deg 77.84deg,
+        /* 17 - black */
+        #1a1a1a 77.84deg 87.57deg,
+        /* 34 - red */
+        #cc0000 87.57deg 97.30deg,
+        /* 6 - black */
+        #1a1a1a 97.30deg 107.03deg,
+        /* 27 - red */
+        #cc0000 107.03deg 116.76deg,
+        /* 13 - black */
+        #1a1a1a 116.76deg 126.49deg,
+        /* 36 - red */
+        #cc0000 126.49deg 136.22deg,
+        /* 11 - black */
+        #1a1a1a 136.22deg 145.95deg,
+        /* 30 - red */
+        #cc0000 145.95deg 155.68deg,
+        /* 8 - black */
+        #1a1a1a 155.68deg 165.41deg,
+        /* 23 - red */
+        #cc0000 165.41deg 175.14deg,
+        /* 10 - black */
+        #1a1a1a 175.14deg 184.86deg,
+        /* 5 - red */
+        #cc0000 184.86deg 194.59deg,
+        /* 24 - black */
+        #1a1a1a 194.59deg 204.32deg,
+        /* 16 - red */
+        #cc0000 204.32deg 214.05deg,
+        /* 33 - black */
+        #1a1a1a 214.05deg 223.78deg,
+        /* 1 - red */
+        #cc0000 223.78deg 233.51deg,
+        /* 20 - black */
+        #1a1a1a 233.51deg 243.24deg,
+        /* 14 - red */
+        #cc0000 243.24deg 252.97deg,
+        /* 31 - black */
+        #1a1a1a 252.97deg 262.70deg,
+        /* 9 - red */
+        #cc0000 262.70deg 272.43deg,
+        /* 22 - black */
+        #1a1a1a 272.43deg 282.16deg,
+        /* 18 - red */
+        #cc0000 282.16deg 291.89deg,
+        /* 29 - black */
+        #1a1a1a 291.89deg 301.62deg,
+        /* 7 - red */
+        #cc0000 301.62deg 311.35deg,
+        /* 28 - black */
+        #1a1a1a 311.35deg 321.08deg,
+        /* 12 - red */
+        #cc0000 321.08deg 330.81deg,
+        /* 35 - black */
+        #1a1a1a 330.81deg 340.54deg,
+        /* 3 - red */
+        #cc0000 340.54deg 350.27deg,
+        /* 26 - black */
+        #1a1a1a 350.27deg 360deg
+    );
+    box-shadow: 
+        inset 0 0 20px rgba(0, 0, 0, 0.5);
+    z-index: 1;
+}
+
+/* Gold frets/dividers between number pockets */
+.wheel-segments::before {
     content: '';
     position: absolute;
     inset: 0;
     border-radius: 50%;
     background: repeating-conic-gradient(
-        from 0deg,
-        transparent 0deg 9.47deg,
-        rgba(212, 175, 55, 0.3) 9.47deg 9.6deg
+        from 175.14deg,
+        transparent 0deg 9.4deg,
+        rgba(212, 175, 55, 0.95) 9.4deg 9.73deg
     );
+    z-index: 2;
 }
 
-/* Inner gold ring */
+/* Number container */
+.wheel-numbers {
+    position: absolute;
+    inset: 6%;
+    border-radius: 50%;
+    z-index: 3;
+}
+
+/* Individual numbers */
+.wheel-numbers .num {
+    position: absolute;
+    width: 100%;
+    height: 100%;
+    display: flex;
+    justify-content: center;
+    font-family: 'Arial Narrow', Arial, sans-serif;
+    font-size: clamp(8px, 2.2vmin, 14px);
+    font-weight: bold;
+    color: #fff;
+    text-shadow: 0 1px 2px rgba(0, 0, 0, 0.8);
+    transform: rotate(calc(var(--i) * 9.73deg + 180deg));
+    padding-top: 4%;
+}
+
+/* Numbers point outward (upside down from center) */
+.wheel-numbers .num::after {
+    content: attr(data-num);
+}
+
+/* Outer gold ring around pockets */
+.wheel-segments::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    border-radius: 50%;
+    border: 3px solid;
+    border-color: #d4af37;
+    background: transparent;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.3),
+        0 1px 2px rgba(0, 0, 0, 0.3);
+    z-index: 3;
+}
+
+/* Inner number ring - smaller colored pockets */
+.wheel-ball-track {
+    position: absolute;
+    inset: 18%;
+    border-radius: 50%;
+    background: conic-gradient(
+        from 175.14deg,
+        /* Same European sequence, inner ring */
+        #00a000 0deg 9.73deg,
+        #cc0000 9.73deg 19.46deg,
+        #1a1a1a 19.46deg 29.19deg,
+        #cc0000 29.19deg 38.92deg,
+        #1a1a1a 38.92deg 48.65deg,
+        #cc0000 48.65deg 58.38deg,
+        #1a1a1a 58.38deg 68.11deg,
+        #cc0000 68.11deg 77.84deg,
+        #1a1a1a 77.84deg 87.57deg,
+        #cc0000 87.57deg 97.30deg,
+        #1a1a1a 97.30deg 107.03deg,
+        #cc0000 107.03deg 116.76deg,
+        #1a1a1a 116.76deg 126.49deg,
+        #cc0000 126.49deg 136.22deg,
+        #1a1a1a 136.22deg 145.95deg,
+        #cc0000 145.95deg 155.68deg,
+        #1a1a1a 155.68deg 165.41deg,
+        #cc0000 165.41deg 175.14deg,
+        #1a1a1a 175.14deg 184.86deg,
+        #cc0000 184.86deg 194.59deg,
+        #1a1a1a 194.59deg 204.32deg,
+        #cc0000 204.32deg 214.05deg,
+        #1a1a1a 214.05deg 223.78deg,
+        #cc0000 223.78deg 233.51deg,
+        #1a1a1a 233.51deg 243.24deg,
+        #cc0000 243.24deg 252.97deg,
+        #1a1a1a 252.97deg 262.70deg,
+        #cc0000 262.70deg 272.43deg,
+        #1a1a1a 272.43deg 282.16deg,
+        #cc0000 282.16deg 291.89deg,
+        #1a1a1a 291.89deg 301.62deg,
+        #cc0000 301.62deg 311.35deg,
+        #1a1a1a 311.35deg 321.08deg,
+        #cc0000 321.08deg 330.81deg,
+        #1a1a1a 330.81deg 340.54deg,
+        #cc0000 340.54deg 350.27deg,
+        #1a1a1a 350.27deg 360deg
+    );
+    box-shadow: 
+        inset 0 0 15px rgba(0, 0, 0, 0.4);
+    z-index: 4;
+}
+
+/* Gold dividers on inner ring */
+.wheel-ball-track::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: repeating-conic-gradient(
+        from 175.14deg,
+        transparent 0deg 9.4deg,
+        rgba(212, 175, 55, 0.9) 9.4deg 9.73deg
+    );
+    z-index: 5;
+}
+
+/* Gold ring around inner pockets */
+.wheel-ball-track::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid #d4af37;
+    background: transparent;
+    z-index: 6;
+}
+
+/* Inner wooden cone area */
 .wheel-inner-ring {
+    position: absolute;
+    inset: 32%;
+    border-radius: 50%;
+    background: 
+        radial-gradient(
+            ellipse at 35% 35%,
+            #b87a5a 0%,
+            #a06040 25%,
+            #8b4533 50%,
+            #6d3328 75%,
+            #5a2a22 100%
+        );
+    box-shadow: 
+        inset 0 3px 10px rgba(255, 200, 180, 0.15),
+        inset 0 -4px 12px rgba(0, 0, 0, 0.4),
+        0 2px 8px rgba(0, 0, 0, 0.3);
+    z-index: 7;
+}
+
+/* Wood grain on inner cone */
+.wheel-inner-ring::before {
+    content: '';
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    background: 
+        repeating-conic-gradient(
+            from 0deg,
+            rgba(90, 42, 34, 0.2) 0deg 3deg,
+            transparent 3deg 8deg
+        );
+}
+
+/* Gold ring around cone */
+.wheel-inner-ring::after {
+    content: '';
+    position: absolute;
+    inset: -2px;
+    border-radius: 50%;
+    border: 2px solid #d4af37;
+    background: transparent;
+    box-shadow:
+        inset 0 1px 2px rgba(255, 255, 255, 0.2);
+}
+
+/* Center hub - polished brass with cross spokes */
+.wheel-center {
+    position: absolute;
+    inset: 42%;
+    border-radius: 50%;
+    background: 
+        radial-gradient(
+            ellipse at 35% 30%,
+            #f4e4a6 0%,
+            #e5c770 20%,
+            #d4af37 45%,
+            #b8962f 70%,
+            #8b6914 100%
+        );
+    box-shadow: 
+        0 4px 12px rgba(0, 0, 0, 0.5),
+        inset 0 3px 6px rgba(255, 255, 255, 0.5),
+        inset 0 -3px 6px rgba(0, 0, 0, 0.3),
+        0 0 15px rgba(212, 175, 55, 0.3);
+    z-index: 8;
+}
+
+/* Cross spokes */
+.wheel-center::before {
+    content: '';
+    position: absolute;
+    inset: -80%;
+    background: 
+        linear-gradient(
+            0deg,
+            transparent calc(50% - 3px),
+            #d4af37 calc(50% - 3px),
+            #f4e4a6 calc(50% - 1px),
+            #d4af37 calc(50% + 1px),
+            #8b6914 calc(50% + 3px),
+            transparent calc(50% + 3px)
+        ),
+        linear-gradient(
+            90deg,
+            transparent calc(50% - 3px),
+            #d4af37 calc(50% - 3px),
+            #f4e4a6 calc(50% - 1px),
+            #d4af37 calc(50% + 1px),
+            #8b6914 calc(50% + 3px),
+            transparent calc(50% + 3px)
+        );
+    border-radius: 50%;
+    z-index: -1;
+}
+
+/* Center cap */
+.wheel-center::after {
+    content: '';
     position: absolute;
     inset: 25%;
     border-radius: 50%;
-    background: linear-gradient(135deg, #d4af37 0%, #f4e4a6 30%, #d4af37 60%, #8b6914 100%);
-    box-shadow: 
-        0 0 15px rgba(212, 175, 55, 0.6),
-        inset 0 0 20px rgba(0, 0, 0, 0.4);
-}
-
-/* Center hub */
-.wheel-center {
-    position: absolute;
-    inset: 35%;
-    border-radius: 50%;
     background: 
-        radial-gradient(circle at 30% 30%, #f4e4a6 0%, #d4af37 40%, #8b6914 100%);
-    box-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.8),
-        inset 0 2px 5px rgba(255, 255, 255, 0.3),
-        inset 0 -2px 5px rgba(0, 0, 0, 0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-}
-
-/* Center diamond decoration */
-.wheel-center::after {
-    content: '♦';
-    font-size: clamp(1.5rem, 4vmin, 2.5rem);
-    color: #8b0000;
-    text-shadow: 0 0 5px rgba(139, 0, 0, 0.5);
-    filter: drop-shadow(0 1px 1px rgba(0, 0, 0, 0.3));
-}
-
-/* Ball track (stationary reference) */
-.ball-track {
-    position: absolute;
-    inset: 5%;
-    border-radius: 50%;
-    border: 2px solid rgba(212, 175, 55, 0.2);
-    pointer-events: none;
-}
-
-/* The ball - orbits counter to wheel spin */
-.roulette-ball {
-    position: absolute;
-    width: clamp(12px, 3vmin, 18px);
-    height: clamp(12px, 3vmin, 18px);
-    background: radial-gradient(circle at 30% 30%, #ffffff 0%, #e0e0e0 40%, #a0a0a0 100%);
-    border-radius: 50%;
+        radial-gradient(
+            ellipse at 35% 30%,
+            #f4e4a6 0%,
+            #d4af37 40%,
+            #8b6914 100%
+        );
     box-shadow: 
         0 2px 4px rgba(0, 0, 0, 0.4),
-        inset 0 1px 2px rgba(255, 255, 255, 0.8),
-        0 0 10px rgba(255, 255, 255, 0.3);
+        inset 0 2px 3px rgba(255, 255, 255, 0.5),
+        inset 0 -2px 3px rgba(0, 0, 0, 0.3);
+}
+
+/* Ball deflectors (diamonds) - stationary on outer rim */
+.ball-track {
+    position: absolute;
+    inset: 0;
+    border-radius: 50%;
+    pointer-events: none;
+    z-index: 20;
+}
+
+/* Diamond deflectors around the rim */
+.ball-track::before {
+    content: '';
+    position: absolute;
+    inset: -3%;
+    border-radius: 50%;
+    background: 
+        conic-gradient(
+            from 0deg,
+            transparent 0deg 42deg,
+            #d4af37 42deg 43deg,
+            #f4e4a6 43deg 44deg,
+            #d4af37 44deg 45deg,
+            #8b6914 45deg 46deg,
+            transparent 46deg 90deg,
+            transparent 90deg 132deg,
+            #d4af37 132deg 133deg,
+            #f4e4a6 133deg 134deg,
+            #d4af37 134deg 135deg,
+            #8b6914 135deg 136deg,
+            transparent 136deg 180deg,
+            transparent 180deg 222deg,
+            #d4af37 222deg 223deg,
+            #f4e4a6 223deg 224deg,
+            #d4af37 224deg 225deg,
+            #8b6914 225deg 226deg,
+            transparent 226deg 270deg,
+            transparent 270deg 312deg,
+            #d4af37 312deg 313deg,
+            #f4e4a6 313deg 314deg,
+            #d4af37 314deg 315deg,
+            #8b6914 315deg 316deg,
+            transparent 316deg 360deg
+        );
+    mask: radial-gradient(
+        circle,
+        transparent 88%,
+        black 88%,
+        black 94%,
+        transparent 94%
+    );
+    -webkit-mask: radial-gradient(
+        circle,
+        transparent 88%,
+        black 88%,
+        black 94%,
+        transparent 94%
+    );
+}
+
+/* 8 diamond deflectors positioned around wheel */
+.ball-track::after {
+    content: '';
+    position: absolute;
+    inset: -3%;
+    border-radius: 50%;
+    background: 
+        conic-gradient(
+            from 22.5deg,
+            transparent 0deg 42deg,
+            #d4af37 42deg 43deg,
+            #f4e4a6 43deg 44deg,
+            #d4af37 44deg 45deg,
+            #8b6914 45deg 46deg,
+            transparent 46deg 90deg,
+            transparent 90deg 132deg,
+            #d4af37 132deg 133deg,
+            #f4e4a6 133deg 134deg,
+            #d4af37 134deg 135deg,
+            #8b6914 135deg 136deg,
+            transparent 136deg 180deg,
+            transparent 180deg 222deg,
+            #d4af37 222deg 223deg,
+            #f4e4a6 223deg 224deg,
+            #d4af37 224deg 225deg,
+            #8b6914 225deg 226deg,
+            transparent 226deg 270deg,
+            transparent 270deg 312deg,
+            #d4af37 312deg 313deg,
+            #f4e4a6 313deg 314deg,
+            #d4af37 314deg 315deg,
+            #8b6914 315deg 316deg,
+            transparent 316deg 360deg
+        );
+    mask: radial-gradient(
+        circle,
+        transparent 88%,
+        black 88%,
+        black 94%,
+        transparent 94%
+    );
+    -webkit-mask: radial-gradient(
+        circle,
+        transparent 88%,
+        black 88%,
+        black 94%,
+        transparent 94%
+    );
+}
+
+/* The ball - ivory ceramic */
+.roulette-ball {
+    position: absolute;
+    width: clamp(12px, 3vmin, 16px);
+    height: clamp(12px, 3vmin, 16px);
+    background: 
+        radial-gradient(
+            ellipse at 30% 30%,
+            #ffffff 0%,
+            #f5f5f5 30%,
+            #e0e0e0 60%,
+            #c0c0c0 100%
+        );
+    border-radius: 50%;
+    box-shadow: 
+        2px 2px 4px rgba(0, 0, 0, 0.4),
+        inset -1px -1px 2px rgba(0, 0, 0, 0.1),
+        inset 2px 2px 3px rgba(255, 255, 255, 0.9);
     top: 50%;
     left: 50%;
     transform-origin: center center;
-    animation: orbitBall 1.5s linear infinite;
+    animation: orbitBall 1.8s linear infinite reverse;
+    z-index: 25;
 }
 
 /* Wheel spin animation */
@@ -245,26 +584,27 @@ body.loader-active {
     }
 }
 
-/* Ball orbit animation - counter-clockwise, faster than wheel */
+/* Ball orbit animation - orbits on outer track area */
 @keyframes orbitBall {
     from {
-        transform: rotate(0deg) translateX(calc(clamp(100px, 25vmin, 175px) * 0.85)) rotate(0deg);
+        transform: rotate(0deg) translateX(calc(clamp(120px, 30vmin, 200px) * 0.88)) rotate(0deg);
     }
     to {
-        transform: rotate(-360deg) translateX(calc(clamp(100px, 25vmin, 175px) * 0.85)) rotate(360deg);
+        transform: rotate(360deg) translateX(calc(clamp(120px, 30vmin, 200px) * 0.88)) rotate(-360deg);
     }
 }
 
 /* Loading text */
 .loader-text {
-    font-family: var(--font-display, 'Playfair Display', serif);
-    font-size: clamp(1rem, 3vw, 1.5rem);
+    font-family: 'Las Vegas Demo', 'Lounge Vintage', sans-serif;
+    font-size: clamp(2.5rem, 8vw, 5rem);
     color: #d4af37;
-    text-transform: uppercase;
-    letter-spacing: 0.3em;
+    letter-spacing: 0.1em;
+    margin-top: 2rem;
     text-shadow: 
-        0 0 10px rgba(212, 175, 55, 0.5),
-        0 0 20px rgba(212, 175, 55, 0.3);
+        0 0 10px rgba(212, 175, 55, 0.6),
+        0 0 20px rgba(212, 175, 55, 0.4),
+        0 0 40px rgba(212, 175, 55, 0.3);
     animation: pulseText 1.5s ease-in-out infinite;
 }
 
@@ -277,7 +617,11 @@ body.loader-active {
     }
 }
 
-/* Exit animation - wheel shrinks and fades */
+/* Exit animation - wheel shrinks and fades, overlay fades out */
+.loader-overlay.exiting {
+    animation: fadeOut 0.8s ease-out forwards;
+}
+
 .loader-overlay.exiting .roulette-container {
     animation: exitWheel 0.8s cubic-bezier(0.4, 0, 0.2, 1) forwards;
 }
@@ -315,7 +659,7 @@ body.loader-active {
     
     .roulette-ball {
         animation: none;
-        transform: translateX(calc(clamp(100px, 25vmin, 175px) * 0.85));
+        transform: translateX(calc(clamp(120px, 30vmin, 200px) * 0.88));
     }
     
     .loader-text {
@@ -328,17 +672,3 @@ body.loader-active {
     }
 }
 
-/* Neon glow effect on the wheel */
-.roulette-wheel::after {
-    content: '';
-    position: absolute;
-    inset: -15px;
-    border-radius: 50%;
-    background: transparent;
-    box-shadow: 
-        0 0 30px rgba(212, 175, 55, 0.3),
-        0 0 60px rgba(212, 175, 55, 0.2),
-        0 0 90px rgba(212, 175, 55, 0.1);
-    pointer-events: none;
-    z-index: -2;
-}

@@ -37,7 +37,7 @@
 .marquee-3d-container {
     position: relative;
     width: 100%;
-    height: clamp(450px, 70vw, 650px);
+    height: clamp(550px, 80vw, 800px);
     margin-bottom: 10px;
     z-index: 5;
     overflow: visible;
@@ -49,6 +49,19 @@
     display: block;
     position: relative;
     z-index: 1;
+}
+
+/* Responsive sizing for smaller screens */
+@media (max-width: 768px) {
+    .marquee-3d-container {
+        height: clamp(350px, 70vw, 500px);
+    }
+}
+
+@media (max-width: 480px) {
+    .marquee-3d-container {
+        height: clamp(280px, 65vw, 380px);
+    }
 }
 
 /* ============================================

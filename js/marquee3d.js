@@ -108,6 +108,9 @@
     // Bulbs array for chase animation
     const bulbs = [];
     
+    // Neon lines array for chase animation
+    const neonLines = [];
+    
     // Shared sphere geometry for all bulbs (balanced poly count for smoothness)
     const bulbSegments = isMobile ? 12 : 16;
     const sharedBulbGeometry = new THREE.SphereGeometry(1, bulbSegments, bulbSegments);
@@ -178,9 +181,9 @@
             const center = box.getCenter(new THREE.Vector3());
             const size = box.getSize(new THREE.Vector3());
             
-            // Scale to fit nicely in view (target ~11 units wide)
+            // Scale to fit nicely in view (target ~11.5 units)
             const maxDim = Math.max(size.x, size.y, size.z);
-            const scale = 11 / maxDim;
+            const scale = 11.5 / maxDim;
             model.scale.setScalar(scale);
             
             // Re-center after scaling
@@ -229,18 +232,24 @@
                             // Make neon materials glow with visible color
                             const matName = (child.material.name || '').toLowerCase();
                             if (matName.includes('neon') || matName === 'light') {
-                                // Neon_Silver (J&B text) stays white
+                                // Neon_Silver (J&B text) stays white - no animation
                                 if (matName.includes('silver')) {
                                     child.material.emissive = new THREE.Color(0xffffff);
                                     child.material.color = new THREE.Color(0xffffff);
                                     child.material.emissiveIntensity = 2.0;
                                 } else if (matName.includes('red')) {
                                     // Red neon - extra saturated
+                                    child.material = child.material.clone();
                                     child.material.emissive = new THREE.Color(0xff0000);
                                     child.material.color = new THREE.Color(0xff2020);
                                     child.material.emissiveIntensity = 2.0;
+                                    // Store original colors for animation
+                                    child.userData.neonColor = new THREE.Color(0xff2020);
+                                    child.userData.neonEmissive = new THREE.Color(0xff0000);
+                                    neonLines.push(child);
                                 } else {
                                     // Other colored neons - saturated glow
+                                    child.material = child.material.clone();
                                     if (child.material.color) {
                                         const hsl = {};
                                         child.material.color.getHSL(hsl);
@@ -248,8 +257,12 @@
                                         child.material.emissive = new THREE.Color().setHSL(hsl.h, 1.0, 0.5);
                                         // Keep base color saturated
                                         child.material.color.setHSL(hsl.h, 1.0, 0.6);
+                                        // Store original colors for animation
+                                        child.userData.neonColor = child.material.color.clone();
+                                        child.userData.neonEmissive = child.material.emissive.clone();
                                     }
                                     child.material.emissiveIntensity = 2.0;
+                                    neonLines.push(child);
                                 }
                             }
                             
@@ -296,10 +309,11 @@
             });
             
             console.log('Replaced', bulbPositions.length, 'high-poly bulbs with low-poly versions');
+            console.log('Found', neonLines.length, 'neon line meshes for animation');
             
             // Position the group - rotate to face camera
             marqueeGroup.rotation.x = Math.PI / 2 - 0.15;
-            marqueeGroup.position.y = 0.3;
+            marqueeGroup.position.y = 0.5;
         },
         function(progress) {
             if (progress.total > 0) {
@@ -316,6 +330,18 @@
     let chaseStep = 0;
     const chaseSpeed = isMobile ? 200 : 150;
     let chaseLastTime = 0;
+    
+    // Neon line chase animation - slower
+    let neonChaseStep = 0;
+    const neonChaseSpeed = isMobile ? 350 : 300;
+    let neonChaseLastTime = 0;
+    
+    // Bright white for neon "lit" chase state
+    const neonWhiteColor = new THREE.Color(0xffffff);
+    const neonWhiteEmissive = new THREE.Color(0xffffff);
+    // Dark dim for neon "off" state
+    const neonDimColor = new THREE.Color(0x111111);
+    const neonDimEmissive = new THREE.Color(0x050505);
     
     function animateBulbs(currentTime) {
         if (bulbs.length === 0) return;
@@ -346,6 +372,41 @@
                         if (bulb.material.color) {
                             bulb.material.color.copy(dimColor);
                         }
+                    }
+                }
+            });
+        }
+    }
+    
+    function animateNeonLines(currentTime) {
+        if (neonLines.length === 0) return;
+        
+        if (currentTime - neonChaseLastTime >= neonChaseSpeed) {
+            neonChaseLastTime = currentTime;
+            neonChaseStep += 1;
+            
+            neonLines.forEach((line, i) => {
+                // Alternating pattern: every other line, with chase wave
+                // Use modulo 2 for alternating, chase step shifts which set is "on"
+                const isEvenLine = i % 2 === 0;
+                const chasePhase = neonChaseStep % 2 === 0;
+                const isWhite = isEvenLine === chasePhase;
+                
+                if (line.material) {
+                    if (isWhite) {
+                        // Bright white
+                        line.material.emissive.copy(neonWhiteEmissive);
+                        line.material.color.copy(neonWhiteColor);
+                        line.material.emissiveIntensity = 2.5;
+                    } else {
+                        // Original neon color
+                        if (line.userData.neonEmissive) {
+                            line.material.emissive.copy(line.userData.neonEmissive);
+                        }
+                        if (line.userData.neonColor) {
+                            line.material.color.copy(line.userData.neonColor);
+                        }
+                        line.material.emissiveIntensity = 2.0;
                     }
                 }
             });
@@ -389,11 +450,12 @@
         
         if (!prefersReducedMotion) {
             animateBulbs(currentTime);
+            animateNeonLines(currentTime);
         }
         
         if (!prefersReducedMotion) {
             floatTime += isMobile ? 0.008 : 0.012;
-            marqueeGroup.position.y = 0.3 + Math.sin(floatTime) * 0.03;
+            marqueeGroup.position.y = 0.5 + Math.sin(floatTime) * 0.03;
             marqueeGroup.rotation.y = Math.sin(floatTime * 0.5) * 0.02;
         }
         
