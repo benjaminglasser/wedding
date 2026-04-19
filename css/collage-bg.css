@@ -383,41 +383,10 @@
 
 /* ============================================
    SECTION SIGN SCROLL ANIMATIONS
-   Fade and translate in when visible
+   Transition-driven fade + slide in, triggered once when the
+   containing section enters the viewport (see initScrollAnimations
+   in js/main.js, which adds the .animate-in class).
    ============================================ */
-
-@keyframes fadeSlideFromLeft {
-    from {
-        opacity: 0;
-        transform: translateX(-50px) translateY(-50%) rotate(5deg);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0) translateY(-50%) rotate(5deg);
-    }
-}
-
-@keyframes fadeSlideFromRight {
-    from {
-        opacity: 0;
-        transform: translateX(50px) translateY(-50%) rotate(-5deg);
-    }
-    to {
-        opacity: 1;
-        transform: translateX(0) translateY(-50%) rotate(-5deg);
-    }
-}
-
-@keyframes fadeSlideUp {
-    from {
-        opacity: 0;
-        transform: translateY(30px) rotate(-3deg);
-    }
-    to {
-        opacity: 1;
-        transform: translateY(0) rotate(-3deg);
-    }
-}
 
 .section-sign-cutout {
     position: absolute;
@@ -425,31 +394,40 @@
     z-index: 1;
     pointer-events: none;
     opacity: 0;
-    transition: opacity 0.8s ease, transform 0.8s ease;
+    /* Single, smooth transition drives the entire entrance.
+       No keyframe animation is used — elastic keyframes caused opacity
+       to overshoot past 1 (clamped), producing a visible "snap to full
+       then settle" that read as a double fade-in. A monotonic ease-out
+       curve on both opacity and transform gives one clean fade. */
+    transition:
+        opacity 0.9s cubic-bezier(0.22, 1, 0.36, 1),
+        transform 0.9s cubic-bezier(0.22, 1, 0.36, 1);
 }
 
-/* Animated state when in view */
+/* Lift the main textual/interactive content above the decorative
+   side signs at every breakpoint so headlines, copy, and panels stay
+   readable even when a full-size sign peeks in from the edge. */
+.section-with-chaos > .section-title,
+.section-with-chaos > .attire-content,
+.section-with-chaos > .event-panels,
+.section-with-chaos > .messages-content,
+.section-with-chaos > .slot-machine-game,
+.section-with-chaos > .hotel-content,
+.section-with-chaos > .rsvp-content,
+.section-with-chaos > .vegas-divider {
+    position: relative;
+    z-index: 2;
+}
+
+/* Final/resting state when the section has scrolled into view.
+   Each variant's base rule below defines the resting transform and
+   resting opacity; .animate-in just ensures opacity reaches 1 (the
+   non-bg signs want to be fully visible once faded in). */
 .section-sign-cutout.animate-in {
     opacity: 1;
 }
 
-.section-sign-cutout.sign-left.animate-in {
-    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.section-sign-cutout.sign-right.animate-in,
-.section-sign-cutout.sign-right-messages.animate-in {
-    animation: fadeSlideFromRight 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.section-sign-cutout.sign-left-messages.animate-in {
-    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
-.section-sign-cutout.sign-bottom-right.animate-in {
-    animation: fadeSlideUp 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
-}
-
+/* Resting transforms — these are what the sign transitions TO. */
 .section-sign-cutout.sign-left {
     left: -8%;
     top: 50%;
@@ -467,16 +445,15 @@
     bottom: 60px;
     width: clamp(280px, 35vw, 500px);
     transform: rotate(-3deg);
-    z-index: 20;
+    z-index: 1;
 }
 
-/* Vegas lights sign in Messages/Attire section - positioned right */
+/* Vegas lights sign in Messages/Attire section - positioned right. */
 .section-sign-cutout.sign-right-messages {
     right: -12%;
     top: 50%;
-    transform: translateY(-50%) scaleX(-1) rotate(-3deg);
+    transform: translateY(-50%) rotate(-3deg);
     width: clamp(450px, 58vw, 850px);
-    opacity: 0.9;
 }
 
 /* Horseshoe sign in Messages/Attire section - positioned left */
@@ -485,7 +462,6 @@
     top: 50%;
     transform: translateY(-50%) rotate(3deg);
     width: clamp(450px, 55vw, 800px);
-    opacity: 0.9;
 }
 
 /* Neon sign in RSVP section - positioned left */
@@ -494,12 +470,7 @@
     top: 42%;
     transform: translateY(-50%) rotate(5deg);
     width: clamp(450px, 55vw, 750px);
-    opacity: 0.6;
     filter: brightness(0.7);
-}
-
-.section-sign-cutout.sign-left-rsvp.animate-in {
-    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Slot machine in Gifts/Jackpot section - positioned left */
@@ -508,11 +479,6 @@
     top: 50%;
     transform: translateY(-50%) rotate(3deg);
     width: clamp(300px, 38vw, 500px);
-    opacity: 0.85;
-}
-
-.section-sign-cutout.sign-left-gifts.animate-in {
-    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
 }
 
 /* Chips in Hotel section - positioned left with vintage sepia filter */
@@ -521,13 +487,39 @@
     top: 50%;
     transform: translateY(-50%) rotate(-5deg);
     width: clamp(300px, 35vw, 500px);
-    opacity: 0.75;
     filter: sepia(0.7) saturate(0.8) brightness(0.9) contrast(1.1);
 }
 
-.section-sign-cutout.sign-left-hotel.animate-in {
-    animation: fadeSlideFromLeft 0.8s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+/* Entry-state transforms (pre-animate). Only applied while the sign
+   has NOT yet received the .animate-in class. When the class is added,
+   these rules stop matching and the base rules above take over — the
+   CSS transition on .section-sign-cutout interpolates smoothly. */
+.section-sign-cutout.sign-left:not(.animate-in),
+.section-sign-cutout.sign-left-messages:not(.animate-in),
+.section-sign-cutout.sign-left-rsvp:not(.animate-in),
+.section-sign-cutout.sign-left-gifts:not(.animate-in),
+.section-sign-cutout.sign-left-hotel:not(.animate-in) {
+    transform: translate(-40px, -50%) rotate(var(--sign-enter-rotate, 5deg));
 }
+
+.section-sign-cutout.sign-right:not(.animate-in),
+.section-sign-cutout.sign-right-messages:not(.animate-in) {
+    transform: translate(40px, -50%) rotate(var(--sign-enter-rotate, -5deg));
+}
+
+.section-sign-cutout.sign-bottom-right:not(.animate-in) {
+    transform: translateY(30px) rotate(-3deg);
+}
+
+/* Keep rotation consistent with the resting state to avoid any
+   rotation mid-transition on angled signs. */
+.section-sign-cutout.sign-left { --sign-enter-rotate: 5deg; }
+.section-sign-cutout.sign-left-messages { --sign-enter-rotate: 3deg; }
+.section-sign-cutout.sign-left-rsvp { --sign-enter-rotate: 5deg; }
+.section-sign-cutout.sign-left-gifts { --sign-enter-rotate: 3deg; }
+.section-sign-cutout.sign-left-hotel { --sign-enter-rotate: -5deg; }
+.section-sign-cutout.sign-right { --sign-enter-rotate: -5deg; }
+.section-sign-cutout.sign-right-messages { --sign-enter-rotate: -3deg; }
 
 /* TOP RIGHT CORNER - Union Plaza (tilted 20deg right) */
 .bg-cutout.union-plaza {
@@ -580,10 +572,13 @@
     
 }
 
-/* On phones and tablets, fade all side decorative signs into the
-   background (like the hero collage) so they don't cover the main
-   content but still add atmosphere. */
-@media (max-width: 1024px) {
+/* On smaller desktops, tablets, and phones, fade all side decorative
+   signs into the background (like the hero collage) so they don't cover
+   the main content but still add atmosphere. The 1400px breakpoint
+   keeps the full-size signs only on wide displays where the centered
+   content (e.g. .attire-content at max-width: 600px) has enough room
+   on either side to not be covered. */
+@media (max-width: 1400px) {
     .section-sign-cutout,
     .section-sign-cutout.animate-in,
     .section-sign-cutout.sign-left,
@@ -601,6 +596,28 @@
         filter: blur(2px) saturate(1.1) brightness(0.9) !important;
         z-index: 0 !important;
         animation: none !important;
+        /* No transition on smaller viewports — signs are decorative
+           background only, no slide-in needed. */
+        transition: none !important;
+    }
+
+    /* Cancel the entry offset so signs sit at their resting transform
+       immediately, without waiting for the (now-removed) animation. */
+    .section-sign-cutout.sign-left:not(.animate-in),
+    .section-sign-cutout.sign-left-messages:not(.animate-in),
+    .section-sign-cutout.sign-left-rsvp:not(.animate-in),
+    .section-sign-cutout.sign-left-gifts:not(.animate-in),
+    .section-sign-cutout.sign-left-hotel:not(.animate-in) {
+        transform: translateY(-50%) rotate(var(--sign-enter-rotate, 5deg)) !important;
+    }
+
+    .section-sign-cutout.sign-right:not(.animate-in),
+    .section-sign-cutout.sign-right-messages:not(.animate-in) {
+        transform: translateY(-50%) rotate(var(--sign-enter-rotate, -5deg)) !important;
+    }
+
+    .section-sign-cutout.sign-bottom-right:not(.animate-in) {
+        transform: rotate(-3deg) !important;
     }
 }
 
@@ -651,5 +668,22 @@
     
     .bg-cutout[data-parallax] {
         transform: none !important;
+    }
+
+    /* For users who prefer reduced motion, skip the slide entirely:
+       signs simply fade in (or just appear) at their resting transform. */
+    .section-sign-cutout {
+        transition: opacity 0.3s linear !important;
+    }
+
+    .section-sign-cutout.sign-left:not(.animate-in),
+    .section-sign-cutout.sign-left-messages:not(.animate-in),
+    .section-sign-cutout.sign-left-rsvp:not(.animate-in),
+    .section-sign-cutout.sign-left-gifts:not(.animate-in),
+    .section-sign-cutout.sign-left-hotel:not(.animate-in),
+    .section-sign-cutout.sign-right:not(.animate-in),
+    .section-sign-cutout.sign-right-messages:not(.animate-in),
+    .section-sign-cutout.sign-bottom-right:not(.animate-in) {
+        transform: none;
     }
 }

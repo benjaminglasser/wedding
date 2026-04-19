@@ -1,0 +1,252 @@
+- generic [active] [ref=e1]:
+  - generic [ref=e3]:
+    - generic [ref=e7]:
+      - generic [ref=e8]: "0"
+      - generic [ref=e9]: "32"
+      - generic [ref=e10]: "15"
+      - generic [ref=e11]: "19"
+      - generic [ref=e12]: "4"
+      - generic [ref=e13]: "21"
+      - generic [ref=e14]: "2"
+      - generic [ref=e15]: "25"
+      - generic [ref=e16]: "17"
+      - generic [ref=e17]: "34"
+      - generic [ref=e18]: "6"
+      - generic [ref=e19]: "27"
+      - generic [ref=e20]: "13"
+      - generic [ref=e21]: "36"
+      - generic [ref=e22]: "11"
+      - generic [ref=e23]: "30"
+      - generic [ref=e24]: "8"
+      - generic [ref=e25]: "23"
+      - generic [ref=e26]: "10"
+      - generic [ref=e27]: "5"
+      - generic [ref=e28]: "24"
+      - generic [ref=e29]: "16"
+      - generic [ref=e30]: "33"
+      - generic [ref=e31]: "1"
+      - generic [ref=e32]: "20"
+      - generic [ref=e33]: "14"
+      - generic [ref=e34]: "31"
+      - generic [ref=e35]: "9"
+      - generic [ref=e36]: "22"
+      - generic [ref=e37]: "18"
+      - generic [ref=e38]: "29"
+      - generic [ref=e39]: "7"
+      - generic [ref=e40]: "28"
+      - generic [ref=e41]: "12"
+      - generic [ref=e42]: "35"
+      - generic [ref=e43]: "3"
+      - generic [ref=e44]: "26"
+    - generic [ref=e49]: Loading...
+  - link "Skip to content" [ref=e50] [cursor=pointer]:
+    - /url: "#schedule"
+  - region "Wedding announcement" [ref=e51]:
+    - generic [ref=e53]: SCROLL
+  - generic [ref=e56]:
+    - generic [ref=e57]:
+      - generic [ref=e58]: JAC & BEN!
+      - generic [ref=e59]: ★
+      - generic [ref=e60]: JAC & BEN!
+      - generic [ref=e61]: ♥
+      - generic [ref=e62]: JAC & BEN!
+      - generic [ref=e63]: ★
+      - generic [ref=e64]: JAC & BEN!
+      - generic [ref=e65]: ♥
+    - generic [ref=e66]:
+      - generic [ref=e67]: JAC & BEN!
+      - generic [ref=e68]: ★
+      - generic [ref=e69]: JAC & BEN!
+      - generic [ref=e70]: ♥
+      - generic [ref=e71]: JAC & BEN!
+      - generic [ref=e72]: ★
+      - generic [ref=e73]: JAC & BEN!
+      - generic [ref=e74]: ♥
+  - generic [ref=e75]:
+    - img
+    - heading "The L ineup" [level=2] [ref=e76]:
+      - text: The
+      - generic [ref=e77]: L
+      - text: ineup
+    - generic [ref=e78]:
+      - generic [ref=e79]:
+        - text: ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●
+        - generic [ref=e81]:
+          - heading "Opening Night" [level=3] [ref=e82]
+          - paragraph [ref=e83]: FRIDAY, OCTOBER 9
+          - paragraph [ref=e84]: ♦ Welcome Party ♦
+          - paragraph [ref=e85]: Kick off the festivities with drinks, laughs, and a sneak peek at the main event!
+        - generic [ref=e86]: 🎲
+        - generic [ref=e87]: FRI
+      - generic [ref=e88]:
+        - text: ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●
+        - generic [ref=e90]:
+          - heading "The Main Event" [level=3] [ref=e91]
+          - paragraph [ref=e92]: SATURDAY, OCTOBER 10
+          - paragraph [ref=e93]: ★ The Wedding ★
+          - paragraph [ref=e94]: "@ The Palms, Las Vegas"
+          - paragraph [ref=e95]: The moment you've been waiting for. Let's make it official!
+        - generic [ref=e96]: 🃏
+        - generic [ref=e97]: SAT
+      - generic [ref=e98]:
+        - text: ● ● ● ● ● ● ● ● ● ● ● ● ● ● ●
+        - generic [ref=e100]:
+          - heading "The Encore" [level=3] [ref=e101]
+          - paragraph [ref=e102]: SUNDAY, OCTOBER 11
+          - paragraph [ref=e103]: ~ Pool Party ~
+          - paragraph [ref=e104]: One last splash before we say goodbye. Bring your swimsuit and sunglasses!
+        - generic [ref=e105]: ⭐
+        - generic [ref=e106]: SUN
+  - generic [ref=e108]:
+    - generic [ref=e109]:
+      - generic [ref=e110]: BEN HIT THE JAC-POT!
+      - generic [ref=e111]: ♥
+      - generic [ref=e112]: BEN HIT THE JAC-POT!
+      - generic [ref=e113]: ♥
+      - generic [ref=e114]: BEN HIT THE JAC-POT!
+      - generic [ref=e115]: ♥
+    - generic [ref=e116]:
+      - generic [ref=e117]: BEN HIT THE JAC-POT!
+      - generic [ref=e118]: ♥
+      - generic [ref=e119]: BEN HIT THE JAC-POT!
+      - generic [ref=e120]: ♥
+      - generic [ref=e121]: BEN HIT THE JAC-POT!
+      - generic [ref=e122]: ♥
+  - generic [ref=e123]:
+    - img
+    - generic:
+      - generic:
+        - generic: ❤
+        - generic: ❤
+        - generic: ❤
+      - generic: ❤
+    - img "Jac & Ben - Las Vegas October 10th, 2026" [ref=e125]
+    - generic [ref=e127]: RSVP
+    - generic [ref=e128]:
+      - heading "Place Your Bets" [level=2] [ref=e129]
+      - paragraph [ref=e130]: Are you in? Let us know you're ready to roll!
+      - generic [ref=e131]:
+        - generic [ref=e132]: ♠
+        - generic [ref=e133]: ♥
+        - generic [ref=e134]: ♦
+        - generic [ref=e135]: ♣
+      - link "I'M ALL IN!" [ref=e136] [cursor=pointer]:
+        - /url: "#"
+  - generic [ref=e141]:
+    - generic [ref=e142]: 🎲
+    - generic [ref=e143]: 💎
+    - generic [ref=e144]: 🎲
+  - generic [ref=e145]:
+    - img
+    - img
+    - heading "Stay and Play" [level=2] [ref=e146]
+    - generic [ref=e147]:
+      - paragraph [ref=e148]: Book your room and stay where the magic happens!
+      - paragraph [ref=e149]: We've got a room block ready and waiting for you at The Palms.
+      - link "BOOK YOUR ROOM" [ref=e150] [cursor=pointer]:
+        - /url: "#"
+      - generic [ref=e153]: VACANCY
+  - generic [ref=e155]:
+    - generic [ref=e156]: ✦
+    - generic [ref=e157]: ★
+    - generic [ref=e158]: ♦
+    - generic [ref=e159]: ★
+    - generic [ref=e160]: ✦
+  - generic [ref=e161]:
+    - img
+    - img
+    - generic [ref=e162]:
+      - heading "Dress to Impress" [level=2] [ref=e163]
+      - paragraph [ref=e164]: Vegas vibes, baby! Think festive party attire! Glitz, glamour, and good times encouraged.
+      - paragraph [ref=e165]: Not sure what to wear? We've got you covered with some inspo.
+      - link "GET INSPIRED" [ref=e166] [cursor=pointer]:
+        - /url: "#"
+    - generic [ref=e168]:
+      - generic [ref=e169]: ✦
+      - generic [ref=e170]: ★
+      - generic [ref=e171]: ♦
+      - generic [ref=e172]: ★
+      - generic [ref=e173]: ✦
+  - generic [ref=e174]:
+    - img
+    - img
+    - generic [ref=e178]:
+      - generic [ref=e179]:
+        - generic [ref=e180]: Lucky Jacs
+        - generic "Current jacpot — the score you win if you hit three Jacs" [ref=e181]:
+          - generic [ref=e182]: JACPOT
+          - generic [ref=e183]: "0"
+          - generic [ref=e184]: WINNING SCORE
+      - generic [ref=e185]:
+        - generic [ref=e186]:
+          - generic [ref=e188]:
+            - generic [ref=e189]: J♠
+            - generic [ref=e190]: 🍒
+            - generic [ref=e191]: 💎
+            - generic [ref=e192]: ♥
+            - generic [ref=e193]: 🔔
+            - generic [ref=e194]: J♥
+            - generic [ref=e195]: J♠
+            - generic [ref=e196]: 🍒
+          - generic [ref=e198]:
+            - generic [ref=e199]: 💎
+            - generic [ref=e200]: J♦
+            - generic [ref=e201]: ♥
+            - generic [ref=e202]: 🍒
+            - generic [ref=e203]: J♣
+            - generic [ref=e204]: 🔔
+            - generic [ref=e205]: 💎
+            - generic [ref=e206]: J♥
+          - generic [ref=e208]:
+            - generic [ref=e209]: ♥
+            - generic [ref=e210]: 🔔
+            - generic [ref=e211]: J♠
+            - generic [ref=e212]: J♦
+            - generic [ref=e213]: 🍒
+            - generic [ref=e214]: 💎
+            - generic [ref=e215]: ♥
+            - generic [ref=e216]: J♣
+        - generic [ref=e217]:
+          - button "Pull lever to spin" [ref=e218] [cursor=pointer]
+          - generic [ref=e222]: PULL!
+      - generic [ref=e224]:
+        - generic [ref=e226]: High Rollers
+        - generic [ref=e227]:
+          - generic [ref=e228]: "#"
+          - generic [ref=e229]: WHO
+          - generic [ref=e230]: SCORE
+        - generic [ref=e232]: No winners yet... pull the lever!
+    - generic [ref=e234]:
+      - generic [ref=e235]: 🍒
+      - generic [ref=e236]: ♥
+      - generic [ref=e237]: 💎
+      - generic [ref=e238]: ♥
+      - generic [ref=e239]: 🍒
+  - contentinfo [ref=e241]:
+    - generic [ref=e242]:
+      - generic [ref=e243]: See You in Vegas!
+      - paragraph [ref=e244]: OCTOBER 10, 2026
+    - generic [ref=e245]:
+      - generic:
+        - generic:
+          - generic: JAC
+          - generic: BEN
+          - generic: JAC
+          - generic: BEN
+        - generic:
+          - generic: JAC
+          - generic: BEN
+          - generic: JAC
+          - generic: BEN
+        - generic:
+          - generic: JAC
+          - generic: BEN
+          - generic: JAC
+          - generic: BEN
+        - generic:
+          - generic: JAC
+          - generic: BEN
+          - generic: JAC
+          - generic: BEN
+      - generic:
+        - img "Jac & Ben"

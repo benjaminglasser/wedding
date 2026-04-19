@@ -58,6 +58,26 @@
     .marquee-3d-container {
         height: clamp(320px, 50vh, 500px);
     }
+
+    /* Hide the scattered floating emoji/symbol decorations on iPad and smaller.
+       These add visual clutter at narrower viewports and often overlap content. */
+    .floating-deco,
+    .floating-dice {
+        display: none !important;
+    }
+
+    /* Hide the scattered poker-chip decorations around the Lucky Jacs slot
+       machine on iPad and smaller — they crowd the cabinet at narrower widths. */
+    .gifts .chip-decoration {
+        display: none !important;
+    }
+
+    /* Give the "See You in Vegas!" text more breathing room from the
+       perimeter bulbs at iPad widths before it shrinks further on mobile. */
+    .tinseltown-sign {
+        --tip-width: 32px;
+        padding: 26px calc(var(--tip-width) + 30px) 26px 36px;
+    }
 }
 
 /* Mobile landscape / small tablet */
@@ -616,38 +636,6 @@
     color: var(--neon-red);
     box-shadow: 0 0 10px var(--neon-red);
     animation: blink 1s ease-in-out infinite;
-}
-
-.winner-sign {
-    font-family: 'Neon Ring', var(--font-punk);
-    font-size: clamp(2.5rem, 6vw, 4rem);
-    color: var(--gold);
-    text-shadow: 
-        0 0 10px var(--gold),
-        0 0 20px var(--gold),
-        0 0 40px var(--gold),
-        0 0 60px rgba(255, 204, 0, 0.5);
-    letter-spacing: 0.1em;
-    animation: winnerPulse 1.5s ease-in-out infinite;
-}
-
-@keyframes winnerPulse {
-    0%, 100% { 
-        text-shadow: 
-            0 0 10px var(--gold),
-            0 0 20px var(--gold),
-            0 0 40px var(--gold),
-            0 0 60px rgba(255, 204, 0, 0.5);
-        transform: scale(1) rotate(8deg);
-    }
-    50% { 
-        text-shadow: 
-            0 0 15px var(--gold),
-            0 0 30px var(--gold),
-            0 0 60px var(--gold),
-            0 0 80px rgba(255, 204, 0, 0.7);
-        transform: scale(1.05) rotate(8deg);
-    }
 }
 
 .accent-sign.one-night {
@@ -1400,13 +1388,20 @@
     
     .tinseltown-sign {
         --tip-width: 24px;
-        padding: 12px calc(var(--tip-width) + 14px) 12px 20px;
+        /* Extra top/bottom and left padding keeps the text from hugging the
+           perimeter bulbs on small screens. Right padding keeps clear of the
+           arrow tip bulbs as well. */
+        padding: 24px calc(var(--tip-width) + 28px) 24px 34px;
+    }
+
+    .tinseltown-bulbs .bulb {
+        width: 10px;
+        height: 10px;
     }
 
     .tinseltown-text {
         /* Scaled down so "See You in Vegas!" stays on one line and the arrow
-           shape (~74px of horizontal padding + tip) fits within the viewport
-           at typical phone widths. */
+           shape fits within the viewport at typical phone widths. */
         font-size: clamp(0.9rem, 4.2vw, 1.75rem) !important;
     }
     
@@ -1427,10 +1422,6 @@
     .section-deco.left,
     .section-deco.right {
         display: none;
-    }
-    
-    .floating-deco {
-        font-size: clamp(1rem, 3vw, 2rem);
     }
     
     .vintage-sign-cutout {
@@ -1463,7 +1454,12 @@
     
     .tinseltown-sign {
         --tip-width: 22px;
-        padding: 12px calc(var(--tip-width) + 14px) 12px 20px;
+        padding: 18px calc(var(--tip-width) + 22px) 18px 28px;
+    }
+
+    .tinseltown-bulbs .bulb {
+        width: 8px;
+        height: 8px;
     }
     
     .letter-board-sign {

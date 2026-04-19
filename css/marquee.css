@@ -109,8 +109,12 @@
     border-radius: 50%;
     background: var(--bulb-off);
     transition: background 0.15s, box-shadow 0.15s;
+    /* `contain: strict` keeps each bulb's paint isolated (good).
+       `will-change` was removed here because bulbs only animate color
+       and shadow (not transform/opacity), so the hint didn't help —
+       but it DID force the browser to keep potentially hundreds of
+       promoted layers alive, which crushed mobile scroll perf. */
     contain: strict;
-    will-change: background, box-shadow;
 }
 
 .bulb.on {

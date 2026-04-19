@@ -31,8 +31,12 @@
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js" defer></script>
     <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/EXRLoader.js" defer></script>
     
-    <!-- Preload critical hero images -->
-    <link rel="preload" as="image" href="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png" fetchpriority="high">
+    <!-- Preload critical hero image (WebP variant that matches what the <picture> will choose) -->
+    <link rel="preload" as="image" type="image/webp"
+          href="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp"
+          imagesrcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp 618w"
+          imagesizes="(max-width: 768px) 60vw, 40vw"
+          fetchpriority="high">
     
     <!-- Preload critical fonts for 3D marquee -->
     <link rel="preload" as="font" href="fonts/LasEnter_PersonalUseOnly.ttf" type="font/ttf" crossorigin>
@@ -106,34 +110,74 @@
         <!-- Background Image Collage - all signs framing the marquee -->
         <div class="bg-collage" aria-hidden="true">
             <!-- LEFT SIDE -->
-            <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png" 
-                 alt="" class="bg-cutout glitter-gulch" loading="eager" decoding="async">
-            <img src="assets/background_pngs/Stardust_sign_015.png" 
-                 alt="" class="bg-cutout stardust" loading="lazy" decoding="async">
-            <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e.png" 
-                 alt="" class="bg-cutout vegas-vic" loading="lazy" decoding="async">
-            
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 60vw, 40vw"
+                        srcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp 618w">
+                <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png"
+                     alt="" class="bg-cutout glitter-gulch" loading="eager" decoding="async" width="618" height="852">
+            </picture>
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 60vw, 40vw"
+                        srcset="assets/background_pngs/Stardust_sign_015-480.webp 480w, assets/background_pngs/Stardust_sign_015-960.webp 960w, assets/background_pngs/Stardust_sign_015-1097.webp 1097w">
+                <img src="assets/background_pngs/Stardust_sign_015.png"
+                     alt="" class="bg-cutout stardust" loading="lazy" decoding="async" width="1097" height="1187">
+            </picture>
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 50vw, 30vw"
+                        srcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-960.webp 960w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-1021.webp 1021w">
+                <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e.png"
+                     alt="" class="bg-cutout vegas-vic" loading="lazy" decoding="async" width="1021" height="1652">
+            </picture>
+
             <!-- RIGHT SIDE -->
-            <img src="assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens.png" 
-                 alt="" class="bg-cutout flamingo" loading="lazy" decoding="async">
-            <img src="assets/background_pngs/photo-1645180804518-5dc3e353e647.png" 
-                 alt="" class="bg-cutout golden-nugget" loading="lazy" decoding="async">
-            
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 60vw, 45vw"
+                        srcset="assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-480.webp 480w, assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-960.webp 960w, assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-1580.webp 1580w">
+                <img src="assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens.png"
+                     alt="" class="bg-cutout flamingo" loading="lazy" decoding="async" width="1580" height="855">
+            </picture>
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 60vw, 45vw"
+                        srcset="assets/background_pngs/photo-1645180804518-5dc3e353e647-480.webp 480w, assets/background_pngs/photo-1645180804518-5dc3e353e647-960.webp 960w, assets/background_pngs/photo-1645180804518-5dc3e353e647-1600.webp 1600w">
+                <img src="assets/background_pngs/photo-1645180804518-5dc3e353e647.png"
+                     alt="" class="bg-cutout golden-nugget" loading="lazy" decoding="async" width="2258" height="1304">
+            </picture>
+
             <!-- BOTTOM -->
-            <img src="assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280.png" 
-                 alt="" class="bg-cutout mint" loading="lazy" decoding="async">
-            <img src="assets/background_pngs/dunes-casino-and-oasis-casino-neon-signs-at-night-aloha-art.png" 
-                 alt="" class="bg-cutout dunes-oasis" loading="lazy" decoding="async">
-            
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 50vw, 30vw"
+                        srcset="assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280-480.webp 480w, assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280-960.webp 960w, assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280-1080.webp 1080w">
+                <img src="assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280.png"
+                     alt="" class="bg-cutout mint" loading="lazy" decoding="async" width="1080" height="1280">
+            </picture>
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 70vw, 50vw"
+                        srcset="assets/background_pngs/dunes-casino-and-oasis-casino-neon-signs-at-night-aloha-art-480.webp 480w, assets/background_pngs/dunes-casino-and-oasis-casino-neon-signs-at-night-aloha-art-900.webp 900w">
+                <img src="assets/background_pngs/dunes-casino-and-oasis-casino-neon-signs-at-night-aloha-art.png"
+                     alt="" class="bg-cutout dunes-oasis" loading="lazy" decoding="async" width="900" height="600">
+            </picture>
+
             <!-- TOP -->
-            <img src="assets/background_pngs/welcome-to-las-vegas-neon-sign-nevada-usa-vintage-panorama-gregory-ballos.png" 
-                 alt="" class="bg-cutout welcome-vegas" loading="lazy" decoding="async">
-            <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_4.png" 
-                 alt="" class="bg-cutout union-plaza" loading="lazy" decoding="async">
-            
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 50vw, 35vw"
+                        srcset="assets/background_pngs/welcome-to-las-vegas-neon-sign-nevada-usa-vintage-panorama-gregory-ballos-480.webp 480w, assets/background_pngs/welcome-to-las-vegas-neon-sign-nevada-usa-vintage-panorama-gregory-ballos-661.webp 661w">
+                <img src="assets/background_pngs/welcome-to-las-vegas-neon-sign-nevada-usa-vintage-panorama-gregory-ballos.png"
+                     alt="" class="bg-cutout welcome-vegas" loading="lazy" decoding="async" width="661" height="450">
+            </picture>
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 40vw, 26vw"
+                        srcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_4-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_4-856.webp 856w">
+                <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_4.png"
+                     alt="" class="bg-cutout union-plaza" loading="lazy" decoding="async" width="856" height="1163">
+            </picture>
+
             <!-- CORNER -->
-            <img src="assets/background_pngs/premium_photo-1673468922198-af2d3dde732f.png" 
-                 alt="" class="bg-cutout casino-marquee" loading="lazy" decoding="async">
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 50vw, 32vw"
+                        srcset="assets/background_pngs/premium_photo-1673468922198-af2d3dde732f-480.webp 480w, assets/background_pngs/premium_photo-1673468922198-af2d3dde732f-960.webp 960w, assets/background_pngs/premium_photo-1673468922198-af2d3dde732f-1600.webp 1600w">
+                <img src="assets/background_pngs/premium_photo-1673468922198-af2d3dde732f.png"
+                     alt="" class="bg-cutout casino-marquee" loading="lazy" decoding="async" width="3000" height="2000">
+            </picture>
         </div>
         
         <div class="hero-content">
@@ -186,8 +230,12 @@
         </div>
         
         <!-- Frontier sign poking from left -->
-        <img src="assets/background_pngs/1000s.png" 
-             alt="" class="section-sign-cutout sign-left" aria-hidden="true" loading="lazy" decoding="async">
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
+                    srcset="assets/background_pngs/1000s-480.webp 480w, assets/background_pngs/1000s-534.webp 534w">
+            <img src="assets/background_pngs/1000s.png"
+                 alt="" class="section-sign-cutout sign-left" aria-hidden="true" loading="lazy" decoding="async" width="534" height="838">
+        </picture>
         
         <!-- Section decorations with Vegas signs -->
         <div class="section-deco left" aria-hidden="true">
@@ -215,7 +263,6 @@
             
             <div class="event-panel main-event" data-event="2">
                 <div class="panel-lights"></div>
-                <div class="panel-star-burst">★</div>
                 <div class="panel-content">
                     <h3 class="event-name neon-text-gold">The Main Event</h3>
                     <p class="event-date">SATURDAY, OCTOBER 10</p>
@@ -266,8 +313,12 @@
     <!-- RSVP SECTION -->
     <section id="rsvp" class="rsvp section-with-chaos rsvp-with-heart">
         <!-- Neon sign on left side -->
-        <img src="assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280.png" 
-             alt="" class="section-sign-cutout sign-left-rsvp" aria-hidden="true" loading="lazy" decoding="async">
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 50vw, 35vw"
+                    srcset="assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280-480.webp 480w, assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280-960.webp 960w, assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280-1280.webp 1280w">
+            <img src="assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280.png"
+                 alt="" class="section-sign-cutout sign-left-rsvp" aria-hidden="true" loading="lazy" decoding="async" width="1280" height="835">
+        </picture>
         
         <!-- Heart background -->
         <div class="rsvp-heart-bg" aria-hidden="true">
@@ -281,7 +332,11 @@
         
         <!-- Poster on the left -->
         <div class="vegas-poster-frame rsvp-poster">
-            <img src="assets/poster.png" alt="Jac & Ben - Las Vegas October 10th, 2026" class="vegas-poster-img" loading="lazy" decoding="async">
+            <picture>
+                <source type="image/webp" sizes="(max-width: 768px) 60vw, 350px"
+                        srcset="assets/poster-480.webp 480w, assets/poster-682.webp 682w">
+                <img src="assets/poster.png" alt="Jac & Ben - Las Vegas October 10th, 2026" class="vegas-poster-img" loading="lazy" decoding="async" width="682" height="1024">
+            </picture>
         </div>
         
         <!-- Section decorations with Vegas signs -->
@@ -335,12 +390,20 @@
     <!-- HOTEL BOOKING -->
     <section id="hotel" class="hotel section-with-chaos">
         <!-- Chips on left side -->
-        <img src="assets/background_pngs/chips.png" 
-             alt="" class="section-sign-cutout sign-left-hotel" aria-hidden="true" loading="lazy" decoding="async">
-        
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 35vw"
+                    srcset="assets/background_pngs/chips-480.webp 480w, assets/background_pngs/chips-960.webp 960w, assets/background_pngs/chips-1600.webp 1600w">
+            <img src="assets/background_pngs/chips.png"
+                 alt="" class="section-sign-cutout sign-left-hotel" aria-hidden="true" loading="lazy" decoding="async" width="3288" height="2745">
+        </picture>
+
         <!-- Palms sign at bottom edge -->
-        <img src="assets/background_pngs/palms.png" 
-             alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="lazy" decoding="async">
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
+                    srcset="assets/background_pngs/palms-480.webp 480w, assets/background_pngs/palms-930.webp 930w">
+            <img src="assets/background_pngs/palms.png"
+                 alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="lazy" decoding="async" width="930" height="1010">
+        </picture>
         
         <!-- Motel style decorations with Vegas signs -->
         <div class="section-deco left" aria-hidden="true">
@@ -385,12 +448,20 @@
     <!-- DRESS CODE -->
     <section id="attire" class="attire section-with-chaos">
         <!-- Horseshoe sign on left side -->
-        <img src="assets/background_pngs/horsehoe.png" 
-             alt="" class="section-sign-cutout sign-left-messages" aria-hidden="true" loading="lazy" decoding="async">
-        
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
+                    srcset="assets/background_pngs/horsehoe-480.webp 480w, assets/background_pngs/horsehoe-960.webp 960w, assets/background_pngs/horsehoe-1200.webp 1200w">
+            <img src="assets/background_pngs/horsehoe.png"
+                 alt="" class="section-sign-cutout sign-left-messages" aria-hidden="true" loading="lazy" decoding="async" width="1200" height="806">
+        </picture>
+
         <!-- Sign on right side -->
-        <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2.png" 
-             alt="" class="section-sign-cutout sign-right-messages" aria-hidden="true" loading="lazy" decoding="async">
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
+                    srcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2-960.webp 960w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2-1207.webp 1207w">
+            <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2.png"
+                 alt="" class="section-sign-cutout sign-right-messages" aria-hidden="true" loading="lazy" decoding="async" width="1207" height="1173">
+        </picture>
         
         <!-- Glamour decorations with Vegas signs -->
         <div class="section-deco top-left" aria-hidden="true">
@@ -426,18 +497,25 @@
     <!-- GIFTS -->
     <section id="gifts" class="gifts section-with-chaos">
         <!-- Slot machine on left side -->
-        <img src="assets/background_pngs/slot_machine.png" 
-             alt="" class="section-sign-cutout sign-left-gifts" aria-hidden="true" loading="lazy" decoding="async">
-        
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 38vw"
+                    srcset="assets/background_pngs/slot_machine-480.webp 480w, assets/background_pngs/slot_machine-795.webp 795w">
+            <img src="assets/background_pngs/slot_machine.png"
+                 alt="" class="section-sign-cutout sign-left-gifts" aria-hidden="true" loading="lazy" decoding="async" width="795" height="1203">
+        </picture>
+
         <!-- Rio sign at bottom edge -->
-        <img src="assets/background_pngs/rio.png" 
-             alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="lazy" decoding="async">
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 25vw"
+                    srcset="assets/background_pngs/rio-480.webp 480w, assets/background_pngs/rio-594.webp 594w">
+            <img src="assets/background_pngs/rio.png"
+                 alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="lazy" decoding="async" width="594" height="417">
+        </picture>
         
         <!-- Jackpot decorations -->
         <div class="section-deco top-left" aria-hidden="true">
         </div>
         <div class="section-deco top-right" aria-hidden="true">
-            <div class="winner-sign" style="transform: rotate(8deg);">WINNER!</div>
         </div>
         <div class="floating-deco" style="top: 20%; left: 10%;" aria-hidden="true">🍒</div>
         <div class="floating-deco" style="top: 30%; right: 8%;" aria-hidden="true">🎰</div>
@@ -448,10 +526,10 @@
             <div class="slot-cabinet">
                 <div class="slot-header">
                     <span class="slot-title">Lucky Jacs</span>
-                    <div class="jacpot-chip" id="jacpot-counter-container">
+                    <div class="jacpot-chip" id="jacpot-counter-container" aria-label="Current jacpot — the score you win if you hit three Jacs">
                         <span class="jacpot-chip-label">JACPOT</span>
                         <span class="jacpot-number" id="jacpot-number">0</span>
-                        <span class="jacpot-chip-sublabel">PULLS</span>
+                        <span class="jacpot-chip-sublabel">WINNING SCORE</span>
                     </div>
                 </div>
                 <div class="slot-main">
@@ -564,7 +642,11 @@
                 <div class="jacben-row"><span class="jacben-text">JAC</span><span class="jacben-text">BEN</span><span class="jacben-text">JAC</span><span class="jacben-text">BEN</span></div>
             </div>
             <div class="footer-cutout-wrapper">
-                <img src="assets/background_pngs/JAC-BEN-LIGHTS_cutout.png" alt="Jac & Ben" class="footer-cutout-photo" loading="lazy" decoding="async">
+                <picture>
+                    <source type="image/webp" sizes="(max-width: 768px) 50vw, (max-width: 1200px) 40vw, 800px"
+                            srcset="assets/background_pngs/JAC-BEN-LIGHTS_cutout-480.webp 480w, assets/background_pngs/JAC-BEN-LIGHTS_cutout-960.webp 960w, assets/background_pngs/JAC-BEN-LIGHTS_cutout-1600.webp 1600w">
+                    <img src="assets/background_pngs/JAC-BEN-LIGHTS_cutout.png" alt="Jac & Ben" class="footer-cutout-photo" loading="lazy" decoding="async" width="1699" height="2192">
+                </picture>
             </div>
         </div>
     </footer>

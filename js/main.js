@@ -531,11 +531,24 @@ function initSingleTinseltown(containerId) {
     
     const width = sign.offsetWidth;
     const height = sign.offsetHeight;
-    const bulbSpacing = 18;
-    const bulbSize = 12;
+    
+    // Responsive bulb sizing: smaller bulbs and tighter spacing on mobile
+    // to match the CSS media queries for .tinseltown-bulbs .bulb
+    const viewportWidth = window.innerWidth;
+    let bulbSize, bulbSpacing;
+    if (viewportWidth <= 480) {
+        bulbSize = 8;
+        bulbSpacing = 14;
+    } else if (viewportWidth <= 768) {
+        bulbSize = 10;
+        bulbSpacing = 16;
+    } else {
+        bulbSize = 12;
+        bulbSpacing = 18;
+    }
+    
     // Distance from the sign edge to the CENTER of each bulb.
-    // Roughly matches the previous visual inset (margin 8 + bulbSize/2 = 14).
-    const margin = 14;
+    const margin = bulbSize + 4;
 
     // Read the arrow tip width from the CSS custom property so bulbs match clip-path
     const tipVar = getComputedStyle(sign).getPropertyValue('--tip-width').trim();

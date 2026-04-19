@@ -53,21 +53,39 @@
 }
 
 /* GPU acceleration for animated elements */
-.bg-cutout,
-.bulb,
+/* Promote only the elements that actually animate continuously. The
+   previous list promoted every decorative element on the page to its
+   own GPU layer (including every .bulb — hundreds of them), which blew
+   out layer memory and made scrolling jank on mobile. */
 .banner-track,
-.banner-content,
-.neon-icon,
-.card,
-.lucky-seven,
-.floating-deco,
-.heart-layer,
-.chip-decoration,
-.section-sign-cutout,
-.footer-cutout-photo {
-    will-change: transform, opacity;
+.banner-content {
+    will-change: transform;
     transform: translateZ(0);
     backface-visibility: hidden;
+}
+
+/* One-shot promotion hint for elements GSAP animates in on scroll. The
+   `transform: translateZ(0)` forces a layer so the initial entrance is
+   cheap, but we don't keep `will-change` set (which is what leaks
+   memory when hundreds of elements have it). */
+.bg-cutout,
+.section-sign-cutout,
+.footer-cutout-photo {
+    transform: translateZ(0);
+    backface-visibility: hidden;
+}
+
+/* The `<img>` tags now have `width`/`height` HTML attributes to prevent
+   CLS while the image loads. Those attributes act as presentation hints
+   equivalent to inline `width`/`height` CSS — which means when our
+   stylesheet sets only `width: clamp(...)`, the hinted `height` would
+   stick as a literal pixel value and stretch the image. `height: auto`
+   tells the browser to derive height from the width + intrinsic aspect
+   ratio instead, restoring the original proportions. */
+.bg-cutout,
+.section-sign-cutout,
+.vegas-poster-img {
+    height: auto;
 }
 
 /* Skip Link for Accessibility */
@@ -104,9 +122,11 @@ body {
     color: var(--cream);
     overflow-x: clip;
     line-height: 1.6;
-    /* Warm vintage color shift */
-    filter: sepia(0.05) saturate(1.1);
-    /* Guard against rogue wide children */
+    /* NOTE: previously `filter: sepia(0.05) saturate(1.1)` lived here, but
+       a filter on <body> forces a full-page repaint on every scroll frame
+       AND creates a containing block for position:fixed (which used to
+       break the winner modal). The warm tint now lives as a compositor-
+       only overlay on body::after, which is basically free to scroll. */
     max-width: 100%;
 }
 
@@ -124,6 +144,19 @@ body::before {
         radial-gradient(ellipse at 20% 20%, rgba(255, 100, 50, 0.08) 0%, transparent 50%),
         radial-gradient(ellipse at 80% 30%, rgba(255, 45, 123, 0.06) 0%, transparent 40%),
         radial-gradient(ellipse at 60% 80%, rgba(255, 204, 0, 0.05) 0%, transparent 50%);
+}
+
+/* Subtle warm vintage shift — replaces the old body filter. A single
+   fixed overlay with a tiny multiply tint is compositor-only and doesn't
+   invalidate paint when the document scrolls. */
+body::after {
+    content: '';
+    position: fixed;
+    inset: 0;
+    pointer-events: none;
+    z-index: 9995;
+    background: rgba(255, 215, 170, 0.04);
+    mix-blend-mode: multiply;
 }
 
 /* Typography */
@@ -313,6 +346,12 @@ h1, h2, h3 {
     padding: var(--section-padding);
     background: linear-gradient(180deg, var(--navy) 0%, var(--deep-purple) 50%, var(--navy) 100%);
     contain: layout style;
+    /* Skip layout/paint when the section is far off-screen. The
+       intrinsic-size hint is tuned close to the real rendered height
+       (3 stacked panels + title + padding on mobile ≈ 1200px, ~900px
+       desktop) so activating the section doesn't trigger a reflow. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1200px;
 }
 
 .schedule .section-title {
@@ -351,6 +390,13 @@ h1, h2, h3 {
     position: relative;
     text-align: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
+    /* Isolate layout + style invalidations so the continuous
+       text-shadow glow animations on descendants don't force
+       neighboring panels (or the whole section) to re-layout each
+       frame. `paint` is intentionally NOT used here because the
+       FRI/SAT/SUN corner-sign badges are positioned outside the panel
+       box (top: -18px; right: -12px) and would otherwise get clipped. */
+    contain: layout style;
 }
 
 .event-panel:hover {
@@ -382,19 +428,17 @@ h1, h2, h3 {
 }
 
 @keyframes mainEventGlow {
-    0%, 100% { 
-        text-shadow: 
+    0%, 100% {
+        text-shadow:
             0 0 10px var(--gold),
             0 0 25px var(--gold),
-            0 0 40px rgba(255, 204, 0, 0.7),
-            0 0 60px rgba(255, 204, 0, 0.5);
+            0 0 40px rgba(255, 204, 0, 0.6);
     }
-    50% { 
-        text-shadow: 
-            0 0 15px var(--cream),
-            0 0 35px var(--gold),
-            0 0 55px rgba(255, 204, 0, 0.9),
-            0 0 80px rgba(255, 204, 0, 0.6);
+    50% {
+        text-shadow:
+            0 0 12px var(--cream),
+            0 0 30px var(--gold),
+            0 0 50px rgba(255, 204, 0, 0.75);
     }
 }
 
@@ -512,18 +556,15 @@ h1, h2, h3 {
 }
 
 @keyframes eventDescGlow {
-    0%, 100% { 
-        text-shadow: 
+    0%, 100% {
+        text-shadow:
             0 0 10px var(--gold),
-            0 0 20px rgba(255, 204, 0, 0.6),
-            0 0 30px rgba(255, 204, 0, 0.4);
+            0 0 20px rgba(255, 204, 0, 0.55);
     }
-    50% { 
-        text-shadow: 
-            0 0 15px var(--gold),
-            0 0 30px rgba(255, 204, 0, 0.8),
-            0 0 45px rgba(255, 204, 0, 0.5),
-            0 0 60px rgba(255, 204, 0, 0.3);
+    50% {
+        text-shadow:
+            0 0 14px var(--gold),
+            0 0 28px rgba(255, 204, 0, 0.75);
     }
 }
 
@@ -565,6 +606,8 @@ h1, h2, h3 {
         radial-gradient(ellipse at center, rgba(255, 51, 51, 0.1) 0%, transparent 60%),
         var(--navy);
     contain: layout style;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1000px;
 }
 
 /* RSVP with heart background */
@@ -897,6 +940,8 @@ h1, h2, h3 {
     text-align: center;
     background: linear-gradient(180deg, var(--navy) 0%, var(--deep-purple) 100%);
     contain: layout style;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 800px;
 }
 
 .hotel-title {
@@ -1317,6 +1362,8 @@ h1, h2, h3 {
     background: var(--navy);
     contain: layout style;
     position: relative;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 700px;
 }
 
 .vegas-divider.attire-inner-divider {
@@ -1429,6 +1476,9 @@ h1, h2, h3 {
     background: var(--navy);
     position: relative;
     z-index: 15;
+    contain: layout style;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 1100px;
 }
 
 .jackpot-title {
@@ -1486,37 +1536,61 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 0;
-    padding: 4px 12px;
-    border: 2px solid var(--gold);
-    border-radius: 8px;
-    background: rgba(0, 0, 0, 0.45);
+    gap: 2px;
+    padding: 7px 16px 6px;
+    border: 3px solid var(--gold);
+    border-radius: 10px;
+    background:
+        radial-gradient(ellipse at center, rgba(139, 0, 0, 0.55) 0%, rgba(0, 0, 0, 0.75) 70%);
     box-shadow:
-        0 0 12px rgba(255, 204, 0, 0.25),
-        inset 0 0 12px rgba(0, 0, 0, 0.6);
-    min-width: 82px;
+        0 0 18px rgba(255, 204, 0, 0.55),
+        0 0 36px rgba(255, 204, 0, 0.25),
+        inset 0 0 14px rgba(0, 0, 0, 0.7);
+    min-width: 104px;
+    animation: jacpot-chip-pulse 2.4s ease-in-out infinite;
+}
+
+@keyframes jacpot-chip-pulse {
+    0%, 100% {
+        box-shadow:
+            0 0 18px rgba(255, 204, 0, 0.55),
+            0 0 36px rgba(255, 204, 0, 0.25),
+            inset 0 0 14px rgba(0, 0, 0, 0.7);
+    }
+    50% {
+        box-shadow:
+            0 0 26px rgba(255, 204, 0, 0.85),
+            0 0 54px rgba(255, 204, 0, 0.45),
+            inset 0 0 14px rgba(0, 0, 0, 0.7);
+    }
 }
 
 .jacpot-chip-label,
 .jacpot-chip-sublabel {
     font-family: var(--font-accent);
-    font-size: 0.55rem;
-    letter-spacing: 0.2em;
+    letter-spacing: 0.22em;
     color: var(--gold);
-    text-shadow: 0 0 6px rgba(255, 204, 0, 0.6);
+    text-shadow: 0 0 6px rgba(255, 204, 0, 0.65);
     line-height: 1;
 }
 
+.jacpot-chip-label {
+    font-size: 0.7rem;
+}
+
 .jacpot-chip-sublabel {
+    font-size: 0.58rem;
     color: var(--cream);
-    opacity: 0.75;
-    text-shadow: none;
+    opacity: 0.92;
+    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
+    white-space: nowrap;
 }
 
 .jacpot-chip .jacpot-number {
-    font-size: clamp(1.4rem, 4vw, 2rem);
+    font-size: clamp(2rem, 6vw, 2.9rem);
     letter-spacing: 0.03em;
-    line-height: 1.1;
+    line-height: 1.05;
+    margin: 2px 0 1px;
 }
 
 .slot-main {
@@ -2207,6 +2281,8 @@ body.dev-mode .lb-remove {
     background: #000000;
     overflow: hidden;
     contain: layout style;
+    content-visibility: auto;
+    contain-intrinsic-size: auto 900px;
 }
 
 .fireworks-finale {
@@ -2386,6 +2462,7 @@ body.dev-mode .lb-remove {
     
     .event-panels {
         gap: 20px;
+        padding: 0 30px;
     }
     
     .event-panel {
@@ -2434,10 +2511,30 @@ body.dev-mode .lb-remove {
         grid-template-columns: 1fr;
         gap: 25px;
         margin-top: 40px;
+        padding: 0 28px;
     }
     
     .event-panel {
         padding: 35px 25px;
+    }
+
+    /* Mobile scroll-perf: the continuous neon text-shadow animations
+       and the pseudo-element chase lights cause heavy repaints on every
+       frame, which make the schedule section hitch as it scrolls into
+       view. Keep the colored neon shadow (static) and skip the animation. */
+    .event-panel .event-description,
+    .event-panel.main-event .event-description,
+    .event-panel.tilted-left .event-description,
+    .event-panel.tilted-right .event-description {
+        animation: none;
+    }
+
+    .event-panel::before {
+        animation: none;
+    }
+
+    .schedule .section-title .flicker-letter {
+        animation: none;
     }
     
     .cards-fan {
@@ -2568,6 +2665,10 @@ body.dev-mode .lb-remove {
     .section-copy {
         font-size: 1rem;
         padding: 0 10px;
+    }
+    
+    .event-panels {
+        padding: 0 14px;
     }
     
     .event-panel {
@@ -2850,7 +2951,11 @@ body.dev-mode .lb-remove {
     padding-bottom: 0;
     display: grid;
     grid-template-areas: "stack";
-    grid-template-columns: 1fr;
+    /* minmax(0, 1fr) prevents the `nowrap` JAC BEN rows from forcing the
+       grid column wider than the section itself. Without this, the column
+       auto-expands to the intrinsic row width and the centered couple
+       photo ends up off-center relative to the visible viewport. */
+    grid-template-columns: minmax(0, 1fr);
 }
 
 .jacben-text-bg {
@@ -3001,10 +3106,15 @@ body.dev-mode .lb-remove {
     vertical-align: bottom;
 }
 
-/* iPad / small desktop */
+/* iPad / small desktop - keep the couple photo centered over the JAC BEN
+   text and anchored to the bottom, small enough that all four rows of
+   "JAC BEN" remain fully visible on either side. !important is used to
+   win against the base clamp() rule if a later stylesheet re-raises it. */
 @media (max-width: 1024px) {
     .footer-cutout-wrapper {
-        width: min(100%, 640px);
+        width: 28% !important;
+        max-width: 300px !important;
+        min-width: 0 !important;
     }
 }
 
@@ -3013,14 +3123,15 @@ body.dev-mode .lb-remove {
         min-height: auto;
         margin-top: 40px;
     }
-    
+
     .jacben-text {
         font-size: clamp(3rem, 16vw, 6rem);
     }
-    
+
     .footer-cutout-wrapper {
-        width: 100%;
-        max-width: none;
+        width: 38% !important;
+        max-width: 260px !important;
+        min-width: 0 !important;
     }
 }
 
@@ -3028,14 +3139,15 @@ body.dev-mode .lb-remove {
     .footer-jacben-section {
         min-height: auto;
     }
-    
+
     .jacben-text {
         font-size: clamp(2.5rem, 20vw, 4.5rem);
     }
-    
+
     .footer-cutout-wrapper {
-        width: 100%;
-        max-width: none;
+        width: 48% !important;
+        max-width: 220px !important;
+        min-width: 0 !important;
     }
 }
 
