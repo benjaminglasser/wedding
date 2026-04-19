@@ -1399,18 +1399,15 @@
     }
     
     .tinseltown-sign {
-        --tip-width: 28px;
-        padding: 15px calc(var(--tip-width) + 18px) 15px 25px;
-        /* Prevent the sign from overflowing the viewport when the nowrap text
-           is long ("See You in Vegas!"). Scales down gracefully on narrow
-           phones so the arrow shape stays intact. */
-        max-width: calc(100vw - 24px);
+        --tip-width: 24px;
+        padding: 12px calc(var(--tip-width) + 14px) 12px 20px;
     }
 
     .tinseltown-text {
-        /* Scaled down so the text stays on one line and the arrow shape is
-           preserved on mobile widths. */
-        font-size: clamp(1.1rem, 5.5vw, 2.25rem) !important;
+        /* Scaled down so "See You in Vegas!" stays on one line and the arrow
+           shape (~74px of horizontal padding + tip) fits within the viewport
+           at typical phone widths. */
+        font-size: clamp(0.9rem, 4.2vw, 1.75rem) !important;
     }
     
     .letter-board-sign {
