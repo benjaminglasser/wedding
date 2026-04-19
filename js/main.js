@@ -115,12 +115,22 @@ function initLoader() {
     // Prevent scrolling while loader is active
     document.body.classList.add('loader-active');
     
-    const criticalImages = [
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3.png',
-        'assets/background_pngs/Stardust_sign_015.png',
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e.png',
-        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens.png',
-        'assets/background_pngs/photo-1645180804518-5dc3e353e647.png'
+    // Pick the WebP variant that roughly matches what the browser will
+    // render given the viewport width, so the loader doesn't prefetch the
+    // huge PNG originals on mobile.
+    const isSmallViewport = window.innerWidth < 768;
+    const criticalImages = isSmallViewport ? [
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp',
+        'assets/background_pngs/Stardust_sign_015-480.webp',
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-480.webp',
+        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-480.webp',
+        'assets/background_pngs/photo-1645180804518-5dc3e353e647-480.webp'
+    ] : [
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp',
+        'assets/background_pngs/Stardust_sign_015-960.webp',
+        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-960.webp',
+        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-960.webp',
+        'assets/background_pngs/photo-1645180804518-5dc3e353e647-960.webp'
     ];
     
     const imagePromises = criticalImages.map(src => {
@@ -147,9 +157,6 @@ function initLoader() {
     
     Promise.all([...imagePromises, libraryCheck, minDisplayTime])
         .then(() => {
-            // #region agent log
-            fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:initLoader',message:'Loader promises resolved, calling hideLoader',data:{criticalImagesCount:criticalImages.length},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
-            // #endregion
             hideLoader();
         })
         .catch(() => {
@@ -168,18 +175,6 @@ function hideLoader() {
         
         // Re-enable scrolling
         document.body.classList.remove('loader-active');
-        
-        // #region agent log
-        const bgCutouts = document.querySelectorAll('.bg-cutout');
-        const imageLoadStates = Array.from(bgCutouts).map(img => ({
-            class: img.className,
-            complete: img.complete,
-            naturalWidth: img.naturalWidth,
-            loading: img.loading,
-            src: img.src.split('/').pop()
-        }));
-        fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:hideLoader',message:'Before startMarqueeAnimation - checking bg-cutout image states',data:{imageCount:bgCutouts.length,imageLoadStates},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
-        // #endregion
         
         // Try to call startMarqueeAnimation, with retry if not yet defined
         const tryStartMarquee = (attempts = 0) => {
@@ -206,6 +201,14 @@ function hideLoader() {
         };
         tryStartMarquee();
         
+        // Lazy-loaded images below the fold can shift layout after
+        // ScrollTrigger has already cached start/end positions. Refresh once
+        // the loader is out of the way so triggers like the footer's
+        // "See You in Vegas!" fire at the correct scroll point.
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
+
         setTimeout(() => {
             loader.remove();
         }, 500);
@@ -215,16 +218,6 @@ function hideLoader() {
 initLoader();
 
 document.addEventListener('DOMContentLoaded', () => {
-    // #region agent log
-    const bgCutouts = document.querySelectorAll('.bg-cutout');
-    bgCutouts.forEach((img, index) => {
-        img.addEventListener('load', () => {
-            fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:DOMContentLoaded',message:'bg-cutout image loaded',data:{index,class:img.className,src:img.src.split('/').pop(),naturalWidth:img.naturalWidth,heroHasMarqueeReady:document.getElementById('hero')?.classList.contains('marquee-ready')},timestamp:Date.now(),hypothesisId:'H1-H3'})}).catch(()=>{});
-        });
-    });
-    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:DOMContentLoaded',message:'DOMContentLoaded fired',data:{bgCutoutCount:bgCutouts.length},timestamp:Date.now(),hypothesisId:'H1'})}).catch(()=>{});
-    // #endregion
-    
     if (!prefersReducedMotion) {
         initMarqueeBulbs();
         initTinseltownBulbs();
@@ -301,35 +294,53 @@ function animateMarqueeBulbs() {
         let index = borderIndex * 10;
         const chaseLength = isMobile ? 4 : 5;
         const interval = isMobile ? 70 : 50;
-        
+        // Number of simultaneous chases evenly spaced around the border.
+        // More chases on larger borders so the effect stays dense; fewer on mobile.
+        const numChases = isMobile ? 8 : 12;
+        const spacing = Math.floor(bulbs.length / numChases);
+
         // Track previous lit bulbs to minimize DOM changes
         let prevLit = new Set();
+        let prevHot = new Set();
 
         AnimationManager.register(`marquee-${borderIndex}`, () => {
             const newLit = new Set();
-            const hotIndex = (index + Math.floor(chaseLength / 2)) % bulbs.length;
-            
-            for (let i = 0; i < chaseLength; i++) {
-                newLit.add((index + i) % bulbs.length);
+            const newHot = new Set();
+
+            for (let c = 0; c < numChases; c++) {
+                const chaseStart = (index + c * spacing) % bulbs.length;
+                const hotIndex = (chaseStart + Math.floor(chaseLength / 2)) % bulbs.length;
+                newHot.add(hotIndex);
+                for (let i = 0; i < chaseLength; i++) {
+                    newLit.add((chaseStart + i) % bulbs.length);
+                }
             }
-            
+
             prevLit.forEach(i => {
                 if (!newLit.has(i)) {
                     bulbs[i]?.classList.remove('on', 'hot');
                 }
             });
-            
+
             newLit.forEach(i => {
-                if (!prevLit.has(i)) {
-                    if (i === hotIndex) {
+                const shouldBeHot = newHot.has(i);
+                const wasLit = prevLit.has(i);
+                const wasHot = prevHot.has(i);
+                if (!wasLit) {
+                    bulbs[i]?.classList.add(shouldBeHot ? 'hot' : 'on');
+                } else if (shouldBeHot !== wasHot) {
+                    if (shouldBeHot) {
+                        bulbs[i]?.classList.remove('on');
                         bulbs[i]?.classList.add('hot');
                     } else {
+                        bulbs[i]?.classList.remove('hot');
                         bulbs[i]?.classList.add('on');
                     }
                 }
             });
-            
+
             prevLit = newLit;
+            prevHot = newHot;
             index = (index + 1) % bulbs.length;
         }, interval, `marquee-section-${borderIndex}`);
     });
@@ -522,66 +533,65 @@ function initSingleTinseltown(containerId) {
     const height = sign.offsetHeight;
     const bulbSpacing = 18;
     const bulbSize = 12;
-    const margin = 8; // Distance from the edge of the arrow shape
-    
+    // Distance from the sign edge to the CENTER of each bulb.
+    // Roughly matches the previous visual inset (margin 8 + bulbSize/2 = 14).
+    const margin = 14;
+
     // Read the arrow tip width from the CSS custom property so bulbs match clip-path
     const tipVar = getComputedStyle(sign).getPropertyValue('--tip-width').trim();
     const tipWidth = parseFloat(tipVar) || 40;
-    
+
+    const bodyRightX = Math.max(width - tipWidth, margin);
+
+    // Corner CENTER positions (symmetric top/bottom, symmetric upper/lower diagonal).
+    // Clip-path vertices: (0,0), (width-tip,0), (width,h/2), (width-tip,h), (0,h).
+    const corners = [
+        { x: margin,        y: margin },              // c1 top-left
+        { x: bodyRightX,    y: margin },              // c2 top-right shoulder
+        { x: width - margin, y: height / 2 },         // c3 arrow tip
+        { x: bodyRightX,    y: height - margin },     // c4 bottom-right shoulder
+        { x: margin,        y: height - margin }      // c5 bottom-left
+    ];
+
+    // Build closed perimeter and measure each segment so we can place bulbs
+    // at equal arc-length intervals around the whole shape.
+    const segments = [];
+    let perimeter = 0;
+    for (let i = 0; i < corners.length; i++) {
+        const a = corners[i];
+        const b = corners[(i + 1) % corners.length];
+        const dx = b.x - a.x;
+        const dy = b.y - a.y;
+        const len = Math.sqrt(dx * dx + dy * dy);
+        segments.push({ a, b, len });
+        perimeter += len;
+    }
+
+    // Number of bulbs from the target spacing; rounded so the step divides
+    // the perimeter evenly → no bunching where segments meet.
+    const numBulbs = Math.max(8, Math.round(perimeter / bulbSpacing));
+    const step = perimeter / numBulbs;
+
     const bulbs = [];
     const fragment = document.createDocumentFragment();
-    
-    // Clip-path polygon points (in px): (0,0), (width-tip,0), (width,h/2), (width-tip,h), (0,h)
-    // Place bulbs along these edges, inset by margin
-    
-    const bodyRightX = Math.max(width - tipWidth, margin); // corner where arrow begins
-    const p1 = { x: margin, y: margin }; // top-left (inset)
-    const p2 = { x: bodyRightX - margin, y: margin }; // top-right before arrow (inset)
-    const p3 = { x: width - margin - bulbSize, y: height * 0.5 }; // arrow tip (inset)
-    const p4 = { x: bodyRightX - margin, y: height - margin - bulbSize }; // bottom-right before arrow (inset)
-    const p5 = { x: margin, y: height - margin - bulbSize }; // bottom-left (inset)
-    
-    // Helper to place bulbs along a line segment with consistent spacing
-    function placeBulbsAlongLine(x1, y1, x2, y2, includeStart, includeEnd) {
-        const dx = x2 - x1;
-        const dy = y2 - y1;
-        const len = Math.sqrt(dx * dx + dy * dy);
-        const count = Math.round(len / bulbSpacing);
-        if (count === 0) return;
-        
-        const startIdx = includeStart ? 0 : 1;
-        const endIdx = includeEnd ? count : count - 1;
-        
-        for (let i = startIdx; i <= endIdx; i++) {
-            const t = i / count;
-            const x = x1 + t * dx;
-            const y = y1 + t * dy;
-            const bulb = createBulb(x, y);
-            bulbs.push(bulb);
-            fragment.appendChild(bulb);
+
+    let segIdx = 0;
+    let segStart = 0; // cumulative arc-length at segments[segIdx].a
+    for (let i = 0; i < numBulbs; i++) {
+        const target = i * step;
+        while (segIdx < segments.length - 1 && target > segStart + segments[segIdx].len) {
+            segStart += segments[segIdx].len;
+            segIdx++;
         }
+        const seg = segments[segIdx];
+        const t = seg.len > 0 ? (target - segStart) / seg.len : 0;
+        const cx = seg.a.x + t * (seg.b.x - seg.a.x);
+        const cy = seg.a.y + t * (seg.b.y - seg.a.y);
+        const bulb = createBulb(cx - bulbSize / 2, cy - bulbSize / 2);
+        bulbs.push(bulb);
+        fragment.appendChild(bulb);
     }
-    
-    // Top edge: p1 to p2 (include start, exclude end - p2 will be included by diagonal)
-    placeBulbsAlongLine(p1.x, p1.y, p2.x, p2.y, true, false);
-    
-    // Upper diagonal: p2 to p3 (include start, exclude end - p3 is the tip)
-    placeBulbsAlongLine(p2.x, p2.y, p3.x, p3.y, true, false);
-    
-    // Arrow tip bulb at p3
-    const tipBulb = createBulb(p3.x, p3.y - bulbSize/2);
-    bulbs.push(tipBulb);
-    fragment.appendChild(tipBulb);
-    
-    // Lower diagonal: p3 to p4 (exclude start - tip already added, exclude end - p4 will be included by bottom)
-    placeBulbsAlongLine(p3.x, p3.y, p4.x, p4.y, false, false);
-    
-    // Bottom edge: p4 to p5 (include start, exclude end - p5 will be included by left edge)
-    placeBulbsAlongLine(p4.x, p4.y, p5.x, p5.y, true, false);
-    
-    // Left edge: p5 to p1 (include start, exclude end - p1 already included by top)
-    placeBulbsAlongLine(p5.x, p5.y, p1.x, p1.y, true, false);
-    
+
     container.appendChild(fragment);
     animateTinseltownBulbs(bulbs, `tinseltown-${containerId}`);
 }
@@ -737,10 +747,6 @@ function initGSAP() {
 
     // Hero content fades in immediately to frame the marquee
     gsap.set('.hero-content', { opacity: 0 });
-    gsap.set('.tinseltown-sign', { opacity: 0, scale: 0.8, rotation: -5 });
-    gsap.set('.letter-board-sign', { opacity: 0, y: 30 });
-    gsap.set('.collage-sign', { opacity: 0, scale: 0.5 });
-    gsap.set('.floating-sign', { opacity: 0 });
     gsap.set('.chip-decoration', { opacity: 0, scale: 0 });
 
     // Hero content fades in quickly to reveal the marquee bounce
@@ -751,43 +757,15 @@ function initGSAP() {
         ease: 'power2.out' 
     });
 
-    // Other hero elements animate in after marquee bounce and bg images (delay ~2.5s total)
-    const heroTl = gsap.timeline({ delay: 2.5 });
-    
-    heroTl
-        .to('.tinseltown-sign', { 
-            opacity: 1, 
-            scale: 1, 
-            rotation: 0,
-            duration: 1.2, 
-            ease: 'elastic.out(1, 0.6)' 
-        })
-        .to('.letter-board-sign', { 
-            opacity: 1, 
-            y: 0, 
-            duration: 0.6, 
-            ease: 'back.out(1.7)',
-            stagger: 0.2
-        }, '-=0.6')
-        .to('.collage-sign', { 
-            opacity: 0.85, 
-            scale: 1, 
-            duration: 0.8, 
-            ease: 'back.out(1.5)',
-            stagger: { each: 0.1, from: 'random' }
-        }, '-=0.8')
-        .to('.floating-sign', { 
-            opacity: 1, 
-            duration: 0.5, 
-            stagger: 0.05 
-        }, '-=0.5')
-        .to('.chip-decoration', { 
-            opacity: 1, 
-            scale: 1, 
-            duration: 0.4, 
-            ease: 'back.out(2)',
-            stagger: 0.1
-        }, '-=0.3');
+    // Chip decorations animate in after marquee bounce and bg images (~2.5s total)
+    gsap.to('.chip-decoration', {
+        opacity: 1,
+        scale: 1,
+        duration: 0.4,
+        ease: 'back.out(2)',
+        stagger: 0.1,
+        delay: 2.5
+    });
 
     gsap.to('.starburst', {
         rotation: 360,
@@ -819,41 +797,36 @@ function initGSAP() {
    ============================================ */
 
 function initScrollAnimations() {
-    // Animate section sign cutouts when they come into view
+    // Animate section sign cutouts when they come into view.
+    // Fire once only — removing the class on leave-back caused the sign to
+    // fade out then replay its keyframe animation on every scroll-back,
+    // which read as a glitchy "second" fade-in.
     gsap.utils.toArray('.section-sign-cutout').forEach(sign => {
         ScrollTrigger.create({
             trigger: sign.closest('section'),
             start: 'top 70%',
-            onEnter: () => sign.classList.add('animate-in'),
-            onLeaveBack: () => sign.classList.remove('animate-in')
+            once: true,
+            onEnter: () => sign.classList.add('animate-in')
         });
     });
 
+    // One tween per panel (was two — the extra event-name scale tween
+    // doubled ScrollTrigger + GSAP work right when the Schedule section
+    // was activating from content-visibility, which caused a visible
+    // hitch on scroll-in). A single fade/translate is plenty and keeps
+    // the entrance feeling lively without the repaint cost.
     gsap.utils.toArray('.event-panel').forEach((panel, i) => {
         gsap.from(panel, {
             scrollTrigger: {
                 trigger: panel,
-                start: 'top 80%',
+                start: 'top 85%',
                 toggleActions: 'play none none reverse'
             },
             opacity: 0,
-            y: 50,
-            duration: 0.8,
-            delay: i * 0.2,
+            y: 40,
+            duration: 0.7,
+            delay: i * 0.1,
             ease: 'power2.out'
-        });
-
-        gsap.from(panel.querySelector('.event-name'), {
-            scrollTrigger: {
-                trigger: panel,
-                start: 'top 80%',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.6,
-            delay: i * 0.2 + 0.3,
-            ease: 'back.out(1.7)'
         });
     });
 
@@ -975,17 +948,23 @@ function initScrollAnimations() {
     }
 
     const footerSign = document.querySelector('.footer-sign');
-    if (footerSign) {
-        gsap.from(footerSign, {
+    const footerSection = document.getElementById('footer');
+    if (footerSign && footerSection) {
+        // Start hidden and scaled down; trigger the bounce-in as soon as the
+        // footer section starts entering the viewport so "See You in Vegas!"
+        // appears immediately when the user first sees the footer.
+        gsap.set(footerSign, { opacity: 0, scale: 0.8, rotation: -5 });
+        gsap.to(footerSign, {
             scrollTrigger: {
-                trigger: footerSign,
-                start: 'top 85%',
+                trigger: footerSection,
+                start: 'top bottom+=600',
                 toggleActions: 'play none none reverse'
             },
-            opacity: 0,
-            scale: 0.8,
-            duration: 1,
-            ease: 'elastic.out(1, 0.5)'
+            opacity: 1,
+            scale: 1,
+            rotation: 0,
+            duration: 1.1,
+            ease: 'elastic.out(1, 0.6)'
         });
     }
 
@@ -1122,18 +1101,6 @@ window.addEventListener('scroll', () => {
 
 let resizeTimer;
 window.addEventListener('resize', () => {
-    // #region agent log
-    const bgCutouts = document.querySelectorAll('.bg-cutout');
-    const imageLoadStates = Array.from(bgCutouts).map(img => ({
-        class: img.className,
-        complete: img.complete,
-        naturalWidth: img.naturalWidth,
-        computedOpacity: getComputedStyle(img).opacity,
-        src: img.src.split('/').pop()
-    }));
-    fetch('http://127.0.0.1:7480/ingest/c1dab880-4892-4bc3-badc-5419bedb1182',{method:'POST',headers:{'Content-Type':'application/json','X-Debug-Session-Id':'1874f4'},body:JSON.stringify({sessionId:'1874f4',location:'main.js:resize',message:'Resize event fired - checking bg-cutout states',data:{windowWidth:window.innerWidth,windowHeight:window.innerHeight,imageCount:bgCutouts.length,imageLoadStates},timestamp:Date.now(),hypothesisId:'H4'})}).catch(()=>{});
-    // #endregion
-    
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         if (prefersReducedMotion) return;
@@ -1183,8 +1150,24 @@ window.addEventListener('resize', () => {
         // initTinseltownBulbs -> initHeartBulbs) so the chase keeps tracing
         // the new sign size and all bulb animations resume.
         rebuildTinseltownBulbs();
+
+        // Scroll-triggered reveals (e.g. the footer's "See You in Vegas!"
+        // sign) depend on element positions that change with viewport size.
+        if (typeof ScrollTrigger !== 'undefined') {
+            ScrollTrigger.refresh();
+        }
     }, 250);
 }, { passive: true });
+
+// Lazy-loaded images below the fold can resolve long after DOMContentLoaded,
+// shifting layout and invalidating ScrollTrigger's cached start/end points.
+// Refresh once everything has settled so reveal animations fire at the
+// correct scroll position.
+window.addEventListener('load', () => {
+    if (typeof ScrollTrigger !== 'undefined') {
+        ScrollTrigger.refresh();
+    }
+});
 
 /* ============================================
    SMOOTH SCROLL FOR ANCHOR LINKS
@@ -1213,19 +1196,15 @@ function initSmoothScroll() {
    ============================================ */
 
 document.addEventListener('visibilitychange', () => {
-    animationState.isPageVisible = !document.hidden;
-    
-    const bannerTracks = document.querySelectorAll('.banner-track');
-    
-    if (document.hidden) {
-        bannerTracks.forEach(track => {
-            track.style.animationPlayState = 'paused';
-        });
-    } else {
-        bannerTracks.forEach(track => {
-            track.style.animationPlayState = 'running';
-        });
-    }
+    const hidden = document.hidden;
+    // Pause/resume the unified RAF loop driving all bulb chases.
+    if (hidden) AnimationManager.pause(); else AnimationManager.resume();
+
+    // Also pause the CSS-driven banner scroll (which runs off the main
+    // thread but still consumes compositor cycles).
+    document.querySelectorAll('.banner-track').forEach(track => {
+        track.style.animationPlayState = hidden ? 'paused' : 'running';
+    });
 });
 
 /* ============================================
@@ -1871,8 +1850,30 @@ function initSlotMachine() {
     
     const symbols = ['J♠', '🍒', '💎', '♥', '🔔', 'J♥'];
     const jackSymbols = ['J♠', 'J♥', 'J♦', 'J♣'];
-    const symbolHeight = reels[0].offsetHeight;
     let isSpinning = false;
+    // Track each reel's stopped index so we can re-align on resize
+    const stoppedIndex = [0, 0, 0];
+
+    // Measure the current symbol height from a live `.reel-symbol` element,
+    // so responsive `clamp()` changes at breakpoints are always respected.
+    function getSymbolHeight() {
+        const firstSymbol = reels[0] && reels[0].querySelector('.reel-symbol');
+        if (firstSymbol) {
+            const h = firstSymbol.getBoundingClientRect().height;
+            if (h > 0) return h;
+        }
+        return reels[0] ? reels[0].getBoundingClientRect().height : 0;
+    }
+
+    function applyReelOffsets() {
+        const h = getSymbolHeight();
+        if (!h) return;
+        reels.forEach((reel, i) => {
+            const strip = reel.querySelector('.reel-strip');
+            if (!strip) return;
+            strip.style.transform = `translateY(${-stoppedIndex[i] * h}px)`;
+        });
+    }
     
     function isJack(symbol) {
         return jackSymbols.includes(symbol) || symbol.startsWith('J');
@@ -1901,16 +1902,19 @@ function initSlotMachine() {
         reels.forEach((reel, index) => {
             setTimeout(() => {
                 reel.classList.remove('spinning');
-                
+
                 const strip = reel.querySelector('.reel-strip');
                 const symbolElements = strip.querySelectorAll('.reel-symbol');
                 const randomIndex = Math.floor(Math.random() * 6);
                 const result = symbolElements[randomIndex].textContent.trim();
                 results.push(result);
-                
-                const offset = -randomIndex * symbolHeight;
-                strip.style.transform = `translateY(${offset}px)`;
-                
+
+                // Measure fresh every stop so viewport resizes between pulls
+                // don't leave reels mis-centered.
+                const symbolHeight = getSymbolHeight();
+                stoppedIndex[index] = randomIndex;
+                strip.style.transform = `translateY(${-randomIndex * symbolHeight}px)`;
+
                 if (index === 2) {
                     checkWin(results);
                     isSpinning = false;
@@ -2002,5 +2006,13 @@ function initSlotMachine() {
     reels.forEach(reel => {
         const strip = reel.querySelector('.reel-strip');
         strip.style.transform = 'translateY(0)';
+    });
+
+    // Re-align reels on viewport resize so responsive symbol heights stay centered.
+    let resizeRaf = 0;
+    window.addEventListener('resize', () => {
+        if (isSpinning) return;
+        if (resizeRaf) cancelAnimationFrame(resizeRaf);
+        resizeRaf = requestAnimationFrame(applyReelOffsets);
     });
 }
