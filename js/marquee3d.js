@@ -81,6 +81,27 @@
     const camera = new THREE.PerspectiveCamera(45, container.clientWidth / container.clientHeight, 0.1, 1000);
     camera.position.set(0, 0, 12);
     camera.lookAt(0, 0, 0);
+
+    // Keep the whole model in view by adjusting camera distance to aspect ratio.
+    // Model is scaled so its max dimension is ~11.5 units (see scaling below).
+    // We add padding so the logo never touches the edges.
+    const MODEL_TARGET_SIZE = 11.5;
+    const VIEW_PADDING = 1.18;
+    function fitCameraToContainer() {
+        const width = container.clientWidth;
+        const height = container.clientHeight;
+        if (!width || !height) return;
+        const aspect = width / height;
+        camera.aspect = aspect;
+        const fovRad = camera.fov * Math.PI / 180;
+        const target = MODEL_TARGET_SIZE * VIEW_PADDING;
+        // Distance required to fit vertically and horizontally
+        const distV = target / (2 * Math.tan(fovRad / 2));
+        const distH = distV / aspect;
+        camera.position.z = Math.max(distV, distH);
+        camera.updateProjectionMatrix();
+        renderer.setSize(width, height);
+    }
     
     // Renderer with physically correct lighting
     const renderer = new THREE.WebGLRenderer({ 
@@ -97,6 +118,8 @@
     renderer.outputEncoding = THREE.sRGBEncoding;
     renderer.toneMapping = THREE.NoToneMapping;
     renderer.physicallyCorrectLights = false;
+
+    fitCameraToContainer();
     
     // Enable anisotropic filtering for sharper textures
     const maxAnisotropy = renderer.capabilities.getMaxAnisotropy();
@@ -469,11 +492,7 @@
     window.addEventListener('resize', () => {
         clearTimeout(resizeTimeout);
         resizeTimeout = setTimeout(() => {
-            const width = container.clientWidth;
-            const height = container.clientHeight;
-            camera.aspect = width / height;
-            camera.updateProjectionMatrix();
-            renderer.setSize(width, height);
+            fitCameraToContainer();
         }, 150);
     }, { passive: true });
     

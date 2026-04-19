@@ -5,7 +5,7 @@
    ============================================ */
 
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-const isMobile = window.innerWidth < 768;
+let isMobile = window.innerWidth < 768;
 
 // Section visibility observer - pauses animations when off-screen
 const SectionObserver = {
@@ -404,6 +404,33 @@ function initTinseltownBulbs() {
     initHeartBulbs();
 }
 
+/**
+ * Rebuild the tinseltown arrow bulbs (and restart their chase animation).
+ * Used on resize and whenever the sign's dimensions may have changed
+ * (e.g. after custom fonts finish loading).
+ */
+function rebuildTinseltownBulbs() {
+    if (prefersReducedMotion) return;
+    const tinselContainers = document.querySelectorAll('#tinseltown-bulbs, #footer-tinseltown-bulbs');
+    if (tinselContainers.length === 0) return;
+
+    tinselContainers.forEach(container => {
+        container.innerHTML = '';
+        // Also remove the old chase animation callback for this specific sign
+        // (cleanupAnimations on resize handles this; fonts.ready path re-registers fresh)
+    });
+    initTinseltownBulbs();
+}
+
+// Re-place tinseltown bulbs once web fonts finish loading so the chase
+// animation traces the correct sign geometry at every breakpoint.
+if (typeof document !== 'undefined' && document.fonts && document.fonts.ready) {
+    document.fonts.ready.then(() => {
+        if (prefersReducedMotion) return;
+        rebuildTinseltownBulbs();
+    }).catch(() => {});
+}
+
 function initHeartBulbs() {
     // Initialize both heart bulb containers
     initSingleHeartBulbs('heart-bulbs');
@@ -487,22 +514,31 @@ function initSingleTinseltown(containerId) {
     const sign = container.closest('.tinseltown-sign');
     if (!sign) return;
     
+    // Unregister any previously running chase animation for this sign so a
+    // rebuild (resize/fonts.ready) doesn't double-stack callbacks.
+    AnimationManager.unregister(`tinseltown-${containerId}`);
+    
     const width = sign.offsetWidth;
     const height = sign.offsetHeight;
     const bulbSpacing = 18;
     const bulbSize = 12;
     const margin = 8; // Distance from the edge of the arrow shape
     
+    // Read the arrow tip width from the CSS custom property so bulbs match clip-path
+    const tipVar = getComputedStyle(sign).getPropertyValue('--tip-width').trim();
+    const tipWidth = parseFloat(tipVar) || 40;
+    
     const bulbs = [];
     const fragment = document.createDocumentFragment();
     
-    // Clip-path polygon points: (0,0), (85%,0), (100%,50%), (85%,100%), (0,100%)
+    // Clip-path polygon points (in px): (0,0), (width-tip,0), (width,h/2), (width-tip,h), (0,h)
     // Place bulbs along these edges, inset by margin
     
+    const bodyRightX = Math.max(width - tipWidth, margin); // corner where arrow begins
     const p1 = { x: margin, y: margin }; // top-left (inset)
-    const p2 = { x: width * 0.85 - margin, y: margin }; // top-right before arrow (inset)
+    const p2 = { x: bodyRightX - margin, y: margin }; // top-right before arrow (inset)
     const p3 = { x: width - margin - bulbSize, y: height * 0.5 }; // arrow tip (inset)
-    const p4 = { x: width * 0.85 - margin, y: height - margin - bulbSize }; // bottom-right before arrow (inset)
+    const p4 = { x: bodyRightX - margin, y: height - margin - bulbSize }; // bottom-right before arrow (inset)
     const p5 = { x: margin, y: height - margin - bulbSize }; // bottom-left (inset)
     
     // Helper to place bulbs along a line segment with consistent spacing
@@ -547,7 +583,7 @@ function initSingleTinseltown(containerId) {
     placeBulbsAlongLine(p5.x, p5.y, p1.x, p1.y, true, false);
     
     container.appendChild(fragment);
-    animateTinseltownBulbs(bulbs);
+    animateTinseltownBulbs(bulbs, `tinseltown-${containerId}`);
 }
 
 function createBulb(x, y) {
@@ -558,11 +594,9 @@ function createBulb(x, y) {
     return bulb;
 }
 
-let tinseltownCounter = 0;
-function animateTinseltownBulbs(bulbs) {
+function animateTinseltownBulbs(bulbs, id) {
     if (bulbs.length === 0) return;
-    
-    const id = `tinseltown-${tinseltownCounter++}`;
+    if (!id) id = `tinseltown-${Date.now()}`;
     let index = 0;
     const groupSize = 5; // 5 bulbs on
     const gapSize = 5; // 5 bulbs off
@@ -1103,10 +1137,15 @@ window.addEventListener('resize', () => {
     clearTimeout(resizeTimer);
     resizeTimer = setTimeout(() => {
         if (prefersReducedMotion) return;
-        
+
+        // Refresh mobile flag so breakpoint-dependent timings/counts update
+        // when the user crosses the 768px breakpoint.
+        isMobile = window.innerWidth < 768;
+
         // Cleanup existing animations before reinitializing
         cleanupAnimations();
-        
+
+        // Rebuild outer marquee bulb borders
         const marqueeBorders = document.querySelectorAll('.marquee-border');
         marqueeBorders.forEach(marqueeBorder => {
             marqueeBorder.querySelectorAll('.bulb-row').forEach(row => {
@@ -1116,6 +1155,34 @@ window.addEventListener('resize', () => {
         if (marqueeBorders.length > 0) {
             initMarqueeBulbs();
         }
+
+        // Rebuild the theater marquee chase lights (each side container
+        // gets wiped so counts match the new breakpoint).
+        ['top', 'right', 'bottom', 'left'].forEach(side => {
+            const c = document.getElementById(`chase-${side}`);
+            if (c) c.innerHTML = '';
+        });
+        if (!isMobile && document.querySelector('.marquee-frame')) {
+            initTheaterMarquee();
+        }
+
+        // Rebuild heart bulbs (sized to heart shape) - clear old DOM first
+        ['heart-bulbs', 'main-heart-bulbs'].forEach(id => {
+            const c = document.getElementById(id);
+            if (c) c.innerHTML = '';
+        });
+
+        // Rebuild the letter board bulbs (bulb count depends on sign width)
+        ['letterboard-bulbs-top', 'letterboard-bulbs-bottom'].forEach(id => {
+            const c = document.getElementById(id);
+            if (c) c.innerHTML = '';
+        });
+        initLetterBoardBulbs();
+
+        // Redraw tinseltown arrow bulbs (also re-inits heart bulbs via
+        // initTinseltownBulbs -> initHeartBulbs) so the chase keeps tracing
+        // the new sign size and all bulb animations resume.
+        rebuildTinseltownBulbs();
     }, 250);
 }, { passive: true });
 

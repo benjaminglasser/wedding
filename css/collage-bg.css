@@ -363,18 +363,22 @@
    Signs poking in from sides on later sections
    ============================================ */
 
-/* Override overflow for sections with sign cutouts */
+/* Sections with sign cutouts use `overflow-x: clip` so decorative
+   elements positioned near the edges don't expand the document width
+   and create a horizontal scrollbar, while still allowing vertical
+   bleed between sections (for shadows, soft edges, tilts, etc.). */
 .schedule,
 .rsvp,
 .hotel,
 .messages,
 .gifts {
-    overflow: visible !important;
+    overflow-x: clip !important;
+    overflow-y: visible !important;
 }
 
-/* Attire section keeps images contained for clean section break */
 .attire {
-    overflow: hidden !important;
+    overflow-x: clip !important;
+    overflow-y: hidden !important;
 }
 
 /* ============================================

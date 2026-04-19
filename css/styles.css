@@ -91,16 +91,23 @@
 
 html {
     scroll-behavior: smooth;
+    /* Prevent any child from creating a horizontal scrollbar.
+       `clip` is better than `hidden` — it doesn't make <html> a
+       scroll container, so `position: fixed` and `scroll-behavior: smooth`
+       continue to work correctly. */
+    overflow-x: clip;
 }
 
 body {
     font-family: var(--font-body);
     background: var(--navy);
     color: var(--cream);
-    overflow-x: hidden;
+    overflow-x: clip;
     line-height: 1.6;
     /* Warm vintage color shift */
     filter: sepia(0.05) saturate(1.1);
+    /* Guard against rogue wide children */
+    max-width: 100%;
 }
 
 /* Vintage warm glow ambient */
@@ -154,6 +161,7 @@ h1, h2, h3 {
     justify-content: center;
     position: relative;
     padding: 40px 20px;
+    overflow-x: clip;
     background: 
         radial-gradient(ellipse at 20% 30%, rgba(255, 45, 123, 0.2) 0%, transparent 40%),
         radial-gradient(ellipse at 80% 20%, rgba(255, 204, 0, 0.15) 0%, transparent 35%),
@@ -2491,7 +2499,7 @@ body.dev-mode .lb-remove {
     }
     
     .footer {
-        padding: 80px 20px 50px;
+        padding: 80px 20px 0;
     }
     
     .end-card {
@@ -2829,19 +2837,26 @@ body.dev-mode .lb-remove {
 
 .footer-jacben-section {
     position: relative;
-    width: 100vw;
-    margin-left: calc(-50vw + 50%);
+    /* Break out to the footer edge without using 100vw (which includes
+       the vertical-scrollbar gutter on desktop and causes ~15-22px of
+       horizontal overflow on every breakpoint). */
+    width: 100%;
     margin-top: 60px;
     margin-bottom: 0;
     min-height: auto;
     height: auto;
-    overflow: visible;
+    overflow: hidden;
     background: #000;
     padding-bottom: 0;
+    display: grid;
+    grid-template-areas: "stack";
+    grid-template-columns: 1fr;
 }
 
 .jacben-text-bg {
-    position: relative;
+    grid-area: stack;
+    align-self: start;
+    justify-self: stretch;
     width: 100%;
     display: flex;
     flex-direction: column;
@@ -2850,6 +2865,7 @@ body.dev-mode .lb-remove {
     gap: 0;
     padding: 20px 0 0 0;
     z-index: 1;
+    pointer-events: none;
 }
 
 .jacben-row {
@@ -2966,11 +2982,14 @@ body.dev-mode .lb-remove {
 }
 
 .footer-cutout-wrapper {
+    grid-area: stack;
+    align-self: end;
+    justify-self: center;
     position: relative;
     z-index: 10;
     width: clamp(280px, 40vw, 500px);
     pointer-events: none;
-    margin: -600px auto 0 auto;
+    margin: 0;
     line-height: 0;
 }
 
@@ -2982,9 +3001,17 @@ body.dev-mode .lb-remove {
     vertical-align: bottom;
 }
 
+/* iPad / small desktop */
+@media (max-width: 1024px) {
+    .footer-cutout-wrapper {
+        width: min(100%, 640px);
+    }
+}
+
 @media (max-width: 768px) {
     .footer-jacben-section {
         min-height: auto;
+        margin-top: 40px;
     }
     
     .jacben-text {
@@ -2992,8 +3019,8 @@ body.dev-mode .lb-remove {
     }
     
     .footer-cutout-wrapper {
-        width: clamp(220px, 55vw, 350px);
-        margin-top: -440px;
+        width: 100%;
+        max-width: none;
     }
 }
 
@@ -3007,8 +3034,8 @@ body.dev-mode .lb-remove {
     }
     
     .footer-cutout-wrapper {
-        width: clamp(180px, 60vw, 280px);
-        margin-top: -320px;
+        width: 100%;
+        max-width: none;
     }
 }
 

@@ -1,0 +1,7206 @@
+{
+  "320x568-iphone-se": {
+    "viewport": {
+      "name": "320x568-iphone-se",
+      "w": 320,
+      "h": 568
+    },
+    "vw": 320,
+    "docW": 341,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 63,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -773,
+        "right": 1371,
+        "w": 2144,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -217,
+        "right": 1512,
+        "w": 1729,
+        "h": 69,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -773,
+        "right": 299,
+        "w": 1072,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 299,
+        "right": 1371,
+        "w": 1072,
+        "h": 38,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -217,
+        "right": 648,
+        "w": 865,
+        "h": 53,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 647,
+        "right": 1512,
+        "w": 865,
+        "h": 53,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-2",
+        "x": -135,
+        "right": 455,
+        "w": 591,
+        "h": 552,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 559,
+        "w": 559,
+        "h": 250,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 559,
+        "w": 559,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 559,
+        "w": 559,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 559,
+        "w": 559,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 559,
+        "w": 559,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-3",
+        "x": -69,
+        "right": 389,
+        "w": 457,
+        "h": 427,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -32,
+        "right": 418,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -57,
+        "right": 392,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": -91,
+        "right": 358,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout dunes-oasis",
+        "x": -72,
+        "right": 328,
+        "w": 400,
+        "h": 267,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -24,
+        "right": 342,
+        "w": 365,
+        "h": 219,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 341,
+        "w": 362,
+        "h": 123,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": -17,
+        "right": 339,
+        "w": 357,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "vertical-sign rsvp-vertical",
+        "x": -9,
+        "right": 329,
+        "w": 338,
+        "h": 189,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 35,
+        "right": 369,
+        "w": 335,
+        "h": 438,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "rsvp-mega-sign",
+        "x": -5,
+        "right": 325,
+        "w": 329,
+        "h": 172,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 65,
+        "right": 374,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -25,
+        "right": 274,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -15,
+        "right": 283,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -15,
+        "right": 276,
+        "w": 290,
+        "h": 313,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -403,
+        "right": -116,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -52,
+        "right": 235,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 669,
+        "right": 956,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1020,
+        "right": 1307,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -753,
+        "right": -467,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 319,
+        "right": 605,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout welcome-vegas",
+        "x": 78,
+        "right": 358,
+        "w": 280,
+        "h": 191,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -39,
+        "right": 188,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -38,
+        "right": 167,
+        "w": 205,
+        "h": 306,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -197,
+        "right": -49,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 225,
+        "right": 373,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 436,
+        "right": 584,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 667,
+        "right": 815,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 878,
+        "right": 1026,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1089,
+        "right": 1237,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1300,
+        "right": 1448,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 279,
+        "right": 419,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 559,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 279,
+        "right": 419,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 559,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 279,
+        "right": 419,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 559,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 279,
+        "right": 419,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 559,
+        "w": 140,
+        "h": 58,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -30,
+        "right": -5,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 392,
+        "right": 417,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 603,
+        "right": 628,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 834,
+        "right": 859,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1045,
+        "right": 1070,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1256,
+        "right": 1281,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1468,
+        "right": 1492,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -447,
+        "right": -423,
+        "w": 24,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -96,
+        "right": -72,
+        "w": 24,
+        "h": 38,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [
+      {
+        "tag": "div",
+        "id": "slot-lever",
+        "cls": "slot-lever",
+        "x": 250,
+        "right": 278,
+        "w": 28,
+        "h": 90
+      }
+    ],
+    "scrollHeight": 5034,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: the server responded with a status of 404 (File not found)",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "360x780-small-android": {
+    "viewport": {
+      "name": "360x780-small-android",
+      "w": 360,
+      "h": 780
+    },
+    "vw": 360,
+    "docW": 381,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 59,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -836,
+        "right": 1308,
+        "w": 2144,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -171,
+        "right": 1558,
+        "w": 1729,
+        "h": 69,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -836,
+        "right": 236,
+        "w": 1072,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 236,
+        "right": 1308,
+        "w": 1072,
+        "h": 38,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 693,
+        "right": 1558,
+        "w": 865,
+        "h": 53,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -171,
+        "right": 693,
+        "w": 865,
+        "h": 53,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -156,
+        "right": 516,
+        "w": 672,
+        "h": 628,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 279,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-2",
+        "x": -80,
+        "right": 440,
+        "w": 520,
+        "h": 485,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -36,
+        "right": 414,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": -47,
+        "right": 403,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -64,
+        "right": 384,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 381,
+        "w": 402,
+        "h": 123,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 201,
+        "right": 580,
+        "w": 379,
+        "h": 259,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-3",
+        "x": -5,
+        "right": 365,
+        "w": 370,
+        "h": 346,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -139,
+        "right": 221,
+        "w": 360,
+        "h": 209,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 33,
+        "right": 380,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 88,
+        "right": 397,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -29,
+        "right": 271,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -17,
+        "right": 281,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -466,
+        "right": -179,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -115,
+        "right": 172,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 606,
+        "right": 893,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 957,
+        "right": 1244,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -816,
+        "right": -530,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 256,
+        "right": 542,
+        "w": 287,
+        "h": 38,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout welcome-vegas",
+        "x": 103,
+        "right": 386,
+        "w": 283,
+        "h": 195,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -42,
+        "right": 184,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -39,
+        "right": 166,
+        "w": 206,
+        "h": 306,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 924,
+        "right": 1072,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1135,
+        "right": 1283,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1346,
+        "right": 1494,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -151,
+        "right": -4,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 271,
+        "right": 418,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 482,
+        "right": 629,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 713,
+        "right": 860,
+        "w": 148,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 649,
+        "right": 674,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 880,
+        "right": 905,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1091,
+        "right": 1116,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1302,
+        "right": 1327,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1513,
+        "right": 1538,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 438,
+        "right": 462,
+        "w": 25,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -510,
+        "right": -486,
+        "w": 24,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -159,
+        "right": -135,
+        "w": 24,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 562,
+        "right": 586,
+        "w": 24,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 913,
+        "right": 937,
+        "w": 24,
+        "h": 39,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1264,
+        "right": 1288,
+        "w": 24,
+        "h": 39,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [
+      {
+        "tag": "div",
+        "id": "slot-lever",
+        "cls": "slot-lever",
+        "x": 290,
+        "right": 318,
+        "w": 28,
+        "h": 90
+      }
+    ],
+    "scrollHeight": 5275,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "375x812-iphone-x": {
+    "viewport": {
+      "name": "375x812-iphone-x",
+      "w": 375,
+      "h": 812
+    },
+    "vw": 375,
+    "docW": 396,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 58,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -980,
+        "right": 1508,
+        "w": 2488,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -188,
+        "right": 1777,
+        "w": 1964,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -980,
+        "right": 264,
+        "w": 1244,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 264,
+        "right": 1508,
+        "w": 1244,
+        "h": 46,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -188,
+        "right": 795,
+        "w": 983,
+        "h": 63,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 794,
+        "right": 1777,
+        "w": 983,
+        "h": 63,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -143,
+        "right": 518,
+        "w": 661,
+        "h": 617,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 279,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-2",
+        "x": -65,
+        "right": 440,
+        "w": 505,
+        "h": 472,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": -30,
+        "right": 420,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -67,
+        "right": 382,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -37,
+        "right": 412,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 396,
+        "w": 417,
+        "h": 131,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 279,
+        "right": 667,
+        "w": 388,
+        "h": 281,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -197,
+        "right": 174,
+        "w": 370,
+        "h": 231,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 50,
+        "right": 396,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -960,
+        "right": -616,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -552,
+        "right": -208,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -144,
+        "right": 200,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 284,
+        "right": 628,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 692,
+        "right": 1036,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1100,
+        "right": 1444,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 108,
+        "right": 417,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -30,
+        "right": 270,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -18,
+        "right": 281,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout welcome-vegas",
+        "x": 114,
+        "right": 396,
+        "w": 283,
+        "h": 195,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -43,
+        "right": 183,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -55,
+        "right": 144,
+        "w": 199,
+        "h": 303,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -168,
+        "right": 10,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1054,
+        "right": 1232,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1535,
+        "right": 1713,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 313,
+        "right": 490,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 554,
+        "right": 731,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 814,
+        "right": 991,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1295,
+        "right": 1472,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 749,
+        "right": 776,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1009,
+        "right": 1036,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1250,
+        "right": 1277,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1490,
+        "right": 1517,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1731,
+        "right": 1758,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 509,
+        "right": 535,
+        "w": 27,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -597,
+        "right": -571,
+        "w": 26,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -189,
+        "right": -163,
+        "w": 26,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 647,
+        "right": 673,
+        "w": 26,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1055,
+        "right": 1081,
+        "w": 26,
+        "h": 42,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1463,
+        "right": 1489,
+        "w": 26,
+        "h": 42,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [
+      {
+        "tag": "div",
+        "id": "slot-lever",
+        "cls": "slot-lever",
+        "x": 305,
+        "right": 333,
+        "w": 28,
+        "h": 90
+      }
+    ],
+    "scrollHeight": 5280,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "414x896-iphone-xr": {
+    "viewport": {
+      "name": "414x896-iphone-xr",
+      "w": 414,
+      "h": 896
+    },
+    "vw": 414,
+    "docW": 435,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 58,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -977,
+        "right": 1511,
+        "w": 2488,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -190,
+        "right": 1774,
+        "w": 1964,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -977,
+        "right": 267,
+        "w": 1244,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 267,
+        "right": 1511,
+        "w": 1244,
+        "h": 46,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -190,
+        "right": 793,
+        "w": 983,
+        "h": 63,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 792,
+        "right": 1774,
+        "w": 983,
+        "h": 63,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -125,
+        "right": 539,
+        "w": 664,
+        "h": 620,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 279,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-2",
+        "x": -48,
+        "right": 462,
+        "w": 509,
+        "h": 476,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 435,
+        "w": 456,
+        "h": 132,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -74,
+        "right": 375,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -41,
+        "right": 408,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 14,
+        "right": 463,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 304,
+        "right": 690,
+        "w": 386,
+        "h": 275,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -184,
+        "right": 184,
+        "w": 368,
+        "h": 225,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 92,
+        "right": 439,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -957,
+        "right": -613,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -549,
+        "right": -205,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -141,
+        "right": 203,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 287,
+        "right": 631,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 695,
+        "right": 1039,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1103,
+        "right": 1447,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 147,
+        "right": 456,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -33,
+        "right": 267,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -20,
+        "right": 279,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout welcome-vegas",
+        "x": 140,
+        "right": 423,
+        "w": 283,
+        "h": 195,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -46,
+        "right": 180,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -54,
+        "right": 147,
+        "w": 201,
+        "h": 304,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1052,
+        "right": 1230,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1533,
+        "right": 1711,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -170,
+        "right": 7,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 311,
+        "right": 488,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 552,
+        "right": 729,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 812,
+        "right": 989,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1293,
+        "right": 1470,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 314,
+        "right": 471,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 507,
+        "right": 533,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 747,
+        "right": 773,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1008,
+        "right": 1034,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1248,
+        "right": 1274,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1489,
+        "right": 1515,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1729,
+        "right": 1755,
+        "w": 26,
+        "h": 41,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -594,
+        "right": -569,
+        "w": 25,
+        "h": 40,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -186,
+        "right": -161,
+        "w": 25,
+        "h": 40,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 650,
+        "right": 675,
+        "w": 25,
+        "h": 40,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1058,
+        "right": 1083,
+        "w": 25,
+        "h": 40,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1466,
+        "right": 1491,
+        "w": 25,
+        "h": 40,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [
+      {
+        "tag": "div",
+        "id": "slot-lever",
+        "cls": "slot-lever",
+        "x": 344,
+        "right": 372,
+        "w": 28,
+        "h": 90
+      }
+    ],
+    "scrollHeight": 5272,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "480x900-phablet": {
+    "viewport": {
+      "name": "480x900-phablet",
+      "w": 480,
+      "h": 900
+    },
+    "vw": 480,
+    "docW": 501,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 53,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -982,
+        "right": 1506,
+        "w": 2488,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -186,
+        "right": 1778,
+        "w": 1964,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -982,
+        "right": 262,
+        "w": 1244,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 262,
+        "right": 1506,
+        "w": 1244,
+        "h": 46,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 795,
+        "right": 1778,
+        "w": 983,
+        "h": 63,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -186,
+        "right": 796,
+        "w": 983,
+        "h": 63,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -89,
+        "right": 569,
+        "w": 659,
+        "h": 615,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 279,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 629,
+        "w": 629,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 501,
+        "w": 522,
+        "h": 133,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-2",
+        "x": -11,
+        "right": 491,
+        "w": 502,
+        "h": 469,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -48,
+        "right": 402,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -86,
+        "right": 363,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 88,
+        "right": 537,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 375,
+        "right": 762,
+        "w": 387,
+        "h": 276,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -189,
+        "right": 179,
+        "w": 368,
+        "h": 226,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 165,
+        "right": 512,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -962,
+        "right": -618,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -554,
+        "right": -210,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -146,
+        "right": 198,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 282,
+        "right": 626,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 690,
+        "right": 1034,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1098,
+        "right": 1442,
+        "w": 344,
+        "h": 46,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 215,
+        "right": 524,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -38,
+        "right": 261,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -23,
+        "right": 275,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -52,
+        "right": 175,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -60,
+        "right": 141,
+        "w": 201,
+        "h": 304,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 314,
+        "right": 492,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -166,
+        "right": 11,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 555,
+        "right": 732,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 815,
+        "right": 992,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1056,
+        "right": 1233,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1296,
+        "right": 1473,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1537,
+        "right": 1714,
+        "w": 177,
+        "h": 49,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 471,
+        "right": 629,
+        "w": 157,
+        "h": 65,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1010,
+        "right": 1038,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1491,
+        "right": 1519,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 510,
+        "right": 537,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 750,
+        "right": 777,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1251,
+        "right": 1278,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1732,
+        "right": 1759,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -599,
+        "right": -573,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -191,
+        "right": -165,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 645,
+        "right": 671,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1053,
+        "right": 1079,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1461,
+        "right": 1487,
+        "w": 27,
+        "h": 43,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [
+      {
+        "tag": "div",
+        "id": "slot-lever",
+        "cls": "slot-lever",
+        "x": 410,
+        "right": 438,
+        "w": 28,
+        "h": 90
+      }
+    ],
+    "scrollHeight": 5287,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "600x960-small-tablet": {
+    "viewport": {
+      "name": "600x960-small-tablet",
+      "w": 600,
+      "h": 960
+    },
+    "vw": 600,
+    "docW": 621,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 56,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -1614,
+        "right": 2486,
+        "w": 4100,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -310,
+        "right": 2924,
+        "w": 3234,
+        "h": 133,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -1614,
+        "right": 436,
+        "w": 2050,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 436,
+        "right": 2486,
+        "w": 2050,
+        "h": 77,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -310,
+        "right": 1308,
+        "w": 1618,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 1306,
+        "right": 2924,
+        "w": 1618,
+        "h": 105,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 366,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -31,
+        "right": 631,
+        "w": 662,
+        "h": 618,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 621,
+        "w": 643,
+        "h": 166,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -228,
+        "right": 346,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1822,
+        "right": 2396,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1594,
+        "right": -1021,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -911,
+        "right": -338,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 456,
+        "right": 1029,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1139,
+        "right": 1712,
+        "w": 573,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -60,
+        "right": 390,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 222,
+        "right": 672,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -107,
+        "right": 341,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 499,
+        "right": 885,
+        "w": 386,
+        "h": 275,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -193,
+        "right": 175,
+        "w": 368,
+        "h": 225,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 297,
+        "right": 644,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 338,
+        "right": 647,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -48,
+        "right": 252,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -29,
+        "right": 269,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -290,
+        "right": 6,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 518,
+        "right": 814,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 922,
+        "right": 1218,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1326,
+        "right": 1622,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1730,
+        "right": 2026,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2135,
+        "right": 2430,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2539,
+        "right": 2834,
+        "w": 295,
+        "h": 82,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -61,
+        "right": 165,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 629,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 629,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 629,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 419,
+        "right": 629,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -69,
+        "right": 132,
+        "w": 201,
+        "h": 304,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 851,
+        "right": 885,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1256,
+        "right": 1289,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1660,
+        "right": 1693,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2064,
+        "right": 2097,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2468,
+        "right": 2501,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2872,
+        "right": 2905,
+        "w": 33,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1751,
+        "right": 1784,
+        "w": 32,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -982,
+        "right": -950,
+        "w": 32,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -299,
+        "right": -267,
+        "w": 32,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1068,
+        "right": 1100,
+        "w": 32,
+        "h": 52,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2435,
+        "right": 2467,
+        "w": 32,
+        "h": 52,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 5799,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "768x1024-tablet": {
+    "viewport": {
+      "name": "768x1024-tablet",
+      "w": 768,
+      "h": 1024
+    },
+    "vw": 768,
+    "docW": 789,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 52,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2015,
+        "right": 3099,
+        "w": 5114,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -378,
+        "right": 3582,
+        "w": 3960,
+        "h": 167,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2015,
+        "right": 542,
+        "w": 2557,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 542,
+        "right": 3099,
+        "w": 2557,
+        "h": 98,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -378,
+        "right": 1603,
+        "w": 1981,
+        "h": 133,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 1601,
+        "right": 3582,
+        "w": 1981,
+        "h": 133,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 366,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 838,
+        "w": 838,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -31,
+        "right": 799,
+        "w": 829,
+        "h": 774,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -21,
+        "right": 789,
+        "w": 811,
+        "h": 190,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1995,
+        "right": -1261,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1143,
+        "right": -409,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -291,
+        "right": 443,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1414,
+        "right": 2148,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2266,
+        "right": 3000,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 562,
+        "right": 1295,
+        "w": 734,
+        "h": 98,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 410,
+        "right": 860,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -76,
+        "right": 373,
+        "w": 449,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -137,
+        "right": 311,
+        "w": 448,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 694,
+        "right": 1082,
+        "w": 389,
+        "h": 281,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 631,
+        "right": 1010,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3105,
+        "right": 3484,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -358,
+        "right": 20,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1126,
+        "right": 1504,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1621,
+        "right": 1999,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2116,
+        "right": 2494,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2611,
+        "right": 2989,
+        "w": 378,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -218,
+        "right": 152,
+        "w": 371,
+        "h": 231,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 482,
+        "right": 829,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 513,
+        "right": 822,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -38,
+        "right": 261,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -61,
+        "right": 238,
+        "w": 300,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -75,
+        "right": 152,
+        "w": 227,
+        "h": 330,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 629,
+        "right": 838,
+        "w": 210,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -87,
+        "right": 112,
+        "w": 199,
+        "h": 303,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1046,
+        "right": 1089,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1541,
+        "right": 1584,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2036,
+        "right": 2079,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2531,
+        "right": 2574,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3026,
+        "right": 3069,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3520,
+        "right": 3563,
+        "w": 43,
+        "h": 68,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1223,
+        "right": -1181,
+        "w": 42,
+        "h": 67,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -371,
+        "right": -329,
+        "w": 42,
+        "h": 67,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1334,
+        "right": 1376,
+        "w": 42,
+        "h": 67,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2186,
+        "right": 2228,
+        "w": 42,
+        "h": 67,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3038,
+        "right": 3080,
+        "w": 42,
+        "h": 67,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6122,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "820x1180-tablet-landscape": {
+    "viewport": {
+      "name": "820x1180-tablet-landscape",
+      "w": 820,
+      "h": 1180
+    },
+    "vw": 820,
+    "docW": 842,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 53,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2300,
+        "right": 3127,
+        "w": 5428,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -266,
+        "right": 3918,
+        "w": 4185,
+        "h": 178,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 413,
+        "right": 3127,
+        "w": 2714,
+        "h": 105,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2300,
+        "right": 413,
+        "w": 2714,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -266,
+        "right": 1827,
+        "w": 2093,
+        "h": 141,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 1825,
+        "right": 3918,
+        "w": 2093,
+        "h": 141,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 1002,
+        "w": 1002,
+        "h": 433,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1002,
+        "w": 1002,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1002,
+        "w": 1002,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1002,
+        "w": 1002,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1002,
+        "w": 1002,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -32,
+        "right": 852,
+        "w": 885,
+        "h": 826,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 842,
+        "w": 863,
+        "h": 198,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1376,
+        "right": -592,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 433,
+        "right": 1217,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1338,
+        "right": 2122,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2280,
+        "right": -1497,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -471,
+        "right": 312,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2243,
+        "right": 3026,
+        "w": 784,
+        "h": 105,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 443,
+        "right": 918,
+        "w": 475,
+        "h": 25,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -82,
+        "right": 369,
+        "w": 450,
+        "h": 24,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -147,
+        "right": 303,
+        "w": 449,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 799,
+        "right": 1203,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1322,
+        "right": 1726,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1845,
+        "right": 2249,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2368,
+        "right": 2772,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2891,
+        "right": 3295,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -246,
+        "right": 157,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3414,
+        "right": 3817,
+        "w": 404,
+        "h": 112,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 684,
+        "right": 1063,
+        "w": 379,
+        "h": 259,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -162,
+        "right": 198,
+        "w": 360,
+        "h": 209,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 539,
+        "right": 886,
+        "w": 347,
+        "h": 446,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -65,
+        "right": 246,
+        "w": 311,
+        "h": 16,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 562,
+        "right": 871,
+        "w": 309,
+        "h": 356,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -40,
+        "right": 258,
+        "w": 299,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -6,
+        "right": 278,
+        "w": 284,
+        "h": 306,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 752,
+        "right": 1002,
+        "w": 251,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 752,
+        "right": 1002,
+        "w": 251,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 752,
+        "right": 1002,
+        "w": 251,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 752,
+        "right": 1002,
+        "w": 251,
+        "h": 103,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -79,
+        "right": 153,
+        "w": 232,
+        "h": 338,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -76,
+        "right": 130,
+        "w": 206,
+        "h": 307,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1240,
+        "right": 1286,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1763,
+        "right": 1809,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2285,
+        "right": 2331,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2808,
+        "right": 2854,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3331,
+        "right": 3377,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3854,
+        "right": 3900,
+        "w": 46,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1459,
+        "right": -1414,
+        "w": 45,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -554,
+        "right": -509,
+        "w": 45,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1255,
+        "right": 1300,
+        "w": 45,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3064,
+        "right": 3109,
+        "w": 45,
+        "h": 72,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2160,
+        "right": 2204,
+        "w": 45,
+        "h": 72,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6677,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "1024x768-landscape": {
+    "viewport": {
+      "name": "1024x768-landscape",
+      "w": 1024,
+      "h": 768
+    },
+    "vw": 1024,
+    "docW": 1046,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 53,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2758,
+        "right": 3744,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -314,
+        "right": 4633,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2758,
+        "right": 493,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 493,
+        "right": 3744,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -314,
+        "right": 2161,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2159,
+        "right": 4633,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 1252,
+        "w": 1252,
+        "h": 536,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1252,
+        "w": 1252,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1252,
+        "w": 1252,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1252,
+        "w": 1252,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1252,
+        "w": 1252,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 1046,
+        "w": 1067,
+        "h": 225,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "heart-layer heart-layer-1",
+        "x": -7,
+        "right": 1031,
+        "w": 1039,
+        "h": 970,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2738,
+        "right": -1782,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -571,
+        "right": 385,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 513,
+        "right": 1469,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2680,
+        "right": 3636,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1654,
+        "right": -699,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1597,
+        "right": 2552,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 553,
+        "right": 1146,
+        "w": 593,
+        "h": 31,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -102,
+        "right": 460,
+        "w": 562,
+        "h": 29,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -183,
+        "right": 378,
+        "w": 561,
+        "h": 49,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -294,
+        "right": 199,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 943,
+        "right": 1435,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1561,
+        "right": 2053,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2179,
+        "right": 2671,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2797,
+        "right": 3289,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3415,
+        "right": 3907,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4033,
+        "right": 4525,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 823,
+        "right": 1283,
+        "w": 460,
+        "h": 305,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -164,
+        "right": 252,
+        "w": 416,
+        "h": 234,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 695,
+        "right": 1109,
+        "w": 413,
+        "h": 532,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -82,
+        "right": 307,
+        "w": 389,
+        "h": 20,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 711,
+        "right": 1085,
+        "w": 374,
+        "h": 431,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -51,
+        "right": 307,
+        "w": 357,
+        "h": 31,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -11,
+        "right": 321,
+        "w": 333,
+        "h": 359,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 939,
+        "right": 1252,
+        "w": 313,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 939,
+        "right": 1252,
+        "w": 313,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 939,
+        "right": 1252,
+        "w": 313,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 939,
+        "right": 1252,
+        "w": 313,
+        "h": 129,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left",
+        "x": -99,
+        "right": 191,
+        "w": 290,
+        "h": 423,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -88,
+        "right": 172,
+        "w": 260,
+        "h": 385,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4561,
+        "right": 4616,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1471,
+        "right": 1525,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2089,
+        "right": 2143,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2707,
+        "right": 2761,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3325,
+        "right": 3379,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3943,
+        "right": 3997,
+        "w": 55,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1745,
+        "right": -1692,
+        "w": 53,
+        "h": 85,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -661,
+        "right": -608,
+        "w": 53,
+        "h": 85,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1506,
+        "right": 1559,
+        "w": 53,
+        "h": 85,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2590,
+        "right": 2643,
+        "w": 53,
+        "h": 85,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3673,
+        "right": 3726,
+        "w": 53,
+        "h": 85,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6124,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "1280x800-laptop": {
+    "viewport": {
+      "name": "1280x800-laptop",
+      "w": 1280,
+      "h": 800
+    },
+    "vw": 1280,
+    "docW": 1302,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 51,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2759,
+        "right": 3743,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -313,
+        "right": 4634,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2759,
+        "right": 492,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 492,
+        "right": 3743,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -313,
+        "right": 2162,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2160,
+        "right": 4634,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 1565,
+        "w": 1565,
+        "h": 665,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1565,
+        "w": 1565,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1565,
+        "w": 1565,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1565,
+        "w": 1565,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1565,
+        "w": 1565,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner",
+        "x": -22,
+        "right": 1302,
+        "w": 1323,
+        "h": 229,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2739,
+        "right": -1783,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -572,
+        "right": 384,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 512,
+        "right": 1468,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2679,
+        "right": 3635,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1655,
+        "right": -700,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1596,
+        "right": 2551,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 692,
+        "right": 1433,
+        "w": 741,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -128,
+        "right": 576,
+        "w": 703,
+        "h": 37,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -229,
+        "right": 472,
+        "w": 701,
+        "h": 61,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 1122,
+        "right": 1712,
+        "w": 590,
+        "h": 415,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -284,
+        "right": 251,
+        "w": 535,
+        "h": 322,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 866,
+        "right": 1383,
+        "w": 518,
+        "h": 666,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -293,
+        "right": 200,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 943,
+        "right": 1436,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1561,
+        "right": 2054,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2179,
+        "right": 2672,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2798,
+        "right": 3290,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3416,
+        "right": 3908,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4034,
+        "right": 4526,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -102,
+        "right": 384,
+        "w": 486,
+        "h": 25,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 894,
+        "right": 1361,
+        "w": 467,
+        "h": 539,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -63,
+        "right": 383,
+        "w": 446,
+        "h": 39,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -8,
+        "right": 406,
+        "w": 414,
+        "h": 447,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1174,
+        "right": 1565,
+        "w": 391,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1174,
+        "right": 1565,
+        "w": 391,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1174,
+        "right": 1565,
+        "w": 391,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1174,
+        "right": 1565,
+        "w": 391,
+        "h": 161,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -130,
+        "right": 187,
+        "w": 317,
+        "h": 476,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1471,
+        "right": 1526,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2089,
+        "right": 2144,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2707,
+        "right": 2762,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3325,
+        "right": 3380,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3943,
+        "right": 3998,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4561,
+        "right": 4616,
+        "w": 55,
+        "h": 87,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1746,
+        "right": -1692,
+        "w": 54,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2588,
+        "right": 2642,
+        "w": 54,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3672,
+        "right": 3726,
+        "w": 54,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -662,
+        "right": -609,
+        "w": 54,
+        "h": 86,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1505,
+        "right": 1558,
+        "w": 54,
+        "h": 86,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6540,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "1440x900-desktop": {
+    "viewport": {
+      "name": "1440x900-desktop",
+      "w": 1440,
+      "h": 900
+    },
+    "vw": 1440,
+    "docW": 1462,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 50,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2745,
+        "right": 3757,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -322,
+        "right": 4625,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2745,
+        "right": 506,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 506,
+        "right": 3757,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -322,
+        "right": 2153,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2151,
+        "right": 4625,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 711,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner",
+        "x": -22,
+        "right": 1462,
+        "w": 1483,
+        "h": 232,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2725,
+        "right": -1769,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -558,
+        "right": 398,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 526,
+        "right": 1482,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2693,
+        "right": 3649,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1641,
+        "right": -686,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1610,
+        "right": 2565,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 778,
+        "right": 1612,
+        "w": 834,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -143,
+        "right": 647,
+        "w": 791,
+        "h": 41,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -258,
+        "right": 489,
+        "w": 747,
+        "h": 65,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 1034,
+        "right": 1650,
+        "w": 616,
+        "h": 375,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -137,
+        "right": 452,
+        "w": 589,
+        "h": 336,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 1022,
+        "right": 1571,
+        "w": 550,
+        "h": 711,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 1002,
+        "right": 1528,
+        "w": 526,
+        "h": 606,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -115,
+        "right": 384,
+        "w": 499,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -71,
+        "right": 427,
+        "w": 498,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -302,
+        "right": 191,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1552,
+        "right": 2045,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2171,
+        "right": 2663,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2789,
+        "right": 3281,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3407,
+        "right": 3899,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4025,
+        "right": 4517,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -28,
+        "right": 432,
+        "w": 460,
+        "h": 496,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -106,
+        "right": 267,
+        "w": 373,
+        "h": 545,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1464,
+        "right": 1515,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2082,
+        "right": 2133,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2700,
+        "right": 2751,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3318,
+        "right": 3369,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3937,
+        "right": 3987,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4555,
+        "right": 4605,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1730,
+        "right": -1680,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3688,
+        "right": 3738,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -646,
+        "right": -597,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 1521,
+        "right": 1570,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2605,
+        "right": 2654,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6586,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "1600x1000-desktop": {
+    "viewport": {
+      "name": "1600x1000-desktop",
+      "w": 1600,
+      "h": 1000
+    },
+    "vw": 1600,
+    "docW": 1622,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 47,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2745,
+        "right": 3757,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -322,
+        "right": 4625,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2745,
+        "right": 506,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 506,
+        "right": 3757,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -322,
+        "right": 2153,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2151,
+        "right": 4625,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-text-bg",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 711,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "jacben-row",
+        "x": 0,
+        "right": 1677,
+        "w": 1677,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 1622,
+        "w": 1643,
+        "h": 235,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2725,
+        "right": -1769,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -558,
+        "right": 398,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2693,
+        "right": 3649,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1641,
+        "right": -686,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1610,
+        "right": 2565,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 943,
+        "right": 1791,
+        "w": 849,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -159,
+        "right": 639,
+        "w": 799,
+        "h": 42,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -287,
+        "right": 461,
+        "w": 747,
+        "h": 65,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 1258,
+        "right": 1887,
+        "w": 628,
+        "h": 398,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -183,
+        "right": 400,
+        "w": 583,
+        "h": 320,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 1132,
+        "right": 1694,
+        "w": 562,
+        "h": 647,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 1189,
+        "right": 1741,
+        "w": 552,
+        "h": 712,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -128,
+        "right": 372,
+        "w": 499,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -79,
+        "right": 419,
+        "w": 498,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -302,
+        "right": 191,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1553,
+        "right": 2045,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2171,
+        "right": 2663,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2789,
+        "right": 3281,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3407,
+        "right": 3899,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4025,
+        "right": 4517,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -27,
+        "right": 431,
+        "w": 459,
+        "h": 495,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "jacben-text",
+        "x": 1257,
+        "right": 1677,
+        "w": 419,
+        "h": 173,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -126,
+        "right": 249,
+        "w": 374,
+        "h": 549,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2082,
+        "right": 2133,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2700,
+        "right": 2751,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3318,
+        "right": 3369,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3937,
+        "right": 3987,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4555,
+        "right": 4605,
+        "w": 51,
+        "h": 80,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1730,
+        "right": -1680,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3688,
+        "right": 3738,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -646,
+        "right": -597,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2605,
+        "right": 2654,
+        "w": 49,
+        "h": 79,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6586,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "1920x1080-fhd": {
+    "viewport": {
+      "name": "1920x1080-fhd",
+      "w": 1920,
+      "h": 1080
+    },
+    "vw": 1920,
+    "docW": 1942,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 38,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2730,
+        "right": 3772,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -331,
+        "right": 4616,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2730,
+        "right": 521,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 521,
+        "right": 3772,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -331,
+        "right": 2144,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2141,
+        "right": 4616,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 1942,
+        "w": 1963,
+        "h": 240,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1627,
+        "right": -671,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -543,
+        "right": 413,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1624,
+        "right": 2580,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2708,
+        "right": 3664,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2710,
+        "right": -1755,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 1301,
+        "right": 2150,
+        "w": 849,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -191,
+        "right": 607,
+        "w": 799,
+        "h": 42,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -344,
+        "right": 403,
+        "w": 747,
+        "h": 65,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -114,
+        "right": 490,
+        "w": 604,
+        "h": 361,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 1463,
+        "right": 2065,
+        "w": 601,
+        "h": 349,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 1469,
+        "right": 2031,
+        "w": 562,
+        "h": 647,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 1565,
+        "right": 2111,
+        "w": 546,
+        "h": 708,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -153,
+        "right": 346,
+        "w": 499,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -95,
+        "right": 403,
+        "w": 498,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 1543,
+        "right": 2036,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2161,
+        "right": 2654,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2779,
+        "right": 3272,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -311,
+        "right": 181,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3398,
+        "right": 3890,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4016,
+        "right": 4508,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -51,
+        "right": 411,
+        "w": 463,
+        "h": 499,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -140,
+        "right": 238,
+        "w": 379,
+        "h": 552,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2074,
+        "right": 2123,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2692,
+        "right": 2741,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3310,
+        "right": 3359,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3928,
+        "right": 3977,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4546,
+        "right": 4595,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1715,
+        "right": -1667,
+        "w": 48,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -631,
+        "right": -583,
+        "w": 48,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2620,
+        "right": 2668,
+        "w": 48,
+        "h": 77,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3704,
+        "right": 3752,
+        "w": 48,
+        "h": 77,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 6728,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "2560x1440-qhd": {
+    "viewport": {
+      "name": "2560x1440-qhd",
+      "w": 2560,
+      "h": 1440
+    },
+    "vw": 2560,
+    "docW": 2582,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 36,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2707,
+        "right": 3795,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -346,
+        "right": 4601,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2707,
+        "right": 544,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 544,
+        "right": 3795,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 2582,
+        "w": 2603,
+        "h": 251,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -346,
+        "right": 2129,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2127,
+        "right": 4601,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2687,
+        "right": -1731,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -520,
+        "right": 436,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2731,
+        "right": 3687,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1603,
+        "right": -648,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 1648,
+        "right": 2603,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 2018,
+        "right": 2867,
+        "w": 849,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -255,
+        "right": 543,
+        "w": 799,
+        "h": 42,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -459,
+        "right": 288,
+        "w": 747,
+        "h": 65,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 2024,
+        "right": 2646,
+        "w": 622,
+        "h": 387,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -95,
+        "right": 519,
+        "w": 615,
+        "h": 384,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 2153,
+        "right": 2714,
+        "w": 562,
+        "h": 647,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 2308,
+        "right": 2844,
+        "w": 536,
+        "h": 701,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -204,
+        "right": 295,
+        "w": 499,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -127,
+        "right": 371,
+        "w": 498,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -326,
+        "right": 167,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2147,
+        "right": 2639,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 2765,
+        "right": 3257,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3383,
+        "right": 3875,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4001,
+        "right": 4493,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -87,
+        "right": 380,
+        "w": 467,
+        "h": 503,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -211,
+        "right": 159,
+        "w": 371,
+        "h": 547,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2675,
+        "right": 2729,
+        "w": 53,
+        "h": 84,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3293,
+        "right": 3347,
+        "w": 53,
+        "h": 84,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3911,
+        "right": 3965,
+        "w": 53,
+        "h": 84,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4529,
+        "right": 4583,
+        "w": 53,
+        "h": 84,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1693,
+        "right": -1641,
+        "w": 52,
+        "h": 83,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -610,
+        "right": -558,
+        "w": 52,
+        "h": 83,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 2641,
+        "right": 2693,
+        "w": 52,
+        "h": 83,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3725,
+        "right": 3777,
+        "w": 52,
+        "h": 83,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 7412,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  },
+  "3440x1440-ultrawide": {
+    "viewport": {
+      "name": "3440x1440-ultrawide",
+      "w": 3440,
+      "h": 1440
+    },
+    "vw": 3440,
+    "docW": 3462,
+    "hasHorizontalOverflow": true,
+    "overflowCount": 30,
+    "overflowers": [
+      {
+        "tag": "div",
+        "cls": "banner-track reverse",
+        "x": -2720,
+        "right": 3782,
+        "w": 6502,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-track",
+        "x": -337,
+        "right": 4609,
+        "w": 4947,
+        "h": 214,
+        "decorative": false
+      },
+      {
+        "tag": "section",
+        "cls": "bulb-banner banner-1 tilted-banner section-visible",
+        "x": -22,
+        "right": 3462,
+        "w": 3483,
+        "h": 267,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -2720,
+        "right": 531,
+        "w": 3251,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 531,
+        "right": 3782,
+        "w": 3251,
+        "h": 128,
+        "decorative": true
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": -337,
+        "right": 2137,
+        "w": 2475,
+        "h": 171,
+        "decorative": false
+      },
+      {
+        "tag": "div",
+        "cls": "banner-content",
+        "x": 2135,
+        "right": 4609,
+        "w": 2475,
+        "h": 171,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -2700,
+        "right": -1744,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -533,
+        "right": 423,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": 2718,
+        "right": 3674,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text jackpot",
+        "x": -1616,
+        "right": -661,
+        "w": 956,
+        "h": 128,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-right-messages",
+        "x": 3003,
+        "right": 3852,
+        "w": 849,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-messages",
+        "x": -343,
+        "right": 455,
+        "w": 799,
+        "h": 42,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-rsvp",
+        "x": -618,
+        "right": 129,
+        "w": 747,
+        "h": 65,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout golden-nugget",
+        "x": 2971,
+        "right": 3589,
+        "w": 618,
+        "h": 379,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout flamingo",
+        "x": -146,
+        "right": 467,
+        "w": 613,
+        "h": 381,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout union-plaza",
+        "x": 3047,
+        "right": 3609,
+        "w": 562,
+        "h": 647,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout glitter-gulch",
+        "x": 3260,
+        "right": 3800,
+        "w": 540,
+        "h": 704,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-gifts",
+        "x": -275,
+        "right": 224,
+        "w": 499,
+        "h": 26,
+        "decorative": true
+      },
+      {
+        "tag": "img",
+        "cls": "section-sign-cutout sign-left-hotel",
+        "x": -171,
+        "right": 327,
+        "w": 498,
+        "h": 44,
+        "decorative": true
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 4009,
+        "right": 4502,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": -317,
+        "right": 175,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-text",
+        "x": 3391,
+        "right": 3883,
+        "w": 492,
+        "h": 137,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout stardust",
+        "x": -108,
+        "right": 358,
+        "w": 466,
+        "h": 501,
+        "decorative": false
+      },
+      {
+        "tag": "img",
+        "cls": "bg-cutout vegas-vic",
+        "x": -268,
+        "right": 109,
+        "w": 376,
+        "h": 551,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3921,
+        "right": 3971,
+        "w": 50,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 4539,
+        "right": 4589,
+        "w": 50,
+        "h": 79,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -1705,
+        "right": -1656,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": -621,
+        "right": -572,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      },
+      {
+        "tag": "span",
+        "cls": "bulb-star",
+        "x": 3713,
+        "right": 3762,
+        "w": 49,
+        "h": 78,
+        "decorative": false
+      }
+    ],
+    "tinyTargets": [],
+    "scrollHeight": 7412,
+    "consoleErrors": [
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "THREE.EXRLoader: External library fflate.min.js required.",
+      "PAGEERROR: fflate is not defined",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "Failed to load resource: net::ERR_CONNECTION_REFUSED",
+      "PAGEERROR: animationState is not defined"
+    ]
+  }
+}

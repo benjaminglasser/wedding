@@ -165,7 +165,10 @@
 
 .bulb-banner.tilted-banner {
     transform: rotate(-1deg);
-    margin: -5px -20px;
+    /* No negative horizontal margin — extending past the viewport creates
+       horizontal overflow at every breakpoint. Rotation tilt is visually
+       preserved without expanding the layout box. */
+    margin: -5px 0;
     padding: 35px 20px;
 }
 

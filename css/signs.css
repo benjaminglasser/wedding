@@ -51,6 +51,29 @@
     z-index: 1;
 }
 
+/* Tablet / iPad — scale the hero logo so it fits within the viewport.
+   Width stays 100% so the 3D camera keeps a healthy aspect ratio; the
+   camera auto-fits the model horizontally & vertically (see marquee3d.js). */
+@media (max-width: 1024px) {
+    .marquee-3d-container {
+        height: clamp(320px, 50vh, 500px);
+    }
+}
+
+/* Mobile landscape / small tablet */
+@media (max-width: 768px) {
+    .marquee-3d-container {
+        height: clamp(240px, 42vh, 380px);
+    }
+}
+
+/* Mobile portrait */
+@media (max-width: 480px) {
+    .marquee-3d-container {
+        height: clamp(200px, 36vh, 300px);
+    }
+}
+
 /* ============================================
    TINSELTOWN ARROW MARQUEE
    ============================================ */
@@ -271,9 +294,15 @@
 
 /* Old tinseltown sign - keep for footer */
 .tinseltown-sign {
+    /* Pixel width of the arrow tip. JS reads this to place bulbs. */
+    --tip-width: 40px;
     position: relative;
     display: inline-block;
-    padding: 30px 60px 30px 40px;
+    /* padding-right must be >= --tip-width + a little breathing room so the
+       text never spills into the arrow tip clip region */
+    padding: 30px calc(var(--tip-width) + 24px) 30px 40px;
+    max-width: 100%;
+    box-sizing: border-box;
     /* No clip-path here - let bulbs overflow */
 }
 
@@ -286,7 +315,13 @@
     right: 0;
     bottom: 0;
     background: #000000;
-    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+    clip-path: polygon(
+        0 0,
+        calc(100% - var(--tip-width)) 0,
+        100% 50%,
+        calc(100% - var(--tip-width)) 100%,
+        0 100%
+    );
     box-shadow: 
         0 0 40px rgba(255, 45, 123, 0.4),
         0 0 80px rgba(255, 45, 123, 0.2);
@@ -302,7 +337,13 @@
     right: -4px;
     bottom: -4px;
     background: #000000;
-    clip-path: polygon(0 0, 85% 0, 100% 50%, 85% 100%, 0 100%);
+    clip-path: polygon(
+        0 0,
+        calc(100% - var(--tip-width) - 4px) 0,
+        100% 50%,
+        calc(100% - var(--tip-width) - 4px) 100%,
+        0 100%
+    );
     z-index: -1;
 }
 
@@ -346,6 +387,10 @@
     animation: neonFlicker 4s ease-in-out infinite;
     position: relative;
     z-index: 1;
+    /* Keep "See You in Vegas!" on a single line so the arrow shape stays an
+       arrow at every breakpoint. The sign's padding plus this text defines
+       its bounds and the JS-placed bulbs trace them. */
+    white-space: nowrap;
 }
 
 @keyframes neonFlicker {
@@ -1354,11 +1399,18 @@
     }
     
     .tinseltown-sign {
-        padding: 15px 35px 15px 25px;
+        --tip-width: 28px;
+        padding: 15px calc(var(--tip-width) + 18px) 15px 25px;
+        /* Prevent the sign from overflowing the viewport when the nowrap text
+           is long ("See You in Vegas!"). Scales down gracefully on narrow
+           phones so the arrow shape stays intact. */
+        max-width: calc(100vw - 24px);
     }
-    
+
     .tinseltown-text {
-        font-size: clamp(2rem, 8vw, 4rem) !important;
+        /* Scaled down so the text stays on one line and the arrow shape is
+           preserved on mobile widths. */
+        font-size: clamp(1.1rem, 5.5vw, 2.25rem) !important;
     }
     
     .letter-board-sign {
@@ -1413,7 +1465,8 @@
     }
     
     .tinseltown-sign {
-        padding: 12px 30px 12px 20px;
+        --tip-width: 22px;
+        padding: 12px calc(var(--tip-width) + 14px) 12px 20px;
     }
     
     .letter-board-sign {
