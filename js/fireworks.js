@@ -173,23 +173,51 @@ class Fireworks {
 class FooterFireworks extends Fireworks {
     constructor(container) {
         super(container);
-        this.hasTriggered = false;
+        this.loopInterval = null;
+    }
+
+    startLoop(intensity = 'medium') {
+        if (this.isRunning) return;
+        this.isRunning = true;
+
+        const intervals = {
+            low: 500,
+            medium: 300,
+            high: 150
+        };
+
+        this.loopInterval = setInterval(() => {
+            this.createBurst();
+        }, intervals[intensity] || intervals.medium);
+    }
+
+    stopLoop() {
+        if (this.loopInterval) {
+            clearInterval(this.loopInterval);
+            this.loopInterval = null;
+        }
+        this.isRunning = false;
     }
 
     triggerOnScroll() {
-        if (this.hasTriggered) return;
-
         const footer = document.querySelector('.footer');
         if (!footer) return;
 
         ScrollTrigger.create({
             trigger: footer,
             start: 'top 80%',
+            end: 'bottom top',
             onEnter: () => {
-                if (!this.hasTriggered) {
-                    this.hasTriggered = true;
-                    this.start(4000, 'high');
-                }
+                this.startLoop('high');
+            },
+            onLeave: () => {
+                this.stopLoop();
+            },
+            onEnterBack: () => {
+                this.startLoop('high');
+            },
+            onLeaveBack: () => {
+                this.stopLoop();
             }
         });
     }

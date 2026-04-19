@@ -1,0 +1,10 @@
+{"sessionId":"65b43b","location":"main.js:FALLBACK","message":"Using fallback - startMarqueeAnimation never defined","data":{},"timestamp":1771742628006,"hypothesisId":"F"}
+{"sessionId":"65b43b","location":"main.js:FALLBACK_SCROLL","message":"Fallback scroll indicator reveal","data":{"found":true},"timestamp":1771742630658,"hypothesisId":"F"}
+{"sessionId":"65b43b","location":"main.js:tryStartMarquee","message":"Trying to start marquee","data":{"attempt":0,"functionExists":true},"timestamp":1771742646348,"hypothesisId":"A"}
+{"sessionId":"65b43b","location":"marquee3d.js:14","message":"startMarqueeAnimation called","data":{"containerExists":true,"heroExists":true},"timestamp":1771742646349,"hypothesisId":"A"}
+{"sessionId":"65b43b","location":"marquee3d.js:19","message":"First timeout (100ms) fired","data":{"containerExists":true},"timestamp":1771742646450,"hypothesisId":"B"}
+{"sessionId":"65b43b","location":"marquee3d.js:32","message":"Second timeout (850ms) fired","data":{"heroExists":true},"timestamp":1771742647300,"hypothesisId":"B,D"}
+{"sessionId":"65b43b","location":"marquee3d.js:37","message":"marquee-ready added","data":{"heroClasses":"hero hero-clean section-visible marquee-ready"},"timestamp":1771742647301,"hypothesisId":"D"}
+{"sessionId":"65b43b","location":"marquee3d.js:46","message":"Third timeout (1800ms) fired","data":{"scrollIndicatorFound":true,"classes":"scroll-indicator"},"timestamp":1771742649107,"hypothesisId":"B,C"}
+{"sessionId":"65b43b","location":"marquee3d.js:52","message":"visible class added","data":{"finalClasses":"scroll-indicator visible"},"timestamp":1771742649107,"hypothesisId":"C"}
+{"sessionId":"65b43b","location":"main.js:tryStartMarquee","message":"Trying to start marquee","data":{"attempt":0,"functionExists":true},"timestamp":1771742657882,"hypothesisId":"A"}

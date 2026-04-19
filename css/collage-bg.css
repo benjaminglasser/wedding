@@ -372,6 +372,11 @@
     overflow: visible !important;
 }
 
+/* Attire section keeps images contained for clean section break */
+.attire {
+    overflow: hidden !important;
+}
+
 /* ============================================
    SECTION SIGN SCROLL ANIMATIONS
    Fade and translate in when visible
@@ -461,21 +466,21 @@
     z-index: 20;
 }
 
-/* Sassy Sally's in Messages section - positioned right but not too far off */
+/* Vegas lights sign in Messages/Attire section - positioned right */
 .section-sign-cutout.sign-right-messages {
-    right: -15%;
+    right: -12%;
     top: 50%;
     transform: translateY(-50%) scaleX(-1) rotate(-3deg);
-    width: clamp(400px, 50vw, 700px);
+    width: clamp(450px, 58vw, 850px);
     opacity: 0.9;
 }
 
-/* Horseshoe sign in Messages section - positioned left */
+/* Horseshoe sign in Messages/Attire section - positioned left */
 .section-sign-cutout.sign-left-messages {
-    left: -12%;
+    left: -10%;
     top: 50%;
     transform: translateY(-50%) rotate(3deg);
-    width: clamp(400px, 50vw, 700px);
+    width: clamp(450px, 55vw, 800px);
     opacity: 0.9;
 }
 
@@ -567,6 +572,46 @@
     .bg-glow-spot {
         opacity: 0.08;
         transform: scale(0.7);
+    }
+    
+}
+
+/* On phones and tablets, fade all side decorative signs into the
+   background (like the hero collage) so they don't cover the main
+   content but still add atmosphere. */
+@media (max-width: 1024px) {
+    .section-sign-cutout,
+    .section-sign-cutout.animate-in,
+    .section-sign-cutout.sign-left,
+    .section-sign-cutout.sign-right,
+    .section-sign-cutout.sign-left-rsvp,
+    .section-sign-cutout.sign-left-rsvp.animate-in,
+    .section-sign-cutout.sign-left-hotel,
+    .section-sign-cutout.sign-left-hotel.animate-in,
+    .section-sign-cutout.sign-left-gifts,
+    .section-sign-cutout.sign-left-gifts.animate-in,
+    .section-sign-cutout.sign-left-messages,
+    .section-sign-cutout.sign-right-messages,
+    .section-sign-cutout.sign-bottom-right {
+        opacity: 0.18 !important;
+        filter: blur(2px) saturate(1.1) brightness(0.9) !important;
+        z-index: 0 !important;
+        animation: none !important;
+    }
+}
+
+@media (max-width: 768px) {
+    .section-sign-cutout,
+    .section-sign-cutout.animate-in {
+        opacity: 0.14 !important;
+    }
+}
+
+@media (max-width: 480px) {
+    .section-sign-cutout,
+    .section-sign-cutout.animate-in {
+        opacity: 0.1 !important;
+        filter: blur(3px) saturate(1.1) brightness(0.85) !important;
     }
 }
 

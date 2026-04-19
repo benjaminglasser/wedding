@@ -398,7 +398,7 @@
         <div class="section-deco bottom-right" aria-hidden="true">
         </div>
         <div class="floating-deco sparkle" style="top: 15%; right: 20%;" aria-hidden="true">✨</div>
-        <div class="floating-deco sparkle" style="bottom: 20%; left: 15%;" aria-hidden="true">✨</div>
+        <div class="floating-deco sparkle" style="bottom: 25%; left: 15%;" aria-hidden="true">✨</div>
         <div class="floating-deco" style="top: 25%; left: 8%;" aria-hidden="true">💎</div>
         
         <div class="attire-content">
@@ -410,79 +410,18 @@
                 <span>GET INSPIRED</span>
             </a>
         </div>
-    </section>
 
-    <!-- VEGAS DIVIDER - Cards -->
-    <div class="vegas-divider cards-divider" aria-hidden="true">
-        <div class="divider-center">
-            <div class="divider-cards">
-                <span class="divider-card spade">♠</span>
-                <span class="divider-card heart">♥</span>
-                <span class="divider-card diamond">♦</span>
-                <span class="divider-card club">♣</span>
-            </div>
-        </div>
-    </div>
-
-    <!-- MESSAGES -->
-    <section id="messages" class="messages section-with-chaos">
-        <!-- Horseshoe sign on left side -->
-        <img src="assets/background_pngs/horsehoe.png" 
-             alt="" class="section-sign-cutout sign-left-messages" aria-hidden="true" loading="lazy" decoding="async">
-        
-        <!-- Mirrored sign on right side -->
-        <img src="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_2.png" 
-             alt="" class="section-sign-cutout sign-right-messages" aria-hidden="true" loading="lazy" decoding="async">
-        
-        <!-- Side decorations -->
-        <div class="section-deco left" aria-hidden="true">
-            <div class="accent-sign one-night" style="transform: rotate(-5deg);">XOXO</div>
-        </div>
-        <div class="section-deco right" aria-hidden="true">
-        </div>
-        <div class="floating-deco heart-float" style="top: 15%; left: 20%;" aria-hidden="true">♥</div>
-        <div class="floating-deco heart-float" style="bottom: 20%; right: 25%;" aria-hidden="true">♥</div>
-        
-        <div class="telegram-frame">
-            <div class="telegram-header">
-                <span class="telegram-label">TELEGRAM</span>
-            </div>
-            
-            <div class="neon-sign message-sign">
-                <span class="neon-text-gold">SEND US SOME LOVE</span>
-            </div>
-            
-            <div class="messages-content">
-                <p class="section-copy">We'd love to hear from you!</p>
-                <p class="message-details">Share your well-wishes, advice, or your best Vegas story.</p>
-                
-                <a href="#" class="cta-button telegram-button" target="_blank" rel="noopener">
-                    <span>SEND A MESSAGE</span>
-                </a>
+        <!-- VEGAS DIVIDER -->
+        <div class="vegas-divider attire-inner-divider" aria-hidden="true">
+            <div class="divider-center">
+                <span class="divider-star">✦</span>
+                <span class="divider-star">★</span>
+                <span class="divider-diamond">♦</span>
+                <span class="divider-star">★</span>
+                <span class="divider-star">✦</span>
             </div>
         </div>
     </section>
-
-    <!-- VEGAS DIVIDER - Bulbs -->
-    <div class="vegas-divider with-bulbs" aria-hidden="true">
-        <div class="divider-bulbs">
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-            <span class="divider-bulb"></span>
-        </div>
-    </div>
 
     <!-- GIFTS -->
     <section id="gifts" class="gifts section-with-chaos">
@@ -509,63 +448,81 @@
             <div class="slot-cabinet">
                 <div class="slot-header">
                     <span class="slot-title">Lucky Jacs</span>
+                    <div class="jacpot-chip" id="jacpot-counter-container">
+                        <span class="jacpot-chip-label">JACPOT</span>
+                        <span class="jacpot-number" id="jacpot-number">0</span>
+                        <span class="jacpot-chip-sublabel">PULLS</span>
+                    </div>
                 </div>
-                <div class="slot-display">
-                    <div class="slot-reel" id="reel-1">
-                        <div class="reel-strip">
-                            <span class="reel-symbol jack-card">J♠</span>
-                            <span class="reel-symbol">🍒</span>
-                            <span class="reel-symbol">💎</span>
-                            <span class="reel-symbol heart-symbol">♥</span>
-                            <span class="reel-symbol">🔔</span>
-                            <span class="reel-symbol jack-card red">J♥</span>
-                            <span class="reel-symbol jack-card">J♠</span>
-                            <span class="reel-symbol">🍒</span>
+                <div class="slot-main">
+                    <div class="slot-display">
+                        <div class="slot-reel" id="reel-1">
+                            <div class="reel-strip">
+                                <span class="reel-symbol jack-card">J♠</span>
+                                <span class="reel-symbol">🍒</span>
+                                <span class="reel-symbol">💎</span>
+                                <span class="reel-symbol heart-symbol">♥</span>
+                                <span class="reel-symbol">🔔</span>
+                                <span class="reel-symbol jack-card red">J♥</span>
+                                <span class="reel-symbol jack-card">J♠</span>
+                                <span class="reel-symbol">🍒</span>
+                            </div>
+                        </div>
+                        <div class="slot-reel" id="reel-2">
+                            <div class="reel-strip">
+                                <span class="reel-symbol">💎</span>
+                                <span class="reel-symbol jack-card red">J♦</span>
+                                <span class="reel-symbol heart-symbol">♥</span>
+                                <span class="reel-symbol">🍒</span>
+                                <span class="reel-symbol jack-card">J♣</span>
+                                <span class="reel-symbol">🔔</span>
+                                <span class="reel-symbol">💎</span>
+                                <span class="reel-symbol jack-card red">J♥</span>
+                            </div>
+                        </div>
+                        <div class="slot-reel" id="reel-3">
+                            <div class="reel-strip">
+                                <span class="reel-symbol heart-symbol">♥</span>
+                                <span class="reel-symbol">🔔</span>
+                                <span class="reel-symbol jack-card">J♠</span>
+                                <span class="reel-symbol jack-card red">J♦</span>
+                                <span class="reel-symbol">🍒</span>
+                                <span class="reel-symbol">💎</span>
+                                <span class="reel-symbol heart-symbol">♥</span>
+                                <span class="reel-symbol jack-card">J♣</span>
+                            </div>
                         </div>
                     </div>
-                    <div class="slot-reel" id="reel-2">
-                        <div class="reel-strip">
-                            <span class="reel-symbol">💎</span>
-                            <span class="reel-symbol jack-card red">J♦</span>
-                            <span class="reel-symbol heart-symbol">♥</span>
-                            <span class="reel-symbol">🍒</span>
-                            <span class="reel-symbol jack-card">J♣</span>
-                            <span class="reel-symbol">🔔</span>
-                            <span class="reel-symbol">💎</span>
-                            <span class="reel-symbol jack-card red">J♥</span>
+                    <div class="slot-lever-container">
+                        <div class="slot-lever" id="slot-lever" role="button" tabindex="0" aria-label="Pull lever to spin">
+                            <div class="lever-track"></div>
+                            <div class="lever-arm">
+                                <div class="lever-ball"></div>
+                            </div>
                         </div>
-                    </div>
-                    <div class="slot-reel" id="reel-3">
-                        <div class="reel-strip">
-                            <span class="reel-symbol heart-symbol">♥</span>
-                            <span class="reel-symbol">🔔</span>
-                            <span class="reel-symbol jack-card">J♠</span>
-                            <span class="reel-symbol jack-card red">J♦</span>
-                            <span class="reel-symbol">🍒</span>
-                            <span class="reel-symbol">💎</span>
-                            <span class="reel-symbol heart-symbol">♥</span>
-                            <span class="reel-symbol jack-card">J♣</span>
-                        </div>
+                        <span class="lever-label">PULL!</span>
                     </div>
                 </div>
                 <div class="slot-result" id="slot-result"></div>
-            </div>
-            <div class="slot-lever-container">
-                <div class="slot-lever" id="slot-lever" role="button" tabindex="0" aria-label="Pull lever to spin">
-                    <div class="lever-track"></div>
-                    <div class="lever-arm">
-                        <div class="lever-ball"></div>
+                <div class="leaderboard-inline" id="leaderboard-container">
+                    <div class="leaderboard-inline-header">
+                        <span class="leaderboard-title">High Rollers</span>
+                    </div>
+                    <div class="leaderboard-row header-row">
+                        <span class="lb-rank">#</span>
+                        <span class="lb-initials">WHO</span>
+                        <span class="lb-lucky">SCORE</span>
+                    </div>
+                    <div class="leaderboard-body" id="leaderboard-body">
+                        <div class="leaderboard-row empty-row">
+                            <span class="lb-empty">No winners yet... pull the lever!</span>
+                        </div>
                     </div>
                 </div>
-                <span class="lever-label">PULL!</span>
             </div>
         </div>
         
         <div class="gifts-content">
-            <h2 class="section-title neon-text-gold jackpot-title">Jackpot!</h2>
-            <p class="section-copy">Your presence is our present!</p>
-            <p class="gifts-details">But if you insist on spoiling us, we won't say no...</p>
-            
             <div class="gift-icons">
                 <span class="gift-icon">🍒</span>
                 <span class="gift-icon">♥</span>
@@ -573,10 +530,6 @@
                 <span class="gift-icon">♥</span>
                 <span class="gift-icon">🍒</span>
             </div>
-            
-            <a href="#" class="cta-button slot-button" target="_blank" rel="noopener">
-                <span>PULL THE LEVER</span>
-            </a>
         </div>
     </section>
 
@@ -616,6 +569,55 @@
         </div>
     </footer>
 
+    <!-- Winner Modal for Leaderboard Entry -->
+    <div class="winner-modal-overlay" id="winner-modal" aria-hidden="true">
+        <div class="winner-modal">
+            <div class="winner-modal-lights"></div>
+            <div class="winner-modal-content">
+                <h3 class="winner-modal-title">YOU HIT THE JAC-POT!</h3>
+                <p class="winner-modal-subtitle">Enter your initials for the leaderboard</p>
+                <div class="winner-modal-input-container">
+                    <input type="text" 
+                           id="winner-initials" 
+                           class="winner-initials-input" 
+                           maxlength="3" 
+                           placeholder="AAA"
+                           autocomplete="off"
+                           pattern="[A-Za-z]{1,3}">
+                </div>
+                <div class="winner-modal-buttons">
+                    <button type="button" class="winner-btn winner-btn-submit" id="winner-submit">
+                        ADD TO LEADERBOARD
+                    </button>
+                    <button type="button" class="winner-btn winner-btn-skip" id="winner-skip">
+                        SKIP
+                    </button>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Firebase SDK -->
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
+    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <script>
+        // Firebase configuration for jac-pot project
+        const firebaseConfig = {
+            apiKey: "AIzaSyCHjDqp6HnG6h_QwsKV5uY2UyEh859kvfI",
+            authDomain: "jac-pot.firebaseapp.com",
+            databaseURL: "https://jac-pot-default-rtdb.firebaseio.com",
+            projectId: "jac-pot",
+            storageBucket: "jac-pot.firebasestorage.app",
+            messagingSenderId: "203890823716",
+            appId: "1:203890823716:web:0a0ac55c97d03ec197beb1",
+            measurementId: "G-9X2PT9PS41"
+        };
+        
+        // Initialize Firebase
+        firebase.initializeApp(firebaseConfig);
+        window.firebaseDB = firebase.database();
+    </script>
+    
     <!-- Scripts - defer for performance -->
     <script src="js/main.js" defer></script>
     <script src="js/fireworks.js" defer></script>

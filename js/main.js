@@ -1232,6 +1232,559 @@ function initFooterParallax() {
 }
 
 /* ============================================
+   FIREBASE LEADERBOARD SYSTEM
+   ============================================ */
+
+const LeaderboardSystem = {
+    db: null,
+    jacpotRef: null,
+    leaderboardRef: null,
+    isInitialized: false,
+    pendingJackpotWin: false,
+    devMode: false,
+    currentJacpot: 0,
+    pendingLuckyNumber: 0,
+    
+    init() {
+        if (typeof firebase === 'undefined' || !window.firebaseDB) {
+            console.warn('Firebase not initialized. Leaderboard will work in offline mode.');
+            return;
+        }
+        
+        this.db = window.firebaseDB;
+        this.jacpotRef = this.db.ref('jacpot_counter');
+        this.leaderboardRef = this.db.ref('leaderboard');
+        this.isInitialized = true;
+        
+        this.subscribeToJacpot();
+        this.subscribeToLeaderboard();
+        this.initModal();
+        this.initRemoveHandler();
+    },
+    
+    initRemoveHandler() {
+        const body = document.getElementById('leaderboard-body');
+        if (!body) return;
+        
+        body.addEventListener('click', (e) => {
+            const btn = e.target.closest('.lb-remove');
+            if (!btn) return;
+            if (!this.devMode) return;
+            
+            e.stopPropagation();
+            const key = btn.getAttribute('data-key');
+            const initials = btn.getAttribute('data-initials') || '';
+            const row = btn.closest('.leaderboard-row');
+            
+            if (!confirm(`Remove ${initials || 'this entry'} from the leaderboard?`)) return;
+            
+            this.removeEntry(key, initials, row);
+        });
+    },
+    
+    removeEntry(key, initials, row) {
+        if (this.isInitialized && key) {
+            this.leaderboardRef.child(key).remove();
+            return;
+        }
+        
+        // Offline fallback: remove this specific row from the DOM and local state
+        const body = document.getElementById('leaderboard-body');
+        if (!body) return;
+        const target = row || body.querySelector(`[data-initials="${initials}"]`);
+        if (target) target.remove();
+        
+        if (this._localEntries && target) {
+            const idx = this._localEntries.findIndex(e => e.initials === initials);
+            if (idx >= 0) this._localEntries.splice(idx, 1);
+        }
+        
+        if (!body.querySelector('.data-row')) {
+            body.innerHTML = `
+                <div class="leaderboard-row empty-row">
+                    <span class="lb-empty">No winners yet... pull the lever!</span>
+                </div>
+            `;
+        }
+    },
+    
+    subscribeToJacpot() {
+        if (!this.isInitialized) return;
+        
+        this.jacpotRef.on('value', (snapshot) => {
+            const count = snapshot.val() || 0;
+            this.currentJacpot = count;
+            this.updateJacpotDisplay(count);
+        });
+    },
+    
+    subscribeToLeaderboard() {
+        if (!this.isInitialized) return;
+        
+        this.leaderboardRef.orderByChild('luckyNumber').on('value', (snapshot) => {
+            const entries = [];
+            snapshot.forEach((child) => {
+                entries.push({
+                    key: child.key,
+                    ...child.val()
+                });
+            });
+            entries.sort((a, b) => (b.luckyNumber || 0) - (a.luckyNumber || 0));
+            this.updateLeaderboardDisplay(entries);
+        });
+    },
+    
+    incrementJacpot() {
+        if (!this.isInitialized) {
+            const display = document.getElementById('jacpot-number');
+            if (display) {
+                const current = parseInt(display.textContent.replace(/,/g, '')) || 0;
+                this.currentJacpot = current + 1;
+                this.updateJacpotDisplay(current + 1);
+            }
+            return;
+        }
+        
+        this.jacpotRef.transaction((current) => {
+            return (current || 0) + 1;
+        });
+    },
+    
+    updateJacpotDisplay(count) {
+        const display = document.getElementById('jacpot-number');
+        if (!display) return;
+        
+        const formattedCount = count.toLocaleString();
+        
+        display.classList.add('updating');
+        display.textContent = formattedCount;
+        
+        setTimeout(() => {
+            display.classList.remove('updating');
+        }, 200);
+    },
+    
+    updateLeaderboardDisplay(entries) {
+        const body = document.getElementById('leaderboard-body');
+        if (!body) return;
+        
+        if (entries.length === 0) {
+            body.innerHTML = `
+                <div class="leaderboard-row empty-row">
+                    <span class="lb-empty">No winners yet... pull the lever!</span>
+                </div>
+            `;
+            return;
+        }
+        
+        body.innerHTML = entries.map((entry, index) => {
+            const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+            const luckyNumber = entry.luckyNumber ? entry.luckyNumber.toLocaleString() : '—';
+            const safeInitials = this.escapeHtml(entry.initials);
+            return `
+                <div class="leaderboard-row data-row" data-initials="${safeInitials}" data-key="${entry.key || ''}">
+                    <span class="lb-rank ${rankClass}">${index + 1}</span>
+                    <span class="lb-initials">${safeInitials}</span>
+                    <span class="lb-lucky">${luckyNumber}</span>
+                    <button type="button" class="lb-remove" data-key="${entry.key || ''}" data-initials="${safeInitials}" aria-label="Remove ${safeInitials}">×</button>
+                </div>
+            `;
+        }).join('');
+    },
+    
+    escapeHtml(text) {
+        const div = document.createElement('div');
+        div.textContent = text;
+        return div.innerHTML;
+    },
+    
+    initModal() {
+        const modal = document.getElementById('winner-modal');
+        const input = document.getElementById('winner-initials');
+        const submitBtn = document.getElementById('winner-submit');
+        const skipBtn = document.getElementById('winner-skip');
+        
+        if (!modal || !input || !submitBtn || !skipBtn) return;
+        
+        input.addEventListener('input', (e) => {
+            e.target.value = e.target.value.toUpperCase().replace(/[^A-Z]/g, '');
+        });
+        
+        input.addEventListener('keydown', (e) => {
+            if (e.key === 'Enter' && input.value.length > 0) {
+                this.submitWinner(input.value);
+            }
+        });
+        
+        submitBtn.addEventListener('click', () => {
+            if (input.value.length > 0) {
+                this.submitWinner(input.value);
+            }
+        });
+        
+        skipBtn.addEventListener('click', () => {
+            this.hideModal();
+        });
+        
+        modal.addEventListener('click', (e) => {
+            if (e.target === modal) {
+                this.hideModal();
+            }
+        });
+        
+        // Escape key always closes the modal as an escape hatch
+        document.addEventListener('keydown', (e) => {
+            if (e.key === 'Escape' && modal.classList.contains('active')) {
+                this.hideModal();
+            }
+        });
+    },
+    
+    showModal() {
+        const modal = document.getElementById('winner-modal');
+        const input = document.getElementById('winner-initials');
+        
+        if (!modal) return;
+        
+        this.pendingJackpotWin = true;
+        
+        // The <body> has `filter: sepia(...)` which creates a containing
+        // block for position:fixed descendants. Portal the modal out to
+        // <html> so it truly sticks to the viewport no matter where the
+        // user has scrolled.
+        if (modal.parentElement !== document.documentElement) {
+            document.documentElement.appendChild(modal);
+        }
+        
+        // Prevent page scroll while modal is open (without remounting body).
+        this._savedScrollY = window.scrollY || window.pageYOffset || 0;
+        document.body.style.overflow = 'hidden';
+        
+        modal.classList.add('active');
+        modal.setAttribute('aria-hidden', 'false');
+        
+        // Launch a 5-second fireworks show over the modal
+        this.launchModalFireworks(5000);
+        
+        if (input) {
+            input.value = '';
+            // preventScroll stops browsers from scrolling the page to the input
+            setTimeout(() => {
+                try {
+                    input.focus({ preventScroll: true });
+                } catch (_) {
+                    input.focus();
+                }
+                // Restore user's scroll position in case anything tried to jump
+                window.scrollTo(0, this._savedScrollY || 0);
+            }, 100);
+        }
+    },
+    
+    hideModal() {
+        const modal = document.getElementById('winner-modal');
+        
+        if (!modal) return;
+        
+        this.pendingJackpotWin = false;
+        modal.classList.remove('active');
+        modal.setAttribute('aria-hidden', 'true');
+        
+        // Clean up any body styles (including legacy scroll-lock styles)
+        document.body.style.overflow = '';
+        document.body.style.position = '';
+        document.body.style.top = '';
+        document.body.style.left = '';
+        document.body.style.right = '';
+        document.body.style.width = '';
+        
+        this.stopModalFireworks();
+    },
+    
+    launchModalFireworks(durationMs = 5000) {
+        // Remove any existing fireworks container first
+        this.stopModalFireworks();
+        
+        const container = document.createElement('div');
+        container.id = 'modal-fireworks';
+        container.style.cssText = `
+            position: fixed;
+            inset: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 10001;
+            overflow: hidden;
+        `;
+        // Attach to <html> (outside body) so body's filter doesn't create
+        // a containing block that offsets our fixed positioning.
+        document.documentElement.appendChild(container);
+        this._modalFireworksContainer = container;
+        
+        const colors = ['#ffcc00', '#ff2d7b', '#ff3333', '#00e5cc', '#ffffff', '#ff9500'];
+        const particlesPerBurst = 24;
+        
+        const spawnBurst = () => {
+            if (!this._modalFireworksContainer) return;
+            
+            // Random position in the upper 75% of the viewport
+            const cx = 10 + Math.random() * 80; // percent
+            const cy = 10 + Math.random() * 65; // percent
+            
+            for (let i = 0; i < particlesPerBurst; i++) {
+                const particle = document.createElement('div');
+                const color = colors[Math.floor(Math.random() * colors.length)];
+                const size = 6 + Math.random() * 6;
+                particle.style.cssText = `
+                    position: absolute;
+                    width: ${size}px;
+                    height: ${size}px;
+                    background: ${color};
+                    border-radius: 50%;
+                    left: ${cx}%;
+                    top: ${cy}%;
+                    box-shadow: 0 0 ${size * 2}px ${color};
+                    pointer-events: none;
+                `;
+                container.appendChild(particle);
+                
+                const angle = (i / particlesPerBurst) * Math.PI * 2 + Math.random() * 0.3;
+                const distance = 80 + Math.random() * 140;
+                const tx = Math.cos(angle) * distance;
+                const ty = Math.sin(angle) * distance;
+                
+                if (typeof gsap !== 'undefined') {
+                    gsap.to(particle, {
+                        x: tx,
+                        y: ty + 40, // slight gravity drift
+                        opacity: 0,
+                        scale: 0.2,
+                        duration: 1 + Math.random() * 0.6,
+                        ease: 'power2.out',
+                        onComplete: () => particle.remove()
+                    });
+                } else {
+                    particle.style.transition = 'transform 1.2s ease-out, opacity 1.2s ease-out';
+                    requestAnimationFrame(() => {
+                        particle.style.transform = `translate(${tx}px, ${ty + 40}px) scale(0.2)`;
+                        particle.style.opacity = '0';
+                    });
+                    setTimeout(() => particle.remove(), 1400);
+                }
+            }
+        };
+        
+        // Immediate burst, then repeat every ~400ms for the duration
+        spawnBurst();
+        this._modalFireworksInterval = setInterval(spawnBurst, 400);
+        
+        // Stop spawning after durationMs; let existing particles finish their animation
+        this._modalFireworksTimeout = setTimeout(() => {
+            if (this._modalFireworksInterval) {
+                clearInterval(this._modalFireworksInterval);
+                this._modalFireworksInterval = null;
+            }
+            // Remove container a bit later so last particles fade out cleanly
+            setTimeout(() => {
+                if (this._modalFireworksContainer) {
+                    this._modalFireworksContainer.remove();
+                    this._modalFireworksContainer = null;
+                }
+            }, 1600);
+        }, durationMs);
+    },
+    
+    stopModalFireworks() {
+        if (this._modalFireworksInterval) {
+            clearInterval(this._modalFireworksInterval);
+            this._modalFireworksInterval = null;
+        }
+        if (this._modalFireworksTimeout) {
+            clearTimeout(this._modalFireworksTimeout);
+            this._modalFireworksTimeout = null;
+        }
+        if (this._modalFireworksContainer) {
+            this._modalFireworksContainer.remove();
+            this._modalFireworksContainer = null;
+        }
+    },
+    
+    submitWinner(initials) {
+        const cleanInitials = initials.toUpperCase().substring(0, 3);
+        // Capture the winning pull count BEFORE it gets reset
+        const luckyNumber = this.pendingLuckyNumber || this.currentJacpot || 0;
+        this.pendingLuckyNumber = 0;
+        
+        if (!this.isInitialized) {
+            this.addLocalWinner(cleanInitials, luckyNumber);
+            this.resetJacpot();
+            this.hideModal();
+            return;
+        }
+        
+        this.leaderboardRef.push({
+            initials: cleanInitials,
+            lastWin: Date.now(),
+            luckyNumber: luckyNumber
+        });
+        
+        // Reset the jacpot counter to 0 after a win
+        this.resetJacpot();
+        
+        this.hideModal();
+        this.highlightEntry(cleanInitials);
+    },
+    
+    addLocalWinner(initials, luckyNumber = 0) {
+        const body = document.getElementById('leaderboard-body');
+        if (!body) return;
+        
+        if (!this._localEntries) this._localEntries = [];
+        this._localEntries.push({ initials, luckyNumber: luckyNumber || 0 });
+        this._localEntries.sort((a, b) => (b.luckyNumber || 0) - (a.luckyNumber || 0));
+        
+        body.innerHTML = this._localEntries.map((entry, index) => {
+            const rankClass = index === 0 ? 'gold' : index === 1 ? 'silver' : index === 2 ? 'bronze' : '';
+            const luckyDisplay = entry.luckyNumber ? entry.luckyNumber.toLocaleString() : '—';
+            const safe = this.escapeHtml(entry.initials);
+            return `
+                <div class="leaderboard-row data-row" data-initials="${safe}">
+                    <span class="lb-rank ${rankClass}">${index + 1}</span>
+                    <span class="lb-initials">${safe}</span>
+                    <span class="lb-lucky">${luckyDisplay}</span>
+                    <button type="button" class="lb-remove" data-key="" data-initials="${safe}" aria-label="Remove ${safe}">×</button>
+                </div>
+            `;
+        }).join('');
+        
+        this.highlightEntry(initials);
+    },
+    
+    highlightEntry(initials) {
+        setTimeout(() => {
+            const rows = document.querySelectorAll('.leaderboard-row.data-row');
+            rows.forEach(row => {
+                const initialsSpan = row.querySelector('.lb-initials');
+                if (initialsSpan && initialsSpan.textContent === initials) {
+                    row.classList.add('highlight');
+                    setTimeout(() => row.classList.remove('highlight'), 2000);
+                }
+            });
+        }, 100);
+    },
+    
+    onJackpotWin() {
+        // Capture the winning pull count now, before it gets reset
+        this.pendingLuckyNumber = this.currentJacpot || 0;
+        this.showModal();
+    },
+    
+    resetJacpot() {
+        if (!this.isInitialized) {
+            this.updateJacpotDisplay(0);
+            return;
+        }
+        
+        this.jacpotRef.set(0);
+    },
+    
+    // Dev mode: force a jackpot win for testing
+    forceJackpot() {
+        console.log('🎰 DEV MODE: Forcing JAC-POT win!');
+        this.incrementJacpot();
+        
+        // Show jackpot result
+        const resultDisplay = document.getElementById('slot-result');
+        if (resultDisplay) {
+            resultDisplay.textContent = '🎉 JAC-POT! 🎉';
+            resultDisplay.className = 'slot-result jackpot';
+        }
+        
+        // Trigger fireworks if available
+        if (typeof createSlotFireworks === 'function') {
+            createSlotFireworks();
+        }
+        
+        // Show the modal after a short delay
+        setTimeout(() => {
+            this.onJackpotWin();
+        }, 500);
+    },
+    
+    toggleDevMode() {
+        this.devMode = !this.devMode;
+        console.log(`🎰 Dev mode: ${this.devMode ? 'ON' : 'OFF'}`);
+        
+        document.body.classList.toggle('dev-mode', this.devMode);
+        
+        // Show a visual toast notification
+        this.showDevToast(this.devMode ? 'DEV MODE: ON (J: Jackpot)' : 'DEV MODE: OFF');
+        
+        if (this.devMode) {
+            console.log('🎰 Press "J" to force a JAC-POT win');
+            console.log('🎰 Click the × on a leaderboard row to remove it');
+        }
+    },
+    
+    showDevToast(message) {
+        // Remove existing toast if any
+        const existing = document.getElementById('dev-toast');
+        if (existing) existing.remove();
+        
+        const toast = document.createElement('div');
+        toast.id = 'dev-toast';
+        toast.textContent = message;
+        toast.style.cssText = `
+            position: fixed !important;
+            top: 20px !important;
+            left: 50% !important;
+            margin-left: -150px !important;
+            width: 300px !important;
+            text-align: center !important;
+            background: rgba(0, 0, 0, 0.95) !important;
+            color: #ffcc00 !important;
+            padding: 12px 24px !important;
+            border: 2px solid #ffcc00 !important;
+            border-radius: 8px !important;
+            font-family: monospace !important;
+            font-size: 14px !important;
+            z-index: 2147483647 !important;
+            box-shadow: 0 0 20px rgba(255, 204, 0, 0.5) !important;
+            pointer-events: none !important;
+        `;
+        
+        // Append to documentElement (html) to avoid transform issues on body
+        document.documentElement.appendChild(toast);
+        
+        setTimeout(() => {
+            toast.style.transition = 'opacity 0.3s';
+            toast.style.opacity = '0';
+            setTimeout(() => toast.remove(), 300);
+        }, 2000);
+    }
+};
+
+// Secret dev mode keyboard shortcuts
+// Press Shift+D to toggle dev mode, then press J to force a jackpot
+document.addEventListener('keydown', (e) => {
+    // Shift+D to toggle dev mode
+    if (e.shiftKey && (e.key === 'D' || e.key === 'd') && !e.ctrlKey && !e.metaKey) {
+        // Don't trigger if typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+        LeaderboardSystem.toggleDevMode();
+    }
+    
+    // Press J to force jackpot (only in dev mode)
+    if (LeaderboardSystem.devMode && e.key.toLowerCase() === 'j' && !e.ctrlKey && !e.metaKey) {
+        // Don't trigger if typing in an input
+        if (e.target.tagName === 'INPUT' || e.target.tagName === 'TEXTAREA') return;
+        e.preventDefault();
+        LeaderboardSystem.forceJackpot();
+    }
+});
+
+/* ============================================
    INTERACTIVE SLOT MACHINE GAME
    ============================================ */
 
@@ -1246,6 +1799,9 @@ function initSlotMachine() {
     
     if (!lever || !resultDisplay || reels.some(r => !r)) return;
     
+    // Initialize the leaderboard system
+    LeaderboardSystem.init();
+    
     const symbols = ['J♠', '🍒', '💎', '♥', '🔔', 'J♥'];
     const jackSymbols = ['J♠', 'J♥', 'J♦', 'J♣'];
     const symbolHeight = reels[0].offsetHeight;
@@ -1258,6 +1814,9 @@ function initSlotMachine() {
     function spinReels() {
         if (isSpinning) return;
         isSpinning = true;
+        
+        // Increment global jacpot counter on every pull
+        LeaderboardSystem.incrementJacpot();
         
         lever.classList.add('pulled', 'spinning');
         resultDisplay.textContent = '';
@@ -1300,9 +1859,13 @@ function initSlotMachine() {
         const jackCount = [r1, r2, r3].filter(isJack).length;
         
         if (allJacks) {
-            resultDisplay.textContent = '🎉 JAC-POT! Three Jacs! 🎉';
+            resultDisplay.textContent = '🎉 JAC-POT! 🎉';
             resultDisplay.className = 'slot-result jackpot';
             createSlotFireworks();
+            // Show the winner modal for leaderboard entry
+            setTimeout(() => {
+                LeaderboardSystem.onJackpotWin();
+            }, 1500);
         } else if (r1 === r2 && r2 === r3) {
             resultDisplay.textContent = '🎊 WINNER! 🎊';
             resultDisplay.className = 'slot-result winner';

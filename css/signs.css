@@ -51,19 +51,6 @@
     z-index: 1;
 }
 
-/* Responsive sizing for smaller screens */
-@media (max-width: 768px) {
-    .marquee-3d-container {
-        height: clamp(350px, 70vw, 500px);
-    }
-}
-
-@media (max-width: 480px) {
-    .marquee-3d-container {
-        height: clamp(280px, 65vw, 380px);
-    }
-}
-
 /* ============================================
    TINSELTOWN ARROW MARQUEE
    ============================================ */

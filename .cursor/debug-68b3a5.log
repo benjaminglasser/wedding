@@ -1,0 +1,6 @@
+{"sessionId":"68b3a5","location":"marquee3d.js:IIFE_START","message":"IIFE starting","data":{"THREE":true},"timestamp":1771742953848,"hypothesisId":"H1"}
+{"sessionId":"68b3a5","location":"marquee3d.js:RENDERER_INIT","message":"Renderer initialized","data":{"containerWidth":1300,"containerHeight":650,"pixelRatio":2},"timestamp":1771742953872,"hypothesisId":"H5"}
+{"sessionId":"68b3a5","location":"marquee3d.js:FRAME_CREATED","message":"Frame mesh created","data":{},"timestamp":1771742953877,"hypothesisId":"H6"}
+{"sessionId":"68b3a5","location":"marquee3d.js:BULBS_CREATED","message":"Bulbs created","data":{"bulbCount":199},"timestamp":1771742953879,"hypothesisId":"H6"}
+{"sessionId":"68b3a5","location":"marquee3d.js:TEXT_SPRITE_DONE","message":"Text sprite created","data":{},"timestamp":1771742953880,"hypothesisId":"H6"}
+{"sessionId":"68b3a5","location":"marquee3d.js:START_MARQUEE_CALLED","message":"startMarqueeAnimation called","data":{"containerExists":true},"timestamp":1771742956149,"hypothesisId":"H3"}
