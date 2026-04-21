@@ -65,6 +65,11 @@
     .floating-dice {
         display: none !important;
     }
+    
+    /* Exception: show stickers in gifts section (cards/chips near slot machine) */
+    .gifts .floating-deco {
+        display: block !important;
+    }
 
     /* Hide the scattered poker-chip decorations around the Lucky Jacs slot
        machine on iPad and smaller — they crowd the cabinet at narrower widths. */
@@ -99,6 +104,16 @@
     }
     
     .vegas-divider.hotel-attire-divider .sticker-vegas {
+        display: none;
+    }
+    
+    .vegas-divider.hotel-attire-divider::before,
+    .vegas-divider.hotel-attire-divider::after {
+        display: none;
+    }
+    
+    .vegas-divider.hotel-attire-divider .divider-center img.sticker-star:first-child,
+    .vegas-divider.hotel-attire-divider .divider-center img.sticker-star:last-child {
         display: none;
     }
 }
