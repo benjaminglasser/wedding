@@ -871,6 +871,20 @@ function initScrollAnimations() {
         });
     });
 
+    gsap.utils.toArray('.attire-details, .hotel-details').forEach(details => {
+        gsap.from(details, {
+            scrollTrigger: {
+                trigger: details,
+                start: 'top 85%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 20,
+            duration: 0.6,
+            ease: 'power2.out'
+        });
+    });
+
     gsap.utils.toArray('.cta-button').forEach(button => {
         gsap.from(button, {
             scrollTrigger: {
