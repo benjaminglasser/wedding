@@ -1029,6 +1029,12 @@ h1, h2, h3 {
         var(--navy) 100%);
 }
 
+.vegas-divider.hotel-attire-divider::before,
+.vegas-divider.hotel-attire-divider::after {
+    display: block;
+    width: 20%;
+}
+
 .vegas-divider::before,
 .vegas-divider::after {
     content: '';
@@ -1048,12 +1054,12 @@ h1, h2, h3 {
 
 .vegas-divider::before {
     left: 5%;
-    width: 30%;
+    width: 18%;
 }
 
 .vegas-divider::after {
     right: 5%;
-    width: 30%;
+    width: 18%;
 }
 
 .divider-center {
@@ -3104,6 +3110,91 @@ body.dev-mode .lb-remove {
     display: block;
     filter: contrast(1.05) saturate(1.1);
     vertical-align: bottom;
+}
+
+/* ============================================
+   STICKER IMAGES
+   Custom PNG cutouts replacing emoji decorations
+   ============================================ */
+
+.sticker-dice,
+.sticker-star,
+.sticker-cupid,
+.sticker-vegas,
+.sticker-star-small,
+.sticker-drink,
+.sticker-cards,
+.sticker-chips {
+    height: auto;
+    display: inline-block;
+    vertical-align: middle;
+    object-fit: contain;
+}
+
+/* Dice sticker sizes */
+.sticker-dice {
+    width: 1em;
+}
+
+.floating-deco .sticker-dice {
+    width: 2.5rem;
+}
+
+.panel-decoration .sticker-dice {
+    width: 2rem;
+    opacity: 0.6;
+}
+
+.floating-dice .sticker-dice {
+    width: clamp(2rem, 5vw, 4rem);
+}
+
+.divider-icon .sticker-dice {
+    width: 1.5rem;
+    filter: drop-shadow(0 0 8px var(--turquoise)) drop-shadow(0 0 15px var(--turquoise));
+}
+
+/* Star sticker sizes - base small, varied via inline styles */
+.sticker-star {
+    width: 1.5rem;
+}
+
+.floating-deco .sticker-star {
+    width: 1.8rem;
+}
+
+.panel-decoration .sticker-star {
+    width: 1.5rem;
+    opacity: 0.7;
+}
+
+.sticker-star-small {
+    width: 0.9rem;
+    filter: drop-shadow(0 0 5px var(--gold)) drop-shadow(0 0 10px var(--gold));
+}
+
+/* Cupid sticker sizes - varied via inline styles */
+.sticker-cupid {
+    width: clamp(2.5rem, 5vw, 4rem);
+}
+
+/* Vegas sign sticker sizes */
+.sticker-vegas {
+    width: 1.5rem;
+}
+
+.floating-deco .sticker-vegas {
+    width: clamp(2rem, 4vw, 3rem);
+}
+
+.panel-decoration .sticker-vegas {
+    width: 2rem;
+    opacity: 0.7;
+}
+
+.divider-icon .sticker-vegas {
+    width: 1.5rem;
+    filter: drop-shadow(0 0 8px var(--turquoise)) drop-shadow(0 0 15px var(--turquoise));
 }
 
 /* iPad / small desktop - keep the couple photo centered over the JAC BEN

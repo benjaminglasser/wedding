@@ -40,6 +40,7 @@
 .bg-cutout {
     position: absolute;
     opacity: 0;
+    filter: blur(2px) saturate(1.2);
 }
 
 /* ============================================
@@ -279,7 +280,7 @@
 /* RIGHT BORDER - Glitter Gulch cowgirl poking in */
 .bg-cutout.glitter-gulch {
     top: 20%;
-    right: -10%;
+    right: -15%;
     width: clamp(300px, 35vw, 480px);
     transform: rotate(-5deg);
     z-index: 4;
@@ -341,12 +342,12 @@
     left: 20%;
     width: clamp(280px, 32vw, 480px);
     transform: rotate(-5deg);
-    z-index: 1;
+    z-index: 3;
 }
 
 /* TOP - Welcome Vegas (offset right) */
 .bg-cutout.welcome-vegas {
-    top: -12%;
+    top: -5%;
     left: 68%;
     transform: translateX(-50%);
     width: clamp(280px, 35vw, 500px);
@@ -532,6 +533,67 @@
 
 
 /* ============================================
+   RESPONSIVE - Large desktops
+   ============================================ */
+
+@media (min-width: 1400px) {
+    .bg-cutout.stardust {
+        left: 0%;
+        top: -3%;
+        width: clamp(450px, 38vw, 700px);
+    }
+    
+    .bg-cutout.vegas-vic {
+        left: -3%;
+        width: clamp(320px, 26vw, 500px);
+    }
+    
+    .bg-cutout.glitter-gulch {
+        right: -8%;
+        width: clamp(480px, 38vw, 720px);
+    }
+    
+    .bg-cutout.flamingo {
+        left: 0%;
+        width: clamp(550px, 42vw, 820px);
+    }
+    
+    .bg-cutout.golden-nugget {
+        right: 0%;
+        width: clamp(550px, 44vw, 850px);
+    }
+    
+    .bg-cutout.dunes-oasis {
+        left: 42%;
+        width: clamp(600px, 50vw, 950px);
+    }
+    
+    .bg-cutout.mint {
+        left: 55%;
+        bottom: -10%;
+        width: clamp(400px, 32vw, 600px);
+    }
+    
+    .bg-cutout.casino-marquee {
+        left: 22%;
+        top: -3%;
+        width: clamp(450px, 36vw, 700px);
+    }
+    
+    .bg-cutout.welcome-vegas {
+        left: 65%;
+        top: -8%;
+        width: clamp(450px, 38vw, 750px);
+    }
+    
+    .bg-cutout.union-plaza {
+        right: 0%;
+        top: -3%;
+        width: clamp(360px, 30vw, 580px);
+    }
+}
+
+/* ============================================
    RESPONSIVE - Reduce on mobile
    ============================================ */
 
@@ -548,9 +610,134 @@
         opacity: 0.1;
         filter: blur(80px);
     }
+    
+    /* Tablet/iPad - scale up background images to fill the frame */
+    .bg-cutout.stardust {
+        left: -1%;
+        top: -3%;
+        width: clamp(400px, 52vw, 650px);
+    }
+    
+    .bg-cutout.vegas-vic {
+        left: -5%;
+        width: clamp(300px, 38vw, 500px);
+    }
+    
+    .bg-cutout.glitter-gulch {
+        right: -8%;
+        width: clamp(450px, 58vw, 720px);
+    }
+    
+    .bg-cutout.flamingo {
+        left: -3%;
+        width: clamp(520px, 65vw, 850px);
+    }
+    
+    .bg-cutout.golden-nugget {
+        right: -3%;
+        width: clamp(520px, 68vw, 880px);
+    }
+    
+    .bg-cutout.dunes-oasis {
+        left: 42%;
+        width: clamp(580px, 72vw, 950px);
+    }
+    
+    .bg-cutout.mint {
+        left: 52%;
+        bottom: -6%;
+        width: clamp(380px, 48vw, 620px);
+    }
+    
+    .bg-cutout.casino-marquee {
+        left: 18%;
+        top: -3%;
+        width: clamp(400px, 52vw, 700px);
+    }
+    
+    .bg-cutout.welcome-vegas {
+        left: 66%;
+        top: -4%;
+        width: clamp(400px, 52vw, 700px);
+    }
+    
+    .bg-cutout.union-plaza {
+        right: -2%;
+        top: -3%;
+        width: clamp(340px, 42vw, 580px);
+    }
 }
 
-@media (max-width: 768px) {
+/* Tablet portrait (iPad Mini, etc.) */
+@media (max-width: 768px) and (min-width: 481px) {
+    .bg-cutout {
+        opacity: 0.1;
+        filter: blur(1px) saturate(1.2);
+    }
+    
+    .bg-cutout.stardust {
+        left: -3%;
+        top: -3%;
+        width: clamp(350px, 48vw, 550px);
+    }
+    
+    .bg-cutout.vegas-vic {
+        left: -6%;
+        width: clamp(260px, 34vw, 420px);
+    }
+    
+    .bg-cutout.glitter-gulch {
+        right: -10%;
+        width: clamp(400px, 52vw, 620px);
+    }
+    
+    .bg-cutout.flamingo {
+        left: -5%;
+        width: clamp(450px, 58vw, 720px);
+    }
+    
+    .bg-cutout.golden-nugget {
+        right: -5%;
+        width: clamp(450px, 60vw, 750px);
+    }
+    
+    .bg-cutout.dunes-oasis {
+        left: 40%;
+        width: clamp(500px, 65vw, 820px);
+    }
+    
+    .bg-cutout.mint {
+        left: 55%;
+        bottom: -5%;
+        width: clamp(320px, 42vw, 520px);
+    }
+    
+    .bg-cutout.casino-marquee {
+        left: 18%;
+        top: -3%;
+        width: clamp(350px, 46vw, 600px);
+    }
+    
+    .bg-cutout.welcome-vegas {
+        left: 66%;
+        top: -4%;
+        width: clamp(350px, 46vw, 600px);
+    }
+    
+    .bg-cutout.union-plaza {
+        right: -3%;
+        top: -3%;
+        width: clamp(300px, 38vw, 500px);
+    }
+    
+    .bg-glow-spot {
+        opacity: 0.1;
+        transform: scale(0.8);
+    }
+}
+
+/* Mobile phones only */
+@media (max-width: 480px) {
     .bg-cutout {
         opacity: 0.08;
         filter: blur(2px) saturate(1.2);
@@ -565,11 +752,65 @@
         opacity: 0.06;
     }
     
+    .bg-cutout.glitter-gulch {
+        right: -25%;
+        width: clamp(350px, 45vw, 550px);
+    }
+    
+    .bg-cutout.mint {
+        left: 65%;
+        bottom: 2%;
+        width: clamp(260px, 34vw, 420px);
+    }
+    
+    .bg-cutout.flamingo {
+        left: -18%;
+        bottom: 0%;
+        width: clamp(350px, 45vw, 580px);
+    }
+    
+    .bg-cutout.casino-marquee {
+        left: 28%;
+        width: clamp(320px, 40vw, 550px);
+    }
+    
+    .bg-cutout.stardust {
+        left: -15%;
+        width: clamp(320px, 40vw, 520px);
+    }
+    
+    .bg-cutout.union-plaza {
+        right: -10%;
+        width: clamp(260px, 32vw, 460px);
+    }
+    
+    .bg-cutout.vegas-vic {
+        left: -15%;
+        width: clamp(220px, 28vw, 380px);
+    }
+    
+    .bg-cutout.golden-nugget {
+        right: -12%;
+        bottom: -5%;
+        width: clamp(350px, 46vw, 600px);
+    }
+    
+    .bg-cutout.dunes-oasis {
+        left: auto;
+        right: -15%;
+        bottom: -2%;
+        transform: none;
+        width: clamp(380px, 52vw, 680px);
+    }
+    
+    .bg-cutout.welcome-vegas {
+        width: clamp(320px, 42vw, 570px);
+    }
+    
     .bg-glow-spot {
         opacity: 0.08;
         transform: scale(0.7);
     }
-    
 }
 
 /* On smaller desktops, tablets, and phones, fade all side decorative
