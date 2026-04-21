@@ -1054,12 +1054,12 @@ h1, h2, h3 {
 
 .vegas-divider::before {
     left: 5%;
-    width: 18%;
+    width: 12%;
 }
 
 .vegas-divider::after {
     right: 5%;
-    width: 18%;
+    width: 12%;
 }
 
 .divider-center {
