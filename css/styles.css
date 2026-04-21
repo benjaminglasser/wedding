@@ -1676,10 +1676,12 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: var(--font-date);
+    font-family: 'Las Vegas Demo', var(--font-slots);
     font-size: clamp(1.05rem, 2.8vw, 1.4rem);
     letter-spacing: 0.18em;
     text-transform: uppercase;
+    color: var(--gold);
+    text-shadow: 0 0 8px var(--gold), 0 0 16px var(--gold);
     color: var(--cream);
 }
 

@@ -1970,13 +1970,23 @@ function initSlotMachine() {
         } else if (jackCount === 2) {
             resultDisplay.textContent = '🃏 Two Jacs! So close!';
             resultDisplay.className = 'slot-result winner';
+            resetResultAfterDelay(resultDisplay);
         } else if (r1 === r2 || r2 === r3 || r1 === r3) {
             resultDisplay.textContent = 'Two of a kind!';
             resultDisplay.className = 'slot-result';
+            resetResultAfterDelay(resultDisplay);
         } else {
             resultDisplay.textContent = 'Try again!';
             resultDisplay.className = 'slot-result';
+            resetResultAfterDelay(resultDisplay);
         }
+    }
+    
+    function resetResultAfterDelay(resultDisplay) {
+        setTimeout(() => {
+            resultDisplay.textContent = '3 Jacs to Win!';
+            resultDisplay.className = 'slot-result';
+        }, 2500);
     }
     
     function createSlotFireworks() {
