@@ -78,12 +78,28 @@
         --tip-width: 32px;
         padding: 26px calc(var(--tip-width) + 30px) 26px 36px;
     }
+    
+    .vegas-divider.hotel-attire-divider .sticker-vegas {
+        display: none;
+    }
 }
 
 /* Mobile landscape / small tablet */
 @media (max-width: 768px) {
     .marquee-3d-container {
         height: clamp(240px, 42vh, 380px);
+    }
+    
+    .grain-overlay {
+        display: none;
+    }
+    
+    .vegas-divider.neon-line .divider-icon {
+        display: none;
+    }
+    
+    .vegas-divider.hotel-attire-divider .sticker-vegas {
+        display: none;
     }
 }
 

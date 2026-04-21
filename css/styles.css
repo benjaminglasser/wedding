@@ -3209,6 +3209,14 @@ body.dev-mode .lb-remove {
     filter: drop-shadow(0 0 8px var(--turquoise)) drop-shadow(0 0 15px var(--turquoise));
 }
 
+.vegas-divider.hotel-attire-divider .sticker-vegas {
+    width: clamp(8rem, 20vw, 18rem);
+}
+
+.vegas-divider.hotel-attire-divider .sticker-star {
+    width: clamp(1.5rem, 3vw, 3rem);
+}
+
 /* iPad / small desktop - keep the couple photo centered over the JAC BEN
    text and anchored to the bottom, small enough that all four rows of
    "JAC BEN" remain fully visible on either side. !important is used to

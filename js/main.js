@@ -885,6 +885,20 @@ function initScrollAnimations() {
         });
     });
 
+    gsap.utils.toArray('.floating-deco img, .divider-icon img, .divider-star img, .vegas-divider.hotel-attire-divider img').forEach(sticker => {
+        gsap.from(sticker, {
+            scrollTrigger: {
+                trigger: sticker,
+                start: 'top 90%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: 'back.out(1.7)'
+        });
+    });
+
     gsap.utils.toArray('.cta-button').forEach(button => {
         gsap.from(button, {
             scrollTrigger: {
@@ -1970,23 +1984,13 @@ function initSlotMachine() {
         } else if (jackCount === 2) {
             resultDisplay.textContent = '🃏 Two Jacs! So close!';
             resultDisplay.className = 'slot-result winner';
-            resetResultAfterDelay(resultDisplay);
         } else if (r1 === r2 || r2 === r3 || r1 === r3) {
             resultDisplay.textContent = 'Two of a kind!';
             resultDisplay.className = 'slot-result';
-            resetResultAfterDelay(resultDisplay);
         } else {
             resultDisplay.textContent = 'Try again!';
             resultDisplay.className = 'slot-result';
-            resetResultAfterDelay(resultDisplay);
         }
-    }
-    
-    function resetResultAfterDelay(resultDisplay) {
-        setTimeout(() => {
-            resultDisplay.textContent = '3 Jacs to Win!';
-            resultDisplay.className = 'slot-result';
-        }, 2500);
     }
     
     function createSlotFireworks() {
