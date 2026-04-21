@@ -885,7 +885,22 @@ function initScrollAnimations() {
         });
     });
 
-    gsap.utils.toArray('.floating-deco img, .divider-icon img, .divider-star img, .vegas-divider.hotel-attire-divider img').forEach(sticker => {
+    gsap.utils.toArray('.floating-deco img').forEach(sticker => {
+        const section = sticker.closest('section');
+        gsap.from(sticker, {
+            scrollTrigger: {
+                trigger: section || sticker,
+                start: 'top 70%',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            scale: 0.8,
+            duration: 0.5,
+            ease: 'back.out(1.7)'
+        });
+    });
+    
+    gsap.utils.toArray('.divider-icon img, .divider-star img, .vegas-divider.hotel-attire-divider img').forEach(sticker => {
         gsap.from(sticker, {
             scrollTrigger: {
                 trigger: sticker,
