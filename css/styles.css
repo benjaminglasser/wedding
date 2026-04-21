@@ -1892,6 +1892,16 @@ h1, h2, h3 {
     display: inline-block;
 }
 
+.leaderboard-subtitle {
+    font-family: system-ui, -apple-system, sans-serif;
+    font-size: clamp(0.75rem, 2vw, 0.9rem);
+    color: var(--cream);
+    opacity: 0.8;
+    display: block;
+    margin-top: 0.25rem;
+    letter-spacing: 0.05em;
+}
+
 .leaderboard-inline .leaderboard-body {
     /* Approx 10 rows (~35-36px each) before scrolling kicks in */
     max-height: 360px;
