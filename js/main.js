@@ -2118,8 +2118,11 @@ function initSlotMachine() {
                 LeaderboardSystem.onJackpotWin();
             }, 1500);
         } else if (r1 === r2 && r2 === r3) {
-            resultDisplay.textContent = '🎊 WINNER! 🎊';
-            resultDisplay.className = 'slot-result winner';
+            // Three of a kind, but not Jacs — the jackpot is specifically
+            // three Jacs, so nudge the player toward what they actually
+            // need rather than celebrating it as a "WINNER".
+            resultDisplay.textContent = 'Need three Jacs!';
+            resultDisplay.className = 'slot-result';
         } else if (jackCount === 2) {
             resultDisplay.textContent = '🃏 Two Jacs! So close!';
             resultDisplay.className = 'slot-result winner';

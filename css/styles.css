@@ -775,6 +775,7 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
+    font-family: 'Georgia', 'Times New Roman', serif;
     font-size: 2rem;
     position: absolute;
     box-shadow: 0 4px 15px rgba(0, 0, 0, 0.3);
@@ -1738,14 +1739,9 @@ h1, h2, h3 {
     display: flex;
     flex-direction: column;
     align-items: center;
-    /* Stretch the chip's frame to match the height of the slot display
-       (the cards row) so the two gold-bordered panels are visually the
-       same height side-by-side, and center the chip's content inside
-       the extra vertical space. */
-    align-self: stretch;
     justify-content: center;
     gap: 4px;
-    padding: 10px 12px;
+    padding: 10px 18px;
     border: 3px solid var(--gold);
     border-radius: 10px;
     background:
@@ -1754,8 +1750,15 @@ h1, h2, h3 {
         0 0 18px rgba(255, 204, 0, 0.55),
         0 0 36px rgba(255, 204, 0, 0.25),
         inset 0 0 14px rgba(0, 0, 0, 0.7);
-    min-width: 92px;
-    flex-shrink: 0;
+    /* Chip wraps onto its own row above the reels at every viewport
+       (Lucky Jacs title → JACPOT chip → reels + lever → result →
+       leaderboard). It claims the full row but is visually capped by
+       max-width and centered, so it doesn't stretch across the wider
+       desktop cabinet. */
+    flex-basis: 100%;
+    max-width: 300px;
+    margin-left: auto;
+    margin-right: auto;
     animation: jacpot-chip-pulse 2.4s ease-in-out infinite;
 }
 
@@ -1774,32 +1777,23 @@ h1, h2, h3 {
     }
 }
 
-.jacpot-chip-label,
-.jacpot-chip-sublabel {
+.jacpot-chip-label {
     /* Matches "Ghostbar at Palms Casino Resort" in the lineup panels —
        Milky Vintage gives a unified retro-poster feel across the slot
-       cabinet's labels and the venue name. */
+       cabinet's labels and the venue name. This is the chip's only
+       label now ("WINNING SCORE" above the number), so it gets the
+       full styling without the prior label/sublabel split. */
     font-family: 'Milky Vintage', var(--font-names);
+    font-size: 0.82rem;
     letter-spacing: 0.06em;
     color: var(--gold);
     text-shadow: 0 0 6px rgba(255, 204, 0, 0.65);
     line-height: 1;
-}
-
-.jacpot-chip-label {
-    font-size: 0.82rem;
-}
-
-.jacpot-chip-sublabel {
-    font-size: 0.68rem;
-    color: var(--cream);
-    opacity: 0.92;
-    text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
     white-space: nowrap;
 }
 
 .jacpot-chip .jacpot-number {
-    font-size: clamp(1.7rem, 5vw, 2.4rem);
+    font-size: clamp(1.9rem, 5.5vw, 2.7rem);
     letter-spacing: 0.03em;
     line-height: 1.05;
     margin: 2px 0 1px;
@@ -1809,7 +1803,18 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    gap: 14px;
+    /* Stacked layout at every viewport: WINNING SCORE chip wraps onto
+       its own row above the reels (driven by .jacpot-chip's
+       flex-basis: 100%). The chip itself is capped by max-width so it
+       doesn't stretch edge-to-edge on the wider desktop cabinet. The
+       lever-container is absolutely positioned (see below) so that the
+       reels can be truly centered under the chip without the lever
+       pulling them off-center; .slot-main becomes the lever's
+       positioning context. */
+    flex-wrap: wrap;
+    row-gap: 12px;
+    gap: 10px;
+    position: relative;
 }
 
 .slot-display {
@@ -1817,16 +1822,15 @@ h1, h2, h3 {
     gap: 6px;
     background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
     /* Hug the cards: just enough felt around the reels to read as a
-       frame, no large dark border. The JACPOT chip stretches to match
-       this panel's height (.jacpot-chip { align-self: stretch }) so
-       shrinking the padding here also brings the chip's outer height
-       down to the cards' height. */
+       frame, no large dark border. The chip now sits above the reels
+       on its own row, so the slot-display doesn't need to stretch to
+       fill horizontal space — it sizes to its content and the
+       .slot-main parent centers (slot-display + lever) as a group. */
     padding: 5px 5px;
     border-radius: 8px;
     border: 3px solid #333;
     box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.8);
     position: relative;
-    flex: 1;
     justify-content: center;
 }
 
@@ -1942,6 +1946,15 @@ h1, h2, h3 {
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
+    /* Pulled out of the .slot-main flex flow so the reels can center
+       horizontally under the WINNING SCORE chip without the lever
+       offsetting them. Anchored to the bottom-right of .slot-main,
+       which (with the chip on row 1 and the reels on row 2) means
+       bottom-aligned with the slot-display and pushed to the cabinet's
+       right edge. */
+    position: absolute;
+    right: 12px;
+    bottom: 0;
 }
 
 .slot-lever {
@@ -2883,32 +2896,12 @@ body.dev-mode .lb-remove {
         max-width: 420px;
     }
 
-    /* At ≤768px the cabinet narrows to 420px which can't comfortably
-       fit chip + reels + lever side-by-side once the reels are sized to
-       fill the slot display. Let the chip wrap above the reels and
-       collapse it into a compact horizontal pill. */
-    .slot-main {
-        flex-wrap: wrap;
-        row-gap: 10px;
-    }
-
+    /* Chip layout (stacked above reels, centered) is now in the base
+       rules — the chip already wraps onto its own row everywhere. Here
+       we just narrow the chip's max-width to suit the smaller cabinet
+       so it doesn't look like a wide banner on a 420px cabinet. */
     .jacpot-chip {
-        flex-basis: 100%;
-        flex-direction: row;
-        align-items: baseline;
-        justify-content: center;
-        gap: 10px;
-        padding: 6px 14px;
-        min-width: 0;
-    }
-
-    .jacpot-chip-sublabel {
-        display: none;
-    }
-
-    .jacpot-chip .jacpot-number {
-        font-size: clamp(1.6rem, 5.5vw, 2.4rem);
-        margin: 0;
+        max-width: 260px;
     }
     
     .slot-lever {
@@ -3022,7 +3015,7 @@ body.dev-mode .lb-remove {
     }
     
     .event-description {
-        font-size: 1.2rem;
+        font-size: clamp(2.6rem, 7vw, 3.6rem);
     }
     
     .event-details {
@@ -3108,11 +3101,18 @@ body.dev-mode .lb-remove {
     }
 
     .jacpot-chip {
-        padding: 5px 10px;
+        max-width: 220px;
+        padding: 8px 14px;
     }
 
     .jacpot-chip .jacpot-number {
-        font-size: clamp(1.4rem, 6vw, 2rem);
+        font-size: clamp(1.6rem, 7vw, 2.2rem);
+    }
+
+    .slot-lever-container {
+        /* Tighter right offset on the 340px-wide cabinet so the lever
+           doesn't overlap the centered WINNING SCORE chip above. */
+        right: 8px;
     }
 
     .slot-display {

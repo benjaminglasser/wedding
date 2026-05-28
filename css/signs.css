@@ -263,7 +263,7 @@
 
 /* Main red heart using emoji for consistent shape */
 .heart-shape::before {
-    content: '❤';
+    content: '\2764\FE0E';
     position: absolute;
     top: 50%;
     left: 50%;
