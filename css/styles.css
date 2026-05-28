@@ -30,10 +30,7 @@
     --font-classic: 'Vintage Classic', sans-serif;
     --font-ozone: 'Ozone', sans-serif;
     --font-marons: 'Marons', sans-serif;
-    --font-magic-retro: 'Magic Retro', sans-serif;
-    --font-fifties: 'Fifties Movies', sans-serif;
     --font-vegas-fab: 'LasVegas Fabulous', sans-serif;
-    --font-arastin: 'Arastin Pro', sans-serif;
     --font-kenly: 'Bright Kenly', serif;
     
     /* Font Assignments */
@@ -44,11 +41,9 @@
     --font-body: var(--font-classic);           /* Body text / descriptions */
     --font-accent: var(--font-star);            /* Small accent signs */
     --font-slots: var(--font-lounge);           /* 777 slot machine */
-    /* Button text — trying Bright Kenly. Swap to var(--font-marons) for
-       art deco, var(--font-milky) for retro cursive, var(--font-vegas-fab)
-       for marquee, var(--font-magic-retro), var(--font-fifties), or
-       var(--font-arastin) for other retro vibes; the rest of the button
-       styles stay the same. */
+    /* Button text — Bright Kenly. Swap to var(--font-marons) for art
+       deco, var(--font-milky) for retro cursive, or var(--font-vegas-fab)
+       for marquee; the rest of the button styles stay the same. */
     --font-buttons: var(--font-kenly);
     
     /* Spacing */
@@ -199,6 +194,10 @@ h1, h2, h3 {
 
 .hero {
     min-height: 100vh;
+    /* Prefer the dynamic viewport unit on browsers that support it so the
+       hero matches the live viewport even when a browser UI element
+       overlaps. Desktop browsers treat 100dvh ≈ 100vh, so this is safe. */
+    min-height: 100dvh;
     display: flex;
     flex-direction: column;
     align-items: center;
@@ -1714,11 +1713,13 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     /* Header now only contains the title — the JACPOT chip moved down
-       into .slot-main beside the reels. Center the lone title. */
+       into .slot-main beside the reels. Center the lone title and give
+       it generous vertical breathing room so the Lucky Jacs marquee
+       reads as the section's hero before the WINNING SCORE panel. */
     justify-content: center;
     gap: 12px;
-    margin-top: 6px;
-    margin-bottom: 30px;
+    margin-top: 18px;
+    margin-bottom: 44px;
 }
 
 .slot-title {
@@ -1740,8 +1741,10 @@ h1, h2, h3 {
     flex-direction: column;
     align-items: center;
     justify-content: center;
-    gap: 4px;
-    padding: 10px 18px;
+    /* Wider gap so the spinning cards (now the chip's bottom section)
+       have visible breathing room from the JACPOT number above them. */
+    gap: 8px;
+    padding: 12px 16px 14px;
     border: 3px solid var(--gold);
     border-radius: 10px;
     background:
@@ -1750,13 +1753,15 @@ h1, h2, h3 {
         0 0 18px rgba(255, 204, 0, 0.55),
         0 0 36px rgba(255, 204, 0, 0.25),
         inset 0 0 14px rgba(0, 0, 0, 0.7);
-    /* Chip wraps onto its own row above the reels at every viewport
-       (Lucky Jacs title → JACPOT chip → reels + lever → result →
-       leaderboard). It claims the full row but is visually capped by
-       max-width and centered, so it doesn't stretch across the wider
-       desktop cabinet. */
+    /* The chip is now a full payout panel: WINNING SCORE label → score
+       number → spinning cards, all stacked inside the gold-bordered
+       red frame. It claims its own row in .slot-main (lever wraps
+       beside it via absolute positioning) but is capped by max-width
+       and centered so it doesn't stretch across the wider desktop
+       cabinet. Max-width sized to comfortably fit the slot-display
+       (3 × ~82px reels + gaps + felt frame). */
     flex-basis: 100%;
-    max-width: 300px;
+    max-width: 340px;
     margin-left: auto;
     margin-right: auto;
     animation: jacpot-chip-pulse 2.4s ease-in-out infinite;
@@ -1803,14 +1808,13 @@ h1, h2, h3 {
     display: flex;
     align-items: center;
     justify-content: center;
-    /* Stacked layout at every viewport: WINNING SCORE chip wraps onto
-       its own row above the reels (driven by .jacpot-chip's
-       flex-basis: 100%). The chip itself is capped by max-width so it
-       doesn't stretch edge-to-edge on the wider desktop cabinet. The
-       lever-container is absolutely positioned (see below) so that the
-       reels can be truly centered under the chip without the lever
-       pulling them off-center; .slot-main becomes the lever's
-       positioning context. */
+    /* The WINNING SCORE chip is now the full payout panel — it contains
+       the label, the score number, AND the spinning cards (slot-display)
+       stacked vertically inside its gold-bordered red frame. .slot-main
+       hosts the chip plus the absolutely-positioned lever. flex-wrap is
+       kept so that on narrow viewports (≤768px, see media query) the
+       lever can drop into normal flow on its own row below the chip.
+       .slot-main is the lever's positioning context on wide viewports. */
     flex-wrap: wrap;
     row-gap: 12px;
     gap: 10px;
@@ -1821,11 +1825,11 @@ h1, h2, h3 {
     display: flex;
     gap: 6px;
     background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-    /* Hug the cards: just enough felt around the reels to read as a
-       frame, no large dark border. The chip now sits above the reels
-       on its own row, so the slot-display doesn't need to stretch to
-       fill horizontal space — it sizes to its content and the
-       .slot-main parent centers (slot-display + lever) as a group. */
+    /* The slot-display now lives inside the WINNING SCORE chip as its
+       bottom section — the dark felt acts like a recessed viewing
+       window for the cards, nested inside the gold-bordered red chip
+       panel. Padding is kept tight so the felt frame just hugs the
+       reels. */
     padding: 5px 5px;
     border-radius: 8px;
     border: 3px solid #333;
@@ -1946,12 +1950,12 @@ h1, h2, h3 {
     align-items: center;
     gap: 6px;
     flex-shrink: 0;
-    /* Pulled out of the .slot-main flex flow so the reels can center
-       horizontally under the WINNING SCORE chip without the lever
-       offsetting them. Anchored to the bottom-right of .slot-main,
-       which (with the chip on row 1 and the reels on row 2) means
-       bottom-aligned with the slot-display and pushed to the cabinet's
-       right edge. */
+    /* On wide cabinets (desktop) the lever floats to the bottom-right
+       of .slot-main, sitting beside the WINNING SCORE chip (which now
+       contains the spinning cards as its bottom section). At ≤768px
+       the lever switches to static positioning and wraps onto its own
+       row below the chip (see the ≤768px media query); the chip is too
+       wide there to share a row with the lever without overlap. */
     position: absolute;
     right: 12px;
     bottom: 0;
@@ -2850,6 +2854,39 @@ body.dev-mode .lb-remove {
     .schedule .section-title .flicker-letter {
         animation: none;
     }
+
+    /* `backdrop-filter: blur(10px)` on the event panels and vibe card is
+       a beautiful effect on desktop, but on mobile GPUs it costs a full
+       offscreen pass per panel on every scroll frame. Drop the blur on
+       phones in favor of a slightly more opaque background so the text
+       stays readable. */
+    .event-panel,
+    .vibe-card {
+        backdrop-filter: none;
+        -webkit-backdrop-filter: none;
+        background: rgba(0, 0, 0, 0.7);
+    }
+
+    .vibe-card {
+        background: rgba(0, 0, 0, 0.72);
+    }
+
+    /* The big heart's animated text-shadow runs an infinite glow loop on
+       a giant glyph (clamp(150px, 40vw, 300px)) that sits below the
+       fold for most of the page. Disable on mobile — the static glow
+       still looks gorgeous and there's no perf tax. */
+    .big-heart.active .heart-bulbs::before {
+        animation: none;
+    }
+
+    /* Same idea for the .jacben-row pulse. The static text-shadow set on
+       each row stays — only the opacity loop is cut. */
+    .jacben-row:nth-child(1) .jacben-text,
+    .jacben-row:nth-child(2) .jacben-text,
+    .jacben-row:nth-child(3) .jacben-text,
+    .jacben-row:nth-child(4) .jacben-text {
+        animation: none;
+    }
     
     .cards-fan {
         height: 100px;
@@ -2896,12 +2933,26 @@ body.dev-mode .lb-remove {
         max-width: 420px;
     }
 
-    /* Chip layout (stacked above reels, centered) is now in the base
-       rules — the chip already wraps onto its own row everywhere. Here
-       we just narrow the chip's max-width to suit the smaller cabinet
-       so it doesn't look like a wide banner on a 420px cabinet. */
+    /* The slot-display now lives INSIDE the chip, so the chip's max-width
+       must stay wide enough to contain it (3 reels at ~82px + gaps +
+       felt-frame padding ≈ 274px of content, plus chip padding/border).
+       Don't narrow below the base value here. */
     .jacpot-chip {
-        max-width: 260px;
+        max-width: 320px;
+    }
+
+    /* On the narrower tablet cabinet the chip is wide enough that the
+       absolutely-positioned lever overlaps it on the right. Switch the
+       lever back into normal flow on its own row below the chip,
+       right-aligned via margin-left:auto, so it visually reads as
+       "pull lever offset to the right" without colliding with the
+       WINNING SCORE panel. */
+    .slot-lever-container {
+        position: static;
+        right: auto;
+        bottom: auto;
+        margin-left: auto;
+        margin-right: 12px;
     }
     
     .slot-lever {
@@ -3017,6 +3068,23 @@ body.dev-mode .lb-remove {
     .event-description {
         font-size: clamp(2.6rem, 7vw, 3.6rem);
     }
+
+    /* The pink/turquoise side panels share their hue with their glow,
+       so the cumulative bloom from the desktop text-shadow stack
+       washes out the thin Marons letterforms once the title scales
+       up to "The wedding" size on mobile. Tighten the glow to a
+       single soft halo so the strokes stay legible. */
+    .event-panel.tilted-left .event-description {
+        text-shadow:
+            0 0 4px #ff7ab0,
+            0 0 10px rgba(255, 122, 176, 0.45);
+    }
+
+    .event-panel.tilted-right .event-description {
+        text-shadow:
+            0 0 4px #66f2e0,
+            0 0 10px rgba(102, 242, 224, 0.45);
+    }
     
     .event-details {
         font-size: 0.9rem;
@@ -3101,8 +3169,13 @@ body.dev-mode .lb-remove {
     }
 
     .jacpot-chip {
-        max-width: 220px;
-        padding: 8px 14px;
+        /* Wider than the previous ≤480px override because the slot-display
+           now lives inside the chip (3 reels at clamp(52, 12vw, 82) ≈
+           174–246px plus felt-frame padding/border). 260px comfortably
+           contains the reels at the smallest viewport while still leaving
+           red felt-bg breathing room around them. */
+        max-width: 260px;
+        padding: 8px 12px 10px;
     }
 
     .jacpot-chip .jacpot-number {
@@ -3110,9 +3183,10 @@ body.dev-mode .lb-remove {
     }
 
     .slot-lever-container {
-        /* Tighter right offset on the 340px-wide cabinet so the lever
-           doesn't overlap the centered WINNING SCORE chip above. */
-        right: 8px;
+        /* Lever continues to wrap below the chip on narrow viewports
+           (configured in the ≤768px rule). Just tighten the right margin
+           on the very narrow 340px cabinet. */
+        margin-right: 8px;
     }
 
     .slot-display {
@@ -3321,6 +3395,11 @@ body.dev-mode .lb-remove {
        auto-expands to the intrinsic row width and the centered couple
        photo ends up off-center relative to the visible viewport. */
     grid-template-columns: minmax(0, 1fr);
+    /* Skip rendering the giant LED text + couple cutout entirely while
+       this section is offscreen. The intrinsic-size hint is tuned to the
+       rendered height so activating doesn't force a reflow. */
+    content-visibility: auto;
+    contain-intrinsic-size: auto 700px;
 }
 
 .jacben-text-bg {
@@ -3359,17 +3438,27 @@ body.dev-mode .lb-remove {
     -moz-osx-font-smoothing: grayscale;
 }
 
+/* JAC BEN row glow:
+   Previously these rows used `filter: drop-shadow(...)` animations,
+   which on text — especially text this large (clamp(5rem, 14vw, 12rem))
+   stacked four rows deep — triggers a full filter re-rasterization on
+   every animation frame. That tanks scrolling FPS as soon as the footer
+   approaches the viewport. `text-shadow` produces an almost identical
+   visual glow but is composited cheaply and doesn't invalidate the
+   element's paint each frame. The `opacity` keyframe is preserved so the
+   pulse still reads. */
+
 /* Row 1 - #FC4800 */
 .jacben-row:nth-child(1) .jacben-text {
     color: #FC4800;
-    filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.8));
+    text-shadow: 0 0 3px rgba(252, 72, 0, 0.8);
     animation: glowRow1 3s ease-in-out infinite;
 }
 
 /* Row 2 - #FF5800 */
 .jacben-row:nth-child(2) .jacben-text {
     color: #FF5800;
-    filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.8));
+    text-shadow: 0 0 3px rgba(255, 88, 0, 0.8);
     animation: glowRow2 3s ease-in-out infinite;
     animation-delay: 0.4s;
 }
@@ -3377,7 +3466,7 @@ body.dev-mode .lb-remove {
 /* Row 3 - #FF8E00 */
 .jacben-row:nth-child(3) .jacben-text {
     color: #FF8E00;
-    filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.8));
+    text-shadow: 0 0 3px rgba(255, 142, 0, 0.8);
     animation: glowRow3 3s ease-in-out infinite;
     animation-delay: 0.8s;
 }
@@ -3385,68 +3474,40 @@ body.dev-mode .lb-remove {
 /* Row 4 - #FFB300 */
 .jacben-row:nth-child(4) .jacben-text {
     color: #FFB300;
-    filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.8));
+    text-shadow: 0 0 3px rgba(255, 179, 0, 0.8);
     animation: glowRow4 3s ease-in-out infinite;
     animation-delay: 1.2s;
 }
 
-/* Glow animations for each row */
+/* Glow animations: opacity-only pulse. The text-shadow stays static
+   on each row (set above) so the compositor handles the loop without
+   re-rasterizing the giant text glyphs on every frame. */
 @keyframes glowRow1 {
-    0%, 100% {
-        filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.6));
-        opacity: 0.85;
-    }
-    25% {
-        filter: drop-shadow(0 0 15px rgba(252, 72, 0, 1)) drop-shadow(0 0 30px rgba(252, 72, 0, 0.8));
-        opacity: 1;
-    }
-    50%, 75% {
-        filter: drop-shadow(0 0 3px rgba(252, 72, 0, 0.6));
-        opacity: 0.85;
-    }
+    0%, 100% { opacity: 0.85; }
+    25%      { opacity: 1; }
+    50%, 75% { opacity: 0.85; }
 }
 
 @keyframes glowRow2 {
-    0%, 100% {
-        filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.6));
-        opacity: 0.85;
-    }
-    25% {
-        filter: drop-shadow(0 0 15px rgba(255, 88, 0, 1)) drop-shadow(0 0 30px rgba(255, 88, 0, 0.8));
-        opacity: 1;
-    }
-    50%, 75% {
-        filter: drop-shadow(0 0 3px rgba(255, 88, 0, 0.6));
-        opacity: 0.85;
-    }
+    0%, 100% { opacity: 0.85; }
+    25%      { opacity: 1; }
+    50%, 75% { opacity: 0.85; }
 }
 
 @keyframes glowRow3 {
-    0%, 100% {
-        filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.6));
-        opacity: 0.85;
-    }
-    25% {
-        filter: drop-shadow(0 0 15px rgba(255, 142, 0, 1)) drop-shadow(0 0 30px rgba(255, 142, 0, 0.8));
-        opacity: 1;
-    }
-    50%, 75% {
-        filter: drop-shadow(0 0 3px rgba(255, 142, 0, 0.6));
-        opacity: 0.85;
-    }
+    0%, 100% { opacity: 0.85; }
+    25%      { opacity: 1; }
+    50%, 75% { opacity: 0.85; }
 }
 
 @keyframes glowRow4 {
     0%, 100% {
-        filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.6));
         opacity: 0.85;
     }
     25% {
-        filter: drop-shadow(0 0 15px rgba(255, 179, 0, 1)) drop-shadow(0 0 30px rgba(255, 179, 0, 0.8));
         opacity: 1;
     }
     50%, 75% {
-        filter: drop-shadow(0 0 3px rgba(255, 179, 0, 0.6));
         opacity: 0.85;
     }
 }

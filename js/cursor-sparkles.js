@@ -8,9 +8,14 @@
 (function () {
     'use strict';
 
-    // Bail only on reduced motion — touch users get tap bursts and finger-drag trails.
+    // Bail on reduced motion AND on coarse-pointer (touch) devices. The
+    // sparkle trail spawns DOM nodes on every move/drag, which thrashes
+    // the main thread during scrolling on phones — it's a delight on
+    // a hover-capable mouse but a perf tax everywhere else.
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
+    const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    if (!supportsHover) return;
 
     const COLORS = [
         '#ffcc00', // gold
@@ -52,24 +57,15 @@
             this.onPointerMove = this.onPointerMove.bind(this);
             this.onPointerDown = this.onPointerDown.bind(this);
 
-            // Pointer Events cover mouse, touch, and pen with one API.
-            // - pointermove: trail (mouse hover + finger drag)
-            // - pointerdown: burst (mouse click + tap)
+            // Mouse-only path (touch was filtered out by the hover/pointer
+            // media query above): listen for pointermove/pointerdown when
+            // available, mousemove/click on legacy browsers.
             if (window.PointerEvent) {
                 window.addEventListener('pointermove', this.onPointerMove, { passive: true });
                 window.addEventListener('pointerdown', this.onPointerDown, { passive: true });
             } else {
-                // Legacy fallback for browsers without Pointer Events.
                 window.addEventListener('mousemove', this.onPointerMove, { passive: true });
                 window.addEventListener('click', this.onPointerDown, { passive: true });
-                window.addEventListener(
-                    'touchstart',
-                    (e) => {
-                        const t = e.touches && e.touches[0];
-                        if (t) this.onPointerDown({ clientX: t.clientX, clientY: t.clientY });
-                    },
-                    { passive: true }
-                );
             }
         }
 

@@ -7,6 +7,23 @@
 const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 let isMobile = window.innerWidth < 768;
 
+// Treat coarse-pointer (touch) devices, narrow viewports, and devices with
+// only 4 logical cores or fewer as "low-power". The 3D Three.js marquee
+// (which streams an 87MB GLB and 96MB EXR) and other heavy effects skip
+// these devices entirely so the site stays snappy on phones / tablets.
+const isCoarsePointer = window.matchMedia('(pointer: coarse)').matches;
+const lowCores = (navigator.hardwareConcurrency || 8) <= 4;
+const lowMemory = (navigator.deviceMemory || 8) <= 4;
+const isLowPowerDevice = isMobile || isCoarsePointer || lowCores || lowMemory;
+window.__isLowPowerDevice = isLowPowerDevice;
+
+// Save-Data + Network Information API: respect the user's data-saver
+// preference and slow connections (2g/3g). When set, we never load the
+// 3D marquee assets even on a desktop.
+const conn = navigator.connection || navigator.mozConnection || navigator.webkitConnection;
+const isSaveData = !!(conn && (conn.saveData || /(^|-)2g$|slow-2g/.test(conn.effectiveType || '')));
+window.__isSaveData = isSaveData;
+
 // Section visibility observer - pauses animations when off-screen
 const SectionObserver = {
     observers: new Map(),
@@ -141,10 +158,26 @@ function initLoader() {
             img.src = src;
         });
     });
-    
+
+    // We only fully skip the 3D marquee when (a) the user has Save-Data
+    // / 2g signaled, or (b) they prefer reduced motion. Everyone else
+    // gets the 3D scene, but its 184MB of model+environment loads in
+    // the background — the loader doesn't wait on it, so the hero
+    // becomes interactive quickly even on a slow connection. The 3D
+    // canvas fades in (via marquee-3d-container.bounce-in) once it's
+    // ready, which lands gracefully on top of the rest of the hero.
+    const skip3D = isSaveData || prefersReducedMotion;
+    if (!skip3D) {
+        loadThreeJsScripts().then(() => {
+            if (typeof window.__init3DMarquee === 'function') {
+                window.__init3DMarquee();
+            }
+        });
+    }
+
     const libraryCheck = new Promise((resolve) => {
         const checkLibraries = () => {
-            if (typeof THREE !== 'undefined' && typeof gsap !== 'undefined') {
+            if (typeof gsap !== 'undefined') {
                 resolve();
             } else {
                 setTimeout(checkLibraries, 50);
@@ -152,9 +185,13 @@ function initLoader() {
         };
         checkLibraries();
     });
-    
-    const minDisplayTime = new Promise(resolve => setTimeout(resolve, 1500));
-    
+
+    // Loader minimum display time. The 3D scene now loads in the
+    // background, so we don't extend the loader to wait for it — keep
+    // 1500ms so the roulette spin reads, but no more.
+    const minDisplayMs = 1500;
+    const minDisplayTime = new Promise(resolve => setTimeout(resolve, minDisplayMs));
+
     Promise.all([...imagePromises, libraryCheck, minDisplayTime])
         .then(() => {
             hideLoader();
@@ -162,6 +199,29 @@ function initLoader() {
         .catch(() => {
             hideLoader();
         });
+}
+
+// Inject the Three.js + GLTF/EXR loader scripts on demand. Marked
+// `defer`-equivalent (async=false) so they load in the right order. The
+// IIFE in marquee3d.js is gated on `typeof THREE !== 'undefined'` so it
+// becomes a no-op on devices where this never runs.
+let _threeLoadPromise = null;
+function loadThreeJsScripts() {
+    if (_threeLoadPromise) return _threeLoadPromise;
+    const urls = [
+        'https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js',
+        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js',
+        'https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/EXRLoader.js'
+    ];
+    _threeLoadPromise = urls.reduce((p, url) => p.then(() => new Promise((res) => {
+        const s = document.createElement('script');
+        s.src = url;
+        s.async = false; // preserve execution order across the three files
+        s.onload = res;
+        s.onerror = res;
+        document.head.appendChild(s);
+    })), Promise.resolve());
+    return _threeLoadPromise;
 }
 
 function hideLoader() {
@@ -1470,20 +1530,102 @@ const LeaderboardSystem = {
     pendingLuckyNumber: 0,
     
     init() {
-        if (typeof firebase === 'undefined' || !window.firebaseDB) {
-            console.warn('Firebase not initialized. Leaderboard will work in offline mode.');
-            return;
+        // Modal + remove-handler wiring needs to be ready immediately
+        // (the slot machine renders right away). The Firebase live
+        // connection is set up lazily — it doesn't block the UI.
+        this.initModal();
+        this.initRemoveHandler();
+
+        // If Firebase happens to already be initialized (e.g. cached SDK
+        // resolved synchronously), wire it up now; otherwise defer.
+        if (typeof firebase !== 'undefined' && window.firebaseDB) {
+            this._wireFirebase();
+        } else {
+            this._scheduleFirebaseInit();
         }
-        
+    },
+
+    // Inject the Firebase compat scripts on demand and initialize the app
+    // the first time the slot machine section is approaching the viewport
+    // (or after a generous fallback timeout). This keeps ~150KB of SDK +
+    // its synchronous init work out of the critical path on first paint.
+    _scheduleFirebaseInit() {
+        if (this._firebasePending) return;
+        this._firebasePending = true;
+
+        const start = () => {
+            if (this._firebaseStarted) return;
+            this._firebaseStarted = true;
+            this._loadFirebaseScripts().then(() => {
+                if (typeof firebase === 'undefined' || !window.__firebaseConfig) {
+                    console.warn('Firebase failed to load. Leaderboard running offline.');
+                    return;
+                }
+                try {
+                    if (!firebase.apps.length) firebase.initializeApp(window.__firebaseConfig);
+                    window.firebaseDB = firebase.database();
+                    this._wireFirebase();
+                } catch (err) {
+                    console.warn('Firebase init failed:', err);
+                }
+            });
+        };
+
+        const slotSection = document.getElementById('gifts');
+        if (slotSection && 'IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries, observer) => {
+                if (entries.some(e => e.isIntersecting)) {
+                    observer.disconnect();
+                    start();
+                }
+            }, { rootMargin: '600px 0px' });
+            io.observe(slotSection);
+        }
+
+        // Safety net: even if the user never scrolls down, kick off the
+        // SDK after the page has finished its main work so the Firebase
+        // connection is live by the time anyone interacts. requestIdleCallback
+        // (with a setTimeout fallback) keeps it off the critical path.
+        const idleStart = () => {
+            const fire = () => start();
+            if ('requestIdleCallback' in window) {
+                window.requestIdleCallback(fire, { timeout: 4000 });
+            } else {
+                setTimeout(fire, 3000);
+            }
+        };
+        if (document.readyState === 'complete') {
+            idleStart();
+        } else {
+            window.addEventListener('load', idleStart, { once: true });
+        }
+    },
+
+    _loadFirebaseScripts() {
+        if (this._firebaseScriptsPromise) return this._firebaseScriptsPromise;
+        const urls = [
+            'https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js',
+            'https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js'
+        ];
+        this._firebaseScriptsPromise = urls.reduce((p, url) => p.then(() => new Promise((res) => {
+            const s = document.createElement('script');
+            s.src = url;
+            s.async = false;
+            s.onload = res;
+            s.onerror = res;
+            document.head.appendChild(s);
+        })), Promise.resolve());
+        return this._firebaseScriptsPromise;
+    },
+
+    _wireFirebase() {
+        if (this.isInitialized) return;
         this.db = window.firebaseDB;
         this.jacpotRef = this.db.ref('jacpot_counter');
         this.leaderboardRef = this.db.ref('leaderboard');
         this.isInitialized = true;
-        
         this.subscribeToJacpot();
         this.subscribeToLeaderboard();
-        this.initModal();
-        this.initRemoveHandler();
     },
     
     initRemoveHandler() {

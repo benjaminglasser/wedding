@@ -37,7 +37,11 @@
 .marquee-3d-container {
     position: relative;
     width: 100%;
-    height: clamp(550px, 80vw, 800px);
+    /* Size from viewport width, but also cap by viewport height so the
+       hero (which uses min-height: 100vh) never overflows the viewport on
+       short desktop windows (e.g. 1280×720 laptops). The 220px allowance
+       accounts for the hero + hero-content padding stack above/below. */
+    height: min(clamp(550px, 80vw, 800px), calc(100vh - 220px));
     margin-bottom: 10px;
     z-index: 5;
     overflow: visible;

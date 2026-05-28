@@ -3,76 +3,85 @@
    Loads hero-marquee.glb with HDRI environment
    ============================================ */
 
-(function() {
+// `startMarqueeAnimation` is registered globally (not gated on Three.js)
+// because it also drives the GSAP entrance for the background sign cutouts
+// — those animate in on every device, even ones where the 3D scene is
+// skipped entirely. The hideLoader() flow always calls it.
+(function registerHeroEntrance() {
+    if (window.startMarqueeAnimation) return;
     const container = document.getElementById('marquee-3d');
-    const canvas = document.getElementById('marquee-canvas');
     const hero = document.getElementById('hero');
-    
-    if (!container || !canvas || typeof THREE === 'undefined') return;
-    
-    // Performance settings
-    const isMobile = window.innerWidth < 768;
-    const isLowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
-    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-    
-    // Expose function to start the marquee animation (called after loader exits)
+    if (!hero) return;
+
     window.startMarqueeAnimation = function() {
         setTimeout(() => {
-            container.classList.add('bounce-in');
-            
+            if (container) container.classList.add('bounce-in');
+
             setTimeout(() => {
-                if (hero) {
-                    hero.classList.add('marquee-ready');
-                    
-                    // Use GSAP to animate bg-cutout images
-                    if (typeof gsap !== 'undefined') {
-                        const animationConfigs = [
-                            { selector: '.bg-cutout.glitter-gulch', from: { x: '150%', rotation: 15, opacity: 0 }, to: { x: 0, rotation: -5, opacity: 1 }, delay: 0.15, duration: 1 },
-                            { selector: '.bg-cutout.stardust', from: { x: '-100%', y: '-100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.1, duration: 1 },
-                            { selector: '.bg-cutout.vegas-vic', from: { x: '-150%', rotation: -15, opacity: 0 }, to: { x: 0, rotation: 5, opacity: 1 }, delay: 0.25, duration: 1.1 },
-                            { selector: '.bg-cutout.flamingo', from: { x: '-100%', y: '100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: 5, opacity: 1 }, delay: 0.35, duration: 1.2 },
-                            { selector: '.bg-cutout.golden-nugget', from: { x: '100%', y: '100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.4, duration: 1.1 },
-                            { selector: '.bg-cutout.dunes-oasis', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.5, duration: 1 },
-                            { selector: '.bg-cutout.mint', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 2, opacity: 1 }, delay: 0.55, duration: 1.1 },
-                            { selector: '.bg-cutout.casino-marquee', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: -5, opacity: 1 }, delay: 0, duration: 1 },
-                            { selector: '.bg-cutout.welcome-vegas', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.05, duration: 1.2 },
-                            { selector: '.bg-cutout.union-plaza', from: { x: '100%', y: '-100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: 20, opacity: 1 }, delay: 0.2, duration: 1 }
-                        ];
-                        
-                        animationConfigs.forEach(config => {
-                            const el = document.querySelector(config.selector);
-                            if (el) {
-                                gsap.fromTo(el, config.from, {
-                                    ...config.to,
-                                    duration: config.duration,
-                                    delay: config.delay,
-                                    ease: 'elastic.out(1, 0.8)'
-                                });
-                            }
-                        });
-                    }
+                hero.classList.add('marquee-ready');
+
+                if (typeof gsap !== 'undefined') {
+                    const animationConfigs = [
+                        { selector: '.bg-cutout.glitter-gulch', from: { x: '150%', rotation: 15, opacity: 0 }, to: { x: 0, rotation: -5, opacity: 1 }, delay: 0.15, duration: 1 },
+                        { selector: '.bg-cutout.stardust', from: { x: '-100%', y: '-100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.1, duration: 1 },
+                        { selector: '.bg-cutout.vegas-vic', from: { x: '-150%', rotation: -15, opacity: 0 }, to: { x: 0, rotation: 5, opacity: 1 }, delay: 0.25, duration: 1.1 },
+                        { selector: '.bg-cutout.flamingo', from: { x: '-100%', y: '100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: 5, opacity: 1 }, delay: 0.35, duration: 1.2 },
+                        { selector: '.bg-cutout.golden-nugget', from: { x: '100%', y: '100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.4, duration: 1.1 },
+                        { selector: '.bg-cutout.dunes-oasis', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.5, duration: 1 },
+                        { selector: '.bg-cutout.mint', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 2, opacity: 1 }, delay: 0.55, duration: 1.1 },
+                        { selector: '.bg-cutout.casino-marquee', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: -5, opacity: 1 }, delay: 0, duration: 1 },
+                        { selector: '.bg-cutout.welcome-vegas', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.05, duration: 1.2 },
+                        { selector: '.bg-cutout.union-plaza', from: { x: '100%', y: '-100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: 20, opacity: 1 }, delay: 0.2, duration: 1 }
+                    ];
+
+                    animationConfigs.forEach(config => {
+                        const el = document.querySelector(config.selector);
+                        if (el) {
+                            gsap.fromTo(el, config.from, {
+                                ...config.to,
+                                duration: config.duration,
+                                delay: config.delay,
+                                ease: 'elastic.out(1, 0.8)'
+                            });
+                        }
+                    });
                 }
-                
-                // Show scroll indicator after marquee bounce
+
                 setTimeout(() => {
                     const scrollIndicator = document.querySelector('.scroll-indicator');
-                    if (scrollIndicator) {
-                        scrollIndicator.classList.add('visible');
-                    }
-                    
-                    const bgCutouts = document.querySelectorAll('.bg-cutout');
-                    bgCutouts.forEach(img => {
+                    if (scrollIndicator) scrollIndicator.classList.add('visible');
+
+                    document.querySelectorAll('.bg-cutout').forEach(img => {
                         img.style.opacity = '1';
                     });
                 }, 1800);
             }, 850);
         }, 100);
     };
-    
-    // If no loader exists, start immediately
+
     if (!document.getElementById('loader')) {
         window.startMarqueeAnimation();
     }
+})();
+
+// The actual 3D scene setup is wrapped in a function and exposed on
+// window so main.js can call it AFTER it's finished injecting and
+// loading Three.js (which now happens dynamically — see
+// loadThreeJsScripts() in main.js). On low-power / reduced-motion / save-
+// data devices Three.js never loads and this function never runs.
+window.__init3DMarquee = function init3DMarquee() {
+    if (window.__marquee3DStarted) return;
+    const container = document.getElementById('marquee-3d');
+    const canvas = document.getElementById('marquee-canvas');
+    const hero = document.getElementById('hero');
+
+    if (!container || !canvas || typeof THREE === 'undefined') return;
+    window.__marquee3DStarted = true;
+
+    // Performance settings
+    const isMobile = window.innerWidth < 768;
+    const isLowPower = navigator.hardwareConcurrency && navigator.hardwareConcurrency <= 4;
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     
     // Scene setup
     const scene = new THREE.Scene();
@@ -495,5 +504,12 @@
             fitCameraToContainer();
         }, 150);
     }, { passive: true });
-    
-})();
+};
+
+// If Three.js was already loaded (e.g. via the original synchronous
+// <script> tags during a cached visit), kick off the 3D scene right
+// away. Otherwise main.js's loadThreeJsScripts() resolves and calls
+// this function explicitly.
+if (typeof THREE !== 'undefined') {
+    window.__init3DMarquee();
+}

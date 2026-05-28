@@ -25,35 +25,40 @@
     <!-- Favicon -->
     <link rel="icon" type="image/svg+xml" href="assets/favicon.svg">
     <link rel="apple-touch-icon" href="assets/favicon.png">
-    
+
+    <!-- Preconnect to CDN origins so the TLS handshake happens in parallel
+         with the HTML parse, shaving ~100-300ms off the time-to-first-script. -->
+    <link rel="preconnect" href="https://cdnjs.cloudflare.com" crossorigin>
+    <link rel="preconnect" href="https://cdn.jsdelivr.net" crossorigin>
+    <link rel="preconnect" href="https://www.gstatic.com" crossorigin>
+    <link rel="dns-prefetch" href="https://jac-pot-default-rtdb.firebaseio.com">
+
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/fonts.css?v=20260528u">
-    <link rel="stylesheet" href="css/styles.css?v=20260528w">
+    <link rel="stylesheet" href="css/fonts.css?v=20260528v">
+    <link rel="stylesheet" href="css/styles.css?v=20260528y">
     <link rel="stylesheet" href="css/neon.css?v=20260528n">
     <link rel="stylesheet" href="css/marquee.css?v=20260528n">
     <link rel="stylesheet" href="css/animations.css?v=20260528n">
     <link rel="stylesheet" href="css/signs.css?v=20260528o">
     <link rel="stylesheet" href="css/collage-bg.css?v=20260528n">
     <link rel="stylesheet" href="css/loader.css?v=20260528n">
-    
-    <!-- GSAP - defer loading -->
+
+    <!-- GSAP - core animation library, deferred so it doesn't block paint -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/ScrollTrigger.min.js" defer></script>
-    
-    <!-- Three.js for 3D Marquee - defer loading -->
-    <script src="https://cdnjs.cloudflare.com/ajax/libs/three.js/r128/three.min.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/GLTFLoader.js" defer></script>
-    <script src="https://cdn.jsdelivr.net/npm/three@0.128.0/examples/js/loaders/EXRLoader.js" defer></script>
-    
+
+    <!-- Three.js + GLTF/EXR loaders (~700KB combined) drive downloads for
+         an 87MB GLB and 96MB EXR — way too heavy to be on the critical
+         path. js/main.js injects these <script> tags asynchronously after
+         the page is interactive, and the 3D marquee fades in once it's
+         ready. Skipped entirely on save-data / reduced-motion. -->
+
     <!-- Preload critical hero image (WebP variant that matches what the <picture> will choose) -->
     <link rel="preload" as="image" type="image/webp"
           href="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp"
           imagesrcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp 618w"
           imagesizes="(max-width: 768px) 60vw, 40vw"
           fetchpriority="high">
-    
-    <!-- Preload critical fonts for 3D marquee -->
-    <link rel="preload" as="font" href="fonts/LasEnter_PersonalUseOnly.ttf" type="font/ttf" crossorigin>
 </head>
 <body>
     <!-- Roulette Loader -->
@@ -515,8 +520,7 @@
                     <div class="jacpot-chip" id="jacpot-counter-container" aria-label="Winning score — the score you need to hit three Jacs">
                         <span class="jacpot-chip-label">WINNING SCORE</span>
                         <span class="jacpot-number" id="jacpot-number">0</span>
-                    </div>
-                    <div class="slot-display">
+                        <div class="slot-display">
                         <div class="slot-reel" id="reel-1">
                             <div class="reel-strip">
                                 <span class="reel-symbol jack-card">J♠</span>
@@ -553,7 +557,8 @@
                                 <span class="reel-symbol jack-card">J♣</span>
                             </div>
                         </div>
-                    </div>
+                        </div><!-- /.slot-display -->
+                    </div><!-- /.jacpot-chip -->
                     <div class="slot-lever-container">
                         <div class="slot-lever" id="slot-lever" role="button" tabindex="0" aria-label="Pull lever to spin">
                             <div class="lever-track"></div>
@@ -646,12 +651,12 @@
         </div>
     </div>
 
-    <!-- Firebase SDK -->
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-app-compat.js"></script>
-    <script src="https://www.gstatic.com/firebasejs/10.8.0/firebase-database-compat.js"></script>
+    <!-- Firebase SDK is loaded lazily (see initFirebaseLazy in main.js)
+         the first time the slot machine section is approaching the
+         viewport, so the ~150KB of synchronous SDK doesn't block initial
+         page load + first paint. Config lives on window for that loader. -->
     <script>
-        // Firebase configuration for jac-pot project
-        const firebaseConfig = {
+        window.__firebaseConfig = {
             apiKey: "AIzaSyCHjDqp6HnG6h_QwsKV5uY2UyEh859kvfI",
             authDomain: "jac-pot.firebaseapp.com",
             databaseURL: "https://jac-pot-default-rtdb.firebaseio.com",
@@ -661,16 +666,12 @@
             appId: "1:203890823716:web:0a0ac55c97d03ec197beb1",
             measurementId: "G-9X2PT9PS41"
         };
-        
-        // Initialize Firebase
-        firebase.initializeApp(firebaseConfig);
-        window.firebaseDB = firebase.database();
     </script>
-    
+
     <!-- Scripts - defer for performance -->
-    <script src="js/main.js" defer></script>
+    <script src="js/main.js?v=20260528p" defer></script>
     <script src="js/fireworks.js" defer></script>
-    <script src="js/marquee3d.js" defer></script>
-    <script src="js/cursor-sparkles.js" defer></script>
+    <script src="js/marquee3d.js?v=20260528p" defer></script>
+    <script src="js/cursor-sparkles.js?v=20260528p" defer></script>
 </body>
 </html>
