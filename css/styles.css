@@ -2936,9 +2936,11 @@ body.dev-mode .lb-remove {
     /* The slot-display now lives INSIDE the chip, so the chip's max-width
        must stay wide enough to contain it (3 reels at ~82px + gaps +
        felt-frame padding ≈ 274px of content, plus chip padding/border).
-       Don't narrow below the base value here. */
+       Hug it close to that content so there's more left/right breathing
+       room between the chip and the cabinet wall on mid-size phones. */
     .jacpot-chip {
-        max-width: 320px;
+        max-width: 300px;
+        padding: 10px 10px 12px;
     }
 
     /* On the narrower tablet cabinet the chip is wide enough that the
@@ -3169,13 +3171,12 @@ body.dev-mode .lb-remove {
     }
 
     .jacpot-chip {
-        /* Wider than the previous ≤480px override because the slot-display
-           now lives inside the chip (3 reels at clamp(52, 12vw, 82) ≈
-           174–246px plus felt-frame padding/border). 260px comfortably
-           contains the reels at the smallest viewport while still leaving
-           red felt-bg breathing room around them. */
-        max-width: 260px;
-        padding: 8px 12px 10px;
+        /* Hug the cards: at the smallest viewports the 3 reels (clamp 52px
+           floor) plus felt-frame ≈ 178px, so a tight max-width keeps the
+           gold-bordered red panel close to the slot-display and gives the
+           section more left/right breathing room around the chip. */
+        max-width: 215px;
+        padding: 8px 8px 10px;
     }
 
     .jacpot-chip .jacpot-number {
