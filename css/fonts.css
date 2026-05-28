@@ -92,6 +92,14 @@
 }
 
 @font-face {
+    font-family: 'Neon 80s';
+    src: url('../fonts/Neon80s-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
     font-family: 'Neon Future';
     src: url('../fonts/Neon Future.ttf') format('truetype');
     font-weight: normal;
@@ -158,6 +166,152 @@
 @font-face {
     font-family: 'Las Vegas Demo';
     src: url('../fonts/LasVegasDemo.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'LasVegas Fabulous';
+    src: url('../fonts/LasVegasFabulous-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Marons';
+    src: url('../fonts/Marons-Regular.otf') format('opentype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Fifties Movies';
+    src: url('../fonts/FiftiesMovies-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Magic Retro';
+    src: url('../fonts/MagicRetro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Arastin Pro';
+    src: url('../fonts/ArastinPro-Regular.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Bright Kenly';
+    src: url('../fonts/Bright Kenly.ttf') format('truetype');
+    font-weight: normal;
+    font-style: normal;
+    font-display: swap;
+}
+
+/* Ubuntu family — full weight/style set so we can use Ubuntu generically
+   and let the browser pick the matching face based on font-weight /
+   font-style at the call site. */
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-Light.ttf') format('truetype');
+    font-weight: 300;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-LightItalic.ttf') format('truetype');
+    font-weight: 300;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-Regular.ttf') format('truetype');
+    font-weight: 400;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-Italic.ttf') format('truetype');
+    font-weight: 400;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-Medium.ttf') format('truetype');
+    font-weight: 500;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-MediumItalic.ttf') format('truetype');
+    font-weight: 500;
+    font-style: italic;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-Bold.ttf') format('truetype');
+    font-weight: 700;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Ubuntu';
+    src: url('../fonts/Ubuntu/Ubuntu-BoldItalic.ttf') format('truetype');
+    font-weight: 700;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Karla — variable font with a weight axis (200–800) so a single file
+   covers Light through Bold. The browser interpolates intermediate weights
+   automatically based on the font-weight value at the call site. */
+@font-face {
+    font-family: 'Karla';
+    src: url('../fonts/Karla/Karla-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 200 800;
+    font-style: normal;
+    font-display: swap;
+}
+@font-face {
+    font-family: 'Karla';
+    src: url('../fonts/Karla/Karla-Italic-VariableFont_wght.ttf') format('truetype-variations');
+    font-weight: 200 800;
+    font-style: italic;
+    font-display: swap;
+}
+
+/* Fredoka — variable font with both weight (300–700) and width (75–125)
+   axes. Width is controlled via font-stretch (% values map to the wdth
+   axis) or font-variation-settings on the call site. */
+@font-face {
+    font-family: 'Fredoka';
+    src: url('../fonts/Fredoka/Fredoka-VariableFont_wdth,wght.ttf') format('truetype-variations');
+    font-weight: 300 700;
+    font-stretch: 75% 125%;
+    font-style: normal;
+    font-display: swap;
+}
+
+@font-face {
+    font-family: 'Sanchez';
+    src: url('../fonts/Sanchez-Regular.ttf') format('truetype');
     font-weight: normal;
     font-style: normal;
     font-display: swap;

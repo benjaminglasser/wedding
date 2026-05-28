@@ -442,11 +442,21 @@
 }
 
 .section-sign-cutout.sign-bottom-right {
-    right: 5%;
-    bottom: 60px;
-    width: clamp(280px, 35vw, 500px);
+    right: calc(-11% + 180px);
+    bottom: 40px;
+    width: clamp(280px, 32vw, 460px);
     transform: rotate(-3deg);
     z-index: 1;
+}
+
+/* Rio sign sits to the right of the Lucky Jacs slot machine. The
+   shared sign-bottom-right rule above is tuned for the taller Palms
+   cutout in the Hotel section; Rio is wider/shorter (594x417) and
+   benefits from a larger, fully on-screen footprint here. */
+.gifts .section-sign-cutout.sign-bottom-right {
+    right: 0%;
+    bottom: 60px;
+    width: clamp(300px, 34vw, 500px);
 }
 
 /* Vegas lights sign in Messages/Attire section - positioned right. */
@@ -472,6 +482,23 @@
     transform: translateY(-50%) rotate(5deg);
     width: clamp(450px, 55vw, 750px);
     filter: brightness(0.7);
+}
+
+/* Mirrored copy of the RSVP neon sign - positioned right, flipped horizontally */
+.section-sign-cutout.sign-right-rsvp {
+    right: -18%;
+    top: 42%;
+    transform: translateY(-50%) rotate(-5deg) scaleX(-1);
+    width: clamp(450px, 55vw, 750px);
+    filter: brightness(0.7);
+}
+
+/* Frontier sign in RSVP section - positioned right */
+.section-sign-cutout.sign-right-frontier {
+    right: -3%;
+    top: 62%;
+    transform: translateY(-50%) rotate(-5deg);
+    width: clamp(200px, 25vw, 350px);
 }
 
 /* Slot machine in Gifts/Jackpot section - positioned left */
@@ -504,8 +531,13 @@
 }
 
 .section-sign-cutout.sign-right:not(.animate-in),
-.section-sign-cutout.sign-right-messages:not(.animate-in) {
+.section-sign-cutout.sign-right-messages:not(.animate-in),
+.section-sign-cutout.sign-right-frontier:not(.animate-in) {
     transform: translate(40px, -50%) rotate(var(--sign-enter-rotate, -5deg));
+}
+
+.section-sign-cutout.sign-right-rsvp:not(.animate-in) {
+    transform: translate(40px, -50%) rotate(var(--sign-enter-rotate, -5deg)) scaleX(-1);
 }
 
 .section-sign-cutout.sign-bottom-right:not(.animate-in) {
@@ -521,6 +553,8 @@
 .section-sign-cutout.sign-left-hotel { --sign-enter-rotate: -5deg; }
 .section-sign-cutout.sign-right { --sign-enter-rotate: -5deg; }
 .section-sign-cutout.sign-right-messages { --sign-enter-rotate: -3deg; }
+.section-sign-cutout.sign-right-rsvp { --sign-enter-rotate: -5deg; }
+.section-sign-cutout.sign-right-frontier { --sign-enter-rotate: -5deg; }
 
 /* TOP RIGHT CORNER - Union Plaza (tilted 20deg right) */
 .bg-cutout.union-plaza {
@@ -826,6 +860,10 @@
     .section-sign-cutout.sign-right,
     .section-sign-cutout.sign-left-rsvp,
     .section-sign-cutout.sign-left-rsvp.animate-in,
+    .section-sign-cutout.sign-right-rsvp,
+    .section-sign-cutout.sign-right-rsvp.animate-in,
+    .section-sign-cutout.sign-right-frontier,
+    .section-sign-cutout.sign-right-frontier.animate-in,
     .section-sign-cutout.sign-left-hotel,
     .section-sign-cutout.sign-left-hotel.animate-in,
     .section-sign-cutout.sign-left-gifts,
@@ -853,8 +891,13 @@
     }
 
     .section-sign-cutout.sign-right:not(.animate-in),
-    .section-sign-cutout.sign-right-messages:not(.animate-in) {
+    .section-sign-cutout.sign-right-messages:not(.animate-in),
+    .section-sign-cutout.sign-right-frontier:not(.animate-in) {
         transform: translateY(-50%) rotate(var(--sign-enter-rotate, -5deg)) !important;
+    }
+
+    .section-sign-cutout.sign-right-rsvp:not(.animate-in) {
+        transform: translateY(-50%) rotate(var(--sign-enter-rotate, -5deg)) scaleX(-1) !important;
     }
 
     .section-sign-cutout.sign-bottom-right:not(.animate-in) {
@@ -924,7 +967,12 @@
     .section-sign-cutout.sign-left-hotel:not(.animate-in),
     .section-sign-cutout.sign-right:not(.animate-in),
     .section-sign-cutout.sign-right-messages:not(.animate-in),
+    .section-sign-cutout.sign-right-frontier:not(.animate-in),
     .section-sign-cutout.sign-bottom-right:not(.animate-in) {
         transform: none;
+    }
+
+    .section-sign-cutout.sign-right-rsvp:not(.animate-in) {
+        transform: scaleX(-1);
     }
 }

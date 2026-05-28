@@ -27,14 +27,14 @@
     <link rel="apple-touch-icon" href="assets/favicon.png">
     
     <!-- Stylesheets -->
-    <link rel="stylesheet" href="css/fonts.css">
-    <link rel="stylesheet" href="css/styles.css">
-    <link rel="stylesheet" href="css/neon.css">
-    <link rel="stylesheet" href="css/marquee.css">
-    <link rel="stylesheet" href="css/animations.css">
-    <link rel="stylesheet" href="css/signs.css">
-    <link rel="stylesheet" href="css/collage-bg.css">
-    <link rel="stylesheet" href="css/loader.css">
+    <link rel="stylesheet" href="css/fonts.css?v=20260528u">
+    <link rel="stylesheet" href="css/styles.css?v=20260528u">
+    <link rel="stylesheet" href="css/neon.css?v=20260528n">
+    <link rel="stylesheet" href="css/marquee.css?v=20260528n">
+    <link rel="stylesheet" href="css/animations.css?v=20260528n">
+    <link rel="stylesheet" href="css/signs.css?v=20260528n">
+    <link rel="stylesheet" href="css/collage-bg.css?v=20260528n">
+    <link rel="stylesheet" href="css/loader.css?v=20260528n">
     
     <!-- GSAP - defer loading -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/gsap/3.12.5/gsap.min.js" defer></script>
@@ -243,14 +243,6 @@
             <div class="bulb-row left"></div>
         </div>
         
-        <!-- Frontier sign poking from left -->
-        <picture>
-            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
-                    srcset="assets/background_pngs/1000s-480.webp 480w, assets/background_pngs/1000s-534.webp 534w">
-            <img src="assets/background_pngs/1000s.png"
-                 alt="" class="section-sign-cutout sign-left" aria-hidden="true" loading="lazy" decoding="async" width="534" height="838">
-        </picture>
-        
         <!-- Section decorations with Vegas signs -->
         <div class="section-deco left" aria-hidden="true">
         </div>
@@ -259,16 +251,17 @@
         <div class="floating-deco" style="top: 18%; left: 12%;" aria-hidden="true"><img src="assets/stickers/cupid_girl.png" alt="" class="sticker-cupid" style="width: 9rem;"></div>
         <div class="floating-deco" style="top: 10%; right: 8%;" aria-hidden="true"><img src="assets/stickers/cupid_boy.png" alt="" class="sticker-cupid" style="width: 9rem;"></div>
         
-        <h2 class="section-title neon-text-gold">The <span class="flicker-letter">L</span>ineup</h2>
+        <h2 class="section-title neon-text-gold">The <span class="flicker-letter">l</span>ineup</h2>
         
         <div class="event-panels">
             <div class="event-panel tilted-left" data-event="1">
                 <div class="panel-lights"></div>
                 <div class="panel-content">
-                    <h3 class="event-name neon-text-pink">Opening Night</h3>
-                    <p class="event-date">FRIDAY, OCTOBER 9</p>
-                    <p class="event-description">Welcome Party</p>
-                    <p class="event-details">Kick off the festivities with drinks, laughs, and a sneak peek at the main event!</p>
+                    <h3 class="event-description">Welcome toast</h3>
+                    <p class="event-venue">Caramella Speakeasy at Planet Hollywood</p>
+                    <p class="event-date">Friday, October 9</p>
+                    <p class="event-time">8:30pm &ndash; 10:00pm</p>
+                    <p class="event-details">Robin Preiss Glasser and Bob Berman invite you to kick off the festivities with cocktails and dessert!</p>
                 </div>
                 <div class="panel-corner-sign">FRI</div>
             </div>
@@ -276,11 +269,12 @@
             <div class="event-panel main-event" data-event="2">
                 <div class="panel-lights"></div>
                 <div class="panel-content">
-                    <h3 class="event-name neon-text-gold">The Main Event</h3>
-                    <p class="event-date">SATURDAY, OCTOBER 10</p>
-                    <p class="event-description">The Wedding</p>
-                    <p class="event-venue">@ The Palms, Las Vegas</p>
-                    <p class="event-details">The moment you've been waiting for. Let's make it official!</p>
+                    <h3 class="event-description">The wedding</h3>
+                    <p class="event-venue">Ghostbar at Palms Casino Resort</p>
+                    <p class="event-date">Saturday, October 10</p>
+                    <p class="event-time">5:00pm</p>
+                    <p class="event-details">Our ceremony will be followed by a flowing dinner reception and an afterparty perched high above The Strip.</p>
+                    <p class="event-details">Elevators to the event can be accessed from the casino floor, just to the right of the reception desk.</p>
                 </div>
                 <div class="panel-corner-sign gold">SAT</div>
             </div>
@@ -288,10 +282,11 @@
             <div class="event-panel tilted-right" data-event="3">
                 <div class="panel-lights"></div>
                 <div class="panel-content">
-                    <h3 class="event-name neon-text-turquoise">The Encore</h3>
-                    <p class="event-date">SUNDAY, OCTOBER 11</p>
-                    <p class="event-description">Pool Party</p>
-                    <p class="event-details">One last splash before we say goodbye. Bring your swimsuit and sunglasses!</p>
+                    <h3 class="event-description">Farewells</h3>
+                    <p class="event-venue">Pool Cabanas at Palms Casino Resort</p>
+                    <p class="event-date">Sunday, October 11</p>
+                    <p class="event-time">11:00am</p>
+                    <p class="event-details">Jac &amp; Ben will be recovering pool-side Sunday morning. Come and go at your leisure!</p>
                 </div>
                 <div class="panel-corner-sign turquoise">SUN</div>
             </div>
@@ -329,6 +324,14 @@
             <img src="assets/background_pngs/tumblr_poue4wIaAd1s0vozto1_1280.png"
                  alt="" class="section-sign-cutout sign-left-rsvp" aria-hidden="true" loading="lazy" decoding="async" width="1280" height="835">
         </picture>
+
+        <!-- Frontier sign poking from right -->
+        <picture>
+            <source type="image/webp" sizes="(max-width: 768px) 40vw, 30vw"
+                    srcset="assets/background_pngs/1000s-480.webp 480w, assets/background_pngs/1000s-534.webp 534w">
+            <img src="assets/background_pngs/1000s.png"
+                 alt="" class="section-sign-cutout sign-right-frontier" aria-hidden="true" loading="lazy" decoding="async" width="534" height="838">
+        </picture>
         
         <!-- Heart background -->
         <div class="rsvp-heart-bg" aria-hidden="true">
@@ -354,18 +357,13 @@
         </div>
         <div class="section-deco bottom-left" aria-hidden="true">
         </div>
-        <div class="floating-deco" style="top: 15%; right: 15%;" aria-hidden="true"><img src="assets/stickers/star1.png" alt="" class="sticker-star" style="width: 4.5rem;"></div>
-        <div class="floating-deco" style="bottom: calc(20% - 40px); left: 12%;" aria-hidden="true"><img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 8rem;"></div>
-        
-        <div class="rsvp-mega-sign">
-            <div class="vertical-sign rsvp-vertical" style="transform: rotate(-3deg);">
-                <span class="vertical-sign-text neon-text-red">RSVP</span>
-            </div>
-        </div>
+        <div class="floating-deco" style="top: 14%; right: 22%;" aria-hidden="true"><img src="assets/stickers/star1.png" alt="" class="sticker-star" style="width: 4.5rem;"></div>
+        <div class="floating-deco" style="top: 12%; right: 8%;" aria-hidden="true"><img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 7rem;"></div>
+        <div class="floating-deco" style="top: 24%; right: 14%;" aria-hidden="true"><img src="assets/stickers/star1.png" alt="" class="sticker-star" style="width: 3.5rem;"></div>
         
         <div class="rsvp-content">
             <h2 class="section-title neon-text-gold">Place Your Bets</h2>
-            <p class="section-copy">Are you in? Let us know you're ready to roll!</p>
+            <p class="section-copy">Are you all in? Please RSVP by September 10th!</p>
             
             <div class="cards-fan">
                 <div class="card card-1">♠</div>
@@ -374,8 +372,8 @@
                 <div class="card card-4">♣</div>
             </div>
             
-            <a href="#" class="cta-button casino-chip" target="_blank" rel="noopener">
-                <span>I'M ALL IN!</span>
+            <a href="https://withjoy.com/benhitthejacpot/rsvp" class="cta-button casino-chip" target="_blank" rel="noopener">
+                <span>RSVP Here</span>
             </a>
         </div>
         
@@ -413,25 +411,15 @@
         </div>
         <div class="section-deco right" aria-hidden="true">
         </div>
-        <div class="floating-deco" style="top: 52%; left: 30%;" aria-hidden="true"><img src="assets/stickers/drink.png" alt="" class="sticker-drink" style="width: 8rem;"></div>
         
         <h2 class="section-title neon-text-turquoise hotel-title">Stay and Play</h2>
         
         <div class="hotel-content">
-            <p class="section-copy">Book your room and stay where the magic happens!</p>
-            <p class="hotel-details">We've got a room block ready and waiting for you at The Palms.</p>
+            <p class="section-copy">We have a discounted booking link at Palms Casino Resort. Stay where the magic happens!</p>
             
-            <a href="#" class="cta-button neon-button" target="_blank" rel="noopener">
-                <span>BOOK YOUR ROOM</span>
+            <a href="https://book.rguest.com/onecart/wbe/calendar/1235/PalmsCasinoResort/CELEBPC" class="cta-button neon-button" target="_blank" rel="noopener">
+                <span>Book Here</span>
             </a>
-            
-            <div class="hotel-mega-sign">
-                <div class="hotel-sign">
-                    <div class="vacancy-sign">
-                        <span class="vacancy-text neon-flicker">VACANCY</span>
-                    </div>
-                </div>
-            </div>
         </div>
     </section>
 
@@ -473,13 +461,15 @@
         </div>
         
         <div class="attire-content">
-            <h2 class="section-title neon-text-pink">Dress to Impress</h2>
-            <p class="section-copy">Vegas vibes, baby! Think festive party attire! Glitz, glamour, and good times encouraged.</p>
-            <p class="attire-details">Not sure what to wear? We've got you covered with some inspo.</p>
-            
-            <a href="#" class="cta-button neon-button pink" target="_blank" rel="noopener">
-                <span>GET INSPIRED</span>
-            </a>
+            <h2 class="section-title neon-text-pink">What to Wear</h2>
+            <div class="vibe-card">
+                <span class="vibe-label">The vibe</span>
+                <p class="vibe-text">Vegas maximalist cocktail party. You know that thing in the back of your closet that you never have the right occasion to wear? This is the occasion! Have fun with it. Come as you are!</p>
+                <p class="attire-details">We've put together a style guide if you need some inspiration, but truly, wear what you feel best in.</p>
+                <a href="https://pin.it/3BHc9HlXh" class="cta-button neon-button pink" target="_blank" rel="noopener">
+                    <span>Get Inspired</span>
+                </a>
+            </div>
         </div>
 
         <!-- VEGAS DIVIDER -->
@@ -499,7 +489,7 @@
             <source type="image/webp" sizes="(max-width: 768px) 40vw, 38vw"
                     srcset="assets/background_pngs/slot_machine-480.webp 480w, assets/background_pngs/slot_machine-795.webp 795w">
             <img src="assets/background_pngs/slot_machine.png"
-                 alt="" class="section-sign-cutout sign-left-gifts" aria-hidden="true" loading="lazy" decoding="async" width="795" height="1203">
+                 alt="" class="section-sign-cutout sign-left-gifts" aria-hidden="true" loading="eager" decoding="async" fetchpriority="low" width="795" height="1203">
         </picture>
 
         <!-- Rio sign at bottom edge -->
@@ -507,7 +497,7 @@
             <source type="image/webp" sizes="(max-width: 768px) 40vw, 25vw"
                     srcset="assets/background_pngs/rio-480.webp 480w, assets/background_pngs/rio-594.webp 594w">
             <img src="assets/background_pngs/rio.png"
-                 alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="lazy" decoding="async" width="594" height="417">
+                 alt="" class="section-sign-cutout sign-bottom-right" aria-hidden="true" loading="eager" decoding="async" fetchpriority="low" width="594" height="417">
         </picture>
         
         <!-- Jackpot decorations -->
@@ -515,20 +505,18 @@
         </div>
         <div class="section-deco top-right" aria-hidden="true">
         </div>
-        <div class="floating-deco" style="top: 12%; right: 18%;" aria-hidden="true"><img src="assets/stickers/cards.png" alt="" class="sticker-cards" style="width: 10rem; transform: rotate(30deg);"></div>
-        <div class="floating-deco" style="bottom: 20%; left: calc(15% + 40px);" aria-hidden="true"><img src="assets/stickers/chips.png" alt="" class="sticker-chips" style="width: 8rem;"></div>
         
         <div class="slot-machine-game" id="slot-machine">
             <div class="slot-cabinet">
                 <div class="slot-header">
                     <span class="slot-title">Lucky Jacs</span>
+                </div>
+                <div class="slot-main">
                     <div class="jacpot-chip" id="jacpot-counter-container" aria-label="Current jacpot — the score you win if you hit three Jacs">
                         <span class="jacpot-chip-label">JACPOT</span>
                         <span class="jacpot-number" id="jacpot-number">0</span>
                         <span class="jacpot-chip-sublabel">WINNING SCORE</span>
                     </div>
-                </div>
-                <div class="slot-main">
                     <div class="slot-display">
                         <div class="slot-reel" id="reel-1">
                             <div class="reel-strip">
@@ -684,5 +672,6 @@
     <script src="js/main.js" defer></script>
     <script src="js/fireworks.js" defer></script>
     <script src="js/marquee3d.js" defer></script>
+    <script src="js/cursor-sparkles.js" defer></script>
 </body>
 </html>

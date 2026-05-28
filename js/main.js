@@ -815,9 +815,24 @@ function initScrollAnimations() {
     // fade out then replay its keyframe animation on every scroll-back,
     // which read as a glitchy "second" fade-in.
     gsap.utils.toArray('.section-sign-cutout').forEach(sign => {
+        const section = sign.closest('section');
+        // The Lucky Jacs (gifts) section is tall and its signs sit at the
+        // left/bottom — waiting until the section's top hit 70% meant the
+        // user was already looking at the slot machine before the signs
+        // showed up. Fire as soon as the section enters the viewport.
+        const isGifts = section && section.id === 'gifts';
+        // The attire section's text reveal fires at top bottom (see the
+        // .attire-content timeline below); match that here so the signs
+        // and "What to Wear" copy come in together rather than the text
+        // leading the imagery. Firing as soon as the section enters the
+        // viewport means the content has already animated in by the time
+        // the user scrolls to it.
+        const isAttire = section && section.id === 'attire';
+        let start = 'top 70%';
+        if (isGifts || isAttire) start = 'top bottom';
         ScrollTrigger.create({
-            trigger: sign.closest('section'),
-            start: 'top 70%',
+            trigger: section,
+            start,
             once: true,
             onEnter: () => sign.classList.add('animate-in')
         });
@@ -844,6 +859,9 @@ function initScrollAnimations() {
     });
 
     gsap.utils.toArray('.section-title').forEach(title => {
+        // The attire section text is handled together via .attire-content
+        // below so the whole block reveals on section entry, not per-element.
+        if (title.closest('.attire-content')) return;
         gsap.from(title, {
             scrollTrigger: {
                 trigger: title,
@@ -858,6 +876,7 @@ function initScrollAnimations() {
     });
 
     gsap.utils.toArray('.section-copy').forEach(copy => {
+        if (copy.closest('.attire-content')) return;
         gsap.from(copy, {
             scrollTrigger: {
                 trigger: copy,
@@ -872,6 +891,7 @@ function initScrollAnimations() {
     });
 
     gsap.utils.toArray('.attire-details, .hotel-details').forEach(details => {
+        if (details.closest('.attire-content')) return;
         gsap.from(details, {
             scrollTrigger: {
                 trigger: details,
@@ -882,6 +902,32 @@ function initScrollAnimations() {
             y: 20,
             duration: 0.6,
             ease: 'power2.out'
+        });
+    });
+
+    // Attire section: reveal the title and vibe card together when the
+    // surrounding #attire section enters the viewport. The CTA button
+    // inside the card uses its own IntersectionObserver-based reveal
+    // (see below) so it's guaranteed to appear even if content-visibility
+    // throws off ScrollTrigger's cached measurements.
+    document.querySelectorAll('.attire-content').forEach(container => {
+        const textTargets = container.querySelectorAll(
+            '.section-title, .vibe-card'
+        );
+        if (!textTargets.length) return;
+        const section = container.closest('#attire');
+
+        gsap.from(textTargets, {
+            scrollTrigger: {
+                trigger: section || container,
+                start: 'top bottom',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 24,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.18
         });
     });
 
@@ -900,21 +946,70 @@ function initScrollAnimations() {
         });
     });
     
-    gsap.utils.toArray('.divider-icon img, .divider-star img, .vegas-divider.hotel-attire-divider img').forEach(sticker => {
-        gsap.from(sticker, {
+    // Hotel-attire and neon-line dividers: the Vegas sign, stars/dice,
+    // and the flanking gold/turquoise lines all share a single trigger
+    // fired off the divider itself so they appear together — and a bit
+    // earlier on scroll than per-element triggers (which made the
+    // taller Vegas sign trigger before its surrounding stars).
+    gsap.utils.toArray('.vegas-divider.hotel-attire-divider, .vegas-divider.neon-line').forEach(divider => {
+        const stickers = divider.querySelectorAll('img');
+        const tl = gsap.timeline({
             scrollTrigger: {
-                trigger: sticker,
-                start: 'top 90%',
+                trigger: divider,
+                start: 'top 120%',
                 toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            scale: 0.8,
-            duration: 0.5,
-            ease: 'back.out(1.7)'
+            }
         });
+        if (stickers.length) {
+            tl.from(stickers, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.5,
+                ease: 'back.out(1.7)'
+            }, 0);
+        }
+        tl.fromTo(divider,
+            { '--lines-opacity': 0 },
+            { '--lines-opacity': 1, duration: 0.5, ease: 'power2.out' },
+            0
+        );
+    });
+
+    // Smaller decorative divider (attire-inner-divider): the 3 tiny
+    // stars and the flanking gold lines share a single divider-level
+    // trigger so they all appear together, and well before the divider
+    // itself enters the viewport ("top 120%" mirrors the larger dividers
+    // above so all Vegas dividers feel like they pre-load on scroll).
+    gsap.utils.toArray('.vegas-divider.attire-inner-divider').forEach(divider => {
+        const stars = divider.querySelectorAll('.divider-star img');
+        const tl = gsap.timeline({
+            scrollTrigger: {
+                trigger: divider,
+                start: 'top 120%',
+                toggleActions: 'play none none reverse'
+            }
+        });
+        if (stars.length) {
+            tl.from(stars, {
+                opacity: 0,
+                scale: 0.8,
+                duration: 0.5,
+                ease: 'back.out(1.7)'
+            }, 0);
+        }
+        tl.fromTo(divider,
+            { '--lines-opacity': 0 },
+            { '--lines-opacity': 1, duration: 0.5, ease: 'power2.out' },
+            0
+        );
     });
 
     gsap.utils.toArray('.cta-button').forEach(button => {
+        // The attire ("GET INSPIRED") button is handled separately below
+        // with an IntersectionObserver + safety net, because the attire
+        // section's content-visibility:auto can cause ScrollTrigger to
+        // mismeasure the button and leave it permanently invisible.
+        if (button.closest('#attire')) return;
         gsap.from(button, {
             scrollTrigger: {
                 trigger: button,
@@ -926,6 +1021,33 @@ function initScrollAnimations() {
             duration: 0.5,
             ease: 'back.out(1.7)'
         });
+    });
+
+    // GET INSPIRED button reveal — uses a plain IntersectionObserver so
+    // the button reliably appears even when content-visibility:auto on
+    // #attire throws off ScrollTrigger's cached measurements. A short
+    // safety timeout guarantees the button becomes visible regardless of
+    // observer behavior.
+    document.querySelectorAll('#attire .cta-button').forEach(button => {
+        button.classList.add('cta-reveal');
+        const reveal = () => button.classList.add('is-revealed');
+        if ('IntersectionObserver' in window) {
+            const io = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        reveal();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin: '0px 0px 200px 0px', threshold: 0 });
+            io.observe(button);
+        } else {
+            reveal();
+        }
+        // Failsafe: if for any reason the observer never fires (e.g. the
+        // button is hidden by an ancestor or sized 0x0 during measurement),
+        // force the reveal after 1.5s so the CTA is never permanently hidden.
+        setTimeout(reveal, 1500);
     });
 
     const rsvpSign = document.querySelector('.rsvp-sign');
@@ -1948,9 +2070,11 @@ function initSlotMachine() {
         
         reels.forEach(reel => reel.classList.add('spinning'));
         
+        // Keep .pulled long enough for the full lever-pull keyframe
+        // animation (~0.55s) to play through before reverting.
         setTimeout(() => {
             lever.classList.remove('pulled');
-        }, 150);
+        }, 600);
         
         const results = [];
         const stopTimes = [1000, 1500, 2000];

@@ -29,6 +29,12 @@
     --font-one: 'Vintage One', sans-serif;
     --font-classic: 'Vintage Classic', sans-serif;
     --font-ozone: 'Ozone', sans-serif;
+    --font-marons: 'Marons', sans-serif;
+    --font-magic-retro: 'Magic Retro', sans-serif;
+    --font-fifties: 'Fifties Movies', sans-serif;
+    --font-vegas-fab: 'LasVegas Fabulous', sans-serif;
+    --font-arastin: 'Arastin Pro', sans-serif;
+    --font-kenly: 'Bright Kenly', serif;
     
     /* Font Assignments */
     --font-names: var(--font-one);             /* "Jac & Ben" - Vintage-1 */
@@ -38,7 +44,12 @@
     --font-body: var(--font-classic);           /* Body text / descriptions */
     --font-accent: var(--font-star);            /* Small accent signs */
     --font-slots: var(--font-lounge);           /* 777 slot machine */
-    --font-buttons: var(--font-one);            /* Button text */
+    /* Button text — trying Bright Kenly. Swap to var(--font-marons) for
+       art deco, var(--font-milky) for retro cursive, var(--font-vegas-fab)
+       for marquee, var(--font-magic-retro), var(--font-fifties), or
+       var(--font-arastin) for other retro vibes; the rest of the button
+       styles stay the same. */
+    --font-buttons: var(--font-kenly);
     
     /* Spacing */
     --section-padding: 100px 20px;
@@ -355,8 +366,9 @@ h1, h2, h3 {
 }
 
 .schedule .section-title {
-    font-family: 'Vegas Neon', var(--font-section-title);
+    font-family: 'Marons', var(--font-section-title);
     font-size: clamp(3rem, 12vw, 7rem);
+    text-transform: none;
 }
 
 .schedule .section-title .flicker-letter {
@@ -377,18 +389,23 @@ h1, h2, h3 {
 
 .event-panels {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
     gap: 30px;
-    max-width: var(--content-max-width);
+    max-width: 1620px;
     margin: 60px auto 0;
 }
 
 .event-panel {
-    background: rgba(0, 0, 0, 0.5);
+    background: rgba(0, 0, 0, 0.45);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
     border: 3px solid var(--gold);
     padding: 40px 30px;
     position: relative;
     text-align: center;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
     transition: transform 0.3s ease, box-shadow 0.3s ease;
     /* Isolate layout + style invalidations so the continuous
        text-shadow glow animations on descendants don't force
@@ -410,7 +427,7 @@ h1, h2, h3 {
 }
 
 .event-panel.main-event .event-description {
-    font-size: clamp(1.6rem, 5vw, 2.2rem);
+    font-size: clamp(2.6rem, 7vw, 3.6rem);
     color: var(--cream);
     text-shadow: 
         0 0 10px var(--gold),
@@ -486,8 +503,8 @@ h1, h2, h3 {
 .event-panel.tilted-right .event-description::before,
 .event-panel.tilted-right .event-description::after {
     color: var(--turquoise);
-    content: '~';
-    font-weight: bold;
+    content: '❀';
+    font-weight: normal;
 }
 
 @keyframes poolGlow {
@@ -511,20 +528,31 @@ h1, h2, h3 {
 }
 
 .event-date {
-    font-family: var(--font-date);
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
+    font-family: 'Sanchez', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1.1rem;
+    letter-spacing: 0.02em;
     color: var(--cream);
     margin-bottom: 0.5rem;
 }
 
+.event-time {
+    font-family: 'Sanchez', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
+    font-size: 1rem;
+    letter-spacing: 0.02em;
+    color: var(--cream);
+    opacity: 0.85;
+    margin-bottom: 0.75rem;
+}
+
 .event-description {
-    font-family: var(--font-punk);
-    font-size: clamp(1.4rem, 4vw, 1.8rem);
+    font-family: 'Marons', var(--font-punk);
+    font-size: clamp(2.2rem, 6vw, 3rem);
     color: var(--gold);
-    margin-bottom: 0.5rem;
-    text-transform: uppercase;
-    letter-spacing: 0.1em;
+    margin-bottom: 0.75rem;
+    letter-spacing: 0.02em;
+    text-transform: none;
     text-shadow: 
         0 0 10px var(--gold),
         0 0 20px rgba(255, 204, 0, 0.6),
@@ -574,15 +602,30 @@ h1, h2, h3 {
 }
 
 .event-venue {
-    font-family: var(--font-names);
-    font-size: 1.2rem;
-    color: var(--turquoise);
+    font-family: 'Milky Vintage', var(--font-names);
+    font-size: 1.7rem;
+    color: var(--cream);
     margin-bottom: 0.5rem;
 }
 
+.event-panel.tilted-left .event-venue {
+    color: #ff7ab0;
+}
+
+.event-panel.main-event .event-venue {
+    color: var(--gold);
+}
+
+.event-panel.tilted-right .event-venue {
+    color: #66f2e0;
+}
+
 .event-details {
+    font-family: 'Sanchez', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-weight: 400;
     font-size: 0.95rem;
-    opacity: 0.8;
+    line-height: 1.55;
+    opacity: 0.85;
     margin-top: 1rem;
 }
 
@@ -701,6 +744,17 @@ h1, h2, h3 {
 .rsvp-content {
     max-width: 600px;
     margin: 0 auto;
+}
+
+.rsvp .section-title {
+    font-size: clamp(3.5rem, 13vw, 7.5rem);
+    line-height: 1.05;
+}
+
+.rsvp .section-copy {
+    font-family: 'Milky Vintage', var(--font-names);
+    font-size: clamp(1.4rem, 3.5vw, 2rem);
+    opacity: 1;
 }
 
 /* Cards Fan */
@@ -936,12 +990,23 @@ h1, h2, h3 {
    ============================================ */
 
 .hotel {
-    padding: var(--section-padding);
+    padding: clamp(140px, 18vh, 220px) 20px;
     text-align: center;
     background: linear-gradient(180deg, var(--navy) 0%, var(--deep-purple) 100%);
     contain: layout style;
     content-visibility: auto;
     contain-intrinsic-size: auto 800px;
+}
+
+.hotel-content .section-copy {
+    font-family: 'Karla', var(--font-body);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    margin-bottom: clamp(2.5rem, 6vh, 4.5rem);
+    opacity: 0.95;
 }
 
 .hotel-title {
@@ -1033,6 +1098,7 @@ h1, h2, h3 {
 .vegas-divider.hotel-attire-divider::after {
     display: block;
     width: 20%;
+    opacity: var(--lines-opacity, 1);
 }
 
 .vegas-divider::before,
@@ -1190,6 +1256,7 @@ h1, h2, h3 {
 .vegas-divider.neon-line::after {
     width: 40%;
     height: 2px;
+    opacity: var(--lines-opacity, 1);
 }
 
 .vegas-divider.neon-line .divider-center {
@@ -1373,21 +1440,59 @@ h1, h2, h3 {
 }
 
 .vegas-divider.attire-inner-divider {
-    height: 80px;
-    margin: 80px auto 0;
+    height: 60px;
+    margin: 80px auto -80px;
     background: transparent;
     position: relative;
+    overflow: visible;
+    z-index: 11;
 }
 
 .vegas-divider.attire-inner-divider::before,
 .vegas-divider.attire-inner-divider::after {
-    display: none;
+    content: '';
+    display: block;
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
+    height: 2px;
+    width: 22%;
+    background: linear-gradient(90deg,
+        transparent 0%,
+        var(--gold) 25%,
+        var(--gold) 75%,
+        transparent 100%);
+    box-shadow:
+        0 0 8px var(--gold),
+        0 0 16px rgba(255, 204, 0, 0.5);
+    opacity: var(--lines-opacity, 1);
+}
+
+.vegas-divider.attire-inner-divider::before {
+    left: 18%;
+    width: 22%;
+}
+
+.vegas-divider.attire-inner-divider::after {
+    right: 18%;
+    width: 22%;
 }
 
 .attire .section-title {
-    font-family: 'NeoNeon Light', var(--font-section-title);
-    font-size: clamp(1.8rem, 7vw, 4rem);
+    font-family: 'Neon 80s', var(--font-section-title);
+    font-size: clamp(2.4rem, 10vw, 6.5rem);
+    line-height: 1.05;
+    text-align: center;
+    /* Shrink-to-fit so the title's own box is exactly its content width,
+       then center it as a flex item in .attire-content. Combined with
+       align-items:center on the parent this guarantees the rendered
+       title is centered regardless of font metrics or nowrap overflow. */
+    display: block;
+    width: max-content;
+    max-width: 100%;
+    margin: 0 auto;
     white-space: nowrap;
+    align-self: center;
 }
 
 .neon-icons {
@@ -1412,15 +1517,100 @@ h1, h2, h3 {
     50% { transform: scale(1.1); opacity: 1; }
 }
 
+/* .attire-content is now a full-width centering frame. Its only job is
+   to stack the title and the vibe card vertically and center them in
+   the section. The 640px width constraint moved onto .vibe-card so the
+   title can size and center to the full section width without being
+   clipped/pushed by a narrow parent. */
 .attire-content {
-    max-width: 600px;
+    width: 100%;
+    max-width: none;
     margin: 0 auto;
+    padding-top: clamp(2rem, 6vw, 5rem);
+    text-align: center;
+    display: flex;
+    flex-direction: column;
+    align-items: center;
 }
 
-.attire-details {
-    font-size: 1rem;
-    opacity: 0.8;
-    margin-bottom: 2rem;
+/* Vibe card: holds THE VIBE label + description + style-guide note + CTA.
+   Translucent dark background with backdrop blur (same recipe as the
+   .event-panel cards in the Lineup) keeps everything legible against
+   the busy neon-sign imagery behind it. */
+.vibe-card {
+    width: 100%;
+    max-width: 640px;
+    margin: clamp(2.5rem, 5vw, 4rem) auto 0;
+    padding: clamp(1.75rem, 3.5vw, 2.5rem) clamp(1.5rem, 3.5vw, 2.25rem);
+    text-align: center;
+    background: rgba(0, 0, 0, 0.55);
+    backdrop-filter: blur(10px);
+    -webkit-backdrop-filter: blur(10px);
+    border: 2px solid rgba(255, 45, 123, 0.55);
+    box-shadow:
+        0 0 18px rgba(255, 45, 123, 0.25),
+        inset 0 0 14px rgba(255, 45, 123, 0.08);
+    display: flex;
+    flex-direction: column;
+    align-items: center;
+    gap: 1rem;
+}
+
+/* THE VIBE label — same .neon-text-pink palette as the title. */
+.vibe-card .vibe-label {
+    display: block;
+    font-family: var(--font-section-title);
+    font-weight: 400;
+    font-size: clamp(1.25rem, 2.8vw, 1.75rem);
+    letter-spacing: 0.32em;
+    text-transform: uppercase;
+    color: #ffb3d1;
+    text-shadow:
+        0 0 2px #fff,
+        0 0 8px var(--neon-pink),
+        0 0 20px rgba(255, 45, 123, 0.5);
+    margin: 0;
+}
+
+.vibe-card .vibe-text {
+    font-family: 'Karla', var(--font-body);
+    font-weight: 400;
+    font-style: italic;
+    font-size: clamp(1.05rem, 2.2vw, 1.35rem);
+    line-height: 1.55;
+    letter-spacing: 0.01em;
+    margin: 0;
+    color: var(--cream);
+    opacity: 0.95;
+}
+
+.vibe-card .attire-details {
+    font-family: 'Karla', var(--font-body);
+    font-style: italic;
+    font-weight: 300;
+    font-size: clamp(0.9rem, 1.6vw, 1.05rem);
+    line-height: 1.55;
+    letter-spacing: 0.02em;
+    margin: 0;
+    opacity: 0.7;
+}
+
+.vibe-card .cta-button {
+    margin-top: 0.5rem;
+}
+
+/* GET INSPIRED button reveal — JS-toggled fade/scale in. Initial hidden
+   state is only applied via the .cta-reveal class so that if the script
+   never runs (or is blocked) the button stays visible by default. */
+.attire .cta-button.cta-reveal {
+    opacity: 0;
+    transform: scale(0.92);
+    transition: opacity 0.55s ease, transform 0.55s cubic-bezier(0.34, 1.56, 0.64, 1);
+}
+
+.attire .cta-button.cta-reveal.is-revealed {
+    opacity: 1;
+    transform: scale(1);
 }
 
 /* ============================================
@@ -1507,7 +1697,7 @@ h1, h2, h3 {
 
 .slot-cabinet {
     background: linear-gradient(180deg, #8B0000 0%, #4a0000 50%, #2a0000 100%);
-    padding: 14px 18px 18px;
+    padding: 32px 22px 20px;
     border-radius: 15px;
     border: 4px solid var(--gold);
     box-shadow:
@@ -1516,34 +1706,46 @@ h1, h2, h3 {
         inset 0 -5px 20px rgba(0, 0, 0, 0.5);
     position: relative;
     width: 100%;
-    max-width: 460px;
+    max-width: 580px;
 }
 
 .slot-header {
     display: flex;
     align-items: center;
-    justify-content: space-between;
+    /* Header now only contains the title — the JACPOT chip moved down
+       into .slot-main beside the reels. Center the lone title. */
+    justify-content: center;
     gap: 12px;
-    margin-bottom: 12px;
+    margin-top: 6px;
+    margin-bottom: 30px;
 }
 
 .slot-title {
-    font-family: 'Las Vegas Demo', var(--font-slots);
-    font-size: clamp(1.6rem, 5vw, 2.4rem);
+    /* Match "The Lineup" section heading (Marons) for better legibility
+       than the decorative Las Vegas Demo display face. */
+    font-family: 'Marons', var(--font-section-title);
+    font-size: clamp(2.8rem, 8vw, 4rem);
     color: var(--gold);
     text-shadow:
         0 0 10px var(--gold),
         0 0 20px var(--gold);
-    letter-spacing: 0.18em;
+    letter-spacing: 0.04em;
     line-height: 1;
+    text-align: center;
 }
 
 .jacpot-chip {
     display: flex;
     flex-direction: column;
     align-items: center;
-    gap: 2px;
-    padding: 7px 16px 6px;
+    /* Stretch the chip's frame to match the height of the slot display
+       (the cards row) so the two gold-bordered panels are visually the
+       same height side-by-side, and center the chip's content inside
+       the extra vertical space. */
+    align-self: stretch;
+    justify-content: center;
+    gap: 4px;
+    padding: 10px 12px;
     border: 3px solid var(--gold);
     border-radius: 10px;
     background:
@@ -1552,7 +1754,8 @@ h1, h2, h3 {
         0 0 18px rgba(255, 204, 0, 0.55),
         0 0 36px rgba(255, 204, 0, 0.25),
         inset 0 0 14px rgba(0, 0, 0, 0.7);
-    min-width: 104px;
+    min-width: 92px;
+    flex-shrink: 0;
     animation: jacpot-chip-pulse 2.4s ease-in-out infinite;
 }
 
@@ -1573,19 +1776,22 @@ h1, h2, h3 {
 
 .jacpot-chip-label,
 .jacpot-chip-sublabel {
-    font-family: var(--font-accent);
-    letter-spacing: 0.22em;
+    /* Matches "Ghostbar at Palms Casino Resort" in the lineup panels —
+       Milky Vintage gives a unified retro-poster feel across the slot
+       cabinet's labels and the venue name. */
+    font-family: 'Milky Vintage', var(--font-names);
+    letter-spacing: 0.06em;
     color: var(--gold);
     text-shadow: 0 0 6px rgba(255, 204, 0, 0.65);
     line-height: 1;
 }
 
 .jacpot-chip-label {
-    font-size: 0.7rem;
+    font-size: 0.82rem;
 }
 
 .jacpot-chip-sublabel {
-    font-size: 0.58rem;
+    font-size: 0.68rem;
     color: var(--cream);
     opacity: 0.92;
     text-shadow: 0 0 4px rgba(0, 0, 0, 0.6);
@@ -1593,7 +1799,7 @@ h1, h2, h3 {
 }
 
 .jacpot-chip .jacpot-number {
-    font-size: clamp(2rem, 6vw, 2.9rem);
+    font-size: clamp(1.7rem, 5vw, 2.4rem);
     letter-spacing: 0.03em;
     line-height: 1.05;
     margin: 2px 0 1px;
@@ -1610,7 +1816,12 @@ h1, h2, h3 {
     display: flex;
     gap: 6px;
     background: linear-gradient(180deg, #1a1a1a 0%, #0a0a0a 100%);
-    padding: 10px 10px;
+    /* Hug the cards: just enough felt around the reels to read as a
+       frame, no large dark border. The JACPOT chip stretches to match
+       this panel's height (.jacpot-chip { align-self: stretch }) so
+       shrinking the padding here also brings the chip's outer height
+       down to the cards' height. */
+    padding: 5px 5px;
     border-radius: 8px;
     border: 3px solid #333;
     box-shadow: inset 0 5px 20px rgba(0, 0, 0, 0.8);
@@ -1620,8 +1831,8 @@ h1, h2, h3 {
 }
 
 .slot-reel {
-    width: clamp(52px, 12vw, 72px);
-    height: clamp(64px, 15vw, 90px);
+    width: clamp(52px, 12vw, 82px);
+    height: clamp(66px, 14vw, 100px);
     background: linear-gradient(180deg, #fff 0%, #f0f0f0 50%, #ddd 100%);
     border-radius: 5px;
     overflow: hidden;
@@ -1642,7 +1853,7 @@ h1, h2, h3 {
 }
 
 .reel-symbol {
-    height: clamp(64px, 15vw, 90px);
+    height: clamp(66px, 14vw, 100px);
     display: flex;
     align-items: center;
     justify-content: center;
@@ -1672,13 +1883,23 @@ h1, h2, h3 {
 .slot-result {
     text-align: center;
     margin-top: 10px;
-    min-height: clamp(1.6rem, 4.5vw, 2.2rem);
+    /* Reserve enough vertical room for any result text (including the
+       larger .jackpot variant) so the leaderboard below never jumps
+       when a message appears. Calibrated for the max font-size
+       (1.8rem) plus line-height + a bit of padding headroom. */
+    min-height: clamp(2.6rem, 5.5vw, 3.2rem);
     display: flex;
     align-items: center;
     justify-content: center;
-    font-family: 'Las Vegas Demo', var(--font-slots);
-    font-size: clamp(1.05rem, 2.8vw, 1.4rem);
-    letter-spacing: 0.18em;
+    /* Match the "WINNING SCORE" chip sublabel exactly: same family,
+       weight/style, tracking, and uppercase treatment so the result
+       text reads as the same typographic voice — just scaled up. */
+    font-family: 'Milky Vintage', var(--font-names);
+    font-weight: normal;
+    font-style: normal;
+    font-size: clamp(1.3rem, 3.4vw, 1.8rem);
+    line-height: 1.2;
+    letter-spacing: 0.06em;
     text-transform: uppercase;
     color: var(--gold);
     text-shadow: 0 0 8px var(--gold), 0 0 16px var(--gold);
@@ -1754,7 +1975,9 @@ h1, h2, h3 {
     transform: translateX(-50%);
     background: linear-gradient(90deg, #888 0%, #ccc 50%, #888 100%);
     border-radius: 4px;
-    transition: top 0.15s ease-out;
+    /* No `transition: top` here — the `.pulled` keyframe below drives
+       the full pull motion, including pre-load, snap, hold, and the
+       spring-back overshoot. A blanket transition would smear it. */
     box-shadow: 2px 2px 5px rgba(0, 0, 0, 0.3);
 }
 
@@ -1762,6 +1985,8 @@ h1, h2, h3 {
     position: absolute;
     top: -16px;
     left: 50%;
+    /* Base transform centers the ball; the leverBallSquash keyframe
+       layers scale on top while preserving this translate. */
     transform: translateX(-50%);
     width: 28px;
     height: 28px;
@@ -1771,6 +1996,7 @@ h1, h2, h3 {
         0 0 15px rgba(255, 0, 0, 0.5),
         inset -3px -3px 10px rgba(0, 0, 0, 0.3),
         inset 3px 3px 10px rgba(255, 255, 255, 0.2);
+    transition: box-shadow 0.2s ease-out, opacity 0.3s ease-out;
 }
 
 .slot-lever:hover .lever-ball {
@@ -1780,8 +2006,54 @@ h1, h2, h3 {
         inset 3px 3px 10px rgba(255, 255, 255, 0.2);
 }
 
+/* Mechanical pull animation: tiny anticipation pre-load up, a snappy
+   drop with overshoot past the resting bottom, a brief held position
+   (spring-loading the reels), then a fast spring-back that overshoots
+   rest and damps to settle. */
 .slot-lever.pulled .lever-arm {
-    top: 44px;
+    animation: leverPull 0.55s cubic-bezier(0.34, 1, 0.68, 1) both;
+}
+
+.slot-lever.pulled .lever-ball {
+    animation: leverBallSquash 0.55s cubic-bezier(0.34, 1, 0.68, 1) both;
+}
+
+@keyframes leverPull {
+    0%   { top: 8px; }
+    8%   { top: 2px; }      /* pre-load: hand pulls up before yanking down */
+    24%  { top: 52px; }     /* fast snap down, overshooting the rest stop */
+    34%  { top: 44px; }     /* settle into the bottom stop */
+    50%  { top: 44px; }     /* held at the bottom (reels start spinning) */
+    66%  { top: -2px; }     /* spring releases — fast return, overshoots rest */
+    80%  { top: 14px; }     /* counter-bounce on the way down */
+    92%  { top: 5px; }      /* damped final bounce */
+    100% { top: 8px; }      /* settle */
+}
+
+@keyframes leverBallSquash {
+    0%   { transform: translateX(-50%) scale(1, 1); }
+    16%  { transform: translateX(-50%) scale(0.94, 1.08); }   /* stretch during fast pull */
+    30%  { transform: translateX(-50%) scale(1.12, 0.86); }   /* impact squash at the bottom */
+    50%  { transform: translateX(-50%) scale(1, 1); }
+    66%  { transform: translateX(-50%) scale(0.92, 1.10); }   /* stretch on spring-back */
+    82%  { transform: translateX(-50%) scale(1.06, 0.94); }   /* overshoot squish */
+    100% { transform: translateX(-50%) scale(1, 1); }
+}
+
+/* Users who prefer reduced motion get a simpler pull-and-return — no
+   overshoot, no squash — but still some feedback so the pull reads. */
+@media (prefers-reduced-motion: reduce) {
+    .slot-lever.pulled .lever-arm {
+        animation: leverPullSimple 0.3s ease-out both;
+    }
+    .slot-lever.pulled .lever-ball {
+        animation: none;
+    }
+}
+
+@keyframes leverPullSimple {
+    0%, 100% { top: 8px; }
+    50%      { top: 44px; }
 }
 
 .slot-lever.spinning {
@@ -1793,11 +2065,11 @@ h1, h2, h3 {
 }
 
 .lever-label {
-    font-family: var(--font-accent);
-    font-size: 0.75rem;
+    font-family: 'Milky Vintage', var(--font-names);
+    font-size: 1rem;
     color: var(--gold);
     text-shadow: 0 0 10px var(--gold);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.04em;
     animation: pulseLabel 1.5s ease-in-out infinite;
 }
 
@@ -1884,13 +2156,15 @@ h1, h2, h3 {
 }
 
 .leaderboard-title {
-    font-family: 'Las Vegas Demo', var(--font-slots);
-    font-size: clamp(1.1rem, 3.2vw, 1.45rem);
+    /* Match the "Lucky Jacs" slot title (Marons) so the two gold-glow
+       headings inside the cabinet feel like a set. */
+    font-family: 'Marons', var(--font-section-title);
+    font-size: clamp(1.5rem, 4.2vw, 2.1rem);
     color: var(--gold);
     text-shadow:
         0 0 8px var(--gold),
         0 0 16px var(--gold);
-    letter-spacing: 0.15em;
+    letter-spacing: 0.04em;
     display: inline-block;
 }
 
@@ -1931,7 +2205,7 @@ h1, h2, h3 {
 
 .leaderboard-row {
     display: grid;
-    grid-template-columns: 32px 1fr 72px;
+    grid-template-columns: 36px 1fr 84px;
     align-items: center;
     gap: 6px;
     padding: 7px 12px;
@@ -1941,37 +2215,18 @@ h1, h2, h3 {
 }
 
 .leaderboard-row.header-row {
-    background: rgba(255, 204, 0, 0.08);
-    font-family: var(--font-accent);
-    font-size: 0.95rem;
-    letter-spacing: 0.2em;
-    color: var(--gold);
-    text-transform: uppercase;
+    /* Header row's only job typographically is to be a subtle banner
+       above the data — the inner cells (.lb-rank / .lb-initials /
+       .lb-lucky) each inherit their own data-row styling so the header
+       reads as the same font, size, color, tracking, and glow as the
+       columns it labels. The tinted background plus the inherited
+       uppercasing on `.lb-initials` is enough to distinguish it. */
+    background: rgba(255, 204, 0, 0.1);
     padding: 8px 12px;
-    text-shadow: 0 0 6px rgba(255, 204, 0, 0.4);
-}
-
-.leaderboard-row.header-row .lb-rank,
-.leaderboard-row.header-row .lb-initials,
-.leaderboard-row.header-row .lb-lucky {
-    font-family: var(--font-accent);
-    font-size: 0.95rem;
-    color: var(--gold);
-    text-shadow: none;
-    letter-spacing: 0.15em;
 }
 
 .leaderboard-row:last-child {
     border-bottom: none;
-}
-
-.leaderboard-row.header-row {
-    background: rgba(255, 204, 0, 0.1);
-    font-family: var(--font-accent);
-    font-size: 0.95rem;
-    letter-spacing: 0.15em;
-    color: var(--gold);
-    text-transform: uppercase;
 }
 
 .leaderboard-row.data-row:hover {
@@ -1994,9 +2249,9 @@ h1, h2, h3 {
 }
 
 .lb-rank {
-    font-family: var(--font-date);
+    font-family: 'Milky Vintage', var(--font-names);
     font-variant-numeric: tabular-nums;
-    font-size: 1.1rem;
+    font-size: 1.3rem;
     color: var(--gold);
     text-align: center;
     letter-spacing: 0.05em;
@@ -2019,8 +2274,8 @@ h1, h2, h3 {
 }
 
 .lb-initials {
-    font-family: var(--font-date);
-    font-size: 1.15rem;
+    font-family: 'Milky Vintage', var(--font-names);
+    font-size: 1.45rem;
     color: var(--cream);
     letter-spacing: 0.18em;
     text-transform: uppercase;
@@ -2028,9 +2283,9 @@ h1, h2, h3 {
 }
 
 .lb-lucky {
-    font-family: var(--font-date);
+    font-family: 'Milky Vintage', var(--font-names);
     font-variant-numeric: tabular-nums;
-    font-size: 1rem;
+    font-size: 1.2rem;
     color: var(--gold);
     text-align: center;
     letter-spacing: 0.05em;
@@ -2069,7 +2324,7 @@ h1, h2, h3 {
 }
 
 body.dev-mode .leaderboard-row.data-row {
-    grid-template-columns: 32px 1fr 72px 28px;
+    grid-template-columns: 36px 1fr 84px 28px;
 }
 
 body.dev-mode .lb-remove {
@@ -2181,25 +2436,30 @@ body.dev-mode .lb-remove {
 }
 
 .winner-modal-title {
-    font-family: var(--font-king);
-    font-size: clamp(1.4rem, 6vw, 2.75rem);
+    /* Match the "Lucky Jacs" slot cabinet title (Marons) so the modal
+       feels like it belongs to the same prize-machine signage. */
+    font-family: 'Marons', var(--font-section-title);
+    font-size: clamp(1.6rem, 6.5vw, 3rem);
     color: var(--gold);
     text-shadow: 
         0 0 10px var(--gold),
         0 0 20px var(--gold),
         0 0 40px rgba(255, 204, 0, 0.6);
     margin-bottom: 15px;
-    letter-spacing: 0.1em;
+    letter-spacing: 0.03em;
     white-space: nowrap;
     animation: jackpotFlash 0.5s ease-in-out infinite alternate;
 }
 
 .winner-modal-subtitle {
-    font-family: var(--font-body);
-    font-size: 1.1rem;
+    /* Use the site's main display/section-header face (Vintage Faith)
+       so the prompt reads like a section heading rather than body copy. */
+    font-family: var(--font-section-title);
+    font-size: clamp(1.05rem, 2.8vw, 1.4rem);
     color: var(--cream);
     margin-bottom: 25px;
-    opacity: 0.9;
+    opacity: 0.95;
+    letter-spacing: 0.03em;
 }
 
 .winner-modal-input-container {
@@ -2242,15 +2502,17 @@ body.dev-mode .lb-remove {
 }
 
 .winner-btn {
+    /* Match the rest of the site's CTA buttons (.cta-button) so the
+       modal's call-to-action reads as part of the same button family. */
     font-family: var(--font-buttons);
-    font-size: 1rem;
-    letter-spacing: 0.1em;
-    padding: 14px 35px;
+    font-size: 1.5rem;
+    letter-spacing: 0;
+    padding: 15px 40px;
     border: none;
     border-radius: 8px;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-transform: uppercase;
+    text-transform: none;
     min-width: 220px;
 }
 
@@ -2278,9 +2540,11 @@ body.dev-mode .lb-remove {
     background: transparent;
     color: var(--cream);
     border: 2px solid rgba(255, 255, 255, 0.3);
-    font-size: 0.9rem;
-    padding: 10px 25px;
-    opacity: 0.7;
+    /* Slightly smaller + lower opacity to mark it as the secondary
+       action without going back to a tiny mismatched size. */
+    font-size: 1.2rem;
+    padding: 12px 30px;
+    opacity: 0.75;
 }
 
 .winner-btn-skip:hover {
@@ -2371,10 +2635,12 @@ body.dev-mode .lb-remove {
     display: inline-block;
     padding: 15px 40px;
     font-family: var(--font-buttons);
-    font-size: 1.2rem;
-    letter-spacing: 0.15em;
+    /* Bright Kenly — bumped size + zero tracking + no forced caps so the
+       natural letterforms / ligatures render properly. */
+    font-size: 1.7rem;
+    letter-spacing: 0;
     text-decoration: none;
-    text-transform: uppercase;
+    text-transform: none;
     transition: all 0.3s ease;
     cursor: pointer;
     border: none;
@@ -2384,7 +2650,7 @@ body.dev-mode .lb-remove {
     background: linear-gradient(135deg, #8B0000 0%, #cc0000 50%, #8B0000 100%);
     color: var(--cream);
     border: 4px solid var(--gold);
-    border-radius: 50px;
+    border-radius: 8px;
     box-shadow: 
         inset 0 2px 10px rgba(255, 255, 255, 0.2),
         0 5px 20px rgba(0, 0, 0, 0.3);
@@ -2401,6 +2667,7 @@ body.dev-mode .lb-remove {
     background: transparent;
     color: var(--turquoise);
     border: 2px solid var(--turquoise);
+    border-radius: 8px;
     box-shadow: 
         0 0 10px var(--turquoise),
         inset 0 0 10px rgba(0, 229, 204, 0.1);
@@ -2409,6 +2676,7 @@ body.dev-mode .lb-remove {
 .neon-button:hover {
     background: var(--turquoise);
     color: var(--navy);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 0 30px var(--turquoise);
 }
 
@@ -2423,6 +2691,7 @@ body.dev-mode .lb-remove {
 .neon-button.pink:hover {
     background: var(--neon-pink);
     color: var(--cream);
+    transform: translateY(-3px) scale(1.05);
     box-shadow: 0 0 30px var(--neon-pink);
 }
 
@@ -2469,6 +2738,20 @@ body.dev-mode .lb-remove {
    ============================================ */
 
 /* Tablet */
+/* Tablet / small-laptop / iPad: stack lineup cards into a single column
+   instead of falling into an awkward 2+1 grid. Three cards at
+   minmax(420px, 1fr) plus 2 × 30px gaps need ~1320px of container width,
+   which means the viewport must be ~1360px+ once section padding is
+   accounted for. We pad that further to 1440px so the 3-column desktop
+   layout only kicks in when there's room for each card to feel
+   comfortable (not cramped). Anywhere below that, single column. */
+@media (max-width: 1440px) {
+    .event-panels {
+        grid-template-columns: 1fr;
+        max-width: 640px;
+    }
+}
+
 @media (max-width: 1024px) {
     :root {
         --section-padding: 80px 20px;
@@ -2597,6 +2880,35 @@ body.dev-mode .lb-remove {
     
     .slot-cabinet {
         padding: 12px 14px 16px;
+        max-width: 420px;
+    }
+
+    /* At ≤768px the cabinet narrows to 420px which can't comfortably
+       fit chip + reels + lever side-by-side once the reels are sized to
+       fill the slot display. Let the chip wrap above the reels and
+       collapse it into a compact horizontal pill. */
+    .slot-main {
+        flex-wrap: wrap;
+        row-gap: 10px;
+    }
+
+    .jacpot-chip {
+        flex-basis: 100%;
+        flex-direction: row;
+        align-items: baseline;
+        justify-content: center;
+        gap: 10px;
+        padding: 6px 14px;
+        min-width: 0;
+    }
+
+    .jacpot-chip-sublabel {
+        display: none;
+    }
+
+    .jacpot-chip .jacpot-number {
+        font-size: clamp(1.6rem, 5.5vw, 2.4rem);
+        margin: 0;
     }
     
     .slot-lever {
@@ -2623,7 +2935,7 @@ body.dev-mode .lb-remove {
     
     .cta-button {
         padding: 12px 30px;
-        font-size: 1rem;
+        font-size: 1.45rem;
     }
 }
 
@@ -2680,6 +2992,10 @@ body.dev-mode .lb-remove {
         font-size: clamp(1.8rem, 7vw, 2.5rem);
     }
     
+    .rsvp .section-title {
+        font-size: clamp(2.8rem, 11vw, 4.5rem);
+    }
+    
     .section-copy {
         font-size: 1rem;
         padding: 0 10px;
@@ -2699,6 +3015,10 @@ body.dev-mode .lb-remove {
     
     .event-date {
         font-size: 1rem;
+    }
+
+    .event-time {
+        font-size: 0.9rem;
     }
     
     .event-description {
@@ -2774,6 +3094,7 @@ body.dev-mode .lb-remove {
     
     .slot-cabinet {
         padding: 10px 10px 14px;
+        max-width: 340px;
     }
 
     .slot-header {
@@ -2781,11 +3102,21 @@ body.dev-mode .lb-remove {
     }
 
     .slot-main {
+        /* Chip-wrap behaviour comes from the ≤768px rule above; here
+           just tighten gaps for the narrower 340px cabinet. */
         gap: 8px;
     }
 
+    .jacpot-chip {
+        padding: 5px 10px;
+    }
+
+    .jacpot-chip .jacpot-number {
+        font-size: clamp(1.4rem, 6vw, 2rem);
+    }
+
     .slot-display {
-        padding: 8px 6px;
+        padding: 4px 4px;
         gap: 4px;
     }
 
@@ -2831,29 +3162,29 @@ body.dev-mode .lb-remove {
     
     .cta-button {
         padding: 12px 25px;
-        font-size: 0.95rem;
+        font-size: 1.3rem;
         width: 100%;
         max-width: 280px;
     }
     
     /* Leaderboard mobile */
     .leaderboard-row {
-        grid-template-columns: 26px 1fr 58px;
+        grid-template-columns: 30px 1fr 68px;
         padding: 6px 10px;
         gap: 4px;
     }
 
     body.dev-mode .leaderboard-row.data-row {
-        grid-template-columns: 26px 1fr 58px 24px;
+        grid-template-columns: 30px 1fr 68px 24px;
     }
 
     .lb-rank,
     .lb-initials {
-        font-size: 1rem;
+        font-size: 1.15rem;
     }
 
     .lb-lucky {
-        font-size: 0.9rem;
+        font-size: 1.05rem;
     }
     
     /* Winner modal mobile */
@@ -2863,7 +3194,19 @@ body.dev-mode .lb-remove {
     }
     
     .winner-modal-title {
-        font-size: clamp(1.1rem, 6.5vw, 2rem);
+        font-size: clamp(1.3rem, 7vw, 2.2rem);
+    }
+
+    .winner-modal-subtitle {
+        font-size: clamp(0.95rem, 3.4vw, 1.15rem);
+    }
+
+    .winner-btn {
+        font-size: 1.3rem;
+    }
+
+    .winner-btn-skip {
+        font-size: 1.05rem;
     }
     
     .winner-initials-input {
@@ -2886,6 +3229,10 @@ body.dev-mode .lb-remove {
     
     .section-title {
         font-size: 1.6rem;
+    }
+    
+    .rsvp .section-title {
+        font-size: 2.6rem;
     }
     
     .bulb-text {

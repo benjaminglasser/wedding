@@ -596,7 +596,7 @@ body.loader-active {
 
 /* Loading text */
 .loader-text {
-    font-family: 'Las Vegas Demo', 'Lounge Vintage', sans-serif;
+    font-family: 'LasVegas Fabulous', 'Las Vegas Demo', 'Lounge Vintage', sans-serif;
     font-size: clamp(2.5rem, 8vw, 5rem);
     color: #d4af37;
     letter-spacing: 0.1em;
