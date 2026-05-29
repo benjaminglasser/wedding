@@ -471,7 +471,9 @@ h1, h2, h3 {
 .event-panel.tilted-left .event-description::before,
 .event-panel.tilted-left .event-description::after {
     color: var(--neon-pink);
-    content: '♦';
+    /* U+FE0E (VS15) forces text/vector presentation so iOS doesn't
+       swap the diamond for its color emoji glyph on mobile. */
+    content: '\2666\FE0E';
 }
 
 @keyframes welcomeGlow {
@@ -2856,6 +2858,17 @@ body.dev-mode .lb-remove {
     .telegram-frame {
         padding: 30px;
     }
+
+    /* On mobile and iPad the pink/turquoise side-panel titles share their
+       hue with their glow, so the cumulative bloom from the desktop
+       text-shadow stack washes out the thin Marons letterforms once the
+       title scales up. Drop the glow entirely on these breakpoints (and
+       cut the keyframe animation that would otherwise re-apply it). */
+    .event-panel.tilted-left .event-description,
+    .event-panel.tilted-right .event-description {
+        text-shadow: none;
+        animation: none;
+    }
 }
 
 /* Mobile Landscape / Small Tablet */
@@ -3133,23 +3146,9 @@ body.dev-mode .lb-remove {
         font-size: clamp(2.6rem, 7vw, 3.6rem);
     }
 
-    /* The pink/turquoise side panels share their hue with their glow,
-       so the cumulative bloom from the desktop text-shadow stack
-       washes out the thin Marons letterforms once the title scales
-       up to "The wedding" size on mobile. Tighten the glow to a
-       single soft halo so the strokes stay legible. */
-    .event-panel.tilted-left .event-description {
-        text-shadow:
-            0 0 4px #ff7ab0,
-            0 0 10px rgba(255, 122, 176, 0.45);
-    }
+    /* Glow on the pink/turquoise side-panel titles is removed in the
+       1024px breakpoint above so it stays off across mobile and iPad. */
 
-    .event-panel.tilted-right .event-description {
-        text-shadow:
-            0 0 4px #66f2e0,
-            0 0 10px rgba(102, 242, 224, 0.45);
-    }
-    
     .event-details {
         font-size: 0.9rem;
     }
