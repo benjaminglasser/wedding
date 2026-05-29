@@ -965,6 +965,67 @@ function initGSAP() {
    SCROLL ANIMATIONS
    ============================================ */
 
+/**
+ * Reveal a set of elements together when their containing section
+ * approaches the viewport. Uses IntersectionObserver (not GSAP
+ * ScrollTrigger) because the target sections set
+ * `content-visibility: auto`, which causes ScrollTrigger's cached
+ * start/end measurements to drift and miss-fire — particularly on
+ * mobile where the user reported the elements never animating in until
+ * after they had already scrolled past the section.
+ *
+ * The hidden-state CSS lives behind the `.section-reveal` class so
+ * that if this script fails to run for any reason the content stays
+ * visible by default. A `--reveal-delay` CSS variable per element gives
+ * us the same staggered cadence the previous GSAP tween produced.
+ *
+ * @param {string} containerSelector - section/container to find
+ * @param {string} targetSelector - children inside that container to reveal
+ * @param {string} [observerRootSelector] - element to observe (defaults to container)
+ */
+function setupSectionReveal(containerSelector, targetSelector, observerRootSelector) {
+    document.querySelectorAll(containerSelector).forEach(container => {
+        const elements = Array.from(container.querySelectorAll(targetSelector));
+        if (!elements.length) return;
+
+        elements.forEach((el, i) => {
+            el.classList.add('section-reveal');
+            // 0s, 0.18s, 0.36s, ... — same stagger the GSAP tween used.
+            el.style.setProperty('--reveal-delay', (i * 0.18) + 's');
+        });
+
+        const reveal = () => elements.forEach(el => el.classList.add('is-revealed'));
+
+        const observerRoot = observerRootSelector
+            ? container.closest(observerRootSelector) || container
+            : container;
+
+        if ('IntersectionObserver' in window) {
+            // Mobile: a 600px bottom rootMargin means the reveal fires
+            // when the section is still well below the fold, so by the
+            // time the user scrolls to it the content has already
+            // animated in (no "pop after scrolling past" glitch).
+            const rootMargin = isMobile ? '0px 0px 600px 0px' : '0px 0px 200px 0px';
+            const io = new IntersectionObserver((entries, observer) => {
+                entries.forEach(entry => {
+                    if (entry.isIntersecting) {
+                        reveal();
+                        observer.unobserve(entry.target);
+                    }
+                });
+            }, { rootMargin, threshold: 0 });
+            io.observe(observerRoot);
+        } else {
+            reveal();
+        }
+
+        // Failsafe: even if the observer never fires (rare, but
+        // possible if the section is hidden by an ancestor), force the
+        // reveal after 2s so the content is never permanently hidden.
+        setTimeout(reveal, 2000);
+    });
+}
+
 function initScrollAnimations() {
     // Animate section sign cutouts when they come into view.
     // Fire once only — removing the class on leave-back caused the sign to
@@ -1069,61 +1130,21 @@ function initScrollAnimations() {
         });
     });
 
-    // Hotel section: reveal the title and copy together when the
-    // surrounding #hotel section approaches the viewport. The CTA button
-    // inside uses its own IntersectionObserver-based reveal (see below)
-    // so it's guaranteed to appear even when content-visibility:auto
-    // throws off ScrollTrigger's cached measurements. On mobile we fire
-    // well before the section enters the viewport ("top 130%") so the
-    // content is already revealed by the time the user scrolls to it,
-    // rather than fading in after they've stopped on the section.
-    document.querySelectorAll('#hotel').forEach(section => {
-        const textTargets = section.querySelectorAll(
-            '.section-title, .section-copy'
-        );
-        if (!textTargets.length) return;
-
-        gsap.from(textTargets, {
-            scrollTrigger: {
-                trigger: section,
-                start: isMobile ? 'top 130%' : 'top bottom',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            y: 24,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.18
-        });
-    });
-
-    // Attire section: reveal the title and vibe card together when the
-    // surrounding #attire section enters the viewport. The CTA button
-    // inside the card uses its own IntersectionObserver-based reveal
-    // (see below) so it's guaranteed to appear even if content-visibility
-    // throws off ScrollTrigger's cached measurements. On mobile we fire
-    // before the section enters the viewport so the content is already
-    // revealed by the time the user scrolls to it.
-    document.querySelectorAll('.attire-content').forEach(container => {
-        const textTargets = container.querySelectorAll(
-            '.section-title, .vibe-card'
-        );
-        if (!textTargets.length) return;
-        const section = container.closest('#attire');
-
-        gsap.from(textTargets, {
-            scrollTrigger: {
-                trigger: section || container,
-                start: isMobile ? 'top 130%' : 'top bottom',
-                toggleActions: 'play none none reverse'
-            },
-            opacity: 0,
-            y: 24,
-            duration: 0.6,
-            ease: 'power2.out',
-            stagger: 0.18
-        });
-    });
+    // Hotel + Attire reveals — these used to use GSAP ScrollTrigger, but
+    // both sections set `content-visibility: auto`, which can throw off
+    // ScrollTrigger's cached start/end positions. The visible failure
+    // mode on mobile was that scrolling to the section never fired the
+    // tween: the content stayed at opacity 0 until the user scrolled
+    // PAST it (or until something else triggered ScrollTrigger.refresh).
+    //
+    // IntersectionObserver doesn't depend on cached measurements, so it
+    // stays in sync with the live layout. We pair it with a CSS class
+    // toggle (.section-reveal / .is-revealed in styles.css) and a
+    // generous mobile rootMargin so the content fades in BEFORE the
+    // section enters the viewport, exactly like the CTA button reveal
+    // below.
+    setupSectionReveal('#hotel', '.section-title, .section-copy');
+    setupSectionReveal('.attire-content', '.section-title, .vibe-card', '#attire');
 
     gsap.utils.toArray('.floating-deco img').forEach(sticker => {
         const section = sticker.closest('section');

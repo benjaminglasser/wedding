@@ -1616,6 +1616,42 @@ h1, h2, h3 {
     transform: scale(1);
 }
 
+/* Attire + Hotel section title/content reveal — JS-toggled fade/translate
+   in. We use plain CSS transitions driven by an IntersectionObserver
+   (see setupSectionReveal in main.js) instead of GSAP ScrollTrigger
+   because both sections set `content-visibility: auto`, which throws off
+   ScrollTrigger's cached start/end measurements. The visible failure
+   mode on mobile was content staying invisible until the user scrolled
+   past the section. The IntersectionObserver-based reveal stays in sync
+   with the live layout, so the content fades in BEFORE the section
+   enters the viewport.
+
+   Hidden state is only applied via the .section-reveal class so that
+   if the script fails to run the content stays visible by default. The
+   per-element --reveal-delay variable produces the staggered entrance
+   the previous GSAP tween used. */
+.attire .section-reveal,
+.hotel .section-reveal {
+    opacity: 0;
+    transform: translateY(24px);
+    transition: opacity 0.6s ease, transform 0.6s cubic-bezier(0.215, 0.61, 0.355, 1);
+    transition-delay: var(--reveal-delay, 0s);
+}
+
+.attire .section-reveal.is-revealed,
+.hotel .section-reveal.is-revealed {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+@media (prefers-reduced-motion: reduce) {
+    .attire .section-reveal,
+    .hotel .section-reveal {
+        transform: none;
+        transition: opacity 0.3s ease;
+    }
+}
+
 /* ============================================
    MESSAGES SECTION
    ============================================ */

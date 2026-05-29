@@ -13,49 +13,102 @@
     const hero = document.getElementById('hero');
     if (!hero) return;
 
-    window.startMarqueeAnimation = function() {
-        setTimeout(() => {
-            if (container) container.classList.add('bounce-in');
+    // Promise that resolves once the 3D model has finished loading (or
+    // failed). The loader resolves it from inside __init3DMarquee. Set up
+    // here, before __init3DMarquee runs, so startMarqueeAnimation can
+    // await the model without racing against script load order.
+    if (!window.__marquee3DReady) {
+        window.__marquee3DReady = new Promise((resolve) => {
+            window.__marquee3DReadyResolve = resolve;
+        });
+    }
 
-            setTimeout(() => {
-                hero.classList.add('marquee-ready');
+    const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
 
-                if (typeof gsap !== 'undefined') {
-                    const animationConfigs = [
-                        { selector: '.bg-cutout.glitter-gulch', from: { x: '150%', rotation: 15, opacity: 0 }, to: { x: 0, rotation: -5, opacity: 1 }, delay: 0.15, duration: 1 },
-                        { selector: '.bg-cutout.stardust', from: { x: '-100%', y: '-100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.1, duration: 1 },
-                        { selector: '.bg-cutout.vegas-vic', from: { x: '-150%', rotation: -15, opacity: 0 }, to: { x: 0, rotation: 5, opacity: 1 }, delay: 0.25, duration: 1.1 },
-                        { selector: '.bg-cutout.flamingo', from: { x: '-100%', y: '100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: 5, opacity: 1 }, delay: 0.35, duration: 1.2 },
-                        { selector: '.bg-cutout.golden-nugget', from: { x: '100%', y: '100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.4, duration: 1.1 },
-                        { selector: '.bg-cutout.dunes-oasis', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.5, duration: 1 },
-                        { selector: '.bg-cutout.mint', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 2, opacity: 1 }, delay: 0.55, duration: 1.1 },
-                        { selector: '.bg-cutout.casino-marquee', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: -5, opacity: 1 }, delay: 0, duration: 1 },
-                        { selector: '.bg-cutout.welcome-vegas', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.05, duration: 1.2 },
-                        { selector: '.bg-cutout.union-plaza', from: { x: '100%', y: '-100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: 20, opacity: 1 }, delay: 0.2, duration: 1 }
-                    ];
+    function animateBgCutouts() {
+        hero.classList.add('marquee-ready');
 
-                    animationConfigs.forEach(config => {
-                        const el = document.querySelector(config.selector);
-                        if (el) {
-                            gsap.fromTo(el, config.from, {
-                                ...config.to,
-                                duration: config.duration,
-                                delay: config.delay,
-                                ease: 'elastic.out(1, 0.8)'
-                            });
-                        }
+        if (typeof gsap !== 'undefined') {
+            const animationConfigs = [
+                { selector: '.bg-cutout.glitter-gulch', from: { x: '150%', rotation: 15, opacity: 0 }, to: { x: 0, rotation: -5, opacity: 1 }, delay: 0.15, duration: 1 },
+                { selector: '.bg-cutout.stardust', from: { x: '-100%', y: '-100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.1, duration: 1 },
+                { selector: '.bg-cutout.vegas-vic', from: { x: '-150%', rotation: -15, opacity: 0 }, to: { x: 0, rotation: 5, opacity: 1 }, delay: 0.25, duration: 1.1 },
+                { selector: '.bg-cutout.flamingo', from: { x: '-100%', y: '100%', rotation: -20, opacity: 0 }, to: { x: 0, y: 0, rotation: 5, opacity: 1 }, delay: 0.35, duration: 1.2 },
+                { selector: '.bg-cutout.golden-nugget', from: { x: '100%', y: '100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: -2, opacity: 1 }, delay: 0.4, duration: 1.1 },
+                { selector: '.bg-cutout.dunes-oasis', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.5, duration: 1 },
+                { selector: '.bg-cutout.mint', from: { y: '150%', rotation: 10, opacity: 0 }, to: { y: 0, rotation: 2, opacity: 1 }, delay: 0.55, duration: 1.1 },
+                { selector: '.bg-cutout.casino-marquee', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: -5, opacity: 1 }, delay: 0, duration: 1 },
+                { selector: '.bg-cutout.welcome-vegas', from: { y: '-150%', rotation: -10, opacity: 0 }, to: { y: 0, rotation: 0, opacity: 1 }, delay: 0.05, duration: 1.2 },
+                { selector: '.bg-cutout.union-plaza', from: { x: '100%', y: '-100%', rotation: 20, opacity: 0 }, to: { x: 0, y: 0, rotation: 20, opacity: 1 }, delay: 0.2, duration: 1 }
+            ];
+
+            animationConfigs.forEach(config => {
+                const el = document.querySelector(config.selector);
+                if (el) {
+                    gsap.fromTo(el, config.from, {
+                        ...config.to,
+                        duration: config.duration,
+                        delay: config.delay,
+                        ease: 'elastic.out(1, 0.8)'
                     });
                 }
+            });
+        }
 
-                setTimeout(() => {
-                    const scrollIndicator = document.querySelector('.scroll-indicator');
-                    if (scrollIndicator) scrollIndicator.classList.add('visible');
+        setTimeout(() => {
+            const scrollIndicator = document.querySelector('.scroll-indicator');
+            if (scrollIndicator) scrollIndicator.classList.add('visible');
 
-                    document.querySelectorAll('.bg-cutout').forEach(img => {
-                        img.style.opacity = '1';
-                    });
-                }, 1800);
-            }, 850);
+            document.querySelectorAll('.bg-cutout').forEach(img => {
+                img.style.opacity = '1';
+            });
+        }, 1800);
+    }
+
+    window.startMarqueeAnimation = function() {
+        setTimeout(() => {
+            // Background sign cutouts fly in immediately on loader exit —
+            // they don't depend on the 3D scene, and on mobile the GLB can
+            // take a long time to download. Holding the cutouts until the
+            // model is ready was leaving the hero blank for far too long.
+            animateBgCutouts();
+
+            // The 3D container's bounce-in entrance, on the other hand, is
+            // gated on the model actually being loaded. Otherwise the empty
+            // canvas bounces in first and the 3D scene "pops in" seconds
+            // later when the GLB finally finishes downloading — which is
+            // exactly the visual glitch we want to avoid on mobile.
+            const skip3D = window.__isSaveData || prefersReducedMotion;
+            const triggerBounceIn = () => {
+                if (container && !container.classList.contains('bounce-in')) {
+                    container.classList.add('bounce-in');
+                }
+            };
+
+            if (skip3D || !container) {
+                // Nothing to wait for — bounce in (or no-op if no container).
+                triggerBounceIn();
+                if (window.__marquee3DReadyResolve) {
+                    window.__marquee3DReadyResolve(false);
+                }
+                return;
+            }
+
+            // Wait for the GLB load to resolve __marquee3DReady, with a
+            // generous fallback so the container always reveals itself
+            // even on flaky connections (mobile gets longer because the
+            // 87MB GLB legitimately takes a while on cellular).
+            let bounced = false;
+            const bounceOnce = () => {
+                if (bounced) return;
+                bounced = true;
+                triggerBounceIn();
+            };
+            window.__marquee3DReady.then(bounceOnce);
+
+            const isSmallViewport = window.innerWidth < 768;
+            const fallbackMs = isSmallViewport ? 12000 : 6000;
+            setTimeout(bounceOnce, fallbackMs);
         }, 100);
     };
 
@@ -346,6 +399,18 @@ window.__init3DMarquee = function init3DMarquee() {
             // Position the group - rotate to face camera
             marqueeGroup.rotation.x = Math.PI / 2 - 0.15;
             marqueeGroup.position.y = 0.5;
+
+            // Render one frame synchronously so the canvas paints the
+            // model BEFORE we let the container bounce in. Without this,
+            // the bounce-in could race ahead of the first render and the
+            // user briefly sees an empty canvas before the model appears.
+            try { renderer.render(scene, camera); } catch (_) {}
+
+            // Tell startMarqueeAnimation it's safe to bounce the
+            // container in — the model is on screen.
+            if (window.__marquee3DReadyResolve) {
+                window.__marquee3DReadyResolve(true);
+            }
         },
         function(progress) {
             if (progress.total > 0) {
@@ -355,6 +420,13 @@ window.__init3DMarquee = function init3DMarquee() {
         },
         function(error) {
             console.error('Error loading hero-marquee.glb:', error);
+            // Resolve the ready promise on error too, so the container
+            // still bounces in (with an empty canvas) instead of staying
+            // hidden forever. The fallback timer in startMarqueeAnimation
+            // also covers this, but resolving now reveals the hero sooner.
+            if (window.__marquee3DReadyResolve) {
+                window.__marquee3DReadyResolve(false);
+            }
         }
     );
     
