@@ -35,7 +35,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/fonts.css?v=20260528v">
-    <link rel="stylesheet" href="css/styles.css?v=20260528zb">
+    <link rel="stylesheet" href="css/styles.css?v=20260528zc">
     <link rel="stylesheet" href="css/neon.css?v=20260528n">
     <link rel="stylesheet" href="css/marquee.css?v=20260528q">
     <link rel="stylesheet" href="css/animations.css?v=20260528n">
@@ -545,39 +545,44 @@
         </div>
 
         <!-- Dancing card-suit SVGs scattered around the slot cabinet.
-             Two of each suit (heart, diamond, spade, club) recolored
-             in the Vegas palette, placed only in the empty top band
-             and upper-right edge so none of them sit on top of the
-             slot-machine sign (left) or the Rio sign (bottom-right).
-             Each icon has independent dance + pulse animations. -->
+             Eight icons total — two of each suit (heart, diamond,
+             spade, club) recolored in the Vegas palette and
+             shuffled across the 8 scatter positions so neither
+             same-suit nor same-color pairs sit next to each other.
+             Each icon also has its own size + dance + pulse so the
+             cluster reads as a random swarm, not a stamped grid. -->
         <div class="dancing-suits-scatter" aria-hidden="true">
-            <!-- Hearts: pink + gold -->
-            <svg class="dancing-icon suit-pink pos-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
-            </svg>
-            <svg class="dancing-icon suit-gold pos-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
-            </svg>
-            <!-- Diamonds: red + turquoise -->
-            <svg class="dancing-icon suit-red pos-3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2 22 12 12 22 2 12z"/>
-            </svg>
-            <svg class="dancing-icon suit-turquoise pos-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2 22 12 12 22 2 12z"/>
-            </svg>
-            <!-- Spades: gold + pink -->
-            <svg class="dancing-icon suit-gold pos-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
-            </svg>
-            <svg class="dancing-icon suit-pink pos-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
-                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
-            </svg>
-            <!-- Clubs: turquoise + red -->
-            <svg class="dancing-icon suit-turquoise pos-7" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- pos-1 (top-far-left) — club, turquoise -->
+            <svg class="dancing-icon suit-turquoise pos-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2.8a3.4 3.4 0 0 0-3 5c-.6-.3-1.3-.4-2-.4a3.8 3.8 0 0 0-1 7.5c1.2.3 2.5 0 3.5-.6L8 21.2h8L14.5 14.3c1 .6 2.3.9 3.5.6a3.8 3.8 0 0 0-1-7.5c-.7 0-1.4.1-2 .4a3.4 3.4 0 0 0-3-5z"/>
             </svg>
-            <svg class="dancing-icon suit-red pos-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+            <!-- pos-2 (left of cabinet, mid) — diamond, red -->
+            <svg class="dancing-icon suit-red pos-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2 22 12 12 22 2 12z"/>
+            </svg>
+            <!-- pos-3 (top, center-left) — spade, gold -->
+            <svg class="dancing-icon suit-gold pos-3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
+            </svg>
+            <!-- pos-4 (top, center-right, very high) — heart, pink -->
+            <svg class="dancing-icon suit-pink pos-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
+            </svg>
+            <!-- pos-5 (top-right area) — club, red -->
+            <svg class="dancing-icon suit-red pos-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
                 <path d="M12 2.8a3.4 3.4 0 0 0-3 5c-.6-.3-1.3-.4-2-.4a3.8 3.8 0 0 0-1 7.5c1.2.3 2.5 0 3.5-.6L8 21.2h8L14.5 14.3c1 .6 2.3.9 3.5.6a3.8 3.8 0 0 0-1-7.5c-.7 0-1.4.1-2 .4a3.4 3.4 0 0 0-3-5z"/>
+            </svg>
+            <!-- pos-6 (right of cabinet, mid) — diamond, turquoise -->
+            <svg class="dancing-icon suit-turquoise pos-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2 22 12 12 22 2 12z"/>
+            </svg>
+            <!-- pos-7 (right side, mid-upper) — heart, gold -->
+            <svg class="dancing-icon suit-gold pos-7" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
+            </svg>
+            <!-- pos-8 (right side, mid-lower) — spade, pink -->
+            <svg class="dancing-icon suit-pink pos-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
             </svg>
         </div>
         

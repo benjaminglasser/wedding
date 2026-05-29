@@ -87,6 +87,13 @@
         display: none !important;
     }
 
+    /* Hide the dancing suits on iPad and smaller — once the
+       viewport narrows they collide with the slot cabinet,
+       the slot-machine background sign, and the Rio sign. */
+    .dancing-suits-scatter {
+        display: none !important;
+    }
+
     /* Give the "See You in Vegas!" text more breathing room from the
        perimeter bulbs at iPad widths before it shrinks further on mobile. */
     .tinseltown-sign {
@@ -1177,6 +1184,242 @@
 .section-deco.bottom-right {
     right: 15px;
     bottom: 80px;
+}
+
+/* ============================================
+   DANCING SUITS (Lucky Jacs)
+   Inline-SVG card suits scattered around the
+   slot cabinet on desktop. Each suit anchors to
+   a different side of the section and runs two
+   independent animations — a dance (translate +
+   rotate) and a scale pulse on its own clock —
+   so the four icons appear to orbit the machine
+   asynchronously rather than march in lockstep.
+   Hidden at the iPad breakpoint above, where
+   they'd crowd the cabinet.
+   ============================================ */
+
+.dancing-suits-scatter {
+    /* Spans the entire .gifts section as a non-interactive
+       overlay so each suit can be absolutely placed anywhere
+       around the centered slot cabinet. */
+    position: absolute;
+    inset: 0;
+    z-index: 2;
+    pointer-events: none;
+    --suit-size: clamp(40px, 4.6vw, 62px);
+}
+
+.dancing-suits-scatter .dancing-icon {
+    position: absolute;
+    width: var(--suit-size);
+    height: auto;
+    transform-origin: center 70%;
+    will-change: transform;
+}
+
+/* --- Color variants (shared across suits) ---------------------
+   Each suit shape (set by its SVG path) is recolored via one of
+   these classes. fill drives the suit color; filter adds the
+   matching neon glow so the icon sits on the dark navy section
+   without fading into it. */
+.dancing-suits-scatter .suit-pink {
+    fill: var(--neon-pink);
+    filter: drop-shadow(0 0 6px rgba(255, 45, 123, 0.7))
+            drop-shadow(0 0 12px rgba(255, 45, 123, 0.35));
+}
+
+.dancing-suits-scatter .suit-gold {
+    fill: var(--gold);
+    filter: drop-shadow(0 0 6px rgba(255, 204, 0, 0.75))
+            drop-shadow(0 0 14px rgba(255, 204, 0, 0.4));
+}
+
+.dancing-suits-scatter .suit-red {
+    fill: var(--neon-red);
+    filter: drop-shadow(0 0 6px rgba(255, 51, 51, 0.7))
+            drop-shadow(0 0 12px rgba(255, 51, 51, 0.35));
+}
+
+.dancing-suits-scatter .suit-turquoise {
+    fill: var(--turquoise);
+    filter: drop-shadow(0 0 6px rgba(0, 229, 204, 0.7))
+            drop-shadow(0 0 14px rgba(0, 229, 204, 0.4));
+}
+
+/* --- Scatter positions ----------------------------------------
+   Each icon is placed in one of the empty regions surrounding
+   the centered slot cabinet, chosen so it never overlaps:
+     - the slot-machine background image (centered vertically on
+       the left side, occupies roughly y: 170-930)
+     - the Rio sign (bottom-right corner, roughly y: 690+)
+     - the slot cabinet itself (centered, max-width 580px, so
+       roughly x: 22-78% of viewport at narrow desktop)
+   Three valid scatter zones:
+     1. Top corridor (y < 80px) — above the cabinet, above the
+        slot-machine image. Width-agnostic; any x is safe.
+     2. Upper-side corridors (y: 80-160px, x < 22% or x > 78%)
+        — beside the cabinet, still above the slot-machine image
+        and Rio sign.
+     3. Right corridor (y: 200-650px, x > 78%) — right of the
+        cabinet, above the Rio sign.
+   Positions, sizes, and animation pairings are all randomized
+   across icons to break any sense of grid or border. Each icon
+   also carries its own --suit-size override so the cluster has
+   visual depth instead of feeling stamped from a template. */
+
+/* pos-1 — upper-left, above the cabinet & slot-machine image. */
+.dancing-suits-scatter .pos-1 {
+    --suit-size: clamp(38px, 4.2vw, 56px);
+    top: 15px;
+    left: 8%;
+    animation:
+        dancingHeart 1.6s ease-in-out infinite,
+        suitPulseA   2.7s ease-in-out infinite;
+}
+
+/* pos-2 — beside the cabinet on the left, above slot-machine
+   image (sits in the y:80-160 left-side corridor). */
+.dancing-suits-scatter .pos-2 {
+    --suit-size: clamp(30px, 3.4vw, 44px);
+    top: 95px;
+    left: 14%;
+    animation:
+        dancingDiamond 2.3s ease-in-out infinite -0.7s,
+        suitPulseC     3.1s ease-in-out infinite -1.5s;
+}
+
+/* pos-3 & pos-4 — stacked directly to the left of the cabinet
+   at a fixed distance from its wall. The cabinet has
+   max-width: 580px and is horizontally centered in the
+   section, so its left edge sits at `50% - 290px` regardless
+   of viewport width. We anchor each icon's RIGHT edge 25px
+   to the left of that, which keeps the gap visually constant
+   on every desktop width (no overlap at narrow desktop, no
+   drifting too far on ultra-wide). The two are spread further
+   apart on the y axis so they read as a stacked pair, not a
+   tight cluster. */
+.dancing-suits-scatter .pos-3 {
+    --suit-size: clamp(38px, 4.4vw, 56px);
+    top: 42%;
+    left: calc(50% - 290px - var(--suit-size) - 110px);
+    animation:
+        dancingSpade 2.4s ease-in-out infinite -1.1s,
+        suitPulseB   3.4s ease-in-out infinite -0.4s;
+}
+
+.dancing-suits-scatter .pos-4 {
+    --suit-size: clamp(32px, 3.6vw, 48px);
+    top: 62%;
+    left: calc(50% - 290px - var(--suit-size) - 60px);
+    animation:
+        dancingClub 2.8s ease-in-out infinite -0.5s,
+        suitPulseD  3.7s ease-in-out infinite -2.1s;
+}
+
+/* pos-5 — top corridor, well to the right. */
+.dancing-suits-scatter .pos-5 {
+    --suit-size: clamp(42px, 4.6vw, 60px);
+    top: 48px;
+    right: 26%;
+    animation:
+        dancingHeart 1.9s ease-in-out infinite -1.4s,
+        suitPulseD   3.9s ease-in-out infinite -0.9s;
+}
+
+/* pos-6 — beside the cabinet on the right, above slot image
+   (sits in the y:80-160 right-side corridor). Bigger icon. */
+.dancing-suits-scatter .pos-6 {
+    --suit-size: clamp(48px, 5.4vw, 70px);
+    top: 105px;
+    right: 7%;
+    animation:
+        dancingDiamond 2.5s ease-in-out infinite -0.3s,
+        suitPulseA     2.9s ease-in-out infinite -1.8s;
+}
+
+/* pos-7 — right corridor, upper-middle, mid size. */
+.dancing-suits-scatter .pos-7 {
+    --suit-size: clamp(36px, 4vw, 52px);
+    top: 26%;
+    right: 14%;
+    animation:
+        dancingSpade 2.7s ease-in-out infinite -2.0s,
+        suitPulseC   3.3s ease-in-out infinite -0.6s;
+}
+
+/* pos-8 — right corridor, lower-middle (well above Rio sign),
+   larger to anchor the right side. */
+.dancing-suits-scatter .pos-8 {
+    --suit-size: clamp(44px, 4.8vw, 64px);
+    top: 48%;
+    right: 5%;
+    animation:
+        dancingClub 3.1s ease-in-out infinite -1.6s,
+        suitPulseB  3.5s ease-in-out infinite -2.4s;
+}
+
+/* Dance keyframes — translate + rotate only. Scale is owned by
+   the pulse animations below so the two never fight. Resting
+   rotations vary per suit so the diamond looks hand-tossed
+   instead of laid out on a level. */
+@keyframes dancingHeart {
+    0%, 100% { translate: 0 0; rotate: -14deg; }
+    50%      { translate: 2px -8px; rotate: -2deg; }
+}
+
+@keyframes dancingDiamond {
+    0%, 100% { translate: 0 0; rotate: 12deg; }
+    25%      { translate: -3px -6px; rotate: 22deg; }
+    75%      { translate: 2px 5px; rotate: 2deg; }
+}
+
+@keyframes dancingSpade {
+    0%, 100% { translate: 0 0; rotate: 8deg; }
+    50%      { translate: -3px -7px; rotate: -8deg; }
+}
+
+@keyframes dancingClub {
+    0%, 100% { translate: 0 0; rotate: -18deg; }
+    33%      { translate: -5px -5px; rotate: -28deg; }
+    66%      { translate: 5px -2px; rotate: -6deg; }
+}
+
+/* Pulse keyframes — scale only, with non-uniform stops so each
+   suit's grow/shrink hits a different peak at a different beat.
+   Combined with the per-suit duration + negative offset above,
+   the four icons never sync up. */
+@keyframes suitPulseA {
+    0%   { scale: 1.00; }
+    22%  { scale: 1.22; }
+    47%  { scale: 0.78; }
+    71%  { scale: 1.10; }
+    100% { scale: 1.00; }
+}
+
+@keyframes suitPulseB {
+    0%   { scale: 0.95; }
+    18%  { scale: 0.72; }
+    44%  { scale: 1.28; }
+    73%  { scale: 0.88; }
+    100% { scale: 0.95; }
+}
+
+@keyframes suitPulseC {
+    0%   { scale: 1.08; }
+    27%  { scale: 0.82; }
+    53%  { scale: 1.24; }
+    81%  { scale: 0.92; }
+    100% { scale: 1.08; }
+}
+
+@keyframes suitPulseD {
+    0%   { scale: 1.00; }
+    15%  { scale: 1.18; }
+    38%  { scale: 0.74; }
+    62%  { scale: 1.26; }
+    86%  { scale: 0.90; }
+    100% { scale: 1.00; }
 }
 
 .floating-deco {
