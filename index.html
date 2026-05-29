@@ -37,7 +37,7 @@
     <link rel="stylesheet" href="css/fonts.css?v=20260528v">
     <link rel="stylesheet" href="css/styles.css?v=20260528zb">
     <link rel="stylesheet" href="css/neon.css?v=20260528n">
-    <link rel="stylesheet" href="css/marquee.css?v=20260528p">
+    <link rel="stylesheet" href="css/marquee.css?v=20260528q">
     <link rel="stylesheet" href="css/animations.css?v=20260528n">
     <link rel="stylesheet" href="css/signs.css?v=20260528q">
     <link rel="stylesheet" href="css/collage-bg.css?v=20260528n">
@@ -60,13 +60,14 @@
           imagesizes="(max-width: 768px) 60vw, 40vw"
           fetchpriority="high">
 
-    <!-- Preload the hero marquee poster (WebP). This is the J&B 3D logo
-         image that fills #marquee-3d while the live WebGL scene is still
-         streaming (or, on mobile / low-power, what the visitor sees in
-         place of the 175MB GLB+EXR entirely). -->
+    <!-- Preload the hero marquee poster (WebP). This is the J&B logo
+         image that fills #marquee-3d immediately, so the marquee is
+         never visually empty. On Save-Data / reduced-motion this poster
+         is the final state; everyone else sees the live WebGL scene
+         paint on top of it once the GLB finishes streaming. -->
     <link rel="preload" as="image" type="image/webp"
-          href="assets/models/hero-marquee-poster-960.webp"
-          imagesrcset="assets/models/hero-marquee-poster-480.webp 480w, assets/models/hero-marquee-poster-960.webp 960w, assets/models/hero-marquee-poster-1600.webp 1600w"
+          href="assets/models/hero-marquee-poster-960.webp?v=20260528v2"
+          imagesrcset="assets/models/hero-marquee-poster-480.webp?v=20260528v2 480w, assets/models/hero-marquee-poster-960.webp?v=20260528v2 960w, assets/models/hero-marquee-poster-1600.webp?v=20260528v2 1600w"
           imagesizes="(max-width: 768px) 95vw, (max-width: 1200px) 70vw, 800px"
           fetchpriority="high">
 </head>
@@ -211,23 +212,28 @@
         
         <div class="hero-content">
             <!-- 3D Theater Marquee — the live WebGL scene paints on top of
-                 a pre-rendered poster image. Mobile / low-power / save-data
-                 visitors never download the 175MB of GLB+EXR; they see only
-                 the poster, which is also what desktop visitors see while
-                 the model is still streaming in. The poster is rendered
-                 ahead of time by scripts/render-marquee-poster.js. -->
+                 a pre-rendered poster image so the J&B logo is visible
+                 instantly. Save-Data and prefers-reduced-motion visitors
+                 see only the poster (no GLB/EXR download). Everyone else
+                 (including phones) downloads Three.js + GLB + EXR in the
+                 background and the canvas swaps over when ready. The
+                 poster is cropped + padded to the same VIEW_PADDING the
+                 Three.js camera uses, so the swap is visually invisible.
+                 Source artwork for the poster is processed by
+                 scripts/process-marquee-poster.js (or re-rendered through
+                 scripts/render-marquee-poster.js). -->
             <div class="marquee-3d-container" id="marquee-3d">
                 <picture class="marquee-poster" aria-hidden="true">
                     <source type="image/webp"
                             sizes="(max-width: 768px) 95vw, (max-width: 1200px) 70vw, 800px"
-                            srcset="assets/models/hero-marquee-poster-480.webp 480w, assets/models/hero-marquee-poster-960.webp 960w, assets/models/hero-marquee-poster-1600.webp 1600w">
-                    <img src="assets/models/hero-marquee-poster.png"
+                            srcset="assets/models/hero-marquee-poster-480.webp?v=20260528v2 480w, assets/models/hero-marquee-poster-960.webp?v=20260528v2 960w, assets/models/hero-marquee-poster-1600.webp?v=20260528v2 1600w">
+                    <img src="assets/models/hero-marquee-poster.png?v=20260528v2"
                          alt="Jac & Ben theater marquee"
                          class="marquee-poster-img"
                          loading="eager"
                          decoding="async"
                          fetchpriority="high"
-                         width="1600" height="1600">
+                         width="578" height="578">
                 </picture>
                 <canvas id="marquee-canvas"></canvas>
             </div>
@@ -463,7 +469,7 @@
             <img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 2.5rem;">
             <img src="assets/stickers/star1.png" alt="" class="sticker-star" style="width: 3rem;">
             <img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 2rem;">
-            <img src="assets/stickers/vegas.png" alt="" class="sticker-vegas" style="width: 18rem;">
+            <img src="assets/stickers/vegas.png?v=2" alt="" class="sticker-vegas" style="width: 18rem;">
             <img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 2rem;">
             <img src="assets/stickers/star1.png" alt="" class="sticker-star" style="width: 3rem;">
             <img src="assets/stickers/star2.png" alt="" class="sticker-star" style="width: 2.5rem;">
@@ -537,7 +543,42 @@
         <!-- Jackpot decorations -->
         <div class="section-deco top-left" aria-hidden="true">
         </div>
-        <div class="section-deco top-right" aria-hidden="true">
+
+        <!-- Dancing card-suit SVGs scattered around the slot cabinet.
+             Two of each suit (heart, diamond, spade, club) recolored
+             in the Vegas palette, placed only in the empty top band
+             and upper-right edge so none of them sit on top of the
+             slot-machine sign (left) or the Rio sign (bottom-right).
+             Each icon has independent dance + pulse animations. -->
+        <div class="dancing-suits-scatter" aria-hidden="true">
+            <!-- Hearts: pink + gold -->
+            <svg class="dancing-icon suit-pink pos-1" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
+            </svg>
+            <svg class="dancing-icon suit-gold pos-2" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 21s-8.5-6.9-8.5-12A5 5 0 0 1 8.5 4c1.7 0 3 .8 3.5 1.6C12.5 4.8 13.8 4 15.5 4A5 5 0 0 1 20.5 9c0 5.1-8.5 12-8.5 12z"/>
+            </svg>
+            <!-- Diamonds: red + turquoise -->
+            <svg class="dancing-icon suit-red pos-3" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2 22 12 12 22 2 12z"/>
+            </svg>
+            <svg class="dancing-icon suit-turquoise pos-4" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2 22 12 12 22 2 12z"/>
+            </svg>
+            <!-- Spades: gold + pink -->
+            <svg class="dancing-icon suit-gold pos-5" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
+            </svg>
+            <svg class="dancing-icon suit-pink pos-6" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.5C8.6 6 3.5 9.6 3.5 13.6A4.4 4.4 0 0 0 7.9 18c1.4 0 2.6-.6 3.4-1.6L10 21.5h4L12.7 16.4c.8 1 2 1.6 3.4 1.6a4.4 4.4 0 0 0 4.4-4.4c0-4-5.1-7.6-8.5-11.1z"/>
+            </svg>
+            <!-- Clubs: turquoise + red -->
+            <svg class="dancing-icon suit-turquoise pos-7" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.8a3.4 3.4 0 0 0-3 5c-.6-.3-1.3-.4-2-.4a3.8 3.8 0 0 0-1 7.5c1.2.3 2.5 0 3.5-.6L8 21.2h8L14.5 14.3c1 .6 2.3.9 3.5.6a3.8 3.8 0 0 0-1-7.5c-.7 0-1.4.1-2 .4a3.4 3.4 0 0 0-3-5z"/>
+            </svg>
+            <svg class="dancing-icon suit-red pos-8" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg">
+                <path d="M12 2.8a3.4 3.4 0 0 0-3 5c-.6-.3-1.3-.4-2-.4a3.8 3.8 0 0 0-1 7.5c1.2.3 2.5 0 3.5-.6L8 21.2h8L14.5 14.3c1 .6 2.3.9 3.5.6a3.8 3.8 0 0 0-1-7.5c-.7 0-1.4.1-2 .4a3.4 3.4 0 0 0-3-5z"/>
+            </svg>
         </div>
         
         <div class="slot-machine-game" id="slot-machine">
@@ -657,7 +698,7 @@
         <div class="winner-modal">
             <div class="winner-modal-lights"></div>
             <div class="winner-modal-content">
-                <h3 class="winner-modal-title">YOU HIT THE JAC-POT!</h3>
+                <h3 class="winner-modal-title">You Hit the Jac-Pot!</h3>
                 <p class="winner-modal-subtitle">Enter your initials for the leaderboard</p>
                 <div class="winner-modal-input-container">
                     <input type="text" 
@@ -670,7 +711,7 @@
                 </div>
                 <div class="winner-modal-buttons">
                     <button type="button" class="winner-btn winner-btn-submit" id="winner-submit">
-                        ADD TO LEADERBOARD
+                        Add to Leaderboard
                     </button>
                     <button type="button" class="winner-btn winner-btn-skip" id="winner-skip">
                         SKIP
@@ -698,9 +739,9 @@
     </script>
 
     <!-- Scripts - defer for performance -->
-    <script src="js/main.js?v=20260528t" defer></script>
+    <script src="js/main.js?v=20260528u" defer></script>
     <script src="js/fireworks.js" defer></script>
-    <script src="js/marquee3d.js?v=20260528r" defer></script>
+    <script src="js/marquee3d.js?v=20260528s" defer></script>
     <script src="js/cursor-sparkles.js?v=20260528p" defer></script>
 </body>
 </html>

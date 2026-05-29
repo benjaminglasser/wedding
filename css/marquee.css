@@ -18,11 +18,14 @@
 
 /* Pre-rendered J&B logo poster. Sits underneath the live WebGL canvas so
    visitors see the marquee logo immediately — no waiting for the 87MB
-   GLB to download. On mobile / low-power / save-data devices the live
-   3D scene is skipped entirely (see js/main.js skip3D logic) and this
-   poster is the only thing shown. On desktop the WebGL canvas paints on
-   top of the poster with full chase-light animation as soon as the
-   model finishes streaming, so the swap is seamless. */
+   GLB+92MB EXR to download. Save-Data and prefers-reduced-motion
+   visitors see only the poster (skip3D in js/main.js); everyone else
+   sees the live WebGL chase-light animation paint on top once the model
+   finishes streaming. The poster is cropped + padded to the SAME
+   VIEW_PADDING the Three.js camera uses (see scripts/process-marquee-
+   poster.js), so when marquee3d.js adds the .live class on the
+   container the poster fades out cleanly without any size/position
+   jump. */
 .marquee-poster {
     position: absolute;
     inset: 0;
@@ -33,16 +36,28 @@
     justify-content: center;
     pointer-events: none;
     z-index: 0;
+    opacity: 1;
+    transition: opacity 0.5s ease-out;
+}
+
+/* Once the live 3D model is rendered into #marquee-canvas, fade the
+   poster out. The static poster shows all bulbs lit while the live
+   scene runs a chase animation (half lit / half dim), so leaving both
+   visible would create ghosted "double bulb" artifacts in the gaps
+   between live model bulbs. */
+.marquee-3d-container.live .marquee-poster {
+    opacity: 0;
 }
 
 .marquee-poster-img {
     width: 100%;
     height: 100%;
     object-fit: contain;
-    /* The poster source is square (1:1) but the container is wider than
-       tall on most viewports. object-fit: contain centers the logo and
-       letterboxes the rest with the transparent background, which is
-       exactly what the live 3D camera does too. */
+    /* The poster source is square (1:1) but the container is usually
+       wider than tall. object-fit: contain centers the logo and
+       letterboxes the rest with transparent background, which mirrors
+       what the live 3D camera does (its view box is also square in
+       world units, regardless of the canvas aspect). */
 }
 
 @keyframes marqueeBounceIn {

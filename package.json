@@ -4,7 +4,8 @@
   "private": true,
   "scripts": {
     "optimize:images": "node scripts/optimize-images.js",
-    "render:marquee-poster": "node scripts/render-marquee-poster.js"
+    "render:marquee-poster": "node scripts/render-marquee-poster.js",
+    "process:marquee-poster": "node scripts/process-marquee-poster.js"
   },
   "devDependencies": {
     "sharp": "^0.33.5"

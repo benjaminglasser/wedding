@@ -88,7 +88,8 @@
 
             // If 3D is being skipped entirely we still resolve the
             // ready promise so anything else awaiting it doesn't hang.
-            const skip3D = window.__isSaveData || prefersReducedMotion || window.__isLowPowerDevice;
+            // Must mirror skip3D in main.js — keep these in sync.
+            const skip3D = window.__isSaveData || prefersReducedMotion;
             if (skip3D && window.__marquee3DReadyResolve) {
                 window.__marquee3DReadyResolve(false);
             }
@@ -383,14 +384,27 @@ window.__init3DMarquee = function init3DMarquee() {
             marqueeGroup.rotation.x = Math.PI / 2 - 0.15;
             marqueeGroup.position.y = 0.5;
 
-            // Render one frame synchronously so the canvas paints the
-            // model BEFORE we let the container bounce in. Without this,
-            // the bounce-in could race ahead of the first render and the
-            // user briefly sees an empty canvas before the model appears.
+            // Render one frame synchronously so the canvas has the
+            // model painted into it BEFORE we mark the container "live"
+            // and start the crossfade from poster → canvas.
             try { renderer.render(scene, camera); } catch (_) {}
 
-            // Tell startMarqueeAnimation it's safe to bounce the
-            // container in — the model is on screen.
+            // Crossfade: the poster image (a static all-lit render of
+            // the same logo) is sitting at z-index 0 underneath the
+            // canvas. The live model has subtly different bulb states
+            // (it runs a chase animation) so leaving both visible
+            // would produce ghosted "double bulbs" in the gaps. Adding
+            // .live triggers a CSS opacity transition on the poster
+            // so it fades out cleanly once the live render is up. We
+            // wait one rAF to guarantee the canvas has actually
+            // composited before the poster starts disappearing.
+            requestAnimationFrame(() => {
+                if (container) container.classList.add('live');
+            });
+
+            // Resolve the ready promise. (The container has already
+            // bounced in by now — startMarqueeAnimation no longer
+            // waits on the GLB, since the poster covered the gap.)
             if (window.__marquee3DReadyResolve) {
                 window.__marquee3DReadyResolve(true);
             }
