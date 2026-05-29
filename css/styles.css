@@ -388,8 +388,11 @@ h1, h2, h3 {
 
 .event-panels {
     display: grid;
-    grid-template-columns: repeat(auto-fit, minmax(420px, 1fr));
-    gap: 30px;
+    /* Explicit 3-column grid so we always get side-by-side panels on
+       desktop/laptop and never fall into an awkward 2+1 wrap. We drop
+       to a single stacked column at the tablet breakpoint below. */
+    grid-template-columns: repeat(3, 1fr);
+    gap: 24px;
     max-width: 1620px;
     margin: 60px auto 0;
 }
@@ -2818,21 +2821,36 @@ body.dev-mode .lb-remove {
    RESPONSIVE DESIGN
    ============================================ */
 
-/* Tablet */
-/* Tablet / small-laptop / iPad: stack lineup cards into a single column
-   instead of falling into an awkward 2+1 grid. Three cards at
-   minmax(420px, 1fr) plus 2 × 30px gaps need ~1320px of container width,
-   which means the viewport must be ~1360px+ once section padding is
-   accounted for. We pad that further to 1440px so the 3-column desktop
-   layout only kicks in when there's room for each card to feel
-   comfortable (not cramped). Anywhere below that, single column. */
-@media (max-width: 1440px) {
+/* Small laptop / 13" MacBook: keep the lineup side-by-side but tighten
+   internal padding and reduce font sizes a touch so all three panels
+   stay legible at narrower widths. */
+@media (max-width: 1280px) {
     .event-panels {
-        grid-template-columns: 1fr;
-        max-width: 640px;
+        gap: 18px;
+    }
+
+    .event-panel {
+        padding: 32px 22px;
+    }
+
+    .event-panel.main-event .event-description {
+        font-size: clamp(2.2rem, 5.5vw, 3.2rem);
+    }
+
+    .event-venue {
+        font-size: 1.45rem;
+    }
+
+    .event-details {
+        font-size: 0.9rem;
     }
 }
 
+/* Tablet */
+/* iPad landscape and below: stack lineup cards into a single column
+   instead of squeezing three columns into too little width. The
+   3-column desktop layout stays in effect on any viewport wider than
+   this (which covers 13" MacBooks and up). */
 @media (max-width: 1024px) {
     :root {
         --section-padding: 80px 20px;
@@ -2843,6 +2861,8 @@ body.dev-mode .lb-remove {
     }
     
     .event-panels {
+        grid-template-columns: 1fr;
+        max-width: 640px;
         gap: 20px;
         padding: 0 30px;
     }
