@@ -8,14 +8,13 @@
 (function () {
     'use strict';
 
-    // Bail on reduced motion AND on coarse-pointer (touch) devices. The
-    // sparkle trail spawns DOM nodes on every move/drag, which thrashes
-    // the main thread during scrolling on phones — it's a delight on
-    // a hover-capable mouse but a perf tax everywhere else.
+    // Reduced motion kills the whole effect. On touch devices we skip the
+    // move-driven trail (which would thrash the main thread on every scroll
+    // gesture) but still wire up the tap burst — taps are discrete and
+    // celebratory, exactly what this effect is for.
     const prefersReducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
     if (prefersReducedMotion) return;
     const supportsHover = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
-    if (!supportsHover) return;
 
     const COLORS = [
         '#ffcc00', // gold
@@ -57,15 +56,53 @@
             this.onPointerMove = this.onPointerMove.bind(this);
             this.onPointerDown = this.onPointerDown.bind(this);
 
-            // Mouse-only path (touch was filtered out by the hover/pointer
-            // media query above): listen for pointermove/pointerdown when
-            // available, mousemove/click on legacy browsers.
-            if (window.PointerEvent) {
-                window.addEventListener('pointermove', this.onPointerMove, { passive: true });
-                window.addEventListener('pointerdown', this.onPointerDown, { passive: true });
+            if (supportsHover) {
+                // Hover-capable pointer (mouse/trackpad): the snappy
+                // pointerdown burst pairs with the move-driven trail.
+                if (window.PointerEvent) {
+                    window.addEventListener('pointermove', this.onPointerMove, { passive: true });
+                    window.addEventListener('pointerdown', this.onPointerDown, { passive: true });
+                } else {
+                    window.addEventListener('mousemove', this.onPointerMove, { passive: true });
+                    window.addEventListener('click', this.onPointerDown, { passive: true });
+                }
             } else {
-                window.addEventListener('mousemove', this.onPointerMove, { passive: true });
-                window.addEventListener('click', this.onPointerDown, { passive: true });
+                // Touch device: skip the trail (perf tax during scroll) and
+                // detect taps directly from touchstart/touchend. We avoid
+                // `click` because iOS Safari doesn't reliably synthesize it
+                // on non-interactive elements (bare divs, the page bg, etc).
+                // A "tap" = a single touch that didn't travel far between
+                // start and end, which lets us ignore scroll gestures.
+                this.touchStartX = 0;
+                this.touchStartY = 0;
+                this.touchValid = false;
+
+                window.addEventListener('touchstart', (e) => {
+                    if (e.touches.length !== 1) {
+                        this.touchValid = false;
+                        return;
+                    }
+                    const t = e.touches[0];
+                    this.touchStartX = t.clientX;
+                    this.touchStartY = t.clientY;
+                    this.touchValid = true;
+                }, { passive: true, capture: true });
+
+                window.addEventListener('touchend', (e) => {
+                    if (!this.touchValid) return;
+                    this.touchValid = false;
+                    const t = e.changedTouches && e.changedTouches[0];
+                    if (!t) return;
+                    const dx = t.clientX - this.touchStartX;
+                    const dy = t.clientY - this.touchStartY;
+                    // ~10px slop — anything farther was a scroll/drag.
+                    if (dx * dx + dy * dy > 100) return;
+                    this.onPointerDown({ clientX: t.clientX, clientY: t.clientY });
+                }, { passive: true, capture: true });
+
+                window.addEventListener('touchcancel', () => {
+                    this.touchValid = false;
+                }, { passive: true, capture: true });
             }
         }
 
