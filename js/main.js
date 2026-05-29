@@ -122,42 +122,136 @@ function cleanupAnimations() {
    LOADER CONTROL
    ============================================ */
 
+/**
+ * Tag every <img> that hasn't finished downloading with `.img-loading`
+ * so a Vegas-themed shimmer fills its box until the real pixels arrive.
+ * This is the worst-case safety net for mobile: if the loader's hard
+ * timeout fires before some assets are home, or if a lazy below-the-fold
+ * image hasn't started downloading by the time the user scrolls to it,
+ * the page reads as "still loading something pretty" instead of broken.
+ *
+ * Idempotent: skips images already complete and removes the class as
+ * soon as each image fires its load (or error) event.
+ */
+function initImagePlaceholders() {
+    document.querySelectorAll('img').forEach(img => {
+        // Already cached / finished by the time this runs — leave alone.
+        if (img.complete && img.naturalWidth > 0) return;
+
+        img.classList.add('img-loading');
+        const reveal = () => img.classList.remove('img-loading');
+        img.addEventListener('load', reveal, { once: true });
+        // On error, drop the placeholder too — at that point the broken
+        // icon (if any) is honestly more informative than an animation
+        // that never resolves, and the box stays out of the way.
+        img.addEventListener('error', reveal, { once: true });
+    });
+}
+
+/**
+ * Walk every <picture>/<img> in the document and return the list of
+ * URLs the browser will actually fetch for the current viewport. For
+ * <picture> elements we parse the <source srcset> ourselves and pick
+ * the smallest variant that's still wide enough for the device's
+ * effective resolution — that way we mirror the browser's choice
+ * without prefetching, e.g., a 1600w PNG onto a phone.
+ */
+function collectImageUrlsForLoader() {
+    const dpr = Math.min(window.devicePixelRatio || 1, 2);
+    const targetWidth = Math.min(window.innerWidth * dpr, 1600);
+    const urls = new Set();
+
+    function pickFromSrcset(srcset) {
+        if (!srcset) return null;
+        const variants = srcset.split(',').map(part => {
+            const [url, w] = part.trim().split(/\s+/);
+            return { url, width: parseInt(w, 10) || 0 };
+        }).filter(v => v.url);
+        if (!variants.length) return null;
+        variants.sort((a, b) => a.width - b.width);
+        const fit = variants.find(v => v.width >= targetWidth);
+        return (fit || variants[variants.length - 1]).url;
+    }
+
+    document.querySelectorAll('picture').forEach(picture => {
+        // Prefer the WebP <source> srcset (matches what modern browsers
+        // pick) over the <img> fallback PNG, which is huge.
+        const source = picture.querySelector('source[srcset]');
+        let chosen = source ? pickFromSrcset(source.getAttribute('srcset')) : null;
+        if (!chosen) {
+            const img = picture.querySelector('img');
+            if (img) chosen = img.currentSrc || img.src || null;
+        }
+        if (chosen) urls.add(chosen);
+    });
+
+    document.querySelectorAll('img').forEach(img => {
+        if (img.closest('picture')) return; // already covered above
+        const src = img.currentSrc || img.src;
+        if (src) urls.add(src);
+    });
+
+    return Array.from(urls);
+}
+
 function initLoader() {
     const loader = document.getElementById('loader');
     if (!loader) {
+        // Even with no loader element, still tag in-flight images so
+        // the placeholder shimmer kicks in while they finish.
+        initImagePlaceholders();
         window.startMarqueeAnimation?.();
         return;
     }
     
     // Prevent scrolling while loader is active
     document.body.classList.add('loader-active');
-    
-    // Pick the WebP variant that roughly matches what the browser will
-    // render given the viewport width, so the loader doesn't prefetch the
-    // huge PNG originals on mobile.
+
+    // Mark every still-loading <img> with the Vegas-themed shimmer
+    // placeholder right now, before we kick off the preloads. That way
+    // the placeholder is in place from first paint, and any image still
+    // in flight when the loader's hard timeout fires (or any lazy image
+    // the user scrolls to before it finishes downloading) shows
+    // something on-brand rather than empty space.
+    initImagePlaceholders();
+
     const isSmallViewport = window.innerWidth < 768;
-    const criticalImages = isSmallViewport ? [
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp',
-        'assets/background_pngs/Stardust_sign_015-480.webp',
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-480.webp',
-        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-480.webp',
-        'assets/background_pngs/photo-1645180804518-5dc3e353e647-480.webp'
-    ] : [
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp',
-        'assets/background_pngs/Stardust_sign_015-960.webp',
-        'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e-960.webp',
-        'assets/background_pngs/flamingoturns75-nvyesterdays-jakobowens-960.webp',
-        'assets/background_pngs/photo-1645180804518-5dc3e353e647-960.webp'
-    ];
-    
-    const imagePromises = criticalImages.map(src => {
-        return new Promise((resolve) => {
-            const img = new Image();
-            img.onload = resolve;
-            img.onerror = resolve;
-            img.src = src;
-        });
-    });
+
+    // Preload every image the page will render so visitors — especially
+    // those on mobile data — never see imagery pop in mid-page after the
+    // loader exits. We trigger the downloads via `new Image()` so the
+    // browser cache is warmed even for `loading="lazy"` <img> tags;
+    // when those tags eventually enter the viewport they'll resolve
+    // instantly from cache.
+    const imageUrls = collectImageUrlsForLoader();
+    const totalImages = imageUrls.length;
+    const loaderTextEl = document.querySelector('.loader-text');
+
+    let loadedCount = 0;
+    const onOneSettled = () => {
+        loadedCount++;
+        if (loaderTextEl && totalImages > 0) {
+            const pct = Math.min(100, Math.round((loadedCount / totalImages) * 100));
+            loaderTextEl.textContent = `Loading ${pct}`;
+        }
+    };
+
+    const imagePromises = imageUrls.map(src => new Promise((resolve) => {
+        const img = new Image();
+        img.onload = () => { onOneSettled(); resolve(); };
+        img.onerror = () => { onOneSettled(); resolve(); };
+        // decoding=async lets the decode happen off the main thread so
+        // the loader's roulette spin stays smooth on weaker phones.
+        img.decoding = 'async';
+        img.src = src;
+    }));
+
+    // Wait for web fonts too so the hero "JAC & BEN" neon text doesn't
+    // FOUT-flash to a fallback right after the loader exits. Resolves
+    // immediately on browsers without document.fonts.
+    const fontsReady = (document.fonts && document.fonts.ready)
+        ? document.fonts.ready.catch(() => {})
+        : Promise.resolve();
 
     // We only fully skip the 3D marquee when (a) the user has Save-Data
     // / 2g signaled, or (b) they prefer reduced motion. Everyone else
@@ -192,13 +286,26 @@ function initLoader() {
     const minDisplayMs = 1500;
     const minDisplayTime = new Promise(resolve => setTimeout(resolve, minDisplayMs));
 
-    Promise.all([...imagePromises, libraryCheck, minDisplayTime])
-        .then(() => {
-            hideLoader();
-        })
-        .catch(() => {
-            hideLoader();
-        });
+    // Hard ceiling on the loader so a single slow image (or a flaky
+    // CDN) can't strand visitors on the spinning wheel forever. Mobile
+    // gets a longer cap because mobile data really does need that time
+    // to pull ~30 images, and the user explicitly asked us to wait for
+    // them. Save-Data / reduced-motion users get a much shorter cap so
+    // we respect their bandwidth/perf preferences.
+    let maxWaitMs;
+    if (isSaveData || prefersReducedMotion) {
+        maxWaitMs = 6000;
+    } else if (isSmallViewport) {
+        maxWaitMs = 25000;
+    } else {
+        maxWaitMs = 15000;
+    }
+    const maxWait = new Promise(resolve => setTimeout(resolve, maxWaitMs));
+
+    Promise.race([
+        Promise.all([...imagePromises, fontsReady, libraryCheck, minDisplayTime]),
+        maxWait
+    ]).then(() => hideLoader(), () => hideLoader());
 }
 
 // Inject the Three.js + GLTF/EXR loader scripts on demand. Marked
@@ -881,15 +988,19 @@ function initScrollAnimations() {
         // user was already looking at the slot machine before the signs
         // showed up. Fire as soon as the section enters the viewport.
         const isGifts = section && section.id === 'gifts';
-        // The attire section's text reveal fires at top bottom (see the
-        // .attire-content timeline below); match that here so the signs
-        // and "What to Wear" copy come in together rather than the text
-        // leading the imagery. Firing as soon as the section enters the
-        // viewport means the content has already animated in by the time
-        // the user scrolls to it.
+        // The attire and hotel sections' text reveals fire at top bottom
+        // (or earlier on mobile — see the .attire-content / #hotel
+        // timelines below); match that here so the signs and copy come
+        // in together rather than the text leading the imagery. Firing
+        // as the section enters the viewport (or before, on mobile)
+        // means the content has already animated in by the time the
+        // user scrolls to it.
         const isAttire = section && section.id === 'attire';
+        const isHotel = section && section.id === 'hotel';
         let start = 'top 70%';
-        if (isGifts || isAttire) start = 'top bottom';
+        if (isGifts || isAttire || isHotel) {
+            start = isMobile ? 'top 130%' : 'top bottom';
+        }
         ScrollTrigger.create({
             trigger: section,
             start,
@@ -919,9 +1030,11 @@ function initScrollAnimations() {
     });
 
     gsap.utils.toArray('.section-title').forEach(title => {
-        // The attire section text is handled together via .attire-content
-        // below so the whole block reveals on section entry, not per-element.
+        // The attire and hotel section text are handled together via
+        // section-level timelines below so the whole block reveals on
+        // section entry, not per-element.
         if (title.closest('.attire-content')) return;
+        if (title.closest('#hotel')) return;
         gsap.from(title, {
             scrollTrigger: {
                 trigger: title,
@@ -937,6 +1050,7 @@ function initScrollAnimations() {
 
     gsap.utils.toArray('.section-copy').forEach(copy => {
         if (copy.closest('.attire-content')) return;
+        if (copy.closest('#hotel')) return;
         gsap.from(copy, {
             scrollTrigger: {
                 trigger: copy,
@@ -952,6 +1066,7 @@ function initScrollAnimations() {
 
     gsap.utils.toArray('.attire-details, .hotel-details').forEach(details => {
         if (details.closest('.attire-content')) return;
+        if (details.closest('#hotel')) return;
         gsap.from(details, {
             scrollTrigger: {
                 trigger: details,
@@ -965,11 +1080,41 @@ function initScrollAnimations() {
         });
     });
 
+    // Hotel section: reveal the title and copy together when the
+    // surrounding #hotel section approaches the viewport. The CTA button
+    // inside uses its own IntersectionObserver-based reveal (see below)
+    // so it's guaranteed to appear even when content-visibility:auto
+    // throws off ScrollTrigger's cached measurements. On mobile we fire
+    // well before the section enters the viewport ("top 130%") so the
+    // content is already revealed by the time the user scrolls to it,
+    // rather than fading in after they've stopped on the section.
+    document.querySelectorAll('#hotel').forEach(section => {
+        const textTargets = section.querySelectorAll(
+            '.section-title, .section-copy'
+        );
+        if (!textTargets.length) return;
+
+        gsap.from(textTargets, {
+            scrollTrigger: {
+                trigger: section,
+                start: isMobile ? 'top 130%' : 'top bottom',
+                toggleActions: 'play none none reverse'
+            },
+            opacity: 0,
+            y: 24,
+            duration: 0.6,
+            ease: 'power2.out',
+            stagger: 0.18
+        });
+    });
+
     // Attire section: reveal the title and vibe card together when the
     // surrounding #attire section enters the viewport. The CTA button
     // inside the card uses its own IntersectionObserver-based reveal
     // (see below) so it's guaranteed to appear even if content-visibility
-    // throws off ScrollTrigger's cached measurements.
+    // throws off ScrollTrigger's cached measurements. On mobile we fire
+    // before the section enters the viewport so the content is already
+    // revealed by the time the user scrolls to it.
     document.querySelectorAll('.attire-content').forEach(container => {
         const textTargets = container.querySelectorAll(
             '.section-title, .vibe-card'
@@ -980,7 +1125,7 @@ function initScrollAnimations() {
         gsap.from(textTargets, {
             scrollTrigger: {
                 trigger: section || container,
-                start: 'top bottom',
+                start: isMobile ? 'top 130%' : 'top bottom',
                 toggleActions: 'play none none reverse'
             },
             opacity: 0,
@@ -1065,11 +1210,13 @@ function initScrollAnimations() {
     });
 
     gsap.utils.toArray('.cta-button').forEach(button => {
-        // The attire ("GET INSPIRED") button is handled separately below
-        // with an IntersectionObserver + safety net, because the attire
-        // section's content-visibility:auto can cause ScrollTrigger to
-        // mismeasure the button and leave it permanently invisible.
+        // The attire ("GET INSPIRED") and hotel ("BOOK HERE") buttons are
+        // handled separately below with an IntersectionObserver + safety
+        // net, because those sections' content-visibility:auto can cause
+        // ScrollTrigger to mismeasure the button and leave it permanently
+        // invisible.
         if (button.closest('#attire')) return;
+        if (button.closest('#hotel')) return;
         gsap.from(button, {
             scrollTrigger: {
                 trigger: button,
@@ -1083,12 +1230,17 @@ function initScrollAnimations() {
         });
     });
 
-    // GET INSPIRED button reveal — uses a plain IntersectionObserver so
-    // the button reliably appears even when content-visibility:auto on
-    // #attire throws off ScrollTrigger's cached measurements. A short
-    // safety timeout guarantees the button becomes visible regardless of
-    // observer behavior.
-    document.querySelectorAll('#attire .cta-button').forEach(button => {
+    // GET INSPIRED + BOOK HERE button reveal — uses a plain
+    // IntersectionObserver so the buttons reliably appear even when
+    // content-visibility:auto on #attire / #hotel throws off
+    // ScrollTrigger's cached measurements. On mobile the rootMargin is
+    // bigger so the buttons fade in well before the section enters the
+    // viewport, matching the section-level text reveals above so the
+    // user doesn't watch the CTA pop in after they've stopped scrolling.
+    // A short safety timeout guarantees the button becomes visible
+    // regardless of observer behavior.
+    const ctaRootMargin = isMobile ? '0px 0px 600px 0px' : '0px 0px 200px 0px';
+    document.querySelectorAll('#attire .cta-button, #hotel .cta-button').forEach(button => {
         button.classList.add('cta-reveal');
         const reveal = () => button.classList.add('is-revealed');
         if ('IntersectionObserver' in window) {
@@ -1099,7 +1251,7 @@ function initScrollAnimations() {
                         observer.unobserve(entry.target);
                     }
                 });
-            }, { rootMargin: '0px 0px 200px 0px', threshold: 0 });
+            }, { rootMargin: ctaRootMargin, threshold: 0 });
             io.observe(button);
         } else {
             reveal();

@@ -672,3 +672,63 @@ body.loader-active {
     }
 }
 
+/* ============================================
+   IMAGE LOADING PLACEHOLDER
+   Vegas-themed shimmer drawn behind any <img> that
+   hasn't downloaded yet — primarily a safety net
+   for the worst-case mobile scenario where the
+   loader's hard timeout fires before slow assets
+   finish, or where lazy below-the-fold images
+   haven't started downloading yet when the user
+   scrolls past them. The class is added in JS at
+   document parse and removed on each img's
+   load/error event so it never lingers after the
+   real image is on screen.
+   ============================================ */
+
+img.img-loading {
+    /* Layered backgrounds, top→bottom:
+       1. A gold star SVG centered in the box so a missing image
+          reads as an intentional placeholder rather than a broken
+          asset. data: URL keeps it self-contained.
+       2. A diagonal sweep of the site's neon palette that animates
+          left-to-right (the "shimmer").
+       3. A solid deep-purple base so transparent star pixels still
+          read against any section background.
+    */
+    background-color: rgba(13, 0, 26, 0.92);
+    background-image:
+        url("data:image/svg+xml;utf8,<svg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 24 24'><path fill='%23ffcc00' opacity='0.55' d='M12 1.6l2.7 7.6h7.9l-6.4 4.7 2.5 7.6L12 16.9l-6.7 4.6 2.5-7.6L1.4 9.2h7.9z'/></svg>"),
+        linear-gradient(
+            120deg,
+            rgba(13, 0, 26, 0) 0%,
+            rgba(255, 204, 0, 0.22) 35%,
+            rgba(255, 45, 123, 0.22) 50%,
+            rgba(0, 229, 204, 0.22) 65%,
+            rgba(13, 0, 26, 0) 100%
+        );
+    background-size: clamp(28px, 18%, 56px) auto, 220% 100%;
+    background-position: center center, -110% 0;
+    background-repeat: no-repeat, no-repeat;
+    box-shadow:
+        inset 0 0 18px rgba(255, 204, 0, 0.18),
+        inset 0 0 36px rgba(255, 45, 123, 0.10),
+        0 0 12px rgba(255, 204, 0, 0.10);
+    border-radius: 6px;
+    animation: vegasPlaceholderShimmer 2.4s ease-in-out infinite;
+    /* Smooth out the moment the real image takes over so we don't
+       harshly cut from shimmer → image. */
+    transition: background-color 0.25s ease-out, box-shadow 0.25s ease-out;
+}
+
+@keyframes vegasPlaceholderShimmer {
+    0%   { background-position: center center, -110% 0; }
+    100% { background-position: center center,  210% 0; }
+}
+
+@media (prefers-reduced-motion: reduce) {
+    img.img-loading {
+        animation: none;
+    }
+}
+
