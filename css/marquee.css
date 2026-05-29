@@ -303,10 +303,10 @@
 }
 
 .banner-2 .bulb-star {
-    color: var(--neon-red);
+    color: var(--neon-pink);
     text-shadow: 
-        0 0 10px var(--neon-red),
-        0 0 20px var(--neon-red);
+        0 0 10px var(--neon-pink),
+        0 0 20px var(--neon-pink);
 }
 
 @keyframes starPulse {
