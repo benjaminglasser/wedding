@@ -2511,8 +2511,11 @@ body.dev-mode .lb-remove {
 }
 
 .winner-modal-title {
-    /* Match the "Lucky Jacs" slot cabinet title (Marons) so the modal
-       feels like it belongs to the same prize-machine signage. */
+    /* Match "The Lineup" section heading (Marons, title case) so the modal
+       headline reads with the same retro-prize-cabinet voice as the rest of
+       the site. The global h1/h2/h3 rule applies text-transform: uppercase,
+       so we have to explicitly reset it here to keep the HTML's title case
+       ("You Hit the Jac-Pot!") instead of shouting in all caps. */
     font-family: 'Marons', var(--font-section-title);
     font-size: clamp(1.6rem, 6.5vw, 3rem);
     color: var(--gold);
@@ -2522,6 +2525,7 @@ body.dev-mode .lb-remove {
         0 0 40px rgba(255, 204, 0, 0.6);
     margin-bottom: 15px;
     letter-spacing: 0.03em;
+    text-transform: none;
     white-space: nowrap;
     animation: jackpotFlash 0.5s ease-in-out infinite alternate;
 }
