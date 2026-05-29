@@ -265,6 +265,12 @@
         0 0 10px var(--gold),
         0 0 20px var(--gold);
     animation: starPulse 1s ease-in-out infinite;
+    /* Force text-glyph presentation for ★ / ♥. Without this, iOS and
+       some Android browsers render U+2605 / U+2665 as colored emoji,
+       which clashes with the desktop look. The HTML also includes a
+       U+FE0E variation selector after each glyph as a belt-and-braces
+       fallback for browsers that ignore font-variant-emoji. */
+    font-variant-emoji: text;
 }
 
 .banner-2 .bulb-star {
