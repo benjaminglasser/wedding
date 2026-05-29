@@ -224,22 +224,11 @@ function initLoader() {
     // when those tags eventually enter the viewport they'll resolve
     // instantly from cache.
     const imageUrls = collectImageUrlsForLoader();
-    const totalImages = imageUrls.length;
-    const loaderTextEl = document.querySelector('.loader-text');
-
-    let loadedCount = 0;
-    const onOneSettled = () => {
-        loadedCount++;
-        if (loaderTextEl && totalImages > 0) {
-            const pct = Math.min(100, Math.round((loadedCount / totalImages) * 100));
-            loaderTextEl.textContent = `Loading ${pct}`;
-        }
-    };
 
     const imagePromises = imageUrls.map(src => new Promise((resolve) => {
         const img = new Image();
-        img.onload = () => { onOneSettled(); resolve(); };
-        img.onerror = () => { onOneSettled(); resolve(); };
+        img.onload = () => resolve();
+        img.onerror = () => resolve();
         // decoding=async lets the decode happen off the main thread so
         // the loader's roulette spin stays smooth on weaker phones.
         img.decoding = 'async';
