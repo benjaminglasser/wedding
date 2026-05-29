@@ -67,48 +67,31 @@
 
     window.startMarqueeAnimation = function() {
         setTimeout(() => {
-            // Background sign cutouts fly in immediately on loader exit —
-            // they don't depend on the 3D scene, and on mobile the GLB can
-            // take a long time to download. Holding the cutouts until the
-            // model is ready was leaving the hero blank for far too long.
+            // Background sign cutouts fly in immediately on loader exit.
             animateBgCutouts();
 
-            // The 3D container's bounce-in entrance, on the other hand, is
-            // gated on the model actually being loaded. Otherwise the empty
-            // canvas bounces in first and the 3D scene "pops in" seconds
-            // later when the GLB finally finishes downloading — which is
-            // exactly the visual glitch we want to avoid on mobile.
-            const skip3D = window.__isSaveData || prefersReducedMotion;
-            const triggerBounceIn = () => {
-                if (container && !container.classList.contains('bounce-in')) {
-                    container.classList.add('bounce-in');
-                }
-            };
-
-            if (skip3D || !container) {
-                // Nothing to wait for — bounce in (or no-op if no container).
-                triggerBounceIn();
-                if (window.__marquee3DReadyResolve) {
-                    window.__marquee3DReadyResolve(false);
-                }
-                return;
+            // The marquee container holds a static poster image
+            // (`<picture class="marquee-poster">` rendered ahead of time
+            // by scripts/render-marquee-poster.js) underneath the WebGL
+            // canvas. That poster is what mobile / low-power / save-data
+            // visitors see — they never download the 175MB of GLB+EXR.
+            // On devices that DO load the 3D scene, the live canvas
+            // simply paints on top of the poster as soon as the model
+            // is ready, so the user never stares at empty space.
+            //
+            // Because the poster guarantees something visible is in
+            // place, we can bounce the container in immediately on
+            // loader exit (no need to wait on the GLB download).
+            if (container && !container.classList.contains('bounce-in')) {
+                container.classList.add('bounce-in');
             }
 
-            // Wait for the GLB load to resolve __marquee3DReady, with a
-            // generous fallback so the container always reveals itself
-            // even on flaky connections (mobile gets longer because the
-            // 87MB GLB legitimately takes a while on cellular).
-            let bounced = false;
-            const bounceOnce = () => {
-                if (bounced) return;
-                bounced = true;
-                triggerBounceIn();
-            };
-            window.__marquee3DReady.then(bounceOnce);
-
-            const isSmallViewport = window.innerWidth < 768;
-            const fallbackMs = isSmallViewport ? 12000 : 6000;
-            setTimeout(bounceOnce, fallbackMs);
+            // If 3D is being skipped entirely we still resolve the
+            // ready promise so anything else awaiting it doesn't hang.
+            const skip3D = window.__isSaveData || prefersReducedMotion || window.__isLowPowerDevice;
+            if (skip3D && window.__marquee3DReadyResolve) {
+                window.__marquee3DReadyResolve(false);
+            }
         }, 100);
     };
 

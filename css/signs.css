@@ -51,6 +51,12 @@
     width: 100%;
     height: 100%;
     display: block;
+    /* Stay in flow so the canvas's intrinsic size contributes to the
+       container's layout — the .marquee-3d-container itself uses
+       width: 100% but its parent (.hero-content) is a flex item that
+       shrinks to content, so without an in-flow child the container
+       collapses to 0px wide. The poster is positioned absolutely on
+       top of the canvas via z-index instead. */
     position: relative;
     z-index: 1;
 }

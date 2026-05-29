@@ -1280,6 +1280,25 @@ h1, h2, h3 {
     94% { opacity: 1; }
 }
 
+/* On mobile, the neon-line divider (used after the RSVP section) renders
+   as a single continuous gold line passing under the dice/star icons,
+   instead of two short flanking lines with a gap. Also nudged down a bit
+   on mobile so it sits a touch lower beneath the RSVP button. */
+@media (max-width: 768px) {
+    .vegas-divider.neon-line {
+        margin-top: -20px;
+    }
+
+    .vegas-divider.neon-line::before {
+        left: 0;
+        width: 100%;
+    }
+
+    .vegas-divider.neon-line::after {
+        display: none;
+    }
+}
+
 /* Playing cards divider variant */
 .vegas-divider.cards-divider {
     height: 70px;

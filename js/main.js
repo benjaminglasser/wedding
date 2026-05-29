@@ -242,14 +242,26 @@ function initLoader() {
         ? document.fonts.ready.catch(() => {})
         : Promise.resolve();
 
-    // We only fully skip the 3D marquee when (a) the user has Save-Data
-    // / 2g signaled, or (b) they prefer reduced motion. Everyone else
-    // gets the 3D scene, but its 184MB of model+environment loads in
-    // the background — the loader doesn't wait on it, so the hero
-    // becomes interactive quickly even on a slow connection. The 3D
-    // canvas fades in (via marquee-3d-container.bounce-in) once it's
-    // ready, which lands gracefully on top of the rest of the hero.
-    const skip3D = isSaveData || prefersReducedMotion;
+    // Skip the 3D marquee entirely on:
+    //   • Save-Data / very slow connections — they explicitly asked us
+    //     not to download heavy assets.
+    //   • prefers-reduced-motion — the chase animation is the whole
+    //     point of the live scene.
+    //   • Low-power devices (narrow viewport, coarse pointer, ≤4 cores
+    //     or ≤4GB RAM) — i.e. phones and budget tablets. The 87MB GLB
+    //     plus 92MB EXR is a non-starter on cellular and would just
+    //     pop in much later anyway. These visitors get the
+    //     pre-rendered poster image inside #marquee-3d (see
+    //     scripts/render-marquee-poster.js + the <picture> in
+    //     index.html) which is ~60KB at the smallest variant and looks
+    //     almost identical to a paused frame of the live scene.
+    //
+    // Everyone else (i.e. real desktop visitors) downloads Three.js +
+    // the GLB + EXR in the background while the poster fills the
+    // marquee. When the model is ready, the WebGL canvas paints on top
+    // of the poster — the swap is seamless because the camera is
+    // tuned to the same framing.
+    const skip3D = isSaveData || prefersReducedMotion || isLowPowerDevice;
     if (!skip3D) {
         loadThreeJsScripts().then(() => {
             if (typeof window.__init3DMarquee === 'function') {

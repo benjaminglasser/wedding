@@ -35,11 +35,11 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/fonts.css?v=20260528v">
-    <link rel="stylesheet" href="css/styles.css?v=20260528za">
+    <link rel="stylesheet" href="css/styles.css?v=20260528zb">
     <link rel="stylesheet" href="css/neon.css?v=20260528n">
-    <link rel="stylesheet" href="css/marquee.css?v=20260528o">
+    <link rel="stylesheet" href="css/marquee.css?v=20260528p">
     <link rel="stylesheet" href="css/animations.css?v=20260528n">
-    <link rel="stylesheet" href="css/signs.css?v=20260528o">
+    <link rel="stylesheet" href="css/signs.css?v=20260528q">
     <link rel="stylesheet" href="css/collage-bg.css?v=20260528n">
     <link rel="stylesheet" href="css/loader.css?v=20260528p">
 
@@ -58,6 +58,16 @@
           href="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp"
           imagesrcset="assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-480.webp 480w, assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_3-618.webp 618w"
           imagesizes="(max-width: 768px) 60vw, 40vw"
+          fetchpriority="high">
+
+    <!-- Preload the hero marquee poster (WebP). This is the J&B 3D logo
+         image that fills #marquee-3d while the live WebGL scene is still
+         streaming (or, on mobile / low-power, what the visitor sees in
+         place of the 175MB GLB+EXR entirely). -->
+    <link rel="preload" as="image" type="image/webp"
+          href="assets/models/hero-marquee-poster-960.webp"
+          imagesrcset="assets/models/hero-marquee-poster-480.webp 480w, assets/models/hero-marquee-poster-960.webp 960w, assets/models/hero-marquee-poster-1600.webp 1600w"
+          imagesizes="(max-width: 768px) 95vw, (max-width: 1200px) 70vw, 800px"
           fetchpriority="high">
 </head>
 <body>
@@ -200,8 +210,25 @@
         </div>
         
         <div class="hero-content">
-            <!-- 3D Theater Marquee - All in one integrated sign -->
+            <!-- 3D Theater Marquee — the live WebGL scene paints on top of
+                 a pre-rendered poster image. Mobile / low-power / save-data
+                 visitors never download the 175MB of GLB+EXR; they see only
+                 the poster, which is also what desktop visitors see while
+                 the model is still streaming in. The poster is rendered
+                 ahead of time by scripts/render-marquee-poster.js. -->
             <div class="marquee-3d-container" id="marquee-3d">
+                <picture class="marquee-poster" aria-hidden="true">
+                    <source type="image/webp"
+                            sizes="(max-width: 768px) 95vw, (max-width: 1200px) 70vw, 800px"
+                            srcset="assets/models/hero-marquee-poster-480.webp 480w, assets/models/hero-marquee-poster-960.webp 960w, assets/models/hero-marquee-poster-1600.webp 1600w">
+                    <img src="assets/models/hero-marquee-poster.png"
+                         alt="Jac & Ben theater marquee"
+                         class="marquee-poster-img"
+                         loading="eager"
+                         decoding="async"
+                         fetchpriority="high"
+                         width="1600" height="1600">
+                </picture>
                 <canvas id="marquee-canvas"></canvas>
             </div>
         </div>
@@ -671,9 +698,9 @@
     </script>
 
     <!-- Scripts - defer for performance -->
-    <script src="js/main.js?v=20260528s" defer></script>
+    <script src="js/main.js?v=20260528t" defer></script>
     <script src="js/fireworks.js" defer></script>
-    <script src="js/marquee3d.js?v=20260528q" defer></script>
+    <script src="js/marquee3d.js?v=20260528r" defer></script>
     <script src="js/cursor-sparkles.js?v=20260528p" defer></script>
 </body>
 </html>
