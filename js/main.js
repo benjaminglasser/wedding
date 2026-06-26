@@ -2439,7 +2439,7 @@ function initSlotMachine() {
             resultDisplay.textContent = '🃏 Two Jacs! So close!';
             resultDisplay.className = 'slot-result winner';
         } else if (r1 === r2 || r2 === r3 || r1 === r3) {
-            resultDisplay.textContent = 'Two of a kind!';
+            resultDisplay.textContent = 'Try again!';
             resultDisplay.className = 'slot-result';
         } else {
             resultDisplay.textContent = 'Try again!';

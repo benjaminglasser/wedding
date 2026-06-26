@@ -388,12 +388,12 @@ h1, h2, h3 {
 
 .event-panels {
     display: grid;
-    /* Explicit 3-column grid so we always get side-by-side panels on
-       desktop/laptop and never fall into an awkward 2+1 wrap. We drop
+    /* 2-column grid for the two events, centered on desktop. We drop
        to a single stacked column at the tablet breakpoint below. */
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    max-width: 1620px;
+    grid-template-columns: repeat(2, 1fr);
+    gap: 32px;
+    width: 100%;
+    max-width: 1200px;
     margin: 60px auto 0;
 }
 
@@ -402,7 +402,7 @@ h1, h2, h3 {
     backdrop-filter: blur(10px);
     -webkit-backdrop-filter: blur(10px);
     border: 3px solid var(--gold);
-    padding: 40px 30px;
+    padding: 48px 40px;
     position: relative;
     text-align: center;
     display: flex;
@@ -2822,7 +2822,7 @@ body.dev-mode .lb-remove {
    ============================================ */
 
 /* Small laptop / 13" MacBook: keep the lineup side-by-side but tighten
-   internal padding and reduce font sizes a touch so all three panels
+   internal padding and reduce font sizes a touch so both panels
    stay legible at narrower widths. */
 @media (max-width: 1280px) {
     .event-panels {
@@ -2848,8 +2848,8 @@ body.dev-mode .lb-remove {
 
 /* Tablet */
 /* iPad landscape and below: stack lineup cards into a single column
-   instead of squeezing three columns into too little width. The
-   3-column desktop layout stays in effect on any viewport wider than
+   instead of squeezing two columns into too little width. The
+   2-column desktop layout stays in effect on any viewport wider than
    this (which covers 13" MacBooks and up). */
 @media (max-width: 1024px) {
     :root {
