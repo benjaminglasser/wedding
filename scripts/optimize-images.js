@@ -28,6 +28,7 @@ const SOURCES = [
     'assets/background_pngs/tumblr_a308156a8eca84a5697bdf47f57395ee_ef479b5c_1280.png',
     'assets/background_pngs/dunes-casino-and-oasis-casino-neon-signs-at-night-aloha-art.png',
     'assets/background_pngs/welcome-to-las-vegas-neon-sign-nevada-usa-vintage-panorama-gregory-ballos.png',
+    'assets/background_pngs/Vegas_sign_sjc.png',
     'assets/background_pngs/las-vegas-night-time-neon-lights-casinos-df06d34b7adeabffd877b27a490cc01e_4.png',
     'assets/background_pngs/premium_photo-1673468922198-af2d3dde732f.png',
     // section-sign-cutouts
