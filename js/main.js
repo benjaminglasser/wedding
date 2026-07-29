@@ -376,7 +376,63 @@ function hideLoader() {
         setTimeout(() => {
             loader.remove();
         }, 500);
+
+        // Pop the welcome modal once the hero animation has settled
+        // (marquee bounce ~850ms + background/scroll-indicator reveal ~1800ms).
+        setTimeout(showWelcomeModal, 2800);
     }, 800);
+}
+
+/* ============================================
+   WELCOME MODAL (page-load pop-up)
+   ============================================ */
+
+function showWelcomeModal() {
+    const modal = document.getElementById('welcome-modal');
+    if (!modal) return;
+
+    // Body carries a sepia filter that creates a containing block for
+    // fixed descendants — portal the modal to <html> so it pins to the
+    // viewport regardless of scroll position (mirrors the winner modal).
+    if (modal.parentElement !== document.documentElement) {
+        document.documentElement.appendChild(modal);
+    }
+
+    modal.classList.add('active');
+    modal.setAttribute('aria-hidden', 'false');
+
+    // Lock page scroll while the modal is open.
+    document.body.style.overflow = 'hidden';
+}
+
+function hideWelcomeModal() {
+    const modal = document.getElementById('welcome-modal');
+    if (!modal) return;
+    modal.classList.remove('active');
+    modal.setAttribute('aria-hidden', 'true');
+
+    // Restore page scroll.
+    document.body.style.overflow = '';
+}
+
+function initWelcomeModal() {
+    const modal = document.getElementById('welcome-modal');
+    if (!modal) return;
+
+    const closeBtn = document.getElementById('welcome-modal-close');
+    if (closeBtn) closeBtn.addEventListener('click', hideWelcomeModal);
+
+    // Click on the dimmed backdrop (but not the card) dismisses.
+    modal.addEventListener('click', (e) => {
+        if (e.target === modal) hideWelcomeModal();
+    });
+
+    // Escape closes while the modal is open.
+    document.addEventListener('keydown', (e) => {
+        if (e.key === 'Escape' && modal.classList.contains('active')) {
+            hideWelcomeModal();
+        }
+    });
 }
 
 initLoader();
@@ -398,6 +454,7 @@ document.addEventListener('DOMContentLoaded', () => {
     initHeartAnimation();
     initSmoothScroll();
     initSlotMachine();
+    initWelcomeModal();
 });
 
 /* ============================================

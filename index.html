@@ -35,7 +35,7 @@
 
     <!-- Stylesheets -->
     <link rel="stylesheet" href="css/fonts.css?v=20260528v">
-    <link rel="stylesheet" href="css/styles.css?v=20260528zc">
+    <link rel="stylesheet" href="css/styles.css?v=20260729a">
     <link rel="stylesheet" href="css/neon.css?v=20260528n">
     <link rel="stylesheet" href="css/marquee.css?v=20260528q">
     <link rel="stylesheet" href="css/animations.css?v=20260528n">
@@ -711,6 +711,23 @@
         </div>
     </div>
 
+    <!-- Welcome Modal — pops in on page load once the hero animation has
+         settled. Styled to match the winner modal (red velvet + gold chase
+         lights) with an X to dismiss. -->
+    <div class="welcome-modal-overlay" id="welcome-modal" aria-hidden="true">
+        <div class="welcome-modal" role="dialog" aria-modal="true" aria-label="Welcome">
+            <div class="winner-modal-lights"></div>
+            <button type="button" class="welcome-modal-close" id="welcome-modal-close" aria-label="Close">&times;</button>
+            <div class="welcome-modal-content">
+                <h3 class="welcome-modal-title">Our wedding has officially moved!</h3>
+                <p class="welcome-modal-body">Our Las Vegas venue canceled our wedding, and despite every effort to save it, our original plans couldn't be salvaged.</p>
+                <p class="welcome-modal-body">We'll now be celebrating in <strong>San Juan Capistrano, California</strong>. While the scenery will be a little different, we're determined to capture the spirit of the celebration we originally planned, surrounded by the people we love most!</p>
+                <p class="welcome-modal-body">Thank you for rolling with this unexpected plot twist. We can't wait to celebrate with you!</p>
+                <p class="welcome-modal-signoff">&mdash; The Future Glassers &amp; Our Families</p>
+            </div>
+        </div>
+    </div>
+
     <!-- Firebase SDK is loaded lazily (see initFirebaseLazy in main.js)
          the first time the slot machine section is approaching the
          viewport, so the ~150KB of synchronous SDK doesn't block initial
@@ -729,7 +746,7 @@
     </script>
 
     <!-- Scripts - defer for performance -->
-    <script src="js/main.js?v=20260528u" defer></script>
+    <script src="js/main.js?v=20260729a" defer></script>
     <script src="js/fireworks.js" defer></script>
     <script src="js/marquee3d.js?v=20260528s" defer></script>
     <script src="js/cursor-sparkles.js?v=20260528p" defer></script>

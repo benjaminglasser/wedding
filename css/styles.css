@@ -2637,6 +2637,136 @@ body.dev-mode .lb-remove {
 }
 
 /* ============================================
+   WELCOME MODAL (page-load pop-up)
+   ============================================ */
+
+.welcome-modal-overlay {
+    position: fixed;
+    top: 0;
+    left: 0;
+    width: 100%;
+    height: 100%;
+    background: rgba(0, 0, 0, 0.85);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    z-index: 10001;
+    opacity: 0;
+    visibility: hidden;
+    transition: opacity 0.3s ease, visibility 0.3s ease;
+}
+
+.welcome-modal-overlay.active {
+    opacity: 1;
+    visibility: visible;
+}
+
+.welcome-modal {
+    background: linear-gradient(180deg, #8B0000 0%, #4a0000 50%, #2a0000 100%);
+    border: 5px solid var(--gold);
+    border-radius: 20px;
+    padding: 50px 55px 45px;
+    width: fit-content;
+    max-width: min(92vw, 640px);
+    text-align: center;
+    position: relative;
+    box-shadow:
+        0 0 50px rgba(255, 204, 0, 0.4),
+        0 0 100px rgba(255, 204, 0, 0.2),
+        inset 0 2px 10px rgba(255, 255, 255, 0.1);
+    /* Start hidden + shrunk so the pop-in plays when .active is added,
+       rather than on page load while the overlay is still invisible. */
+    transform: scale(0.8) translateY(20px);
+    opacity: 0;
+}
+
+.welcome-modal-overlay.active .welcome-modal {
+    animation: welcomeModalPop 0.5s cubic-bezier(0.34, 1.56, 0.64, 1) forwards;
+}
+
+@keyframes welcomeModalPop {
+    0% {
+        transform: scale(0.8) translateY(20px);
+        opacity: 0;
+    }
+    100% {
+        transform: scale(1) translateY(0);
+        opacity: 1;
+    }
+}
+
+.welcome-modal-close {
+    position: absolute;
+    top: 10px;
+    right: 14px;
+    z-index: 2;
+    background: transparent;
+    border: none;
+    color: var(--gold);
+    font-family: var(--font-buttons);
+    font-size: 2.4rem;
+    line-height: 1;
+    cursor: pointer;
+    padding: 4px 10px;
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.6);
+    transition: transform 0.2s ease, color 0.2s ease;
+}
+
+.welcome-modal-close:hover {
+    color: var(--cream);
+    transform: scale(1.15);
+}
+
+.welcome-modal-content {
+    position: relative;
+    z-index: 1;
+}
+
+/* Headline — the loud, glowing gold announcement (matches winner modal). */
+.welcome-modal-title {
+    font-family: 'Marons', var(--font-section-title);
+    font-size: clamp(1.5rem, 5vw, 2.4rem);
+    line-height: 1.15;
+    color: var(--gold);
+    text-shadow:
+        0 0 10px var(--gold),
+        0 0 20px var(--gold),
+        0 0 40px rgba(255, 204, 0, 0.6);
+    letter-spacing: 0.02em;
+    text-transform: none;
+    margin: 0 0 22px;
+}
+
+/* Body copy — Sanchez, the same legible slab serif used for the wedding
+   card details, so the longer message reads easily under the headline. */
+.welcome-modal-body {
+    font-family: 'Sanchez', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    line-height: 1.6;
+    color: var(--cream);
+    letter-spacing: 0.01em;
+    margin: 0 0 16px;
+    text-transform: none;
+}
+
+.welcome-modal-body strong {
+    color: var(--gold);
+    font-weight: 700;
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.5);
+}
+
+/* Signoff — Sanchez in gold, sits apart from the body as the closing line. */
+.welcome-modal-signoff {
+    font-family: 'Sanchez', 'Helvetica Neue', Helvetica, Arial, sans-serif;
+    font-size: clamp(0.95rem, 2.2vw, 1.1rem);
+    color: var(--gold);
+    letter-spacing: 0.01em;
+    margin: 26px 0 0;
+    text-transform: none;
+    text-shadow: 0 0 8px rgba(255, 204, 0, 0.4);
+}
+
+/* ============================================
    FOOTER
    ============================================ */
 
@@ -2843,6 +2973,19 @@ body.dev-mode .lb-remove {
 
     .event-details {
         font-size: 0.9rem;
+    }
+}
+
+/* The Lineup currently has a single visible event (the Welcome toast
+   panel is hidden via an inline display:none). On the 2-column desktop
+   layouts that leaves the lone card stranded in the left column, so
+   when a hidden panel is present collapse to a single centered track
+   and let the remaining card run a bit wider. Scoped to min-width so
+   the ≤1024px single-column layout below is untouched. */
+@media (min-width: 1025px) {
+    .event-panels:has(> .event-panel[style*="display: none"]) {
+        grid-template-columns: minmax(0, 720px);
+        justify-content: center;
     }
 }
 
