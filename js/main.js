@@ -387,6 +387,10 @@ function hideLoader() {
    WELCOME MODAL (page-load pop-up)
    ============================================ */
 
+// Scroll offset captured when the modal locks the page, so we can restore
+// the exact position when it closes.
+let welcomeModalScrollY = 0;
+
 function showWelcomeModal() {
     const modal = document.getElementById('welcome-modal');
     if (!modal) return;
@@ -401,7 +405,17 @@ function showWelcomeModal() {
     modal.classList.add('active');
     modal.setAttribute('aria-hidden', 'false');
 
-    // Lock page scroll while the modal is open.
+    // Lock page scroll while the modal is open. `overflow: hidden` on <body>
+    // alone doesn't work — in standards mode the scroll container is <html>,
+    // and it also fails to block touch scroll on iOS. Pinning <body> with
+    // position: fixed at the current scroll offset reliably freezes the page
+    // (the modal itself is portaled to <html>, so it stays put).
+    welcomeModalScrollY = window.scrollY || window.pageYOffset || 0;
+    document.body.style.position = 'fixed';
+    document.body.style.top = `-${welcomeModalScrollY}px`;
+    document.body.style.left = '0';
+    document.body.style.right = '0';
+    document.body.style.width = '100%';
     document.body.style.overflow = 'hidden';
 }
 
@@ -411,8 +425,14 @@ function hideWelcomeModal() {
     modal.classList.remove('active');
     modal.setAttribute('aria-hidden', 'true');
 
-    // Restore page scroll.
+    // Unlock scroll and restore the pre-modal scroll position.
+    document.body.style.position = '';
+    document.body.style.top = '';
+    document.body.style.left = '';
+    document.body.style.right = '';
+    document.body.style.width = '';
     document.body.style.overflow = '';
+    window.scrollTo(0, welcomeModalScrollY);
 }
 
 function initWelcomeModal() {
