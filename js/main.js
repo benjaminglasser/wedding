@@ -2340,6 +2340,10 @@ function initSlotMachine() {
     
     const symbols = ['J♠', '🍒', '💎', '♥', '🔔', 'J♥'];
     const jackSymbols = ['J♠', 'J♥', 'J♦', 'J♣'];
+    // Tunable JAC-POT odds. Each reel independently lands on a Jac with this
+    // probability, so three Jacs hits at JAC_LAND_CHANCE ** 3.
+    // 0.171 ** 3 ≈ 0.5% per pull (~1 in 200).
+    const JAC_LAND_CHANCE = 0.171;
     let isSpinning = false;
     // Track each reel's stopped index so we can re-align on resize
     const stoppedIndex = [0, 0, 0];
@@ -2367,6 +2371,25 @@ function initSlotMachine() {
     
     function isJack(symbol) {
         return jackSymbols.includes(symbol) || symbol.startsWith('J');
+    }
+
+    // Pick which symbol a reel stops on. Only the first 6 symbols on each
+    // strip are eligible stops (see the reel markup in index.html). Rather
+    // than picking a uniform index — which would land on a Jac 1-in-3 of the
+    // time since 2 of the 6 are Jacs — we first roll whether this reel lands
+    // on a Jac at all (JAC_LAND_CHANCE), then choose within that group. The
+    // reel still stops on a real symbol, but Jacs are far rarer.
+    function pickReelIndex(symbolElements) {
+        const jackIndices = [];
+        const otherIndices = [];
+        for (let i = 0; i < 6; i++) {
+            const sym = symbolElements[i].textContent.trim();
+            (isJack(sym) ? jackIndices : otherIndices).push(i);
+        }
+        const landOnJack = jackIndices.length && Math.random() < JAC_LAND_CHANCE;
+        const pool = landOnJack ? jackIndices
+            : (otherIndices.length ? otherIndices : jackIndices);
+        return pool[Math.floor(Math.random() * pool.length)];
     }
     
     function spinReels() {
@@ -2397,7 +2420,7 @@ function initSlotMachine() {
 
                 const strip = reel.querySelector('.reel-strip');
                 const symbolElements = strip.querySelectorAll('.reel-symbol');
-                const randomIndex = Math.floor(Math.random() * 6);
+                const randomIndex = pickReelIndex(symbolElements);
                 const result = symbolElements[randomIndex].textContent.trim();
                 results.push(result);
 
