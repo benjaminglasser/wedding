@@ -1640,6 +1640,27 @@
     margin-bottom: 20px;
 }
 
+/* "See You in SJC!" is shorter than the old copy, so the sign is narrower and
+   the trailing "!" was crowding the arrow tip. Give the footer sign extra
+   right padding so the text clears the tip and the arrow reads as a clean
+   point. Higher specificity (two classes) keeps it winning over the base
+   .tinseltown-sign padding at every breakpoint. */
+.tinseltown-sign.footer-tinsel {
+    padding-right: calc(var(--tip-width) + 48px);
+}
+
+@media (max-width: 768px) {
+    .tinseltown-sign.footer-tinsel {
+        padding-right: calc(var(--tip-width) + 44px);
+    }
+}
+
+@media (max-width: 480px) {
+    .tinseltown-sign.footer-tinsel {
+        padding-right: calc(var(--tip-width) + 36px);
+    }
+}
+
 .footer-sign-cluster {
     display: flex;
     flex-direction: column;
