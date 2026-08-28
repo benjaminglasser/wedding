@@ -379,7 +379,8 @@ function hideLoader() {
 
         // Pop the welcome modal once the hero animation has settled
         // (marquee bounce ~850ms + background/scroll-indicator reveal ~1800ms).
-        setTimeout(showWelcomeModal, 2800);
+        // Disabled — venue-move announcement modal no longer shown on load.
+        // setTimeout(showWelcomeModal, 2800);
     }, 800);
 }
 

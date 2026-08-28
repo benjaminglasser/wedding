@@ -388,12 +388,12 @@ h1, h2, h3 {
 
 .event-panels {
     display: grid;
-    /* 2-column grid for the two events, centered on desktop. We drop
-       to a single stacked column at the tablet breakpoint below. */
-    grid-template-columns: repeat(2, 1fr);
+    /* Single stacked column on all screens: each event card sits on its
+       own row, one on top of the next. */
+    grid-template-columns: 1fr;
     gap: 32px;
     width: 100%;
-    max-width: 1200px;
+    max-width: 640px;
     margin: 60px auto 0;
 }
 
@@ -1020,6 +1020,42 @@ h1, h2, h3 {
     white-space: nowrap;
     text-align: center;
     width: 100%;
+}
+
+/* "Getting Around" block: separated from the room-block CTA by a thin neon
+   rule so it reads as its own beat within the section. */
+.getting-around {
+    margin-top: clamp(4rem, 10vh, 6.5rem);
+    padding-top: clamp(2.5rem, 6vh, 4rem);
+    border-top: 1px solid rgba(0, 229, 204, 0.25);
+}
+
+.getting-around-title {
+    font-family: 'Modern Neon', var(--font-section-title);
+    font-size: clamp(1.6rem, 5.5vw, 3.25rem);
+    letter-spacing: 0.04em;
+    text-align: center;
+    width: 100%;
+    margin: 0 0 clamp(1.5rem, 4vh, 2.5rem);
+}
+
+/* Last paragraph in the block shouldn't add the big default bottom gap. */
+.getting-around .section-copy {
+    margin-bottom: 0;
+}
+
+.hotel-content .section-copy a {
+    color: var(--turquoise);
+    text-decoration: none;
+    border-bottom: 1px solid rgba(0, 229, 204, 0.5);
+    padding-bottom: 1px;
+    text-shadow: 0 0 6px rgba(0, 229, 204, 0.4);
+    transition: text-shadow 0.2s ease, border-color 0.2s ease;
+}
+
+.hotel-content .section-copy a:hover {
+    border-bottom-color: var(--turquoise);
+    text-shadow: 0 0 12px var(--turquoise);
 }
 
 .hotel-sign {
